@@ -20,16 +20,14 @@ export const site = {
 
 /**
  * Contact configuration.
- * PRE-LAUNCH: `email` and `formEndpoint` are not yet live. The inquiry
- * form is provider-agnostic — set `formEndpoint` to a real POST URL
- * (e.g. a form service or serverless function) to enable submission.
- * While `formEndpoint` is null, the form validates but does not submit,
- * and never pretends a submission succeeded.
+ * The public contact inbox is live. `formEndpoint` remains optional: when
+ * it is null, the contact page exposes the live email address directly;
+ * when a real POST endpoint is configured later, the form submits directly.
  */
 export const contact = {
-  email: 'hello@evidenceaxis.com' as string | null
-  emailDisplay: 'hello@evidenceaxis.com'
-  formEndpoint: null as string | null, // PRE-LAUNCH: real POST endpoint (Phase 3)
+  email: 'hello@evidenceaxis.com' as string | null,
+  emailDisplay: 'hello@evidenceaxis.com',
+  formEndpoint: null as string | null,
   // No response-time SLA is promised. Do not add a time guarantee that has
   // not been approved.
 } as const;
@@ -78,13 +76,12 @@ export const cta = {
  * not finalized. These render as cautious, non-fabricated language.
  */
 export const legal = {
-  entity: null as string | null, // PRE-LAUNCH: contracting entity not finalized
-  jurisdiction: null as string | null, // PRE-LAUNCH: governing law not finalized
+  entity: null as string | null,
+  jurisdiction: null as string | null,
   lastUpdated: 'August 2026',
 } as const;
 
 export const social = {
-  // PRE-LAUNCH: add real profile URLs if/when they exist. Empty = omitted.
   linkedin: null as string | null,
   x: null as string | null,
 } as const;
