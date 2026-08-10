@@ -1,0 +1,60 @@
+---
+import { evidenceStates } from '@data/method';
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+<div class:list={['fiu', { 'fiu--compact': compact }]}>
+  {evidenceStates.map((s, i) => (
+    <article class:list={['fiu__card', `fiu__card--${s.key}`]} data-reveal style={`--reveal-delay:${i * 90}ms;`}>
+      <header class="fiu__head">
+        <span class:list={['fiu__marker', `fiu__marker--${s.key}`]} aria-hidden="true"></span>
+        <span class:list={['state', `state--${s.key}`]}>{s.label}</span>
+      </header>
+      <p class="fiu__def">{s.definition}</p>
+      {!compact && <p class="fiu__ex mono">{s.example}</p>}
+    </article>
+  ))}
+</div>
+
+<style>
+  .fiu {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: 1fr;
+  }
+  .fiu__card {
+    position: relative;
+    background: var(--bg-raised);
+    border: 1px solid var(--surface-border);
+    border-top: 3px solid var(--card-color, var(--unknown));
+    border-radius: var(--radius-m);
+    padding: var(--space-m);
+    overflow: hidden;
+  }
+  .fiu__card--fact { --card-color: var(--fact); border-top-style: solid; }
+  .fiu__card--inference { --card-color: var(--infer); border-top-style: dashed; }
+  .fiu__card--unknown { --card-color: var(--unknown); border-top-style: dotted; }
+  .fiu__head {
+    display: flex;
+    align-items: center;
+    gap: 0.8ch;
+    margin-bottom: var(--space-s);
+  }
+  .fiu__marker { width: 1rem; height: 1rem; border-radius: 50%; flex: none; }
+  .fiu__marker--fact { background: var(--fact); }
+  .fiu__marker--inference { background: linear-gradient(90deg, var(--infer) 50%, transparent 50%); border: 1.5px solid var(--infer); }
+  .fiu__marker--unknown { background: transparent; border: 1.5px solid var(--unknown); }
+  .fiu__def { color: var(--text); line-height: var(--leading-body); }
+  .fiu__ex {
+    margin-top: var(--space-s);
+    font-size: var(--step--1);
+    color: var(--text-faint);
+    padding-top: var(--space-s);
+    border-top: 1px solid var(--hairline);
+  }
+  @media (min-width: 52rem) {
+    .fiu { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

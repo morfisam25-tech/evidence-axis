@@ -1,0 +1,103 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
+import SectionIntro from '@components/SectionIntro.astro';
+import FactInferenceUnknown from '@components/FactInferenceUnknown.astro';
+import EvidenceChain from '@components/EvidenceChain.astro';
+import ProcessFlow from '@components/ProcessFlow.astro';
+import CTASection from '@components/CTASection.astro';
+import { methodSteps } from '@data/method';
+
+const disciplines = [
+  { t: 'Question definition', d: 'The decision sets the boundary. A vague question produces a vague brief; we sharpen it first.' },
+  { t: 'Research boundary', d: 'We agree what is in scope, what is out, and which sources count — before the work begins.' },
+  { t: 'Source discovery and quality', d: 'We prefer first-party and primary public sources, and weigh them by what they can actually support.' },
+  { t: 'Date checking', d: 'Public information changes. Every observation records the date it was checked.' },
+  { t: 'Evidence extraction', d: 'We record what a source plainly shows, quoted or described, before interpreting it.' },
+  { t: 'Conflicting evidence', d: 'When sources disagree, we show the conflict rather than resolving it silently.' },
+  { t: 'Missing evidence', d: 'When the record runs out, we mark the Unknown instead of filling it with a plausible guess.' },
+  { t: 'Interpretation', d: 'Inferences are labeled as interpretation, with the reasoning visible.' },
+  { t: 'Limitations', d: 'We state what the brief cannot support, so its confidence is never overstated.' },
+  { t: 'Decision implications', d: 'We connect the evidence to your decision — the point of the whole exercise.' },
+  { t: 'Source register', d: 'Every source is listed so you can verify any finding yourself.' },
+];
+---
+<Base
+  title="Method"
+  description="How Evidence Axis works: the Fact, Inference and Unknown model, the research boundary, source discipline, and a traceable evidence chain from source to decision."
+  path="/method/"
+>
+  <PageHeader
+    eyebrow="How it works"
+    title="A method you can audit, not a black box."
+    lede="The value is discipline: sourced facts, labeled inferences, and honestly named unknowns. Here is exactly how a decision question becomes a defensible brief."
+    meta={['Public competitor evidence + your context', 'Fact / Inference / Unknown', 'Source register on every brief']}
+  />
+
+  <!-- FIU -->
+  <section class="section container">
+    <SectionIntro
+      eyebrow="The core distinction"
+      title="Three states, kept separate on purpose."
+      lede="Most competitor work blurs what is proven with what is guessed. Evidence Axis keeps them apart — in the analysis, in the report, and in how this page is built."
+    />
+    <div class="m-fiu"><FactInferenceUnknown /></div>
+  </section>
+
+  <!-- EVIDENCE CHAIN -->
+  <section class="section" data-surface="dark">
+    <div class="container">
+      <SectionIntro
+        eyebrow="Traceable reasoning"
+        title="Walk any conclusion back to its source."
+        lede="Nothing in a brief arrives as a bare assertion. Trace the path from a public source, through the observation, to the fact, the inference, the unknown, and the decision it informs."
+      />
+      <div class="m-chain"><EvidenceChain /></div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section container">
+    <SectionIntro
+      eyebrow="The sequence"
+      title="From decision question to decision brief."
+    />
+    <div class="m-flow"><ProcessFlow steps={methodSteps} /></div>
+  </section>
+
+  <!-- DISCIPLINES -->
+  <section class="section" data-surface="dark">
+    <div class="container">
+      <SectionIntro
+        eyebrow="What the discipline covers"
+        title="The details that keep a brief honest."
+      />
+      <dl class="disc axis-frame">
+        {disciplines.map((d) => (
+          <div class="disc__row axis-tick" data-reveal>
+            <dt class="disc__t">{d.t}</dt>
+            <dd class="disc__d">{d.d}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <CTASection title="See the method on your own question." />
+</Base>
+
+<style>
+  .m-fiu, .m-chain, .m-flow { margin-top: var(--space-xl); }
+  .m-chain { max-width: 52rem; }
+  .m-flow { max-width: 46rem; }
+  .disc { margin-top: var(--space-xl); display: grid; gap: 0; }
+  .disc__row {
+    display: grid; gap: var(--space-2xs);
+    padding: var(--space-m) 0; border-top: 1px solid var(--hairline);
+  }
+  .disc__t { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); }
+  .disc__d { color: var(--text-muted); max-width: 60ch; }
+  @media (min-width: 52rem) {
+    .disc__row { grid-template-columns: 18rem 1fr; gap: var(--space-l); align-items: baseline; }
+  }
+</style>

@@ -1,9 +1,14 @@
-node_modules/
+# build output
 dist/
+# astro generated types + cache
 .astro/
+# dependencies
+node_modules/
+# env / secrets
 .env
 .env.*
-!.env.example
+# os / editor
 .DS_Store
-.vercel/
-qa-artifacts/
+*.log
+.vscode/
+.idea/

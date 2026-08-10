@@ -1,0 +1,206 @@
+---
+/**
+ * Print-optimized Evidence Axis report (source for the downloadable PDF).
+ * Standalone document (not the site chrome). noindex. Rendered to
+ * public/report/evidence-axis-sample-intercom-vs-zendesk.pdf via headless
+ * Chromium in the build QA step. Page numbers + brand footer are added by the
+ * PDF renderer's header/footer templates.
+ */
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/newsreader/400.css';
+import '@fontsource/newsreader/500.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import {
+  sampleMeta, sampleSources, sampleRecords, sampleMatrix, sampleProfiles,
+  sampleSummary, sampleDecisionImplications, sampleLimitations, sampleMethodology,
+} from '@data/sample-report';
+
+const domain = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+const srcById = Object.fromEntries(sampleSources.map((s) => [s.id, s]));
+const stateLabel: Record<string, string> = { fact: 'Fact', inference: 'Inference', unknown: 'Unknown', contradiction: 'Contradiction' };
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Evidence Axis — Sample Decision Brief — Intercom vs Zendesk</title>
+  <style>
+    :root {
+      --ink:#15181d; --ink2:#3a414c; --ink3:#5a616c; --line:#d9d2c2; --paper:#ffffff; --paper2:#f6f3ec;
+      --signal:#2e4272; --fact:#276b57; --infer:#a9682a; --unknown:#6a7078; --contra:#9c3b34;
+      --serif:'Newsreader',Georgia,serif; --disp:'Space Grotesk',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+    }
+    * { box-sizing:border-box; }
+    html,body { margin:0; }
+    body { font-family:var(--serif); color:var(--ink); background:var(--paper); font-size:10.5pt; line-height:1.5; }
+    .page { padding:0 2px; }
+    h1,h2,h3 { font-family:var(--disp); font-weight:500; letter-spacing:-0.01em; line-height:1.15; }
+    .mono { font-family:var(--mono); }
+    .label { font-family:var(--mono); font-size:7.5pt; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink3); }
+
+    /* Cover */
+    .cover { padding:8pt 0 14pt; border-bottom:2px solid var(--ink); page-break-after:avoid; }
+    .cover__brand { display:flex; align-items:center; justify-content:space-between; }
+    .wordmark { font-family:var(--disp); font-weight:500; font-size:15pt; letter-spacing:-0.02em; }
+    .wordmark span { color:var(--signal); }
+    .badge { font-family:var(--mono); font-size:7pt; letter-spacing:0.12em; text-transform:uppercase; color:var(--infer); border:1px dashed var(--infer); padding:2pt 5pt; border-radius:3px; }
+    .cover__kicker { margin-top:16pt; }
+    .cover__title { font-size:22pt; margin:3pt 0 0; max-width:22ch; }
+    .cover__q { font-family:var(--serif); font-size:12.5pt; color:var(--ink); margin:12pt 0 0; max-width:64ch; }
+    .cover__meta { display:flex; flex-wrap:wrap; gap:4pt 22pt; margin-top:12pt; }
+    .cover__meta div { max-width:60ch; }
+    .cover__meta dt { font-family:var(--mono); font-size:7pt; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink3); }
+    .cover__meta dd { margin:1pt 0 0; font-size:9pt; color:var(--ink2); }
+    .disclaimer { margin-top:12pt; font-family:var(--mono); font-size:8pt; color:var(--ink3); background:var(--paper2); border-left:3px dashed var(--infer); padding:6pt 8pt; }
+
+    section.block { margin-top:16pt; page-break-inside:avoid; }
+    h2.block__h { font-size:12pt; color:var(--ink); border-bottom:1.5px solid var(--ink); padding-bottom:2pt; display:inline-block; margin:0 0 8pt; }
+    p.body { margin:0 0 6pt; max-width:70ch; color:var(--ink); }
+
+    table { width:100%; border-collapse:collapse; margin-top:4pt; font-size:8.7pt; }
+    caption { text-align:left; font-family:var(--mono); font-size:7.5pt; color:var(--ink3); padding-bottom:4pt; }
+    th,td { text-align:left; vertical-align:top; border:0.75pt solid var(--line); padding:5pt 6pt; }
+    thead th { background:var(--paper2); font-family:var(--disp); font-weight:500; }
+    td .st { display:inline-flex; align-items:center; gap:4pt; font-family:var(--mono); font-size:6.6pt; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:2pt; }
+    .dot { width:7pt; height:7pt; border-radius:50%; display:inline-block; }
+    .st--fact .dot { background:var(--fact); } .st--fact { color:var(--fact); }
+    .st--inference .dot { background:linear-gradient(90deg,var(--infer) 50%,transparent 50%); border:1px solid var(--infer); } .st--inference { color:var(--infer); }
+    .st--unknown .dot { background:transparent; border:1px solid var(--unknown); } .st--unknown { color:var(--unknown); }
+    .st--contradiction .dot { background:var(--contra); border-radius:0; clip-path:polygon(50% 0,100% 100%,0 100%);} .st--contradiction { color:var(--contra); }
+
+    .profiles { display:grid; grid-template-columns:1fr 1fr; gap:8pt; }
+    .profile { border:0.75pt solid var(--line); background:var(--paper2); padding:8pt; }
+    .profile h3 { font-size:11pt; margin:0 0 3pt; }
+    .profile p { margin:0; font-size:8.7pt; color:var(--ink2); }
+
+    .rec { border:0.75pt solid var(--line); border-left:3pt solid var(--unknown); padding:7pt 9pt; margin-bottom:7pt; page-break-inside:avoid; }
+    .rec--fact { border-left-color:var(--fact); } .rec--inference { border-left-color:var(--infer); } .rec--unknown { border-left-color:var(--unknown); } .rec--contradiction { border-left-color:var(--contra); }
+    .rec__top { display:flex; gap:6pt; align-items:baseline; }
+    .rec__id { font-family:var(--mono); font-size:7pt; color:var(--ink3); }
+    .rec__claim { font-family:var(--serif); font-size:10pt; margin:3pt 0 0; }
+    .rec__row { margin-top:3pt; font-size:8.4pt; color:var(--ink2); }
+    .rec__row .k { font-family:var(--mono); font-size:6.8pt; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink3); margin-right:4pt; }
+
+    ul.impl { margin:0; padding-left:14pt; } ul.impl li { margin-bottom:4pt; }
+
+    ol.sources { list-style:none; margin:0; padding:0; }
+    ol.sources li { border-top:0.75pt solid var(--line); padding:6pt 0; page-break-inside:avoid; }
+    .src__top { display:flex; gap:6pt; align-items:baseline; flex-wrap:wrap; }
+    .src__id { font-family:var(--mono); font-size:7pt; color:var(--ink3); }
+    .src__org { font-family:var(--disp); font-weight:500; }
+    .src__party { font-family:var(--mono); font-size:6.4pt; letter-spacing:0.08em; text-transform:uppercase; color:var(--fact); border:0.75pt solid rgba(39,107,87,.4); padding:1pt 4pt; }
+    .src__url { font-family:var(--mono); font-size:8pt; color:var(--signal); word-break:break-all; }
+    .src__supports { font-size:8.4pt; color:var(--ink2); margin:2pt 0 0; }
+    .src__checked { font-family:var(--mono); font-size:7pt; color:var(--ink3); }
+
+    @page { size:A4; margin:16mm 15mm 16mm; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="cover">
+      <div class="cover__brand">
+        <span class="wordmark">Evidence <span>Axis</span></span>
+        <span class="badge">Demonstration sample</span>
+      </div>
+      <p class="cover__kicker label">Decision Brief · Competitor intelligence for B2B SaaS</p>
+      <h1 class="cover__title">Intercom vs Zendesk — customer-support offerings</h1>
+      <p class="cover__q">{sampleMeta.question}</p>
+      <dl class="cover__meta">
+        <div><dt>Competitor set</dt><dd>{sampleMeta.competitors.join(' and ')}</dd></div>
+        <div><dt>Checked</dt><dd>{sampleMeta.checked}</dd></div>
+        <div><dt>Boundary</dt><dd>{sampleMeta.boundary}</dd></div>
+      </dl>
+      <p class="disclaimer">This is a demonstration sample produced by Evidence Axis to show its method. It is not a client engagement and declares no universal winner. Every claim is drawn from the first-party sources in the register and classified Fact, Inference or Unknown. Public pages change; prices are annual-billing list prices at the check date.</p>
+    </header>
+
+    <section class="block">
+      <h2 class="block__h">Executive decision summary</h2>
+      <p class="body">{sampleSummary}</p>
+    </section>
+
+    <section class="block">
+      <h2 class="block__h">Evidence matrix</h2>
+      <table>
+        <caption>Intercom vs Zendesk · first-party public sources · checked {sampleMeta.checked}</caption>
+        <thead><tr><th>Dimension</th><th>Intercom</th><th>Zendesk</th></tr></thead>
+        <tbody>
+          {sampleMatrix.map((r) => (
+            <tr>
+              <th scope="row">{r.dimension}</th>
+              {[r.intercom, r.zendesk].map((c) => (
+                <td>
+                  <span class={`st st--${c.state}`}><span class="dot"></span>{stateLabel[c.state]}</span>
+                  <div>{c.note}</div>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <section class="block">
+      <h2 class="block__h">Evidence profiles</h2>
+      <div class="profiles">
+        <div class="profile"><h3>Intercom</h3><p>{sampleProfiles.intercom}</p></div>
+        <div class="profile"><h3>Zendesk</h3><p>{sampleProfiles.zendesk}</p></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2 class="block__h">Source-backed observations</h2>
+      {sampleRecords.map((r) => (
+        <div class={`rec rec--${r.status}`}>
+          <div class="rec__top">
+            <span class={`st st--${r.status}`}><span class="dot"></span>{stateLabel[r.status]}</span>
+            <span class="rec__id">{r.id}</span>
+          </div>
+          <p class="rec__claim">{r.claim}</p>
+          {r.observation && <p class="rec__row"><span class="k">Observation</span>{r.observation}</p>}
+          <p class="rec__row"><span class="k">Source</span>{r.sources.map((id) => domain(srcById[id].url)).join(' · ')} (public) · checked {sampleMeta.checked}</p>
+          {r.limitation && <p class="rec__row"><span class="k">Limitation</span>{r.limitation}</p>}
+          {r.implication && <p class="rec__row"><span class="k">Decision implication</span>{r.implication}</p>}
+        </div>
+      ))}
+    </section>
+
+    <section class="block">
+      <h2 class="block__h">Decision implications</h2>
+      <ul class="impl">{sampleDecisionImplications.map((d) => <li>{d}</li>)}</ul>
+    </section>
+
+    <section class="block">
+      <h2 class="block__h">Limitations</h2>
+      <p class="body">{sampleLimitations}</p>
+    </section>
+
+    <section class="block">
+      <h2 class="block__h">Methodology</h2>
+      <p class="body">{sampleMethodology}</p>
+    </section>
+
+    <section class="block">
+      <h2 class="block__h">Source register</h2>
+      <ol class="sources">
+        {sampleSources.map((s) => (
+          <li>
+            <div class="src__top">
+              <span class="src__id">{s.id}</span>
+              <span class="src__org">{s.org} — {s.title}</span>
+              <span class="src__party">{s.party}</span>
+            </div>
+            <div class="src__url">{s.url}</div>
+            <p class="src__supports">{s.supports}{s.limitation ? ` · Limitation: ${s.limitation}` : ''}</p>
+            <span class="src__checked">checked {sampleMeta.checked}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </div>
+</body>
+</html>

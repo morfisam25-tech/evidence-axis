@@ -1,0 +1,147 @@
+/* ==================================================================
+   EVIDENCE AXIS — DESIGN TOKENS
+   The single source of truth for color, type, space, depth, motion.
+   Concept: an archival research instrument. Warm "bone paper" editorial
+   surfaces + cool graphite ink + a muted blueprint-indigo signal.
+   Evidence states (Fact / Inference / Unknown) are a first-class system
+   distinguished by HUE + SHAPE + BORDER so they never rely on color alone.
+   ================================================================== */
+
+:root {
+  /* --- Ink (cool graphite, structure + dark surfaces) --- */
+  --ink-900: #14171c;
+  --ink-800: #1c2128;
+  --ink-700: #262c35;
+  --ink-600: #363d48;
+  --ink-500: #4a515c;
+  --ink-400: #6b7280;
+  --ink-300: #949aa4;
+
+  /* --- Paper (warm bone, editorial light surfaces) --- */
+  --paper-0: #faf8f2;
+  --paper-50: #f4f1e9;
+  --paper-100: #ece7db;
+  --paper-200: #ddd6c5;
+  --paper-300: #c8bfa9;
+
+  /* --- Signal (muted blueprint indigo — brand accent, CTAs, the axis) --- */
+  --signal-700: #22335c;
+  --signal-600: #2e4272;
+  --signal-500: #3a5691;
+  --signal-400: #5a76ad;
+  --signal-100: #dfe4ee;
+
+  /* --- Evidence states --- */
+  --fact: #276b57;        /* verified — grounded teal-green */
+  --fact-soft: #dcebe4;
+  --infer: #a9682a;       /* reasoned — ochre */
+  --infer-soft: #f0e4d1;
+  --unknown: #6a7078;     /* unresolved — neutral slate */
+  --unknown-soft: #e6e4de;
+  --contradiction: #9c3b34; /* conflict — muted brick */
+  --contradiction-soft: #f0dcd9;
+
+  /* --- Semantic surface roles (LIGHT / editorial default) --- */
+  --bg: var(--paper-0);
+  --bg-raised: var(--paper-50);
+  --bg-sunken: var(--paper-100);
+  --surface-border: var(--paper-200);
+  --hairline: color-mix(in srgb, var(--ink-900) 12%, transparent);
+  --text: var(--ink-900);
+  --text-muted: var(--ink-500);
+  --text-faint: var(--ink-400);
+  --accent: var(--signal-600);
+  --accent-hover: var(--signal-700);
+  --on-accent: var(--paper-0);
+  --axis-line: color-mix(in srgb, var(--signal-600) 55%, var(--paper-200));
+
+  /* --- Typography --- */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* Fluid type scale (clamp: min, preferred, max) */
+  --step--1: clamp(0.79rem, 0.77rem + 0.10vw, 0.85rem);
+  --step-0: clamp(1rem, 0.96rem + 0.18vw, 1.1rem);
+  --step-1: clamp(1.2rem, 1.12rem + 0.38vw, 1.45rem);
+  --step-2: clamp(1.44rem, 1.30rem + 0.68vw, 1.9rem);
+  --step-3: clamp(1.73rem, 1.50rem + 1.14vw, 2.5rem);
+  --step-4: clamp(2.07rem, 1.72rem + 1.78vw, 3.3rem);
+  --step-5: clamp(2.49rem, 1.95rem + 2.7vw, 4.4rem);
+  --step-6: clamp(2.99rem, 2.18rem + 4.0vw, 5.8rem);
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.22;
+  --leading-body: 1.62;
+  --tracking-tight: -0.02em;
+  --tracking-label: 0.14em;
+
+  /* --- Spacing (8px base, fluid steps) --- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 9rem;
+  --section-y: clamp(4rem, 3rem + 6vw, 8rem);
+
+  /* --- Layout --- */
+  --measure: 68ch;             /* readable text column */
+  --container: 74rem;          /* editorial container */
+  --container-wide: 88rem;     /* immersive bleed */
+  --gutter: clamp(1.25rem, 0.8rem + 2vw, 2.75rem);
+
+  /* --- Radii (restrained; this is an instrument, not a bubble) --- */
+  --radius-xs: 2px;
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --radius-l: 14px;
+
+  /* --- Depth / shadow (soft, low, physical) --- */
+  --shadow-1: 0 1px 2px color-mix(in srgb, var(--ink-900) 8%, transparent);
+  --shadow-2: 0 2px 8px color-mix(in srgb, var(--ink-900) 8%, transparent),
+              0 1px 2px color-mix(in srgb, var(--ink-900) 6%, transparent);
+  --shadow-3: 0 12px 34px color-mix(in srgb, var(--ink-900) 12%, transparent),
+              0 2px 8px color-mix(in srgb, var(--ink-900) 8%, transparent);
+
+  /* --- Motion --- */
+  --dur-1: 140ms;
+  --dur-2: 260ms;
+  --dur-3: 480ms;
+  --dur-4: 760ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* --- z-index --- */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-header: 100;
+  --z-overlay: 1000;
+
+  /* --- breakpoints (reference; used in media queries) --- */
+  /* sm 40rem  md 52rem  lg 64rem  xl 80rem */
+}
+
+/* Dark editorial / immersive surface role. Applied to sections that
+   should read as the "instrument" side of the brand. */
+[data-surface='dark'] {
+  --bg: var(--ink-900);
+  --bg-raised: var(--ink-800);
+  --bg-sunken: #0f1216;
+  --surface-border: var(--ink-700);
+  --hairline: color-mix(in srgb, var(--paper-0) 14%, transparent);
+  --text: var(--paper-0);
+  --text-muted: var(--ink-300);
+  --text-faint: #868d97; /* AA on ink-900 (5.36:1) */
+  --accent: #7590c6;     /* AA on ink-900 (5.61:1) */
+  --accent-hover: #93a9d8;
+  --on-accent: var(--ink-900);
+  --axis-line: color-mix(in srgb, var(--signal-400) 60%, var(--ink-700));
+  --fact-soft: color-mix(in srgb, var(--fact) 22%, var(--ink-900));
+  --infer-soft: color-mix(in srgb, var(--infer) 22%, var(--ink-900));
+  --unknown-soft: color-mix(in srgb, var(--unknown) 22%, var(--ink-900));
+  --contradiction-soft: color-mix(in srgb, var(--contradiction) 26%, var(--ink-900));
+}

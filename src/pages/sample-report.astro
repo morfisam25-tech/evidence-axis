@@ -1,0 +1,274 @@
+---
+import Base from '@layouts/Base.astro';
+import SectionIntro from '@components/SectionIntro.astro';
+import EvidenceRecord from '@components/EvidenceRecord.astro';
+import ComparisonMatrix from '@components/ComparisonMatrix.astro';
+import CTASection from '@components/CTASection.astro';
+import { site } from '@config/site';
+import {
+  sampleMeta, sampleSources, sampleRecords, sampleMatrix, sampleProfiles,
+  sampleSummary, sampleDecisionImplications, sampleLimitations, sampleMethodology,
+} from '@data/sample-report';
+
+/**
+ * Sample Report — real, first-party-sourced DEMONSTRATION case:
+ * Intercom vs Zendesk, checked 9 August 2026. Not a client engagement.
+ * Content derives entirely from src/data/sample-report.ts. Print-optimized;
+ * a dedicated PDF lives at /report/evidence-axis-sample-intercom-vs-zendesk.pdf.
+ */
+const pdfHref = '/report/evidence-axis-sample-intercom-vs-zendesk.pdf';
+const srcById = Object.fromEntries(sampleSources.map((s) => [s.id, s]));
+const domain = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+const recordSource = (ids: string[]) =>
+  ids.map((id) => domain(srcById[id].url)).join(' · ') + ' (public)';
+
+const matrixRows = sampleMatrix.map((r) => ({
+  dimension: r.dimension,
+  cells: [
+    { state: r.intercom.state, note: r.intercom.note },
+    { state: r.zendesk.state, note: r.zendesk.note },
+  ],
+}));
+
+const sections = [
+  'Research question', 'Research boundary', 'Competitor set', 'Executive decision summary',
+  'Evidence matrix', 'Evidence profiles', 'Source-backed observations', 'Decision implications',
+  'Limitations', 'Methodology', 'Source register',
+];
+---
+<Base
+  title="Sample Report"
+  description="A demonstration Evidence Axis decision brief comparing Intercom and Zendesk on public evidence, checked August 2026. See how a competitor question becomes structured, source-backed evidence — Fact, Inference and Unknown."
+  path="/sample-report/"
+>
+  <!-- Landing -->
+  <section class="section sr-intro" data-surface="dark">
+    <div class="container-wide sr-head axis-frame">
+      <span class="sr-badge mono">Demonstration sample</span>
+      <h1 class="sr-title">Intercom vs Zendesk, read as evidence.</h1>
+      <p class="sr-lede">
+        A demonstration of the Evidence Axis method on a real, bounded question — built entirely from
+        first-party public sources, checked {sampleMeta.checked}. It is a demonstration, not a client
+        engagement, and it declares no universal winner.
+      </p>
+      <div class="sr-actions">
+        <a href={pdfHref} class="btn btn--lg" download>
+          Download the report (PDF)<span class="btn-arrow" aria-hidden="true">↓</span>
+        </a>
+        <a href="#brief" class="btn btn--ghost btn--lg">Read it here</a>
+      </div>
+      <p class="sr-meta mono">
+        {sampleMeta.competitors.join(' vs ')} · public first-party sources · checked {sampleMeta.checked}
+      </p>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="sr-about">
+      <div>
+        <SectionIntro eyebrow="What this demonstrates" title="Method, not marketing." as="h2" />
+        <p class="measure sr-p">
+          A real brief answers one decision question with public evidence. It separates verified fact
+          from reasoned inference, names what cannot be known, and lists every source with the date it
+          was checked. This sample shows that shape end to end — with the vendors named and their own
+          pages cited.
+        </p>
+      </div>
+      <div>
+        <h3 class="label sr-sec-h">Sections included</h3>
+        <ol class="sr-sections">
+          {sections.map((s) => <li class="mono">{s}</li>)}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- The brief -->
+  <article class="section brief" id="brief" aria-label="Demonstration decision brief: Intercom vs Zendesk">
+    <div class="container brief__inner">
+      <header class="brief__cover">
+        <div class="brief__cover-top">
+          <span class="mono">{site.name} · Decision Brief</span>
+          <span class="sr-badge sr-badge--sm mono">Demonstration sample</span>
+        </div>
+        <h2 class="brief__q-label label">Research question</h2>
+        <p class="brief__q">{sampleMeta.question}</p>
+        <dl class="brief__meta">
+          <div><dt class="label">Boundary</dt><dd>{sampleMeta.boundary}</dd></div>
+          <div><dt class="label">Competitor set</dt><dd>{sampleMeta.competitors.join(' and ')} (named).</dd></div>
+          <div><dt class="label">Checked</dt><dd class="mono">{sampleMeta.checked}</dd></div>
+        </dl>
+        <p class="brief__illus-note mono">
+          This is a demonstration sample, not a client engagement. Every claim below is drawn from the
+          first-party sources in the register and classified Fact, Inference or Unknown. Public pages
+          change; figures are annual-billing list prices at the check date.
+        </p>
+      </header>
+
+      <hr class="rule brief__rule" />
+
+      <section class="brief__block">
+        <h2 class="brief__h">Executive decision summary</h2>
+        <p class="brief__body">{sampleSummary}</p>
+      </section>
+
+      <section class="brief__block">
+        <h2 class="brief__h">Evidence matrix</h2>
+        <ComparisonMatrix competitors={[...sampleMeta.competitors]} rows={matrixRows}
+          caption={`Intercom vs Zendesk · first-party public sources · checked ${sampleMeta.checked}`} />
+      </section>
+
+      <section class="brief__block">
+        <h2 class="brief__h">Evidence profiles</h2>
+        <div class="brief__profiles">
+          <div class="brief__profile">
+            <h3 class="brief__profile-name">Intercom</h3>
+            <p>{sampleProfiles.intercom}</p>
+          </div>
+          <div class="brief__profile">
+            <h3 class="brief__profile-name">Zendesk</h3>
+            <p>{sampleProfiles.zendesk}</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="brief__block">
+        <h2 class="brief__h">Source-backed observations</h2>
+        <div class="brief__records">
+          {sampleRecords.map((r) => (
+            <EvidenceRecord
+              id={r.id}
+              status={r.status}
+              claim={r.claim}
+              observation={r.observation}
+              source={recordSource(r.sources)}
+              dateChecked={sampleMeta.checked}
+              limitation={r.limitation}
+              implication={r.implication}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section class="brief__block">
+        <h2 class="brief__h">Decision implications</h2>
+        <ul class="brief__impl">
+          {sampleDecisionImplications.map((d) => <li>{d}</li>)}
+        </ul>
+      </section>
+
+      <section class="brief__block">
+        <h2 class="brief__h">Limitations</h2>
+        <p class="brief__body">{sampleLimitations}</p>
+      </section>
+
+      <section class="brief__block">
+        <h2 class="brief__h">Methodology</h2>
+        <p class="brief__body">{sampleMethodology}</p>
+      </section>
+
+      <section class="brief__block">
+        <h2 class="brief__h">Source register</h2>
+        <ol class="brief__sources">
+          {sampleSources.map((s) => (
+            <li class="brief__source">
+              <div class="brief__source-top">
+                <span class="brief__source-id mono">{s.id}</span>
+                <span class="brief__source-org">{s.org} — {s.title}</span>
+                <span class="brief__source-party mono">{s.party}</span>
+              </div>
+              <a class="brief__source-url mono" href={s.url} target="_blank" rel="noopener">{domain(s.url)}</a>
+              <p class="brief__source-supports">{s.supports}{s.limitation && <span class="brief__source-limit"> · Limitation: {s.limitation}</span>}</p>
+              <span class="brief__source-checked mono">checked {sampleMeta.checked}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+  </article>
+
+  <CTASection title="Commission a brief on your own question." />
+</Base>
+
+<style>
+  .sr-head { max-width: 58rem; }
+  .sr-badge {
+    display: inline-block; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--infer); border: 1px dashed var(--infer); padding: 0.3em 0.7em; border-radius: var(--radius-xs);
+  }
+  .sr-badge--sm { font-size: 0.6rem; }
+  .sr-title { font-size: var(--step-5); margin-top: var(--space-m); max-width: 18ch; }
+  .sr-lede { margin-top: var(--space-m); font-size: var(--step-1); color: var(--text-muted); max-width: 56ch; }
+  .sr-actions { display: flex; flex-wrap: wrap; gap: var(--space-s); margin-top: var(--space-l); }
+  .sr-meta { margin-top: var(--space-m); font-size: var(--step--1); color: var(--text-faint); }
+
+  .sr-about { display: grid; gap: var(--space-xl); }
+  .sr-p { margin-top: var(--space-s); color: var(--text-muted); }
+  .sr-sec-h { display: block; margin-bottom: var(--space-s); }
+  .sr-sections { margin: 0; padding-left: 1.4em; columns: 2; column-gap: var(--space-l); }
+  .sr-sections li { font-size: var(--step--1); color: var(--text-muted); margin-bottom: 0.4em; }
+
+  .brief { background: var(--bg-sunken); scroll-margin-top: 5rem; }
+  .brief__inner {
+    background: var(--paper-0); color: var(--ink-900);
+    border: 1px solid var(--paper-200); border-radius: var(--radius-m);
+    box-shadow: var(--shadow-3); padding: clamp(1.5rem, 4vw, 4rem); max-width: 62rem;
+  }
+  .brief__cover-top { display: flex; justify-content: space-between; align-items: center; gap: var(--space-s); flex-wrap: wrap; color: var(--ink-500); }
+  .brief__q-label { margin-top: var(--space-l); color: var(--ink-500); }
+  .brief__q { font-family: var(--font-serif); font-size: var(--step-2); line-height: var(--leading-snug); color: var(--ink-900); margin-top: 0.3em; text-wrap: pretty; }
+  .brief__meta { display: grid; gap: var(--space-s); margin-top: var(--space-l); }
+  .brief__meta dt { color: var(--ink-500); }
+  .brief__meta dd { color: var(--ink-800); font-size: 0.98rem; margin-top: 0.1em; max-width: 70ch; }
+  .brief__illus-note {
+    margin-top: var(--space-l); font-size: var(--step--1); color: var(--ink-500);
+    background: var(--paper-50); border-left: 3px dashed var(--infer);
+    padding: var(--space-s) var(--space-m); border-radius: var(--radius-xs);
+  }
+  .brief__rule { border-top-color: var(--paper-200); margin-block: var(--space-l); }
+  .brief__block { margin-top: var(--space-xl); }
+  .brief__block:first-of-type { margin-top: 0; }
+  .brief__h {
+    font-size: var(--step-1); color: var(--ink-900);
+    padding-bottom: var(--space-2xs); border-bottom: 2px solid var(--ink-900);
+    display: inline-block; margin-bottom: var(--space-m);
+  }
+  .brief__body { color: var(--ink-700); max-width: 68ch; line-height: var(--leading-body); }
+  .brief__profiles { display: grid; gap: var(--space-m); }
+  .brief__profile { background: var(--paper-50); border: 1px solid var(--paper-200); border-radius: var(--radius-s); padding: var(--space-m); }
+  .brief__profile-name { font-size: var(--step-1); color: var(--ink-900); margin-bottom: var(--space-2xs); }
+  .brief__profile p { color: var(--ink-700); font-size: 0.95rem; line-height: var(--leading-body); }
+  .brief__records { display: grid; gap: var(--space-m); }
+  .brief__impl { margin: 0; padding-left: 1.3em; display: grid; gap: 0.6rem; }
+  .brief__impl li { color: var(--ink-700); }
+
+  .brief__sources { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-m); counter-reset: none; }
+  .brief__source { padding: var(--space-s) 0; border-top: 1px solid var(--paper-200); }
+  .brief__source-top { display: flex; align-items: baseline; gap: 0.8ch; flex-wrap: wrap; }
+  .brief__source-id { color: var(--ink-400); font-size: var(--step--1); }
+  .brief__source-org { font-family: var(--font-display); font-weight: 500; color: var(--ink-900); }
+  .brief__source-party { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fact); border: 1px solid color-mix(in srgb, var(--fact) 40%, transparent); padding: 0.1em 0.45em; border-radius: var(--radius-xs); }
+  .brief__source-url { display: inline-block; margin-top: 0.2em; color: var(--signal-600); font-size: 0.85rem; word-break: break-all; }
+  .brief__source-supports { color: var(--ink-700); font-size: 0.9rem; margin-top: 0.2em; }
+  .brief__source-limit { color: var(--ink-500); }
+  .brief__source-checked { display: block; margin-top: 0.2em; color: var(--ink-400); font-size: var(--step--1); }
+
+  .brief__inner :global(.record) { background: var(--paper-50); border-color: var(--paper-200); }
+  .brief__inner :global(.matrix__scroll) { border-color: var(--paper-200); }
+  .brief__inner :global(.matrix__table) { background: var(--paper-0); }
+  .brief__inner :global(.matrix__dim-head),
+  .brief__inner :global(.matrix__comp-head) { background: var(--paper-100); }
+
+  @media (min-width: 52rem) {
+    .sr-about { grid-template-columns: 1.4fr 1fr; }
+    .brief__profiles { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media print {
+    :global(.site-header), :global(.site-footer), :global(.skip-link),
+    .sr-intro, :global(.cta-band) { display: none !important; }
+    .brief { background: #fff; padding: 0; }
+    .brief__inner { box-shadow: none; border: none; background: #fff; padding: 0; max-width: 100%; }
+    .brief__block { break-inside: avoid; }
+  }
+</style>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Evidence Axis — competitor intelligence for B2B SaaS decisions">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#171b21"/>
+      <stop offset="1" stop-color="#101318"/>
+    </linearGradient>
+    <linearGradient id="axisG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a76ad" stop-opacity="0"/>
+      <stop offset="0.12" stop-color="#5a76ad"/>
+      <stop offset="0.88" stop-color="#5a76ad"/>
+      <stop offset="1" stop-color="#5a76ad" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- faint measurement grid -->
+  <g stroke="#2a313b" stroke-width="1" opacity="0.5">
+    <line x1="80" y1="120" x2="80" y2="510"/>
+    <line x1="80" y1="120" x2="1120" y2="120"/>
+    <line x1="80" y1="510" x2="1120" y2="510"/>
+  </g>
+
+  <!-- the axis -->
+  <line x1="820" y1="90" x2="820" y2="540" stroke="url(#axisG)" stroke-width="2.5"/>
+
+  <!-- evidence fragments aligning to the axis -->
+  <g font-family="'IBM Plex Mono', monospace" font-size="15" fill="#949aa4">
+    <!-- fact -->
+    <line x1="470" y1="200" x2="820" y2="200" stroke="#2f8067" stroke-width="2"/>
+    <circle cx="820" cy="200" r="6" fill="#3f9b7f"/>
+    <text x="470" y="192">FACT · positioning verified · 2026-08</text>
+    <!-- inference -->
+    <line x1="520" y1="270" x2="820" y2="270" stroke="#a9682a" stroke-width="2" stroke-dasharray="6 5"/>
+    <circle cx="820" cy="270" r="6" fill="none" stroke="#a9682a" stroke-width="2"/>
+    <path d="M820 264 A6 6 0 0 1 820 276 Z" fill="#a9682a"/>
+    <text x="520" y="262">INFERENCE · packaging gap</text>
+    <!-- unknown -->
+    <line x1="560" y1="340" x2="820" y2="340" stroke="#6a7078" stroke-width="2" stroke-dasharray="2 6"/>
+    <circle cx="820" cy="340" r="6" fill="none" stroke="#6a7078" stroke-width="2"/>
+    <text x="560" y="332">UNKNOWN · private churn</text>
+    <!-- decision -->
+    <circle cx="820" cy="430" r="9" fill="#5a76ad"/>
+    <text x="845" y="435" fill="#c9d2e4" font-size="16">→ decision implication</text>
+  </g>
+
+  <!-- wordmark -->
+  <g transform="translate(80, 300)">
+    <text font-family="'Space Grotesk', sans-serif" font-weight="500" font-size="66" letter-spacing="-1.5" fill="#faf8f2">Evidence <tspan fill="#7a94c4">Axis</tspan></text>
+    <text y="52" font-family="'Newsreader', serif" font-size="27" fill="#c8bfa9">Competitor intelligence for B2B SaaS decisions.</text>
+    <text y="120" font-family="'IBM Plex Mono', monospace" font-size="15" letter-spacing="2" fill="#6b7280">SCATTERED EVIDENCE  →  A SINGLE AXIS  →  A DECISION</text>
+  </g>
+</svg>

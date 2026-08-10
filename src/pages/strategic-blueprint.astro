@@ -1,0 +1,109 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
+import SectionIntro from '@components/SectionIntro.astro';
+import CTASection from '@components/CTASection.astro';
+import { offers } from '@config/site';
+
+const contexts = [
+  { t: 'Positioning', d: 'How to stake a claim the evidence can defend, against competitors who are already making theirs.' },
+  { t: 'Category entry', d: 'Whether a category is real, contested or manufactured — and what entering it actually requires.' },
+  { t: 'Offer architecture', d: 'How to structure packaging and tiers relative to what competitors publicly do.' },
+  { t: 'Product direction', d: 'Where public evidence suggests a gap worth building into, and where it does not.' },
+  { t: 'Differentiation', d: 'The claims only you can make truthfully, separated from the ones everyone makes.' },
+  { t: 'Competitor response', d: 'How the field is likely to read and respond to a move, based on observable behavior.' },
+  { t: 'Market prioritization', d: 'Which segment or wedge the evidence supports going after first.' },
+];
+const deliverables = [
+  'A defined decision and the boundary set around it',
+  'A deeper evidence base than a single brief, synthesized rather than listed',
+  'Positioning and offer options, each with the evidence for and against',
+  'Explicit unknowns and the assumptions any recommendation rests on',
+  'A source register you can audit',
+];
+---
+<Base
+  title="Strategic Blueprint"
+  description="The Strategic Market Blueprint is the deepest Evidence Axis engagement — scoped individually around the decision to be made. Positioning, category, offer architecture and differentiation, built on public evidence."
+  path="/strategic-blueprint/"
+>
+  <PageHeader
+    eyebrow="Service"
+    title="The deepest engagement, scoped to the decision."
+    lede="When the question is larger than a comparison — how to position, whether to enter, what to build toward — the Strategic Market Blueprint builds a wider evidence base and connects it to the call you have to make."
+    meta={['Scoped individually', 'Defined around your decision', 'Public evidence, synthesized']}
+  />
+
+  <section class="section container">
+    <SectionIntro
+      eyebrow="Decision contexts"
+      title="Built for the choices that don't fit a single brief."
+      lede={'A Blueprint starts where a competitor brief ends: not “what do they do,” but “what should we do about it.”'}
+    />
+    <div class="ctx-grid">
+      {contexts.map((c, i) => (
+        <article class="ctx" data-reveal style={`--reveal-delay:${i * 50}ms;`}>
+          <span class="ctx__mark axis-tick" aria-hidden="true"></span>
+          <h3 class="ctx__t">{c.t}</h3>
+          <p class="ctx__d">{c.d}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" data-surface="dark">
+    <div class="container bp-two">
+      <div>
+        <SectionIntro eyebrow="How it is scoped" title="The boundary comes before the price." as="h2" />
+        <p class="measure bp-copy">
+          A Blueprint is scoped after the decision question, the research boundary, the depth
+          and the deliverables are defined together. That conversation is where the work is made
+          useful — and where the price is set. We do not publish a fixed number for it, because a
+          number set before the boundary would be a guess.
+        </p>
+        <p class="bp-price mono">{offers.blueprint.priceDisplay} — {offers.blueprint.priceNote}.</p>
+      </div>
+      <div>
+        <h3 class="bp-h label">What a Blueprint includes</h3>
+        <ul class="bp-list axis-frame">
+          {deliverables.map((d) => <li class="axis-tick" data-reveal>{d}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="bp-path">
+      <SectionIntro eyebrow="Where to start" title="Most work starts smaller." />
+      <p class="measure">
+        If you are not sure a Blueprint is the right depth, start with a
+        <a href="/competitor-brief/">Two-Competitor Decision Brief</a> at
+        {offers.twoCompetitor.priceDisplay}. It is the fastest way to see how the evidence method
+        reads against your own question — and it scopes a larger engagement well.
+      </p>
+    </div>
+  </section>
+
+  <CTASection title="Describe the decision. We'll scope the work." showSecondary={false} />
+</Base>
+
+<style>
+  .ctx-grid { display: grid; gap: var(--space-m); margin-top: var(--space-xl); grid-template-columns: 1fr; }
+  .ctx {
+    background: var(--bg-raised); border: 1px solid var(--surface-border);
+    border-radius: var(--radius-m); padding: var(--space-l); position: relative;
+  }
+  .ctx__t { font-size: var(--step-1); }
+  .ctx__d { margin-top: var(--space-2xs); color: var(--text-muted); }
+  .bp-two { display: grid; gap: var(--space-xl); }
+  .bp-copy { margin-top: var(--space-s); color: var(--text-muted); }
+  .bp-price { margin-top: var(--space-m); color: var(--accent); font-size: var(--step-0); }
+  .bp-h { display: block; margin-bottom: var(--space-s); }
+  .bp-list { list-style: none; padding: 0; display: grid; gap: var(--space-s); }
+  .bp-list li { color: var(--text-muted); }
+  .bp-path p { margin-top: var(--space-s); color: var(--text-muted); }
+  @media (min-width: 52rem) {
+    .ctx-grid { grid-template-columns: repeat(3, 1fr); }
+    .bp-two { grid-template-columns: 1.2fr 1fr; }
+  }
+</style>

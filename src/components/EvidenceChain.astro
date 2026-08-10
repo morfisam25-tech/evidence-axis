@@ -1,0 +1,210 @@
+---
+import { evidenceChain } from '@data/method';
+/**
+ * Interactive evidence chain: Source → Observation → Fact → Inference →
+ * Unknown → Decision implication. All content is visible without JS.
+ * Signature interaction (Phase 2): "Trace to source" walks the provenance
+ * BACKWARD from the decision implication to its source, and clicking/pressing
+ * any step traces that step's provenance. A forward trace is also offered.
+ * Progressive enhancement — controls are hidden when JS is unavailable.
+ */
+---
+<div class="chain axis-frame" data-chain>
+  <div class="chain__control">
+    <button type="button" class="btn btn--sm chain__trace" data-chain-trace="reverse">
+      <span class="btn-arrow" aria-hidden="true">←</span>Trace to source
+    </button>
+    <button type="button" class="btn btn--ghost btn--sm chain__trace" data-chain-trace="forward">
+      Replay forward<span class="btn-arrow" aria-hidden="true">→</span>
+    </button>
+    <p class="chain__hint mono">Select any conclusion to trace its provenance back to a source.</p>
+  </div>
+
+  <ol class="chain__list">
+    {evidenceChain.map((s, i) => (
+      <li
+        class:list={['chain__step', `chain__step--${s.kind}`]}
+        data-chain-step
+        style={`--i:${i};`}
+        tabindex="0"
+        role="button"
+        aria-label={`${s.stage}. Trace provenance back to source.`}
+      >
+        <span class="chain__node" aria-hidden="true"></span>
+        <div class="chain__card">
+          <div class="chain__card-top">
+            <span class="chain__tag mono">{s.label}</span>
+            <span class="chain__stage">{s.stage}</span>
+          </div>
+          <p class="chain__body">{s.body}</p>
+          <span class="chain__meta mono">{s.meta}</span>
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  .chain { --active: -1; }
+  .chain__control {
+    display: flex; align-items: center; gap: var(--space-m);
+    flex-wrap: wrap; margin-bottom: var(--space-l);
+  }
+  .no-js .chain__trace { display: none; }
+  .btn--sm { padding: 0.6em 1em; font-size: 0.9rem; }
+  .chain__hint { font-size: var(--step--1); color: var(--text-faint); }
+
+  .chain__list { list-style: none; padding: 0; display: grid; gap: 0; }
+  .chain__step {
+    position: relative;
+    padding: var(--space-s) 0 var(--space-m) clamp(1.6rem, 5vw, 2.6rem);
+    outline: none;
+  }
+  .chain__step::before { /* connector segment along the axis */
+    content: '';
+    position: absolute;
+    left: calc(-1 * clamp(0.42rem, 1.6vw, 1.02rem));
+    top: 1.5em; bottom: -0.2em;
+    width: 2px;
+    background: var(--surface-border);
+    transition: background var(--dur-2) var(--ease-out);
+  }
+  .chain__step:last-child::before { display: none; }
+
+  .chain__node {
+    position: absolute;
+    left: calc(-1 * clamp(0.85rem, 2.4vw, 1.45rem));
+    top: 0.9em;
+    width: 0.95rem; height: 0.95rem;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--node-color, var(--ink-400));
+    z-index: 1;
+    transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+  }
+  .chain__step--source .chain__node,
+  .chain__step--observation .chain__node { --node-color: var(--ink-400); }
+  .chain__step--fact .chain__node { --node-color: var(--fact); background: var(--fact); }
+  .chain__step--inference .chain__node { --node-color: var(--infer); }
+  .chain__step--unknown .chain__node { --node-color: var(--unknown); border-style: dotted; }
+  .chain__step--decision .chain__node { --node-color: var(--accent); background: var(--accent); }
+
+  .chain__card {
+    background: var(--bg-raised);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-m);
+    padding: var(--space-s) var(--space-m);
+    transition: transform var(--dur-2) var(--ease-out),
+      box-shadow var(--dur-2) var(--ease-out),
+      border-color var(--dur-2) var(--ease-out);
+  }
+  .chain__card-top { display: flex; align-items: baseline; gap: 0.9ch; margin-bottom: 0.35em; }
+  .chain__tag {
+    font-size: 0.66rem; letter-spacing: 0.12em;
+    color: var(--on-accent); background: var(--node-color, var(--ink-500));
+    padding: 0.2em 0.5em; border-radius: var(--radius-xs);
+  }
+  .chain__step--inference .chain__tag,
+  .chain__step--unknown .chain__tag { color: var(--paper-0); }
+  .chain__stage { font-family: var(--font-display); font-weight: 500; font-size: var(--step-0); }
+  .chain__body { color: var(--text-muted); font-size: 0.98rem; }
+  .chain__meta { display: block; margin-top: 0.5em; font-size: var(--step--1); color: var(--text-faint); }
+
+  /* hover / focus / active emphasis */
+  .chain__step:hover .chain__card,
+  .chain__step:focus-visible .chain__card,
+  .chain__step.is-active .chain__card {
+    transform: translateX(4px);
+    border-color: var(--node-color, var(--accent));
+    box-shadow: var(--shadow-2);
+  }
+  .chain__step:hover .chain__node,
+  .chain__step:focus-visible .chain__node,
+  .chain__step.is-active .chain__node {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--node-color, var(--accent)) 22%, transparent);
+  }
+  .chain__step.is-active::before,
+  .chain__step.is-lit::before,
+  .chain__step.is-traced::before { background: var(--accent); }
+
+  /* provenance path: steps on the traced route read as connected + certain,
+     everything off the route recedes so the reasoning path stands out */
+  .chain[data-chain] .chain__step.is-traced .chain__node {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .chain__step.is-traced .chain__card { border-color: color-mix(in srgb, var(--accent) 45%, var(--surface-border)); }
+  .chain__step.is-active .chain__card { box-shadow: var(--shadow-3); }
+
+  @media (min-width: 40rem) {
+    .chain__card { padding: var(--space-m) var(--space-l); }
+    .chain__body { font-size: var(--step-0); }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-chain]').forEach((chain) => {
+    const steps = Array.from(chain.querySelectorAll<HTMLElement>('[data-chain-step]'));
+    const traceBtns = chain.querySelectorAll<HTMLElement>('[data-chain-trace]');
+    let timers: number[] = [];
+
+    const clear = () => {
+      timers.forEach((t) => window.clearTimeout(t));
+      timers = [];
+      steps.forEach((s) => s.classList.remove('is-active', 'is-lit', 'is-traced'));
+    };
+
+    // Light the whole provenance path 0..idx, with `idx` as the focus.
+    const light = (idx: number) => {
+      steps.forEach((s, i) => {
+        s.classList.toggle('is-lit', i < idx);
+        s.classList.toggle('is-traced', i <= idx);
+        s.classList.toggle('is-active', i === idx);
+      });
+    };
+
+    // Hover / focus: reveal that step's provenance instantly.
+    steps.forEach((s, i) => {
+      const reveal = () => { clear(); light(i); };
+      s.addEventListener('mouseenter', reveal);
+      s.addEventListener('focus', reveal);
+      // Click / keyboard: animate the provenance trace (default: backward).
+      s.addEventListener('click', () => play(i, 'reverse'));
+      s.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(i, 'reverse'); }
+      });
+    });
+
+    // Animate a trace to/from `from`. Reverse = decision → source.
+    const play = (from: number, dir: 'reverse' | 'forward') => {
+      clear();
+      if (reduce) { light(from); return; } // no stepwise animation
+      const order =
+        dir === 'reverse'
+          ? Array.from({ length: from + 1 }, (_, k) => from - k) // from → 0
+          : Array.from({ length: from + 1 }, (_, k) => k); // 0 → from
+      order.forEach((stepIndex, seq) => {
+        timers.push(
+          window.setTimeout(() => {
+            steps.forEach((s) => s.classList.remove('is-active'));
+            steps[stepIndex].classList.add('is-active', 'is-traced');
+            // keep everything already visited lit
+            const visited = order.slice(0, seq + 1);
+            steps.forEach((s, i) => s.classList.toggle('is-traced', visited.includes(i)));
+            // final resting state: full path lit with `from` active
+            if (seq === order.length - 1) light(from);
+          }, seq * 300)
+        );
+      });
+    };
+
+    traceBtns.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const dir = btn.getAttribute('data-chain-trace') === 'forward' ? 'forward' : 'reverse';
+        play(steps.length - 1, dir);
+      })
+    );
+  });
+</script>

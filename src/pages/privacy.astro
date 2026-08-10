@@ -1,0 +1,92 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
+import { site, legal } from '@config/site';
+---
+<Base
+  title="Privacy"
+  description="How Evidence Axis handles the limited information you share through the inquiry form and business correspondence."
+  path="/privacy/"
+  noindex={false}
+>
+  <PageHeader eyebrow="Legal" title="Privacy" meta={[`Last updated ${legal.lastUpdated}`]} />
+
+  <section class="section container">
+    <div class="legal measure">
+      <p class="legal__intro">
+        This note explains, in practical terms, what information {site.name} collects through this
+        website and how it is used. It covers the website only. Any engagement is governed by the
+        terms agreed for that specific project.
+      </p>
+
+      <h2>Information you provide</h2>
+      <p>
+        If you submit the inquiry form, we receive the details you choose to enter — typically your
+        name, work email, company, role, the decision or research question, the competitors you want
+        investigated, and any context you add. We use this only to understand, scope and respond to
+        your inquiry.
+      </p>
+
+      <h2>Business correspondence</h2>
+      <p>
+        If we correspond about a possible or active engagement, we keep the information reasonably
+        needed to carry out and account for that work. We do not sell it, and we do not use it for
+        advertising.
+      </p>
+
+      <h2>Technical information</h2>
+      <p>
+        Basic technical information (such as standard server request data) may be processed to keep
+        the site available and secure. Where analytics or cookies are introduced, this note will be
+        updated to describe them specifically, and any consent required will be requested at that
+        point. The site does not set advertising cookies.
+      </p>
+
+      <h2>Third parties</h2>
+      <p>
+        Where we engage third-party providers to operate the site or deliver a brief — for example,
+        website hosting or receiving inquiry submissions — they would process information only on our
+        instructions. No such providers should be assumed to be in place until they have been
+        selected, and this note will name any material processors once they are.
+      </p>
+
+      <h2>Retention</h2>
+      <p>
+        We keep inquiry and engagement information for as long as reasonably necessary for the
+        purpose it was provided, and for legitimate business and record-keeping needs, then remove
+        it. If you would like your inquiry information removed, contact us through the inquiry form
+        and we will address it.
+      </p>
+
+      <h2>Your choices</h2>
+      <p>
+        You can ask what inquiry information we hold about you and request that it be corrected or
+        removed. Depending on your location, additional rights may apply; we will honor applicable
+        requirements. Reaching us through the inquiry form is the fastest route.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about this note can be sent through the <a href="/contact/">inquiry form</a>. As
+        the practice's contracting entity and formal contact details are finalized ahead of launch,
+        this page will be updated to reflect them.
+      </p>
+
+      <p class="legal__foot mono">
+        This is a practical website privacy note, not a substitute for advice on your own
+        obligations. It will be reviewed and expanded before public launch.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal__intro { font-size: var(--step-1); color: var(--text); }
+  .legal h2 {
+    font-size: var(--step-1); margin-top: var(--space-xl); margin-bottom: var(--space-2xs);
+    padding-top: var(--space-s); border-top: 1px solid var(--hairline);
+  }
+  .legal p { color: var(--text-muted); margin-bottom: var(--space-s); }
+  .legal a { color: var(--accent); }
+  .legal__foot { margin-top: var(--space-xl); font-size: var(--step--1); color: var(--text-faint); }
+</style>

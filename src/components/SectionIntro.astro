@@ -1,0 +1,29 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+  align?: 'start' | 'center';
+  as?: 'h2' | 'h3';
+}
+const { eyebrow, title, lede, align = 'start', as = 'h2' } = Astro.props;
+const Heading = as;
+---
+<div class:list={['section-intro', `is-${align}`]} data-reveal>
+  {eyebrow && <span class="label eyebrow">{eyebrow}</span>}
+  <Heading class="section-intro__title">{title}</Heading>
+  {lede && <p class="section-intro__lede measure">{lede}</p>}
+</div>
+
+<style>
+  .section-intro { max-width: 60rem; }
+  .section-intro.is-center { margin-inline: auto; text-align: center; }
+  .section-intro.is-center .section-intro__lede { margin-inline: auto; }
+  .section-intro.is-center .eyebrow::before { display: none; }
+  .section-intro__lede {
+    margin-top: var(--space-m);
+    font-size: var(--step-1);
+    color: var(--text-muted);
+    line-height: var(--leading-body);
+  }
+</style>

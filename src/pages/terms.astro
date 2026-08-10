@@ -1,0 +1,88 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
+import { site, legal } from '@config/site';
+---
+<Base
+  title="Terms"
+  description="The terms that apply to use of the Evidence Axis website, and how they relate to the separate terms agreed for a research engagement."
+  path="/terms/"
+>
+  <PageHeader eyebrow="Legal" title="Terms" meta={[`Last updated ${legal.lastUpdated}`]} />
+
+  <section class="section container">
+    <div class="legal measure">
+      <p class="legal__intro">
+        These terms apply to your use of the {site.name} website. They are separate from the terms
+        that govern a research engagement, which are agreed in writing for each project before work
+        begins.
+      </p>
+
+      <h2>The website</h2>
+      <p>
+        This website describes {site.name} services and lets you submit an inquiry. Information on it
+        is provided for general information about the practice. Prices and service descriptions shown
+        here are current at the time of writing and may be updated.
+      </p>
+
+      <h2>Inquiries are not a contract</h2>
+      <p>
+        Submitting the inquiry form starts a conversation. It does not by itself create an engagement
+        or an obligation on either side. An engagement begins only when scope, deliverables, timing
+        and price are agreed in writing for a specific project.
+      </p>
+
+      <h2>How research is conducted</h2>
+      <p>
+        Research draws on lawful, publicly accessible sources and any information a client chooses to
+        share. Findings are based on the sources and boundary defined for the engagement, as of the
+        dates checked. Public information changes over time, and a brief reflects the record at the
+        time of research.
+      </p>
+
+      <h2>What a brief is — and is not</h2>
+      <p>
+        A brief distinguishes verified fact from reasoned inference and clearly names what cannot be
+        established from public evidence. It is decision support, not a guarantee of any business
+        outcome. It does not claim access to confidential, private or non-public information, and it
+        should not be read as legal, financial or investment advice.
+      </p>
+
+      <h2>Project terms govern the work</h2>
+      <p>
+        Where these website terms and the terms agreed for a specific engagement differ, the
+        engagement terms govern that work. This page does not replace tailored contractual terms for
+        a project.
+      </p>
+
+      <h2>Intellectual property</h2>
+      <p>
+        The content, design and visual system of this website belong to {site.name}. Deliverables
+        prepared for a client are governed by the rights set out in that engagement's terms.
+      </p>
+
+      <h2>Governing details</h2>
+      <p>
+        The contracting entity, invoicing arrangements and governing-law details for engagements are
+        being finalized ahead of launch and are confirmed in each engagement's written terms. This
+        page will be updated to reflect them.
+      </p>
+
+      <p class="legal__foot mono">
+        These are practical, preliminary website terms. They will be reviewed and expanded before
+        public launch.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal__intro { font-size: var(--step-1); color: var(--text); }
+  .legal h2 {
+    font-size: var(--step-1); margin-top: var(--space-xl); margin-bottom: var(--space-2xs);
+    padding-top: var(--space-s); border-top: 1px solid var(--hairline);
+  }
+  .legal p { color: var(--text-muted); margin-bottom: var(--space-s); }
+  .legal a { color: var(--accent); }
+  .legal__foot { margin-top: var(--space-xl); font-size: var(--step--1); color: var(--text-faint); }
+</style>

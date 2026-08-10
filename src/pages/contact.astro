@@ -1,0 +1,82 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
+import ContactForm from '@components/ContactForm.astro';
+import { offers } from '@config/site';
+
+const services = [offers.twoCompetitor, offers.fiveCompetitor, offers.blueprint];
+---
+<Base
+  title="Contact"
+  description="Start an Evidence Axis brief. Send a decision question and the competitors that bear on it — asynchronous, no sales call required."
+  path="/contact/"
+>
+  <PageHeader
+    eyebrow="Start a brief"
+    title="Send the question. The evidence comes back structured."
+    lede="This is the start of an engagement, not a generic contact box. Tell us the decision and the competitors involved; a person reads every inquiry."
+    meta={['Asynchronous · no sales call', 'Public competitor evidence + your context', 'Payment arranged after scope is agreed']}
+  />
+
+  <section class="section container">
+    <div class="contact-grid">
+      <div class="contact-main">
+        <ContactForm />
+      </div>
+
+      <aside class="contact-aside">
+        <h2 class="label contact-aside__h">The three services</h2>
+        <ul class="contact-services">
+          {services.map((s) => (
+            <li class="contact-service">
+              <span class="contact-service__name">{s.name}</span>
+              <span class="contact-service__price mono">{s.priceDisplay}</span>
+              <span class="contact-service__meta mono">{s.delivery}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="contact-note">
+          <h3 class="label">How it works</h3>
+          <ol class="contact-steps">
+            <li>You send a decision question and the competitors involved.</li>
+            <li>We confirm scope, boundary and price — no obligation.</li>
+            <li>The brief is delivered on the agreed timeline.</li>
+            <li>Payment is arranged after scope is agreed, outside this site.</li>
+          </ol>
+        </div>
+
+        <p class="contact-privacy mono">
+          What you share is used only to scope and deliver your brief. See our{' '}
+          <a href="/privacy/">Privacy</a> note.
+        </p>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-grid { display: grid; gap: var(--space-xl); }
+  .contact-aside__h { display: block; margin-bottom: var(--space-s); }
+  .contact-services { list-style: none; padding: 0; display: grid; gap: var(--space-s); }
+  .contact-service {
+    display: grid; grid-template-columns: 1fr auto; gap: 0.2em var(--space-s); align-items: baseline;
+    padding: var(--space-s) 0; border-top: 1px solid var(--hairline);
+  }
+  .contact-service__name { font-family: var(--font-display); font-weight: 500; font-size: 0.98rem; }
+  .contact-service__price { color: var(--accent); }
+  .contact-service__meta { grid-column: 1 / -1; font-size: var(--step--1); color: var(--text-faint); }
+  .contact-note { margin-top: var(--space-l); }
+  .contact-steps { margin: var(--space-s) 0 0; padding-left: 1.3em; display: grid; gap: 0.5rem; }
+  .contact-steps li { color: var(--text-muted); font-size: 0.95rem; }
+  .contact-privacy { margin-top: var(--space-l); font-size: var(--step--1); color: var(--text-faint); padding-top: var(--space-m); border-top: 1px solid var(--hairline); }
+
+  @media (min-width: 64rem) {
+    .contact-grid { grid-template-columns: 1.6fr 1fr; align-items: start; }
+    .contact-aside {
+      position: sticky; top: 6rem;
+      background: var(--bg-raised); border: 1px solid var(--surface-border);
+      border-radius: var(--radius-l); padding: var(--space-l);
+    }
+  }
+</style>

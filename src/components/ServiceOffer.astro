@@ -1,0 +1,97 @@
+---
+import { cta } from '@config/site';
+interface Props {
+  name: string;
+  priceDisplay: string;
+  priceNote?: string;
+  delivery: string;
+  scope: string;
+  points?: string[];
+  featured?: boolean;
+  ctaLabel?: string;
+  ctaHref?: string;
+  href?: string; // "learn more" link
+}
+const {
+  name, priceDisplay, priceNote, delivery, scope,
+  points = [], featured = false,
+  ctaLabel = cta.primary.label, ctaHref = cta.primary.href, href,
+} = Astro.props;
+---
+<article class:list={['offer', { 'offer--featured': featured }]} data-reveal>
+  {featured && <span class="offer__flag mono">Most common starting point</span>}
+  <header class="offer__head">
+    <h3 class="offer__name">{name}</h3>
+    <p class="offer__scope">{scope}</p>
+  </header>
+
+  <div class="offer__price">
+    <span class="offer__price-val">{priceDisplay}</span>
+    {priceNote && <span class="offer__price-note mono">{priceNote}</span>}
+  </div>
+
+  <dl class="offer__facts">
+    <div><dt class="label">Delivery</dt><dd class="mono">{delivery}</dd></div>
+  </dl>
+
+  {points.length > 0 && (
+    <ul class="offer__points">
+      {points.map((p) => (
+        <li><span class="offer__tick" aria-hidden="true"></span>{p}</li>
+      ))}
+    </ul>
+  )}
+
+  <div class="offer__actions">
+    <a href={ctaHref} class:list={['btn', { 'btn--ghost': !featured }]}>
+      {ctaLabel}<span class="btn-arrow" aria-hidden="true">→</span>
+    </a>
+    {href && <a href={href} class="link-arrow offer__more">Details<span class="btn-arrow" aria-hidden="true">→</span></a>}
+  </div>
+</article>
+
+<style>
+  .offer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-raised);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-l);
+    padding: var(--space-l);
+    height: 100%;
+  }
+  .offer--featured {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), var(--shadow-3);
+  }
+  .offer__flag {
+    position: absolute;
+    top: 0; right: var(--space-m);
+    transform: translateY(-50%);
+    background: var(--accent); color: var(--on-accent);
+    font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.35em 0.7em; border-radius: var(--radius-xs);
+  }
+  .offer__name { font-size: var(--step-2); }
+  .offer__scope { margin-top: var(--space-2xs); color: var(--text-muted); font-size: 0.98rem; }
+  .offer__price {
+    display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.8ch;
+    margin-top: var(--space-m);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--hairline);
+  }
+  .offer__price-val { font-family: var(--font-display); font-weight: 500; font-size: var(--step-4); letter-spacing: -0.03em; color: var(--text); }
+  .offer__price-note { font-size: var(--step--1); color: var(--text-faint); }
+  .offer__facts { margin-top: var(--space-s); }
+  .offer__facts dd { font-size: 0.95rem; color: var(--text); margin-top: 0.15em; }
+  .offer__points { list-style: none; padding: 0; margin-top: var(--space-m); display: grid; gap: 0.6rem; }
+  .offer__points li { display: grid; grid-template-columns: auto 1fr; gap: 0.7ch; font-size: 0.95rem; color: var(--text-muted); line-height: var(--leading-snug); }
+  .offer__tick {
+    width: 0.8em; height: 0.8em; margin-top: 0.35em; flex: none;
+    border: 1.5px solid var(--fact); border-radius: 50%;
+    background: radial-gradient(circle at center, var(--fact) 0 40%, transparent 42%);
+  }
+  .offer__actions { margin-top: auto; padding-top: var(--space-l); display: flex; align-items: center; gap: var(--space-m); flex-wrap: wrap; }
+  .offer__more { font-size: 0.9rem; }
+</style>

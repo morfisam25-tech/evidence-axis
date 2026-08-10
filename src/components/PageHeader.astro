@@ -1,0 +1,51 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lede?: string;
+  meta?: string[];
+}
+const { eyebrow, title, lede, meta } = Astro.props;
+---
+<header class="page-header" data-surface="dark">
+  <div class="container-wide page-header__inner axis-frame">
+    <span class="label eyebrow">{eyebrow}</span>
+    <h1 class="page-header__title">{title}</h1>
+    {lede && <p class="page-header__lede">{lede}</p>}
+    {meta && (
+      <ul class="page-header__meta">
+        {meta.map((m) => <li class="mono">{m}</li>)}
+      </ul>
+    )}
+  </div>
+</header>
+
+<style>
+  .page-header {
+    background: var(--bg);
+    color: var(--text);
+    padding-block: clamp(3rem, 2rem + 6vw, 6rem) clamp(2.5rem, 2rem + 4vw, 4.5rem);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .page-header__inner { max-width: 60rem; }
+  .page-header__title { font-size: var(--step-5); margin-top: var(--space-2xs); max-width: 20ch; }
+  .page-header__lede {
+    margin-top: var(--space-m);
+    font-size: var(--step-1);
+    color: var(--text-muted);
+    max-width: 56ch;
+  }
+  .page-header__meta {
+    list-style: none; padding: 0; margin-top: var(--space-l);
+    display: flex; flex-wrap: wrap; gap: var(--space-s) var(--space-l);
+  }
+  .page-header__meta li {
+    font-size: var(--step--1); color: var(--text-faint);
+    padding-left: 1.1rem; position: relative;
+  }
+  .page-header__meta li::before {
+    content: ''; position: absolute; left: 0; top: 0.5em;
+    width: 0.5rem; height: 0.5rem; border-radius: 50%;
+    background: var(--accent);
+  }
+</style>

@@ -1,0 +1,125 @@
+---
+/**
+ * A single Evidence Axis research record — the atomic unit of the method.
+ * Content is passed in; the component never asserts facts on its own.
+ * Used with clearly-illustrative content in Phase 1; real sourced content
+ * (with URLs + check dates) is populated in the Phase 3 sample report.
+ */
+interface Props {
+  id?: string;
+  status: 'fact' | 'inference' | 'unknown' | 'contradiction';
+  claim: string;
+  competitor?: string;
+  source?: string;
+  dateChecked?: string;
+  observation?: string;
+  limitation?: string;
+  implication?: string;
+  illustrative?: boolean;
+}
+const {
+  id,
+  status,
+  claim,
+  competitor,
+  source,
+  dateChecked,
+  observation,
+  limitation,
+  implication,
+  illustrative = false,
+} = Astro.props;
+const statusLabel = { fact: 'Fact', inference: 'Inference', unknown: 'Unknown', contradiction: 'Contradiction' }[status];
+---
+<article class:list={['record', `record--${status}`]} data-reveal>
+  <div class="record__rail" aria-hidden="true"></div>
+  <div class="record__body">
+    <header class="record__top">
+      <span class:list={['state', `state--${status}`]}>{statusLabel}</span>
+      {id && <span class="record__id mono">{id}</span>}
+      {illustrative && <span class="record__illus mono">illustrative</span>}
+    </header>
+
+    <p class="record__claim">{claim}</p>
+
+    {observation && (
+      <p class="record__obs">
+        <span class="label">Observation</span>
+        {observation}
+      </p>
+    )}
+
+    <dl class="record__meta">
+      {competitor && (<div><dt class="label">Competitor</dt><dd>{competitor}</dd></div>)}
+      {source && (<div><dt class="label">Source</dt><dd class="mono">{source}</dd></div>)}
+      {dateChecked && (<div><dt class="label">Checked</dt><dd class="mono"><time class="tag">{dateChecked}</time></dd></div>)}
+    </dl>
+
+    {limitation && (
+      <p class="record__note record__note--limit">
+        <span class="label">Limitation</span>{limitation}
+      </p>
+    )}
+    {implication && (
+      <p class="record__note record__note--impl">
+        <span class="label">Decision implication</span>{implication}
+      </p>
+    )}
+  </div>
+</article>
+
+<style>
+  .record {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    background: var(--bg-raised);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-m);
+    overflow: hidden;
+  }
+  .record__rail { width: 4px; background: var(--rec-color, var(--unknown)); }
+  .record--fact { --rec-color: var(--fact); }
+  .record--inference { --rec-color: var(--infer); }
+  .record--unknown { --rec-color: var(--unknown); }
+  .record--contradiction { --rec-color: var(--contradiction); }
+  .record--inference .record__rail { background: repeating-linear-gradient(var(--infer) 0 6px, transparent 6px 11px); }
+  .record--unknown .record__rail { background: repeating-linear-gradient(var(--unknown) 0 2px, transparent 2px 6px); }
+
+  .record__body { padding: var(--space-m); }
+  .record__top { display: flex; align-items: center; gap: 0.8ch; flex-wrap: wrap; margin-bottom: var(--space-s); }
+  .record__id { font-size: var(--step--1); color: var(--text-faint); }
+  .record__illus {
+    font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-faint); border: 1px dashed var(--surface-border);
+    padding: 0.15em 0.5em; border-radius: var(--radius-xs); margin-left: auto;
+  }
+  .record__claim {
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    line-height: var(--leading-snug);
+    color: var(--text);
+  }
+  .record__obs {
+    margin-top: var(--space-s);
+    color: var(--text-muted);
+    font-size: 0.98rem;
+  }
+  .record__obs .label { display: block; margin-bottom: 0.2em; }
+  .record__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s) var(--space-l);
+    margin-top: var(--space-m);
+    padding-top: var(--space-s);
+    border-top: 1px solid var(--hairline);
+  }
+  .record__meta dt { margin-bottom: 0.15em; }
+  .record__meta dd { font-size: 0.92rem; color: var(--text); }
+  .record__note {
+    margin-top: var(--space-s);
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+  .record__note .label { display: block; margin-bottom: 0.15em; }
+  .record__note--impl { color: var(--text); }
+</style>

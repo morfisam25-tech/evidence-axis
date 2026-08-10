@@ -1,0 +1,28 @@
+---
+import Base from '@layouts/Base.astro';
+import { cta } from '@config/site';
+---
+<Base title="Not found" description="This page could not be found." path="/404/" noindex={true}>
+  <section class="section container nf" data-surface="dark">
+    <div class="nf__inner axis-frame">
+      <span class="state state--unknown">Unknown</span>
+      <h1 class="nf__title">This page can't be established.</h1>
+      <p class="nf__body">
+        The page you asked for isn't here — so rather than guess, we'll mark it Unknown and point you
+        somewhere real.
+      </p>
+      <div class="nf__actions">
+        <a href="/" class="btn btn--lg">Back to home<span class="btn-arrow" aria-hidden="true">→</span></a>
+        <a href={cta.secondary.href} class="btn btn--ghost btn--lg">{cta.secondary.label}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { min-height: 60vh; display: grid; align-items: center; }
+  .nf__inner { max-width: 44rem; }
+  .nf__title { font-size: var(--step-4); margin-top: var(--space-m); }
+  .nf__body { margin-top: var(--space-m); color: var(--text-muted); font-size: var(--step-1); max-width: 48ch; }
+  .nf__actions { display: flex; flex-wrap: wrap; gap: var(--space-s); margin-top: var(--space-l); }
+</style>

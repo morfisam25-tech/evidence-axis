@@ -1,0 +1,45 @@
+---
+import { cta, offers } from '@config/site';
+interface Props {
+  title?: string;
+  body?: string;
+  showSecondary?: boolean;
+}
+const {
+  title = 'Start with one decision question.',
+  body = `A Two-Competitor Decision Brief is ${offers.twoCompetitor.priceDisplay} at pilot pricing and delivered in ${offers.twoCompetitor.delivery}. Send the question — no call required.`,
+  showSecondary = true,
+} = Astro.props;
+---
+<section class="cta-band" data-surface="dark">
+  <div class="container cta-band__inner axis-frame">
+    <div class="cta-band__grid">
+      <div>
+        <span class="label eyebrow">Start a brief</span>
+        <h2 class="cta-band__title">{title}</h2>
+      </div>
+      <div class="cta-band__aside">
+        <p class="cta-band__body">{body}</p>
+        <div class="cta-band__actions">
+          <a href={cta.primary.href} class="btn btn--lg">
+            {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          {showSecondary && (
+            <a href={cta.secondary.href} class="btn btn--ghost btn--lg">{cta.secondary.label}</a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band { background: var(--bg); color: var(--text); padding-block: var(--section-y); }
+  .cta-band__grid { display: grid; gap: var(--space-l); }
+  .cta-band__title { font-size: var(--step-4); max-width: 18ch; }
+  .cta-band__body { font-size: var(--step-1); color: var(--text-muted); max-width: 46ch; }
+  .cta-band__actions { display: flex; flex-wrap: wrap; gap: var(--space-s); margin-top: var(--space-l); }
+  @media (min-width: 52rem) {
+    .cta-band__grid { grid-template-columns: 1.1fr 1fr; align-items: end; }
+  }
+</style>

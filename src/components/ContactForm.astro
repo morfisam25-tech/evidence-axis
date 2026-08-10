@@ -1,0 +1,277 @@
+---
+import { contact, offers } from '@config/site';
+/**
+ * Inquiry form — UI + validation architecture.
+ * The submission endpoint is provider-agnostic and read from config.
+ * PRE-LAUNCH: contact.formEndpoint is null, so the form validates but
+ * never claims a submission succeeded. When a real endpoint is set in
+ * config, the native POST + JS enhancement submit for real.
+ */
+const endpoint = contact.formEndpoint; // null until Phase 3
+const hasEndpoint = Boolean(endpoint);
+const roles = [
+  'Founder / CEO',
+  'Head / VP of Product',
+  'Product Manager',
+  'Product Marketing',
+  'Marketing leader',
+  'Strategy',
+  'Other',
+];
+const services = [
+  { value: offers.twoCompetitor.name, label: `${offers.twoCompetitor.name} — ${offers.twoCompetitor.priceDisplay}` },
+  { value: offers.fiveCompetitor.name, label: `${offers.fiveCompetitor.name} — from ${offers.fiveCompetitor.priceDisplay}` },
+  { value: offers.blueprint.name, label: `${offers.blueprint.name} — scoped` },
+  { value: 'Not sure yet', label: 'Not sure yet — help me choose' },
+];
+---
+<form
+  class="inquiry"
+  data-inquiry
+  data-has-endpoint={hasEndpoint ? 'true' : 'false'}
+  method={hasEndpoint ? 'post' : undefined}
+  action={hasEndpoint ? endpoint : undefined}
+  novalidate
+  aria-describedby="inquiry-status"
+>
+  <div class="inquiry__grid">
+    <div class="field field--half">
+      <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
+      <input id="f-name" name="name" type="text" autocomplete="name" required aria-required="true" />
+      <p class="field__err" data-err-for="f-name" hidden>Please enter your name.</p>
+    </div>
+
+    <div class="field field--half">
+      <label for="f-email">Work email <span class="req" aria-hidden="true">*</span></label>
+      <input id="f-email" name="email" type="email" autocomplete="email" required aria-required="true" />
+      <p class="field__err" data-err-for="f-email" hidden>Please enter a valid work email.</p>
+    </div>
+
+    <div class="field field--half">
+      <label for="f-company">Company</label>
+      <input id="f-company" name="company" type="text" autocomplete="organization" />
+    </div>
+
+    <div class="field field--half">
+      <label for="f-website">Company website</label>
+      <input id="f-website" name="website" type="url" inputmode="url" placeholder="https://" autocomplete="url" />
+      <p class="field__err" data-err-for="f-website" hidden>Please enter a full URL including https://.</p>
+    </div>
+
+    <div class="field field--half">
+      <label for="f-role">Your role</label>
+      <select id="f-role" name="role">
+        <option value="">Select…</option>
+        {roles.map((r) => <option value={r}>{r}</option>)}
+      </select>
+    </div>
+
+    <div class="field field--half">
+      <label for="f-service">Service <span class="req" aria-hidden="true">*</span></label>
+      <select id="f-service" name="service" required aria-required="true">
+        <option value="">Select…</option>
+        {services.map((s) => <option value={s.value}>{s.label}</option>)}
+      </select>
+      <p class="field__err" data-err-for="f-service" hidden>Please choose a service, or “Not sure yet.”</p>
+    </div>
+
+    <div class="field">
+      <label for="f-question">Decision or research question <span class="req" aria-hidden="true">*</span></label>
+      <p class="field__help" id="f-question-help">The decision you need to make. This sets the research boundary.</p>
+      <textarea id="f-question" name="question" rows="3" required aria-required="true" aria-describedby="f-question-help"></textarea>
+      <p class="field__err" data-err-for="f-question" hidden>Please describe the decision or question.</p>
+    </div>
+
+    <div class="field">
+      <label for="f-competitors">Competitors to investigate</label>
+      <p class="field__help" id="f-competitors-help">Named competitors, or a client-versus-competitor comparison.</p>
+      <input id="f-competitors" name="competitors" type="text" aria-describedby="f-competitors-help" />
+    </div>
+
+    <div class="field field--half">
+      <label for="f-timing">Desired timing</label>
+      <input id="f-timing" name="timing" type="text" placeholder="e.g. this week" />
+    </div>
+
+    <div class="field">
+      <label for="f-context">Additional context</label>
+      <textarea id="f-context" name="context" rows="3"></textarea>
+    </div>
+  </div>
+
+  <!-- honeypot: bots fill this; humans never see it -->
+  <div class="inquiry__hp" aria-hidden="true">
+    <label for="f-fax">Do not fill this field</label>
+    <input id="f-fax" name="fax" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="inquiry__foot">
+    <button type={hasEndpoint ? 'submit' : 'button'} class="btn btn--lg" data-inquiry-submit>
+      Send the brief request<span class="btn-arrow" aria-hidden="true">→</span>
+    </button>
+    <p class="inquiry__micro mono">
+      Asynchronous. A person reads every inquiry. No sales call required.
+    </p>
+  </div>
+
+  <p class="inquiry__status" id="inquiry-status" role="status" aria-live="polite" hidden></p>
+  {!hasEndpoint && (
+    <noscript>
+      <p class="inquiry__status inquiry__status--static" data-kind="error">
+        The inquiry channel is being finalized ahead of launch. Please check back shortly, or
+        reach out once it is live.
+      </p>
+    </noscript>
+  )}
+</form>
+
+<style>
+  .inquiry { --field-bg: var(--bg); }
+  .inquiry__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-m); }
+  .field { display: flex; flex-direction: column; grid-column: 1 / -1; }
+  .field label { font-family: var(--font-display); font-weight: 500; font-size: 0.95rem; margin-bottom: 0.4em; }
+  .req { color: var(--accent); }
+  .field__help { font-size: var(--step--1); color: var(--text-faint); margin-bottom: 0.5em; }
+  .field input, .field select, .field textarea {
+    font-family: var(--font-serif);
+    font-size: var(--step-0);
+    color: var(--text);
+    background: var(--field-bg);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-s);
+    padding: 0.7em 0.85em;
+    width: 100%;
+    transition: border-color var(--dur-1) var(--ease-out), box-shadow var(--dur-1) var(--ease-out);
+  }
+  .field textarea { resize: vertical; min-height: 3.4em; }
+  .field select { font-family: var(--font-display); appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%), linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+    background-position: right 1.05em center, right 0.78em center;
+    background-size: 0.32em 0.32em, 0.32em 0.32em; background-repeat: no-repeat; padding-right: 2.2em; }
+  .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+  .field [aria-invalid='true'] { border-color: var(--contradiction); }
+  .field__err { color: var(--contradiction); font-size: var(--step--1); margin-top: 0.4em; font-family: var(--font-mono); }
+
+  .inquiry__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .inquiry__foot { display: flex; align-items: center; gap: var(--space-m); flex-wrap: wrap; margin-top: var(--space-l); }
+  .inquiry__micro { font-size: var(--step--1); color: var(--text-faint); max-width: 40ch; }
+
+  .inquiry__status {
+    margin-top: var(--space-m);
+    padding: var(--space-s) var(--space-m);
+    border-radius: var(--radius-s);
+    border-left: 3px solid var(--accent);
+    background: var(--bg-raised);
+    font-size: 0.95rem;
+  }
+  .inquiry__status[data-kind='error'] { border-left-color: var(--contradiction); }
+  .inquiry__status[data-kind='success'] { border-left-color: var(--fact); }
+
+  @media (min-width: 40rem) {
+    .field--half { grid-column: span 1; }
+  }
+</style>
+
+<script>
+  type FormControl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+  document.querySelectorAll<HTMLFormElement>('[data-inquiry]').forEach((form) => {
+    const endpoint = form.getAttribute('action');
+    const status = form.querySelector<HTMLElement>('#inquiry-status');
+    const fields = Array.from(
+      form.querySelectorAll<FormControl>('input, select, textarea')
+    );
+
+    const showErr = (el: FormControl, show: boolean) => {
+      const err = form.querySelector<HTMLElement>(`[data-err-for="${el.id}"]`);
+      el.setAttribute('aria-invalid', show ? 'true' : 'false');
+      if (err) {
+        err.hidden = !show;
+        if (show) {
+          if (!err.id) err.id = el.id + '-err';
+          const described = [el.getAttribute('aria-describedby'), err.id].filter(Boolean).join(' ');
+          el.setAttribute('aria-describedby', described);
+        }
+      }
+    };
+
+    const validate = (el: FormControl) => {
+      const value = el.value.trim();
+      const isRequired = el.hasAttribute('required');
+      if (!isRequired && value === '') { showErr(el, false); return true; }
+      if (el instanceof HTMLInputElement && el.type === 'url' && value && !/^https?:\/\/.+/i.test(value)) {
+        showErr(el, true); return false;
+      }
+      const valid = isRequired ? (value !== '' && el.checkValidity()) : el.checkValidity();
+      showErr(el, !valid);
+      return valid;
+    };
+
+    fields.forEach((el) => {
+      el.addEventListener('blur', () => validate(el));
+      el.addEventListener('input', () => { if (el.getAttribute('aria-invalid') === 'true') validate(el); });
+    });
+
+    const setStatus = (msg: string, kind: 'error' | 'success') => {
+      if (!status) return;
+      status.hidden = false;
+      status.textContent = msg;
+      status.setAttribute('data-kind', kind);
+    };
+
+    const submitBtn = form.querySelector<HTMLButtonElement>('[data-inquiry-submit]');
+
+    const attempt = async (e?: Event) => {
+      const hp = form.querySelector<HTMLInputElement>('[name="fax"]');
+      if (hp && hp.value) { e?.preventDefault(); return; } // bot
+
+      let valid = true;
+      fields.forEach((el) => {
+        const isUrl = el instanceof HTMLInputElement && el.type === 'url';
+        if (el.hasAttribute('required') || isUrl) { if (!validate(el)) valid = false; }
+      });
+      if (!valid) {
+        e?.preventDefault();
+        setStatus('Please complete the highlighted fields.', 'error');
+        form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+        return;
+      }
+
+      // No endpoint configured yet → never fake a successful send, and never
+      // let a native submit fall through to a dead route.
+      if (!endpoint) {
+        e?.preventDefault();
+        setStatus('This inquiry channel is being finalized before launch. Your details were not sent yet — please check back shortly.', 'error');
+        return;
+      }
+
+      // Endpoint present → submit via fetch, honestly report success/failure.
+      e?.preventDefault();
+      if (submitBtn) submitBtn.disabled = true;
+      setStatus('Sending…', 'success');
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error('bad status');
+        form.reset();
+        setStatus('Thank you — your brief request has been received. A person will reply once it has been read.', 'success');
+      } catch {
+        setStatus('Something went wrong sending your request. Please try again in a moment.', 'error');
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    };
+
+    // With an endpoint the button is type=submit (native POST also works with
+    // no JS); without one it is type=button, so we handle the click directly
+    // and never submit into a dead route.
+    form.addEventListener('submit', attempt);
+    if (!endpoint) submitBtn?.addEventListener('click', attempt);
+  });
+</script>

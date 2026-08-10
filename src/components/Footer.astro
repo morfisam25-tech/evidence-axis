@@ -1,0 +1,98 @@
+---
+import Logo from './Logo.astro';
+import { footerServices, footerCompany, footerLegal } from '@data/nav';
+import { site, cta } from '@config/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer" data-surface="dark">
+  <div class="container-wide">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <Logo />
+        <p class="site-footer__tag">{site.tagline}</p>
+        <a href={cta.primary.href} class="btn">
+          {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <nav class="site-footer__cols" aria-label="Footer">
+        <div>
+          <h2 class="label">Services</h2>
+          <ul>
+            {footerServices.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <h2 class="label">Practice</h2>
+          <ul>
+            {footerCompany.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <h2 class="label">Legal</h2>
+          <ul>
+            {footerLegal.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <hr class="rule" />
+
+    <div class="site-footer__bottom">
+      <p class="mono">© {year} {site.name}. {site.domain}</p>
+      <p class="mono site-footer__note">
+        Competitor findings use lawful public evidence, plus context you share. Analysis distinguishes fact, inference and unknown.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--bg);
+    color: var(--text);
+    padding-block: var(--space-2xl) var(--space-l);
+    border-top: 1px solid var(--hairline);
+  }
+  .site-footer__top {
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-columns: 1fr;
+  }
+  .site-footer__tag {
+    font-family: var(--font-serif);
+    color: var(--text-muted);
+    max-width: 32ch;
+    margin-block: var(--space-s) var(--space-m);
+  }
+  .site-footer__cols {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-l);
+  }
+  .site-footer__cols h2 { margin-bottom: var(--space-s); }
+  .site-footer__cols ul { list-style: none; padding: 0; display: grid; gap: 0.6rem; }
+  .site-footer__cols a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color var(--dur-1) var(--ease-out);
+  }
+  .site-footer__cols a:hover { color: var(--text); }
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-s);
+    margin-top: var(--space-l);
+    color: var(--text-faint);
+    font-size: var(--step--1);
+  }
+  .site-footer__note { max-width: 44ch; }
+
+  @media (min-width: 52rem) {
+    .site-footer__top { grid-template-columns: 1.2fr 2fr; }
+    .site-footer__cols { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

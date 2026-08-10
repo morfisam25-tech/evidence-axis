@@ -1,0 +1,57 @@
+---
+interface Step { n: string; title: string; body: string; }
+interface Props { steps: readonly Step[]; columns?: boolean; }
+const { steps, columns = false } = Astro.props;
+---
+<ol class:list={['flow', { 'flow--columns': columns }]}>
+  {steps.map((s, i) => (
+    <li class="flow__step" data-reveal style={`--reveal-delay:${i * 70}ms;`}>
+      <span class="flow__n mono">{s.n}</span>
+      <div class="flow__content">
+        <h3 class="flow__title">{s.title}</h3>
+        <p class="flow__body">{s.body}</p>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .flow { list-style: none; padding: 0; display: grid; gap: 0; }
+  .flow__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-m);
+    padding: var(--space-m) 0;
+    border-top: 1px solid var(--hairline);
+    position: relative;
+  }
+  .flow__step:first-child { border-top: none; }
+  .flow__n {
+    font-size: var(--step-1);
+    color: var(--accent);
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  .flow__title { font-size: var(--step-1); }
+  .flow__body { margin-top: var(--space-2xs); color: var(--text-muted); max-width: 52ch; }
+
+  .flow--columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-m);
+  }
+  .flow--columns .flow__step {
+    border-top: none;
+    background: var(--bg-raised);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-m);
+    padding: var(--space-m);
+    grid-template-columns: 1fr;
+    gap: var(--space-2xs);
+  }
+  .flow--columns .flow__n { display: block; margin-bottom: var(--space-2xs); }
+
+  @media (min-width: 52rem) {
+    .flow--columns { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

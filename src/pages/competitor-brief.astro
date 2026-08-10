@@ -1,0 +1,235 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
+import SectionIntro from '@components/SectionIntro.astro';
+import ServiceOffer from '@components/ServiceOffer.astro';
+import EvidenceRecord from '@components/EvidenceRecord.astro';
+import CTASection from '@components/CTASection.astro';
+import { offers } from '@config/site';
+
+const sends = [
+  'The decision you need to make, stated as a question.',
+  'Your company or product URL, if the comparison involves you.',
+  'The competitors to investigate — named.',
+  'Any background or context that narrows the work.',
+  'Specific areas you already suspect matter.',
+];
+const investigates = [
+  'Positioning and messaging across acquisition pages',
+  'Product claims versus documented, observable capability',
+  'Pricing and packaging that is publicly visible',
+  'Changelogs and release signals',
+  'Public review and customer-sentiment patterns',
+  'Observable product gaps with evidence behind them',
+  'Contradictions between sources',
+  'Questions that remain open after reasonable search',
+];
+const receives = [
+  { t: 'Executive decision summary', d: 'The answer to your question first, in plain language, with the confidence it deserves.' },
+  { t: 'Evidence matrix', d: 'Competitors against the dimensions that matter, each cell marked Fact, Inference or Unknown.' },
+  { t: 'Source-backed observations', d: 'Each finding tied to a public source and the date it was checked.' },
+  { t: 'Contradictions and limitations', d: 'Where sources disagree, and where the evidence stops.' },
+  { t: 'Decision implications', d: 'What the evidence supports for your specific decision — and what it does not.' },
+  { t: 'Source register', d: 'Every source, listed, so you can verify anything yourself.' },
+];
+const questions = [
+  'How do these competitors position the same capability?',
+  'Which advertised capabilities appear to be genuinely shipped?',
+  'Which statements can be verified, and which remain marketing claims?',
+  'How does publicly visible pricing and packaging differ?',
+  'What messages repeatedly appear across competitor acquisition pages?',
+  'What product gaps have public evidence behind them?',
+  'What remains unknown after reasonable investigation?',
+];
+const outOfScope = [
+  'Confidential roadmaps',
+  'Exact private revenue',
+  'Hidden internal strategy',
+  'Private churn or retention figures',
+  'Private usage metrics',
+  'Confidential customer information',
+];
+---
+<Base
+  title="Competitor Brief"
+  description="Two-Competitor Decision Brief ($150 pilot, 3 business days) and Five-Competitor Evidence Brief (from $350). A focused, source-backed competitor brief built around one decision question."
+  path="/competitor-brief/"
+>
+  <PageHeader
+    eyebrow="Service"
+    title="A competitor brief built around one decision."
+    lede="Send a decision question and the competitors that bear on it. You receive structured, source-backed evidence — not a slide deck of screenshots."
+    meta={[`${offers.twoCompetitor.priceDisplay} pilot · ${offers.twoCompetitor.delivery}`, `From ${offers.fiveCompetitor.priceDisplay} · ${offers.fiveCompetitor.delivery}`, 'Asynchronous · no sales call']}
+  />
+
+  <!-- OFFERS -->
+  <section class="section container">
+    <SectionIntro
+      eyebrow="Two ways to start"
+      title="Pick the scope; the method is the same."
+      lede="Both are fixed, transparent entry pricing — one decision question, public evidence, a full source register."
+    />
+    <div class="offer-grid-2 offer-grid-2--spaced">
+      <ServiceOffer
+        name={offers.twoCompetitor.name}
+        priceDisplay={offers.twoCompetitor.priceDisplay}
+        priceNote={offers.twoCompetitor.priceNote}
+        delivery={offers.twoCompetitor.delivery}
+        scope={offers.twoCompetitor.scope}
+        featured
+        points={[
+          'One defined decision question',
+          'Two named competitors, or you vs. a competitor',
+          'Full evidence matrix and source register',
+          'Fact / Inference / Unknown throughout',
+        ]}
+      />
+      <ServiceOffer
+        name={offers.fiveCompetitor.name}
+        priceDisplay={offers.fiveCompetitor.priceDisplay}
+        priceNote={offers.fiveCompetitor.priceNote}
+        delivery={offers.fiveCompetitor.delivery}
+        scope={offers.fiveCompetitor.scope}
+        points={[
+          'Five named competitors, one research question',
+          'Broader positioning and packaging coverage',
+          'Contradictions and open unknowns surfaced',
+          'Decision implications for your context',
+        ]}
+      />
+    </div>
+  </section>
+
+  <!-- WHAT YOU SEND / WHAT WE INVESTIGATE -->
+  <section class="section" data-surface="dark">
+    <div class="container cb-two">
+      <div class="cb-col">
+        <SectionIntro eyebrow="What you send" title="A question and a boundary." as="h2" />
+        <ul class="ticked axis-frame">
+          {sends.map((s) => <li class="axis-tick" data-reveal>{s}</li>)}
+        </ul>
+      </div>
+      <div class="cb-col">
+        <SectionIntro eyebrow="What we investigate" title="Public evidence, methodically." as="h2" />
+        <ul class="ticked axis-frame">
+          {investigates.map((s) => <li class="axis-tick" data-reveal>{s}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU RECEIVE -->
+  <section class="section container">
+    <SectionIntro
+      eyebrow="What you receive"
+      title="A brief you can act on, and check."
+      lede="Structured so the answer comes first and the evidence stands behind it."
+    />
+    <div class="receive-grid">
+      {receives.map((r, i) => (
+        <article class="receive" data-reveal style={`--reveal-delay:${i * 60}ms;`}>
+          <span class="receive__n mono">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="receive__t">{r.t}</h3>
+          <p class="receive__d">{r.d}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ILLUSTRATIVE RECORD -->
+  <section class="section" data-surface="dark">
+    <div class="container">
+      <SectionIntro
+        eyebrow="How a finding reads"
+        title="One record, three states."
+        lede="Every observation in the brief takes this shape. The example below is illustrative — a real brief carries named competitors, live sources and check dates."
+      />
+      <div class="record-stack">
+        <EvidenceRecord
+          illustrative
+          id="EX-01"
+          status="fact"
+          claim="Both products publicly document an API with rate limits stated on the pricing or developer page."
+          observation="Rate-limit figures appear on each vendor's public developer documentation."
+          source="developer docs (public)"
+          dateChecked="on check"
+          implication="If API ceilings matter to your buyers, the difference is verifiable and can be compared directly."
+        />
+        <EvidenceRecord
+          illustrative
+          id="EX-02"
+          status="inference"
+          claim="One vendor appears to gate a capability behind a higher tier that the other includes by default."
+          observation="Feature is listed under an enterprise plan on one pricing page and in a base plan on the other."
+          source="pricing pages (public)"
+          dateChecked="on check"
+          limitation="Pricing pages change and may not reflect negotiated terms."
+          implication="Packaging, not capability, may be the real differentiator here."
+        />
+        <EvidenceRecord
+          illustrative
+          id="EX-03"
+          status="unknown"
+          claim="Actual adoption of the capability among each vendor's customers cannot be established from public evidence."
+          observation="No public source reliably reports usage or adoption figures."
+          source="—"
+          implication="Treat any adoption claim as unverified; we mark it Unknown rather than estimate."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- QUESTIONS + OUT OF SCOPE -->
+  <section class="section container">
+    <div class="cb-two">
+      <div class="cb-col">
+        <SectionIntro eyebrow="Questions that fit" title="Bring a decision." as="h2" />
+        <ul class="q-list">
+          {questions.map((q) => <li data-reveal>{q}</li>)}
+        </ul>
+      </div>
+      <div class="cb-col">
+        <SectionIntro eyebrow="Out of scope" title="What public research cannot reveal." as="h2" />
+        <p class="cb-note">Public evidence has limits. We will not imply access to, or invent, any of the following:</p>
+        <ul class="oos-list">
+          {outOfScope.map((o) => (
+            <li data-reveal><span class="state state--unknown">Not knowable</span>{o}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CTASection title="Send one decision question." showSecondary={true} />
+</Base>
+
+<style>
+  .offer-grid-2 { display: grid; gap: var(--space-m); grid-template-columns: 1fr; }
+  .offer-grid-2--spaced { margin-top: var(--space-xl); }
+  .cb-two { display: grid; gap: var(--space-xl); }
+  .ticked { list-style: none; padding: 0; display: grid; gap: var(--space-s); margin-top: var(--space-l); }
+  .ticked li { color: var(--text-muted); font-size: var(--step-0); }
+  .receive-grid { display: grid; gap: var(--space-m); margin-top: var(--space-xl); grid-template-columns: 1fr; }
+  .receive {
+    background: var(--bg-raised); border: 1px solid var(--surface-border);
+    border-radius: var(--radius-m); padding: var(--space-l);
+  }
+  .receive__n { color: var(--accent); font-size: 0.85rem; }
+  .receive__t { margin-top: var(--space-2xs); font-size: var(--step-1); }
+  .receive__d { margin-top: var(--space-2xs); color: var(--text-muted); }
+  .record-stack { display: grid; gap: var(--space-m); margin-top: var(--space-xl); max-width: 46rem; }
+  .q-list { list-style: none; padding: 0; margin-top: var(--space-l); display: grid; gap: 0; }
+  .q-list li {
+    padding: var(--space-s) 0; border-top: 1px solid var(--hairline);
+    font-family: var(--font-serif); font-size: var(--step-1); color: var(--text);
+  }
+  .cb-note { margin-top: var(--space-m); color: var(--text-muted); }
+  .oos-list { list-style: none; padding: 0; margin-top: var(--space-m); display: grid; gap: var(--space-s); }
+  .oos-list li { display: grid; grid-template-columns: auto 1fr; gap: 0.9ch; align-items: center; color: var(--text-muted); }
+
+  @media (min-width: 52rem) {
+    .offer-grid-2 { grid-template-columns: 1fr 1fr; }
+    .cb-two { grid-template-columns: 1fr 1fr; }
+    .receive-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
+import SectionIntro from '@components/SectionIntro.astro';
+import CTASection from '@components/CTASection.astro';
+
+const standards = [
+  { t: 'Evidence before assertion', d: 'Nothing enters a brief as a bare claim. Every finding carries its source and the date it was checked.' },
+  { t: 'Separate what is known from what is guessed', d: 'Fact, Inference and Unknown are kept distinct — in the analysis and in the report.' },
+  { t: 'Name the unknowns', d: 'When public evidence runs out, that is stated plainly rather than filled with a confident-sounding guess.' },
+  { t: 'Public evidence, plus your context', d: 'Competitor findings come from lawful, publicly accessible evidence, plus whatever a client chooses to share. No private or confidential competitor data.' },
+  { t: 'Decision usefulness over volume', d: 'A brief is measured by whether it helps you decide — not by how many pages or screenshots it contains.' },
+  { t: 'Verifiable by you', d: 'Every source is listed so you can check any finding yourself. The method is meant to be audited.' },
+];
+---
+<Base
+  title="About"
+  description="Evidence Axis is a competitor-intelligence practice for B2B SaaS teams, built on evidence discipline: sourced facts, labeled inferences, and honestly named unknowns."
+  path="/about/"
+>
+  <PageHeader
+    eyebrow="About"
+    title="A practice built on evidence discipline."
+    lede="Evidence Axis exists because most competitor work confuses information with clarity. The practice is small and focused by design, and its standards are the product."
+  />
+
+  <section class="section container">
+    <div class="about-lead measure">
+      <p class="about-lead__p">
+        B2B SaaS teams rarely lack competitor information. They lack a defensible line between what is
+        verified, what is a reasonable read, and what simply cannot be known from public sources.
+        Evidence Axis was built to draw that line — carefully, and in a form you can act on.
+      </p>
+      <p class="about-lead__p">
+        The work is asynchronous and founder-led at launch. That is a deliberate choice, not a
+        limitation to disguise: it keeps the standards consistent and the method close to the work.
+        What earns trust here is not scale or a client logo wall — it is the quality of the analysis,
+        the honesty about uncertainty, and the fact that every finding can be checked.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" data-surface="dark">
+    <div class="container">
+      <SectionIntro
+        eyebrow="Working standards"
+        title="The standards are the product."
+        lede="These are not aspirations printed on a page. They are the rules every brief is held to."
+      />
+      <dl class="std axis-frame">
+        {standards.map((s) => (
+          <div class="std__row axis-tick" data-reveal>
+            <dt class="std__t">{s.t}</dt>
+            <dd class="std__d">{s.d}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="about-close measure">
+      <SectionIntro eyebrow="Why it exists" title="Because a good decision deserves honest evidence." as="h2" />
+      <p class="about-lead__p">
+        A competitor decision made on marketing language is a decision made on someone else's terms.
+        Evidence Axis turns the public record into something you can reason from — and marks clearly
+        where reasoning has to stop. That is the whole of it.
+      </p>
+    </div>
+  </section>
+
+  <CTASection title="Put the method to work." />
+</Base>
+
+<style>
+  .about-lead__p { font-size: var(--step-1); color: var(--text-muted); margin-bottom: var(--space-m); }
+  .about-lead__p:first-child { color: var(--text); }
+  .std { margin-top: var(--space-xl); display: grid; gap: 0; }
+  .std__row { display: grid; gap: var(--space-2xs); padding: var(--space-m) 0; border-top: 1px solid var(--hairline); }
+  .std__t { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); }
+  .std__d { color: var(--text-muted); max-width: 60ch; }
+  .about-close { margin-top: 0; }
+  @media (min-width: 52rem) {
+    .std__row { grid-template-columns: 20rem 1fr; gap: var(--space-l); align-items: baseline; }
+  }
+</style>

@@ -1,0 +1,136 @@
+---
+import { site } from '@config/site';
+/**
+ * A stylized preview of an Evidence Axis report — establishes the "report
+ * language" so a real report reads as a natural extension of the site.
+ * Illustrative; the Phase 3 sample report carries real sourced content.
+ */
+interface Props {
+  question?: string;
+}
+const {
+  question = 'How do these two competitors publicly position, package and substantiate the same capability — and what cannot be established from public evidence?',
+} = Astro.props;
+---
+<div class="report" data-reveal>
+  <div class="report__sheet">
+    <div class="report__margin" aria-hidden="true">
+      <span class="mono">EA</span>
+      <span class="report__margin-line"></span>
+    </div>
+    <div class="report__content">
+      <header class="report__head">
+        <span class="label">{site.name} · Decision Brief</span>
+        <span class="report__demo mono">Demonstration sample</span>
+      </header>
+
+      <p class="report__q-label label">Research question</p>
+      <p class="report__q">{question}</p>
+
+      <dl class="report__meta">
+        <div><dt class="mono">Boundary</dt><dd class="mono">public competitor evidence</dd></div>
+        <div><dt class="mono">Checked</dt><dd class="mono">dated per record</dd></div>
+        <div><dt class="mono">Competitors</dt><dd class="mono">named in scope</dd></div>
+      </dl>
+
+      <hr class="rule" />
+
+      <p class="label">Evidence summary</p>
+      <ul class="report__rows">
+        <li class="report__row report__row--fact">
+          <span class="report__row-marker" aria-hidden="true"></span>
+          <span class="report__row-state mono">Fact</span>
+          <span class="report__row-text">Positioning statements taken directly from current public pages, quoted and dated.</span>
+        </li>
+        <li class="report__row report__row--inference">
+          <span class="report__row-marker" aria-hidden="true"></span>
+          <span class="report__row-state mono">Inference</span>
+          <span class="report__row-text">Packaging differences suggest a gap — reasoning shown, labeled as interpretation.</span>
+        </li>
+        <li class="report__row report__row--unknown">
+          <span class="report__row-marker" aria-hidden="true"></span>
+          <span class="report__row-state mono">Unknown</span>
+          <span class="report__row-text">Private adoption and churn cannot be responsibly established from public evidence.</span>
+        </li>
+      </ul>
+
+      <div class="report__decision">
+        <span class="mono">→</span>
+        <p>Decision implication connects the evidence to the call in front of you.</p>
+      </div>
+    </div>
+  </div>
+  <div class="report__shadow-page" aria-hidden="true"></div>
+  <div class="report__shadow-page report__shadow-page--2" aria-hidden="true"></div>
+</div>
+
+<style>
+  .report { position: relative; }
+  .report__sheet {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    background: var(--paper-0);
+    color: var(--ink-900);
+    border: 1px solid var(--paper-200);
+    border-radius: var(--radius-s);
+    box-shadow: var(--shadow-3);
+    overflow: hidden;
+  }
+  .report__margin {
+    background: var(--paper-50);
+    border-right: 1px solid var(--paper-200);
+    padding: var(--space-m) 0.7rem;
+    display: flex; flex-direction: column; align-items: center; gap: var(--space-s);
+    color: var(--ink-400);
+    font-size: 0.7rem;
+  }
+  .report__margin-line { width: 1px; flex: 1; background: var(--paper-200); }
+  .report__content { padding: var(--space-l); }
+  .report__head { display: flex; justify-content: space-between; align-items: center; gap: var(--space-s); flex-wrap: wrap; }
+  .report__demo {
+    font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--infer); border: 1px dashed var(--infer); padding: 0.2em 0.5em; border-radius: var(--radius-xs);
+  }
+  .report__q-label { margin-top: var(--space-m); color: var(--ink-500); }
+  .report__q {
+    font-family: var(--font-serif); font-size: var(--step-1); line-height: var(--leading-snug);
+    color: var(--ink-900); margin-top: 0.3em; text-wrap: pretty;
+  }
+  .report__meta { display: flex; flex-wrap: wrap; gap: var(--space-s) var(--space-m); margin-top: var(--space-m); }
+  .report__meta dt { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-400); }
+  .report__meta dd { font-size: 0.8rem; color: var(--ink-700); }
+  .report .rule { border-top-color: var(--paper-200); margin-block: var(--space-m); }
+  .report .label { color: var(--ink-500); }
+  .report__rows { list-style: none; padding: 0; margin-top: var(--space-s); display: grid; gap: 0.6rem; }
+  .report__row {
+    display: grid; grid-template-columns: auto auto 1fr; align-items: start; gap: 0.7ch;
+    padding: 0.6em 0.7em; border-radius: var(--radius-xs);
+    background: var(--paper-50); border-left: 3px solid var(--r-color, var(--unknown));
+  }
+  .report__row--fact { --r-color: var(--fact); }
+  .report__row--inference { --r-color: var(--infer); border-left-style: dashed; }
+  .report__row--unknown { --r-color: var(--unknown); border-left-style: dotted; }
+  .report__row-marker { width: 0.7em; height: 0.7em; border-radius: 50%; margin-top: 0.35em; }
+  .report__row--fact .report__row-marker { background: var(--fact); }
+  .report__row--inference .report__row-marker { background: linear-gradient(90deg, var(--infer) 50%, transparent 50%); border: 1px solid var(--infer); }
+  .report__row--unknown .report__row-marker { background: transparent; border: 1px solid var(--unknown); }
+  .report__row-state { font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-500); margin-top: 0.3em; }
+  .report__row-text { font-size: 0.85rem; color: var(--ink-700); line-height: var(--leading-snug); }
+  .report__decision {
+    display: grid; grid-template-columns: auto 1fr; gap: 0.7ch; align-items: center;
+    margin-top: var(--space-m); padding: var(--space-s) var(--space-m);
+    background: color-mix(in srgb, var(--signal-600) 10%, var(--paper-0));
+    border-radius: var(--radius-s); border: 1px solid color-mix(in srgb, var(--signal-600) 25%, transparent);
+  }
+  .report__decision .mono { color: var(--signal-600); font-size: var(--step-1); }
+  .report__decision p { font-size: 0.85rem; color: var(--ink-700); }
+
+  .report__shadow-page {
+    position: absolute; inset: 0; z-index: 2;
+    background: var(--paper-100); border: 1px solid var(--paper-200); border-radius: var(--radius-s);
+    transform: translate(10px, 12px); box-shadow: var(--shadow-2);
+  }
+  .report__shadow-page--2 { z-index: 1; background: var(--paper-200); transform: translate(20px, 24px); }
+</style>

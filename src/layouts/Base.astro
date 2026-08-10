@@ -1,0 +1,125 @@
+---
+// Self-hosted open fonts (no commercial license required).
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/newsreader/400.css';
+import '@fontsource/newsreader/500.css';
+import '@fontsource/newsreader/400-italic.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+
+import '../styles/tokens.css';
+import '../styles/global.css';
+
+import BaseHead from '@components/BaseHead.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+}
+const { title, description, path, ogType, noindex } = Astro.props;
+---
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <BaseHead title={title} description={description} path={path} ogType={ogType} noindex={noindex} />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script is:inline>
+      // Remove no-js flag as early as possible.
+      document.documentElement.classList.remove('no-js');
+    </script>
+
+    <script>
+      // ---- Progressive enhancement. Content is fully usable without this. ----
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Scroll-linked header hairline
+      const header = document.querySelector('[data-header]');
+      const onScroll = () => {
+        if (!header) return;
+        if (window.scrollY > 8) header.setAttribute('data-scrolled', '');
+        else header.removeAttribute('data-scrolled');
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Reveal on enter
+      if (!reduce && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+        );
+        document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+      } else {
+        document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-in'));
+      }
+
+      // Mobile navigation
+      const toggle = document.querySelector('[data-nav-toggle]') as HTMLButtonElement | null;
+      const panel = document.querySelector('[data-mobile-nav]') as HTMLElement | null;
+      // Background regions made inert while the menu is open, so keyboard users
+      // cannot tab into content hidden behind the overlay. The header stays
+      // interactive so the toggle remains reachable to close the menu.
+      const backgrounds = [
+        document.getElementById('main'),
+        document.querySelector('.site-footer'),
+      ].filter(Boolean) as HTMLElement[];
+
+      if (toggle && panel) {
+        const setOpen = (open: boolean) => {
+          toggle.setAttribute('aria-expanded', String(open));
+          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+          panel.hidden = !open;
+          document.body.style.overflow = open ? 'hidden' : '';
+          backgrounds.forEach((el) => { el.inert = open; });
+          if (open) {
+            // Move focus to the first item in the menu.
+            const first = panel.querySelector<HTMLElement>('a, button');
+            first?.focus();
+          }
+        };
+        toggle.addEventListener('click', () => {
+          setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        });
+        // Closing via a link: let navigation proceed, just reset page state.
+        panel.querySelectorAll('a').forEach((a) =>
+          a.addEventListener('click', () => {
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Open menu');
+            panel.hidden = true;
+            document.body.style.overflow = '';
+            backgrounds.forEach((el) => { el.inert = false; });
+          })
+        );
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+            setOpen(false);
+            toggle.focus(); // restore focus to the toggle
+          }
+        });
+        const mq = window.matchMedia('(min-width: 64rem)');
+        mq.addEventListener('change', (e) => { if (e.matches && toggle.getAttribute('aria-expanded') === 'true') setOpen(false); });
+      }
+    </script>
+  </body>
+</html>

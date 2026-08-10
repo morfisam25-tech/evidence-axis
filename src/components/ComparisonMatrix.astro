@@ -1,0 +1,101 @@
+---
+/**
+ * Evidence comparison matrix — the competitor-comparison visual language.
+ * Semantic <table>. Each cell carries an evidence state (Fact / Inference /
+ * Unknown / Contradiction) so a comparison never flattens into undifferentiated
+ * checkmarks. Content is passed in; illustrative in Phase 1.
+ */
+export type CellState = 'fact' | 'inference' | 'unknown' | 'contradiction' | 'na';
+interface Cell {
+  state: CellState | string;
+  note: string;
+}
+interface Row {
+  dimension: string;
+  cells: Cell[];
+}
+interface Props {
+  competitors: readonly string[];
+  rows: readonly Row[];
+  caption?: string;
+  illustrative?: boolean;
+}
+const { competitors, rows, caption, illustrative = false } = Astro.props;
+const stateLabel: Record<string, string> = {
+  fact: 'Fact', inference: 'Inference', unknown: 'Unknown', contradiction: 'Contradiction', na: '—',
+};
+---
+<figure class="matrix" data-reveal>
+  <div class="matrix__scroll" role="region" aria-label="Competitor evidence comparison" tabindex="0">
+    <table class="matrix__table">
+      {caption && <caption class="matrix__caption">{caption}{illustrative && <span class="matrix__illus mono"> · illustrative</span>}</caption>}
+      <thead>
+        <tr>
+          <th scope="col" class="matrix__dim-head"><span class="label">Dimension</span></th>
+          {competitors.map((c) => (
+            <th scope="col" class="matrix__comp-head">{c}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr>
+            <th scope="row" class="matrix__dim">{row.dimension}</th>
+            {row.cells.map((cell) => (
+              <td class:list={['matrix__cell', `matrix__cell--${cell.state}`]}>
+                <span class="matrix__cell-state">
+                  <span class="matrix__marker" aria-hidden="true"></span>
+                  <span class="mono matrix__state-label">{stateLabel[cell.state]}</span>
+                </span>
+                <span class="matrix__note">{cell.note}</span>
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</figure>
+
+<style>
+  .matrix { margin: 0; }
+  .matrix__scroll { overflow-x: auto; border: 1px solid var(--surface-border); border-radius: var(--radius-m); }
+  .matrix__scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .matrix__table { border-collapse: collapse; width: 100%; min-width: 40rem; background: var(--bg-raised); }
+  .matrix__caption {
+    caption-side: top; text-align: left; padding: var(--space-s) var(--space-m);
+    color: var(--text-muted); font-size: var(--step--1); border-bottom: 1px solid var(--hairline);
+  }
+  .matrix__illus { color: var(--text-faint); }
+  .matrix__dim-head, .matrix__comp-head {
+    text-align: left; padding: var(--space-s) var(--space-m);
+    border-bottom: 1px solid var(--surface-border);
+    background: var(--bg-sunken);
+    position: sticky; top: 0;
+  }
+  .matrix__comp-head {
+    font-family: var(--font-display); font-weight: 500; font-size: var(--step-0);
+    color: var(--text); white-space: nowrap;
+  }
+  .matrix__dim {
+    text-align: left; padding: var(--space-m); vertical-align: top;
+    font-family: var(--font-serif); font-weight: 500; font-size: 0.98rem;
+    color: var(--text); border-bottom: 1px solid var(--hairline);
+    background: var(--bg-raised); min-width: 11rem;
+  }
+  .matrix__cell {
+    padding: var(--space-m); vertical-align: top;
+    border-bottom: 1px solid var(--hairline);
+    border-left: 1px solid var(--hairline);
+    min-width: 13rem;
+  }
+  .matrix__cell-state { display: inline-flex; align-items: center; gap: 0.5ch; margin-bottom: 0.4em; }
+  .matrix__marker { width: 0.7em; height: 0.7em; border-radius: 50%; flex: none; }
+  .matrix__cell--fact .matrix__marker { background: var(--fact); }
+  .matrix__cell--inference .matrix__marker { background: linear-gradient(90deg, var(--infer) 50%, transparent 50%); border: 1px solid var(--infer); }
+  .matrix__cell--unknown .matrix__marker { background: transparent; border: 1px solid var(--unknown); }
+  .matrix__cell--contradiction .matrix__marker { background: var(--contradiction); clip-path: polygon(50% 0, 100% 100%, 0 100%); border-radius: 0; }
+  .matrix__cell--na .matrix__marker { background: var(--surface-border); }
+  .matrix__state-label { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); }
+  .matrix__note { display: block; color: var(--text-muted); font-size: 0.92rem; line-height: var(--leading-snug); }
+</style>

@@ -1,0 +1,128 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
+import SectionIntro from '@components/SectionIntro.astro';
+import ComparisonMatrix from '@components/ComparisonMatrix.astro';
+import CTASection from '@components/CTASection.astro';
+
+const scope = [
+  { t: 'Category structure', d: 'How the space is actually organized, and where a category boundary is contested rather than settled.' },
+  { t: 'Competitor mapping', d: 'Who competes on what, and which comparisons buyers are actually making.' },
+  { t: 'Positioning and messaging', d: 'The claims a category repeats, and the ones only one or two players make.' },
+  { t: 'Pricing and packaging', d: 'Where publicly visible pricing converges, and where it diverges enough to matter.' },
+  { t: 'Product and capability evidence', d: 'Documented, observable capability separated from marketing language.' },
+  { t: 'Review and customer evidence', d: 'Patterns across public reviews, read as signal rather than proof.' },
+  { t: 'Opportunity observations', d: 'Gaps with public evidence behind them — never invented whitespace.' },
+  { t: 'Evidence gaps', d: 'What the public record cannot establish, named explicitly.' },
+];
+
+const competitors = ['Vendor A', 'Vendor B', 'Vendor C'];
+const rows = [
+  {
+    dimension: 'Positioning of the core capability',
+    cells: [
+      { state: 'fact', note: 'Leads with the capability on the homepage; wording quoted and dated.' },
+      { state: 'fact', note: 'Positions it as a secondary benefit under a broader platform message.' },
+      { state: 'inference', note: 'Capability implied but not named directly; reading of adjacent copy.' },
+    ],
+  },
+  {
+    dimension: 'Entry-tier pricing visibility',
+    cells: [
+      { state: 'fact', note: 'Public price on the pricing page.' },
+      { state: 'contradiction', note: 'Pricing page and a docs page state different entry tiers.' },
+      { state: 'unknown', note: 'No public price; "contact us" only.' },
+    ],
+  },
+  {
+    dimension: 'Documented API / integration depth',
+    cells: [
+      { state: 'fact', note: 'Public developer docs with endpoints listed.' },
+      { state: 'fact', note: 'Public developer docs; narrower surface.' },
+      { state: 'inference', note: 'Marketplace listing suggests integrations; depth not documented publicly.' },
+    ],
+  },
+  {
+    dimension: 'Private adoption / churn',
+    cells: [
+      { state: 'unknown', note: 'Not establishable from public evidence.' },
+      { state: 'unknown', note: 'Not establishable from public evidence.' },
+      { state: 'unknown', note: 'Not establishable from public evidence.' },
+    ],
+  },
+];
+---
+<Base
+  title="Market Intelligence"
+  description="A broader, evidence-based investigation of a category: structure, positioning, pricing, capability and opportunity — with every finding marked Fact, Inference or Unknown."
+  path="/market-intelligence/"
+>
+  <PageHeader
+    eyebrow="Service"
+    title="A category, read as evidence rather than opinion."
+    lede="Wider than a single competitor brief: category structure, positioning, pricing, capability and the gaps that have public evidence behind them. Still bounded by a decision, still honest about what public sources cannot show."
+    meta={['Scope defined around your question', 'Public competitor evidence + your context', 'Fact / Inference / Unknown throughout']}
+  />
+
+  <section class="section container">
+    <SectionIntro
+      eyebrow="What it covers"
+      title="Broad enough to see the field. Bounded enough to be useful."
+      lede={'Market Intelligence is not a generic “market research” document. It is scoped to a decision, and every observation keeps its source.'}
+    />
+    <div class="mi-grid">
+      {scope.map((s, i) => (
+        <article class="mi-card" data-reveal style={`--reveal-delay:${i * 50}ms;`}>
+          <h3 class="mi-card__t">{s.t}</h3>
+          <p class="mi-card__d">{s.d}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" data-surface="dark">
+    <div class="container-wide">
+      <SectionIntro
+        eyebrow="What a decision could look like"
+        title="A comparison that refuses to flatten into checkmarks."
+        lede="An evidence matrix keeps the state of each finding visible — verified fact, reasoned inference, or acknowledged unknown. The example below is illustrative."
+      />
+      <div class="mi-matrix">
+        <ComparisonMatrix
+          illustrative
+          caption="Illustrative category comparison — a real study names competitors and cites dated sources"
+          competitors={competitors}
+          rows={rows}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="mi-note axis-frame">
+      <SectionIntro eyebrow="A boundary we keep" title="No private competitor data." as="h2" />
+      <p class="measure">
+        Competitor findings come from lawful public evidence, and you can add your own context to
+        sharpen the question. What we never do is imply access to confidential, private or non-public
+        competitor information. Where a figure would require it, we mark it Unknown and say so — a
+        defensible reading of the public record, not a confident guess dressed as insight.
+      </p>
+    </div>
+  </section>
+
+  <CTASection title="Scope a market investigation." />
+</Base>
+
+<style>
+  .mi-grid { display: grid; gap: var(--space-m); margin-top: var(--space-xl); grid-template-columns: 1fr; }
+  .mi-card {
+    background: var(--bg-raised); border: 1px solid var(--surface-border);
+    border-radius: var(--radius-m); padding: var(--space-l);
+  }
+  .mi-card__t { font-size: var(--step-1); }
+  .mi-card__d { margin-top: var(--space-2xs); color: var(--text-muted); }
+  .mi-matrix { margin-top: var(--space-xl); }
+  .mi-note p { margin-top: var(--space-s); color: var(--text-muted); }
+  @media (min-width: 40rem) { .mi-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 64rem) { .mi-grid { grid-template-columns: repeat(4, 1fr); } }
+</style>
