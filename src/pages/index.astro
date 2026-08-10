@@ -1,238 +1,431 @@
 ---
 import Base from '@layouts/Base.astro';
 import Hero from '@components/Hero.astro';
-import SectionIntro from '@components/SectionIntro.astro';
 import FactInferenceUnknown from '@components/FactInferenceUnknown.astro';
 import EvidenceChain from '@components/EvidenceChain.astro';
-import ServiceOffer from '@components/ServiceOffer.astro';
 import ProcessFlow from '@components/ProcessFlow.astro';
 import ReportPreview from '@components/ReportPreview.astro';
-import CTASection from '@components/CTASection.astro';
-import { site, offers } from '@config/site';
+import { site, offers, cta } from '@config/site';
 import { methodSteps } from '@data/method';
 
 const questions = [
-  'Which advertised capabilities appear to be genuinely shipped, and which read as marketing language?',
+  'Which advertised capabilities appear to be genuinely shipped, and which still read as marketing language?',
   'How do two competitors position and package the same capability differently?',
   'Where does publicly visible pricing and packaging actually diverge?',
   'What product gaps have public evidence behind them?',
   'What remains unknown after reasonable public investigation?',
 ];
+
+const offerPaths = [
+  {
+    id: '01',
+    eyebrow: 'Fast decision',
+    name: offers.twoCompetitor.name,
+    price: offers.twoCompetitor.priceDisplay,
+    priceNote: offers.twoCompetitor.priceNote,
+    delivery: offers.twoCompetitor.delivery,
+    bestFor: 'One decision that depends on two competitors.',
+    points: ['One decision question', 'Two named competitors', 'Fact / Inference / Unknown matrix', 'Source register + implications'],
+    href: '/competitor-brief/',
+    cta: 'Start here',
+    featured: true,
+  },
+  {
+    id: '02',
+    eyebrow: 'Broader read',
+    name: offers.fiveCompetitor.name,
+    price: offers.fiveCompetitor.priceDisplay,
+    priceNote: offers.fiveCompetitor.priceNote,
+    delivery: offers.fiveCompetitor.delivery,
+    bestFor: 'A wider competitor set around one defined question.',
+    points: ['Five named competitors', 'Positioning + packaging evidence', 'Contradictions surfaced', 'Decision implications'],
+    href: '/competitor-brief/',
+    cta: 'Expand the field',
+    featured: false,
+  },
+  {
+    id: '03',
+    eyebrow: 'High-stakes scope',
+    name: offers.blueprint.name,
+    price: offers.blueprint.priceDisplay,
+    priceNote: offers.blueprint.priceNote,
+    delivery: offers.blueprint.delivery,
+    bestFor: 'A deeper strategic decision that needs a larger evidence base.',
+    points: ['Scoped around the decision', 'Category + offer architecture', 'Deeper evidence synthesis', 'Custom decision framework'],
+    href: '/strategic-blueprint/',
+    cta: 'Discuss scope',
+    featured: false,
+  },
+];
 ---
 <Base title={site.name} description={site.description} path="/">
   <Hero />
 
-  <!-- BUYER PROBLEM -->
-  <section class="section" data-surface="dark">
-    <div class="container-wide problem">
-      <div class="problem__lead">
-        <SectionIntro
-          eyebrow="The problem"
-          title="The issue is rarely a shortage of competitor information."
-          lede="It is scattered across pricing pages, documentation, changelogs, marketplaces, reviews and announcements. What is missing is a clear line between what is verified, what is a reasonable inference, and what simply cannot be known."
-        />
-      </div>
-      <ul class="problem__list axis-frame">
-        <li class="axis-tick" data-reveal>
-          <span class="label">Marketing vs. shipped</span>
-          <p>A feature named on a landing page is not evidence that it works the way a buyer assumes.</p>
-        </li>
-        <li class="axis-tick" data-reveal style="--reveal-delay:80ms;">
-          <span class="label">Signal vs. certainty</span>
-          <p>A single review or a vague claim becomes a "fact" the moment nobody records where it came from.</p>
-        </li>
-        <li class="axis-tick" data-reveal style="--reveal-delay:160ms;">
-          <span class="label">Noise vs. decision</span>
-          <p>Most competitor decks answer questions no one is deciding on. The decision is what should set the boundary.</p>
-        </li>
-      </ul>
-    </div>
-  </section>
+  <main class="home-flow">
+    <section class="home-section decision-gap" data-surface="dark" aria-labelledby="decision-gap-title">
+      <div class="flow-axis" aria-hidden="true"><span></span></div>
+      <div class="container-wide decision-gap__grid">
+        <div class="decision-gap__lead">
+          <span class="flow-kicker mono">01 / THE DECISION GAP</span>
+          <h2 id="decision-gap-title">Competitor data is easy to collect. <em>Evidence is harder.</em></h2>
+          <p>Most teams already have tabs, screenshots, review snippets, launch posts, and feature claims. The problem is deciding which of those signals deserve to influence a real decision.</p>
+        </div>
 
-  <!-- WHAT WE DO / METHOD DEMONSTRATION -->
-  <section class="section container">
-    <SectionIntro
-      eyebrow="The method"
-      title="Every claim is sourced, dated, and marked."
-      lede="Evidence Axis separates what the evidence supports from what it merely suggests, and names what it cannot establish. Three states run through the analysis, the report, and this site."
-    />
-    <div class="method-demo">
-      <FactInferenceUnknown />
-    </div>
-  </section>
-
-  <!-- EVIDENCE CHAIN -->
-  <section class="section" data-surface="dark">
-    <div class="container">
-      <SectionIntro
-        eyebrow="Traceable reasoning"
-        title="A conclusion you can walk back to its source."
-        lede="Nothing arrives as an assertion. Each decision implication keeps a visible path: from the public source, through the observation, to the fact, the inference, and the unknown."
-      />
-      <div class="chain-wrap">
-        <EvidenceChain />
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="section container" id="services">
-    <SectionIntro
-      eyebrow="Services"
-      title="Three ways to turn a question into evidence."
-      lede="Fixed, transparent entry pricing. No subscription, no account, no checkout — the engagement starts with a question and a defined boundary."
-    />
-    <div class="offer-grid">
-      <ServiceOffer
-        name={offers.twoCompetitor.name}
-        priceDisplay={offers.twoCompetitor.priceDisplay}
-        priceNote={offers.twoCompetitor.priceNote}
-        delivery={offers.twoCompetitor.delivery}
-        scope={offers.twoCompetitor.scope}
-        featured
-        points={[
-          'One defined decision question',
-          'Two named competitors, or you vs. a competitor',
-          'Evidence matrix with Fact / Inference / Unknown',
-          'Source register with check dates',
-        ]}
-        href="/competitor-brief/"
-      />
-      <ServiceOffer
-        name={offers.fiveCompetitor.name}
-        priceDisplay={offers.fiveCompetitor.priceDisplay}
-        priceNote={offers.fiveCompetitor.priceNote}
-        delivery={offers.fiveCompetitor.delivery}
-        scope={offers.fiveCompetitor.scope}
-        points={[
-          'Broader competitor set, one research question',
-          'Positioning, packaging and capability evidence',
-          'Contradictions and open unknowns surfaced',
-          'Decision implications for your context',
-        ]}
-        href="/competitor-brief/"
-      />
-      <ServiceOffer
-        name={offers.blueprint.name}
-        priceDisplay={offers.blueprint.priceDisplay}
-        priceNote={offers.blueprint.priceNote}
-        delivery={offers.blueprint.delivery}
-        scope={offers.blueprint.scope}
-        points={[
-          'Scoped around the decision to be made',
-          'Category, positioning and offer architecture',
-          'Deeper evidence base and synthesis',
-        ]}
-        href="/strategic-blueprint/"
-        ctaLabel="Discuss scope"
-      />
-    </div>
-  </section>
-
-  <!-- EXAMPLE QUESTIONS -->
-  <section class="section" data-surface="dark">
-    <div class="container questions">
-      <SectionIntro
-        eyebrow="Questions that fit"
-        title="Bring a decision, not a topic."
-        lede="The service works best when a real choice is on the table. A few questions it is built to answer:"
-      />
-      <ul class="questions__list">
-        {questions.map((q, i) => (
-          <li class="questions__item" data-reveal style={`--reveal-delay:${i * 60}ms;`}>
-            <span class="questions__n mono">Q{i + 1}</span>
-            <p>{q}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- SAMPLE REPORT PROMOTION -->
-  <section class="section container">
-    <div class="sample">
-      <div class="sample__copy">
-        <SectionIntro
-          eyebrow="The deliverable"
-          title="The report reads like the site: structured, sourced, honest about its limits."
-          lede="You receive an executive decision summary, an evidence matrix, source-backed observations, contradictions, unknowns, and decision implications — not a wall of screenshots."
-        />
-        <div class="sample__actions">
-          <a href="/sample-report/" class="btn btn--lg">View Sample Report<span class="btn-arrow" aria-hidden="true">→</span></a>
-          <a href="/method/" class="btn btn--ghost btn--lg">See the method</a>
+        <div class="misread-stack" aria-label="Common competitor intelligence errors">
+          <article class="misread" data-reveal>
+            <span class="misread__n mono">A</span>
+            <div>
+              <small>MARKETING ≠ SHIPPED REALITY</small>
+              <strong>A named feature is not proof of how it actually works.</strong>
+              <p>Documentation, release evidence, product behavior, and dates matter more than a headline.</p>
+            </div>
+          </article>
+          <article class="misread" data-reveal style="--reveal-delay:80ms;">
+            <span class="misread__n mono">B</span>
+            <div>
+              <small>SIGNAL ≠ CERTAINTY</small>
+              <strong>A clue becomes dangerous when its confidence is invisible.</strong>
+              <p>Evidence Axis records what is supported, what is inferred, and where the evidence stops.</p>
+            </div>
+          </article>
+          <article class="misread" data-reveal style="--reveal-delay:160ms;">
+            <span class="misread__n mono">C</span>
+            <div>
+              <small>NOISE ≠ DECISION SUPPORT</small>
+              <strong>The decision sets the research boundary.</strong>
+              <p>We do not build encyclopedic competitor decks. We investigate what can change the next move.</p>
+            </div>
+          </article>
         </div>
       </div>
-      <div class="sample__preview">
-        <ReportPreview />
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PROCESS -->
-  <section class="section" data-surface="dark">
-    <div class="container">
-      <SectionIntro
-        eyebrow="How it works"
-        title="From decision question to decision brief."
-        lede="Asynchronous by design. You send the question; the evidence comes back structured."
-      />
-      <div class="process-wrap">
-        <ProcessFlow steps={methodSteps.slice(0, 6)} columns />
-      </div>
-    </div>
-  </section>
-
-  <!-- RESEARCH BOUNDARIES -->
-  <section class="section container">
-    <div class="boundaries axis-frame">
-      <SectionIntro
-        eyebrow="Research boundaries"
-        title="What public evidence can — and cannot — establish."
-      />
-      <div class="boundaries__cols">
-        <div class="boundaries__col" data-reveal>
-          <h3 class="boundaries__h"><span class="state state--fact">In scope</span></h3>
-          <p>Public websites, pricing and product pages, documentation, help centres, changelogs, app marketplaces, public reviews, announcements and other lawful public sources — plus anything you choose to share.</p>
+    <section class="home-section method-band" data-surface="dark" aria-labelledby="method-title">
+      <div class="container-wide">
+        <div class="section-head section-head--split">
+          <div>
+            <span class="flow-kicker mono">02 / THE EVIDENCE MODEL</span>
+            <h2 id="method-title">Every claim enters one of three states.</h2>
+          </div>
+          <p>That classification is carried from research notes into the final brief, so a buyer can see the difference between proof, judgment, and a genuine unknown.</p>
         </div>
-        <div class="boundaries__col" data-reveal style="--reveal-delay:100ms;">
-          <h3 class="boundaries__h"><span class="state state--unknown">Out of scope</span></h3>
-          <p>Confidential roadmaps, private revenue or churn, internal strategy, private usage metrics, or anything requiring unauthorized access. When the evidence runs out, we mark it Unknown rather than guess.</p>
+        <div class="method-surface">
+          <FactInferenceUnknown />
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <CTASection />
+    <section class="home-section trace-band" data-surface="dark" aria-labelledby="trace-title">
+      <div class="container-wide trace-grid">
+        <div class="trace-copy">
+          <span class="flow-kicker mono">03 / TRACEABLE REASONING</span>
+          <h2 id="trace-title">A conclusion should be reversible.</h2>
+          <p>Follow a decision implication backward to the inference, fact, observation, and public source that produced it. If the path breaks, the conclusion does not get to masquerade as certainty.</p>
+          <a href="/method/" class="text-link">See the research method <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="trace-console">
+          <div class="trace-console__bar mono"><span>PROVENANCE TRACE</span><b>ACTIVE</b></div>
+          <EvidenceChain />
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section offers-band" id="services" data-surface="dark" aria-labelledby="offers-title">
+      <div class="container-wide">
+        <div class="section-head section-head--split">
+          <div>
+            <span class="flow-kicker mono">04 / ENGAGEMENT PATHS</span>
+            <h2 id="offers-title">Choose by decision size, not by feature list.</h2>
+          </div>
+          <p>Each engagement begins with a defined decision and research boundary. The difference is how much competitive territory the decision requires.</p>
+        </div>
+
+        <div class="offer-architecture">
+          {offerPaths.map((offer) => (
+            <article class:list={['offer-path', { 'offer-path--featured': offer.featured }]}>
+              <div class="offer-path__topline">
+                <span class="mono">{offer.id}</span>
+                <small>{offer.eyebrow}</small>
+                {offer.featured && <b>Most common starting point</b>}
+              </div>
+
+              <div class="offer-path__identity">
+                <h3>{offer.name}</h3>
+                <p>{offer.bestFor}</p>
+              </div>
+
+              <div class="offer-path__commercial">
+                <div>
+                  <small>STARTING PRICE</small>
+                  <strong>{offer.price}</strong>
+                  <span>{offer.priceNote}</span>
+                </div>
+                <div>
+                  <small>DELIVERY</small>
+                  <strong class="offer-path__delivery">{offer.delivery}</strong>
+                </div>
+              </div>
+
+              <ul>
+                {offer.points.map((point) => <li><i aria-hidden="true"></i>{point}</li>)}
+              </ul>
+
+              <a href={offer.href} class="offer-path__cta">{offer.cta}<span aria-hidden="true">→</span></a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section questions-band" data-surface="dark" aria-labelledby="questions-title">
+      <div class="container-wide questions-grid">
+        <div class="questions-lead">
+          <span class="flow-kicker mono">05 / QUESTIONS THAT FIT</span>
+          <h2 id="questions-title">Bring a decision, not a topic.</h2>
+          <p>A good Evidence Axis brief starts with something your team may actually do differently after seeing the evidence.</p>
+        </div>
+        <ol class="decision-questions">
+          {questions.map((q, i) => (
+            <li data-reveal style={`--reveal-delay:${i * 55}ms;`}>
+              <span class="mono">Q0{i + 1}</span>
+              <p>{q}</p>
+              <i aria-hidden="true">↗</i>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="home-section sample-band" data-surface="dark" aria-labelledby="sample-title">
+      <div class="container-wide sample-grid">
+        <div class="sample-copy">
+          <span class="flow-kicker mono">06 / THE DELIVERABLE</span>
+          <h2 id="sample-title">See the evidence structure before you buy.</h2>
+          <p>The live sample compares Intercom and Zendesk using the same Fact / Inference / Unknown discipline, source register, checked dates, and explicit limits used in a client brief.</p>
+          <div class="sample-actions">
+            <a href="/sample-report/" class="primary-link">View Sample Report <span aria-hidden="true">→</span></a>
+            <a href="/report/evidence-axis-sample-intercom-vs-zendesk.pdf" class="secondary-link">Open PDF</a>
+          </div>
+        </div>
+        <div class="sample-frame">
+          <div class="sample-frame__chrome mono"><span>EA / SAMPLE BRIEF</span><b>LIVE EVIDENCE</b></div>
+          <ReportPreview />
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section process-band" data-surface="dark" aria-labelledby="process-title">
+      <div class="container-wide">
+        <div class="section-head section-head--split">
+          <div>
+            <span class="flow-kicker mono">07 / DELIVERY</span>
+            <h2 id="process-title">From decision question to decision brief.</h2>
+          </div>
+          <p>Asynchronous by design. You define the decision context; the research is bounded, sourced, classified, and returned as a usable brief.</p>
+        </div>
+        <div class="process-shell">
+          <ProcessFlow steps={methodSteps.slice(0, 6)} columns />
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section boundary-band" data-surface="dark" aria-labelledby="boundary-title">
+      <div class="container-wide boundary-grid">
+        <div class="boundary-lead">
+          <span class="flow-kicker mono">08 / RESEARCH BOUNDARY</span>
+          <h2 id="boundary-title">When the evidence ends, the claim ends.</h2>
+          <p>Evidence Axis uses lawful public competitor evidence plus context you choose to share. We do not fill private-data gaps with guesses.</p>
+        </div>
+        <div class="boundary-cards">
+          <article class="boundary-card boundary-card--fact">
+            <span>IN SCOPE</span>
+            <p>Public pricing and product pages, documentation, help centres, changelogs, app marketplaces, public reviews, announcements, and other lawful public sources.</p>
+          </article>
+          <article class="boundary-card boundary-card--unknown">
+            <span>MARKED UNKNOWN</span>
+            <p>Confidential roadmaps, private revenue or churn, internal strategy, private usage metrics, or anything that cannot be established from lawful evidence.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-final" data-surface="dark" aria-labelledby="final-cta-title">
+      <div class="home-final__glow" aria-hidden="true"></div>
+      <div class="container home-final__inner">
+        <span class="flow-kicker mono">READY WHEN THE DECISION IS</span>
+        <h2 id="final-cta-title">Start with the question that keeps getting debated.</h2>
+        <p>Send the two competitors, the decision you are trying to make, and any context that changes what “better” means for your team.</p>
+        <div class="home-final__actions">
+          <a href={cta.primary.href} class="primary-link">{cta.primary.label} <span aria-hidden="true">→</span></a>
+          <a href="mailto:hello@evidenceaxis.com" class="secondary-link">hello@evidenceaxis.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
 </Base>
 
 <style>
-  .problem { display: grid; gap: var(--space-xl); }
-  .problem__list { list-style: none; padding: 0; display: grid; gap: var(--space-l); }
-  .problem__list li p { margin-top: 0.4em; color: var(--text-muted); max-width: 52ch; }
-  .method-demo { margin-top: var(--space-xl); }
-  .chain-wrap { margin-top: var(--space-xl); max-width: 52rem; }
-  .offer-grid { display: grid; gap: var(--space-m); margin-top: var(--space-xl); grid-template-columns: 1fr; }
-  .questions__list { list-style: none; padding: 0; margin-top: var(--space-xl); display: grid; gap: 0; }
-  .questions__item {
-    display: grid; grid-template-columns: auto 1fr; gap: var(--space-m); align-items: baseline;
-    padding: var(--space-m) 0; border-top: 1px solid var(--hairline);
+  .home-flow {
+    --home-bg: #030a14;
+    --home-panel: #071425;
+    --home-border: rgba(120, 159, 219, .16);
+    --home-blue: #78a2ff;
+    --home-cyan: #54e8e6;
+    --home-muted: #9daabd;
+    background: var(--home-bg);
+    color: #eef4ff;
   }
-  .questions__item p { font-family: var(--font-serif); font-size: var(--step-1); color: var(--text); }
-  .questions__n { color: var(--accent); font-size: 0.8rem; }
-  .sample { display: grid; gap: var(--space-xl); align-items: center; }
-  .sample__actions { display: flex; flex-wrap: wrap; gap: var(--space-s); margin-top: var(--space-l); }
-  .process-wrap { margin-top: var(--space-xl); }
-  .boundaries__cols { display: grid; gap: var(--space-l); margin-top: var(--space-l); }
-  .boundaries__h { margin-bottom: var(--space-s); }
-  .boundaries__col p { color: var(--text-muted); max-width: 48ch; }
+  .home-section { position: relative; overflow: clip; padding: clamp(5rem, 8vw, 8.5rem) 0; background: var(--home-bg); }
+  .home-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(96,132,187,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(96,132,187,.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+  }
+  .home-section + .home-section { border-top: 1px solid rgba(108, 144, 201, .11); }
+  .flow-kicker { color: #6f99ff; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; }
+  .section-head { position: relative; z-index: 2; }
+  .section-head h2, .decision-gap h2, .trace-copy h2, .questions-lead h2, .sample-copy h2, .boundary-lead h2, .home-final h2 {
+    margin: .85rem 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.55rem, 4.2vw, 4.9rem);
+    line-height: 1.02;
+    letter-spacing: -.045em;
+    color: #f4f7fb;
+    text-wrap: balance;
+  }
+  .section-head p, .decision-gap__lead > p, .trace-copy > p, .questions-lead > p, .sample-copy > p, .boundary-lead > p, .home-final p {
+    color: var(--home-muted);
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+    line-height: 1.65;
+  }
+  .section-head--split { display: grid; gap: 2rem; align-items: end; }
+  .section-head--split > p { max-width: 43rem; }
 
-  @media (min-width: 52rem) {
-    .problem { grid-template-columns: 1fr 1fr; align-items: start; }
-    .offer-grid { grid-template-columns: repeat(3, 1fr); }
-    .sample { grid-template-columns: 1fr 1fr; }
-    .boundaries__cols { grid-template-columns: 1fr 1fr; }
+  .decision-gap { padding-top: clamp(4rem, 6vw, 6rem); background: linear-gradient(180deg, #020914 0%, #040d19 100%); }
+  .flow-axis { position: absolute; left: 50%; top: 0; height: 6rem; width: 1px; background: linear-gradient(#54e8e6, transparent); opacity: .48; }
+  .flow-axis span { position: absolute; top: .7rem; left: 50%; width: .42rem; height: .42rem; transform: translateX(-50%); border-radius: 50%; background: #54e8e6; box-shadow: 0 0 18px #54e8e6; }
+  .decision-gap__grid { position: relative; z-index: 2; display: grid; gap: 4rem; align-items: start; }
+  .decision-gap__lead h2 em { color: #78a2ff; font-style: normal; }
+  .decision-gap__lead > p { max-width: 48rem; margin-top: 1.5rem; }
+  .misread-stack { display: grid; gap: .8rem; }
+  .misread {
+    display: grid; grid-template-columns: 3.25rem 1fr; gap: 1.2rem;
+    padding: 1.35rem 1.45rem;
+    border: 1px solid var(--home-border);
+    border-radius: .8rem;
+    background: linear-gradient(120deg, rgba(12,31,56,.88), rgba(5,17,33,.75));
+    box-shadow: inset 0 1px rgba(255,255,255,.03);
   }
-  @media (min-width: 64rem) {
-    .problem__lead { position: sticky; top: 6rem; }
+  .misread__n { width: 2.5rem; height: 2.5rem; display: grid; place-items: center; border: 1px solid rgba(104,153,255,.35); border-radius: 50%; color: #78a2ff; }
+  .misread small { color: #6f99ff; font-family: var(--font-mono); font-size: .58rem; letter-spacing: .13em; }
+  .misread strong { display: block; margin-top: .35rem; color: #eef4ff; font-family: var(--font-display); font-size: 1.15rem; font-weight: 560; }
+  .misread p { margin-top: .45rem; color: #8f9caf; font-size: .92rem; line-height: 1.55; }
+
+  .method-band { background: radial-gradient(circle at 16% 45%, rgba(54,111,218,.12), transparent 28rem), #030b17; }
+  .method-surface { position: relative; z-index: 2; margin-top: 3rem; padding: clamp(1rem,2vw,2rem); border: 1px solid var(--home-border); border-radius: 1rem; background: rgba(6,19,36,.76); box-shadow: 0 30px 80px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.03); }
+
+  .trace-band { background: linear-gradient(135deg, #061325 0%, #020914 62%); }
+  .trace-grid { position: relative; z-index: 2; display: grid; gap: 3rem; align-items: center; }
+  .trace-copy > p { margin-top: 1.4rem; max-width: 40rem; }
+  .text-link { display: inline-flex; gap: .55rem; margin-top: 1.5rem; color: #75dfe2; text-decoration: none; font-family: var(--font-display); }
+  .trace-console { border: 1px solid var(--home-border); border-radius: .9rem; background: rgba(4,14,28,.82); box-shadow: 0 30px 80px rgba(0,0,0,.26); overflow: hidden; }
+  .trace-console__bar { display: flex; justify-content: space-between; padding: .75rem 1rem; border-bottom: 1px solid var(--home-border); color: #7185a5; font-size: .56rem; letter-spacing: .13em; }
+  .trace-console__bar b { color: #54e8e6; font-weight: 500; }
+  .trace-console :global(.evidence-chain) { margin: 0; }
+
+  .offers-band { background: radial-gradient(circle at 50% -15%, rgba(52,103,218,.18), transparent 33rem), #040c18; }
+  .offer-architecture { position: relative; z-index: 2; margin-top: 3rem; display: grid; gap: 1rem; }
+  .offer-path { position: relative; min-height: 38rem; display: flex; flex-direction: column; padding: 1.5rem; border: 1px solid rgba(122,157,210,.18); border-radius: .9rem; background: linear-gradient(165deg, rgba(10,27,50,.9), rgba(4,14,27,.94)); overflow: hidden; }
+  .offer-path::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(135deg, rgba(122,162,255,.05), transparent 45%); }
+  .offer-path--featured { border-color: rgba(104,154,255,.5); box-shadow: 0 22px 65px rgba(31,83,190,.16), inset 0 0 55px rgba(53,113,225,.07); }
+  .offer-path--featured::after { content: ''; position: absolute; width: 16rem; height: 16rem; border-radius: 50%; right: -7rem; top: -7rem; background: radial-gradient(circle, rgba(75,148,255,.2), transparent 67%); }
+  .offer-path__topline { position: relative; z-index: 2; display: grid; grid-template-columns: auto 1fr; gap: .25rem .75rem; align-items: center; min-height: 3rem; }
+  .offer-path__topline > span { color: #6f99ff; font-size: .7rem; }
+  .offer-path__topline small { color: #8fa0b7; text-transform: uppercase; letter-spacing: .12em; font-size: .62rem; }
+  .offer-path__topline b { grid-column: 1 / -1; width: fit-content; margin-top: .25rem; padding: .28rem .5rem; border-radius: 999px; background: rgba(92,145,255,.14); color: #a9c3ff; font-family: var(--font-mono); font-size: .5rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  .offer-path__identity { position: relative; z-index: 2; margin-top: 1.25rem; min-height: 9rem; }
+  .offer-path__identity h3 { color: #f2f6fc; font-size: clamp(1.6rem,2.2vw,2.35rem); line-height: 1.08; }
+  .offer-path__identity p { margin-top: .8rem; color: #909fb4; line-height: 1.55; }
+  .offer-path__commercial { position: relative; z-index: 2; display: grid; grid-template-columns: 1.2fr .8fr; gap: 1rem; padding: 1.2rem 0; border-top: 1px solid var(--home-border); border-bottom: 1px solid var(--home-border); }
+  .offer-path__commercial > div { display: grid; align-content: start; gap: .3rem; }
+  .offer-path__commercial small { color: #61738f; font-family: var(--font-mono); font-size: .5rem; letter-spacing: .12em; }
+  .offer-path__commercial strong { color: #f7f9fc; font-family: var(--font-display); font-size: clamp(2.25rem,3.5vw,3.6rem); letter-spacing: -.045em; line-height: 1; }
+  .offer-path__commercial span { color: #708099; font-size: .68rem; }
+  .offer-path__commercial .offer-path__delivery { font-size: 1rem; line-height: 1.3; letter-spacing: 0; color: #b8c8de; }
+  .offer-path ul { position: relative; z-index: 2; list-style: none; padding: 0; margin: 1.3rem 0 1.7rem; display: grid; gap: .7rem; }
+  .offer-path li { display: flex; gap: .65rem; color: #a8b6c9; font-size: .88rem; line-height: 1.45; }
+  .offer-path li i { flex: 0 0 .55rem; width: .55rem; height: .55rem; margin-top: .35rem; border-radius: 50%; border: 1px solid #54e8e6; box-shadow: inset 0 0 0 2px #071425; background: #54e8e6; }
+  .offer-path__cta { position: relative; z-index: 2; margin-top: auto; min-height: 3.2rem; display: flex; align-items: center; justify-content: space-between; padding: 0 1rem; border: 1px solid rgba(120,159,219,.22); border-radius: .55rem; color: #eaf1fb; text-decoration: none; font-family: var(--font-display); background: rgba(8,23,43,.7); transition: border-color .18s ease, transform .18s ease; }
+  .offer-path__cta:hover { transform: translateY(-2px); border-color: #6f99ff; }
+  .offer-path--featured .offer-path__cta { color: #07111f; background: linear-gradient(105deg,#91b2ff,#59d5e1); border-color: transparent; }
+
+  .questions-band { background: #020914; }
+  .questions-grid { position: relative; z-index: 2; display: grid; gap: 3rem; }
+  .questions-lead > p { margin-top: 1.35rem; max-width: 37rem; }
+  .decision-questions { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--home-border); }
+  .decision-questions li { display: grid; grid-template-columns: 3.2rem 1fr auto; gap: 1rem; align-items: center; padding: 1.15rem .25rem; border-bottom: 1px solid var(--home-border); }
+  .decision-questions span { color: #6f99ff; font-size: .6rem; letter-spacing: .1em; }
+  .decision-questions p { color: #c3cfdf; font-family: var(--font-serif); font-size: clamp(1rem,1.2vw,1.15rem); }
+  .decision-questions i { color: #54e8e6; font-style: normal; }
+
+  .sample-band { background: radial-gradient(circle at 78% 38%, rgba(38,97,204,.13), transparent 30rem), #04101e; }
+  .sample-grid { position: relative; z-index: 2; display: grid; gap: 3rem; align-items: center; }
+  .sample-copy > p { margin-top: 1.35rem; max-width: 40rem; }
+  .sample-actions, .home-final__actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.7rem; }
+  .primary-link, .secondary-link { min-height: 3.25rem; display: inline-flex; align-items: center; justify-content: center; gap: .7rem; padding: 0 1.2rem; border-radius: .55rem; text-decoration: none; font-family: var(--font-display); font-weight: 600; }
+  .primary-link { color: #07111f; background: linear-gradient(105deg,#91b2ff,#59d5e1); box-shadow: 0 12px 34px rgba(49,103,216,.2); }
+  .secondary-link { color: #dce6f5; border: 1px solid rgba(124,159,213,.25); background: rgba(5,18,34,.7); }
+  .sample-frame { border: 1px solid var(--home-border); border-radius: .9rem; background: #050f1e; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.28); }
+  .sample-frame__chrome { display: flex; justify-content: space-between; padding: .72rem 1rem; border-bottom: 1px solid var(--home-border); color: #677c9d; font-size: .54rem; letter-spacing: .12em; }
+  .sample-frame__chrome b { color: #54e8e6; font-weight: 500; }
+
+  .process-band { background: linear-gradient(180deg,#030b17,#020914); }
+  .process-shell { position: relative; z-index: 2; margin-top: 3rem; padding: 1rem; border: 1px solid var(--home-border); border-radius: .9rem; background: rgba(6,20,38,.7); }
+
+  .boundary-band { background: #030b17; }
+  .boundary-grid { position: relative; z-index: 2; display: grid; gap: 3rem; }
+  .boundary-lead > p { margin-top: 1.3rem; max-width: 43rem; }
+  .boundary-cards { display: grid; gap: 1rem; }
+  .boundary-card { padding: 1.4rem; border: 1px solid var(--home-border); border-radius: .8rem; background: rgba(6,20,38,.7); }
+  .boundary-card span { display: inline-block; font-family: var(--font-mono); font-size: .57rem; letter-spacing: .13em; }
+  .boundary-card p { margin-top: .8rem; color: #9eacbf; line-height: 1.65; }
+  .boundary-card--fact { border-color: rgba(84,232,230,.25); }
+  .boundary-card--fact span { color: #54e8e6; }
+  .boundary-card--unknown { border-style: dashed; border-color: rgba(166,124,246,.27); }
+  .boundary-card--unknown span { color: #b797f5; }
+
+  .home-final { position: relative; overflow: clip; padding: clamp(6rem,10vw,10rem) 0; background: linear-gradient(180deg,#020914,#061427); border-top: 1px solid var(--home-border); text-align: center; }
+  .home-final__glow { position: absolute; left: 50%; top: 10%; width: 46rem; height: 26rem; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, rgba(64,122,255,.2), transparent 67%); filter: blur(15px); }
+  .home-final__inner { position: relative; z-index: 2; }
+  .home-final h2 { max-width: 14ch; margin-inline: auto; }
+  .home-final p { max-width: 44rem; margin: 1.4rem auto 0; }
+  .home-final__actions { justify-content: center; }
+
+  @media (min-width: 58rem) {
+    .section-head--split { grid-template-columns: minmax(0,1.1fr) minmax(24rem,.75fr); }
+    .decision-gap__grid { grid-template-columns: minmax(0,.9fr) minmax(32rem,1.1fr); }
+    .decision-gap__lead { position: sticky; top: 7rem; }
+    .trace-grid { grid-template-columns: minmax(0,.7fr) minmax(36rem,1.3fr); }
+    .offer-architecture { grid-template-columns: 1.05fr .95fr .95fr; }
+    .questions-grid { grid-template-columns: minmax(0,.7fr) minmax(32rem,1.3fr); }
+    .questions-lead { position: sticky; top: 7rem; align-self: start; }
+    .sample-grid { grid-template-columns: minmax(0,.8fr) minmax(34rem,1.2fr); }
+    .boundary-grid { grid-template-columns: minmax(0,.85fr) minmax(34rem,1.15fr); }
+    .boundary-cards { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 57.99rem) {
+    .offer-path { min-height: auto; }
+    .offer-path__identity { min-height: auto; }
+  }
+  @media (max-width: 40rem) {
+    .home-section { padding: 4rem 0; }
+    .misread { grid-template-columns: 2.6rem 1fr; padding: 1rem; }
+    .offer-path__commercial { grid-template-columns: 1fr; }
+    .decision-questions li { grid-template-columns: 2.5rem 1fr; }
+    .decision-questions i { display: none; }
   }
 </style>
