@@ -1,210 +1,319 @@
 ---
 import { evidenceChain } from '@data/method';
-/**
- * Interactive evidence chain: Source → Observation → Fact → Inference →
- * Unknown → Decision implication. All content is visible without JS.
- * Signature interaction (Phase 2): "Trace to source" walks the provenance
- * BACKWARD from the decision implication to its source, and clicking/pressing
- * any step traces that step's provenance. A forward trace is also offered.
- * Progressive enhancement — controls are hidden when JS is unavailable.
- */
 ---
-<div class="chain axis-frame" data-chain>
-  <div class="chain__control">
-    <button type="button" class="btn btn--sm chain__trace" data-chain-trace="reverse">
-      <span class="btn-arrow" aria-hidden="true">←</span>Trace to source
-    </button>
-    <button type="button" class="btn btn--ghost btn--sm chain__trace" data-chain-trace="forward">
-      Replay forward<span class="btn-arrow" aria-hidden="true">→</span>
-    </button>
-    <p class="chain__hint mono">Select any conclusion to trace its provenance back to a source.</p>
+<div class="trace-explorer" data-trace-explorer>
+  <div class="trace-explorer__top">
+    <div>
+      <span class="trace-explorer__eyebrow mono">PROVENANCE EXPLORER</span>
+      <p>Move through the reasoning path. Every conclusion should have a visible route back to public evidence.</p>
+    </div>
+    <div class="trace-explorer__actions">
+      <button type="button" class="trace-btn trace-btn--primary" data-trace-play="reverse">← Trace to source</button>
+      <button type="button" class="trace-btn" data-trace-play="forward">Replay forward →</button>
+    </div>
   </div>
 
-  <ol class="chain__list">
+  <div class="trace-tabs" role="tablist" aria-label="Evidence provenance stages">
     {evidenceChain.map((s, i) => (
-      <li
-        class:list={['chain__step', `chain__step--${s.kind}`]}
-        data-chain-step
-        style={`--i:${i};`}
-        tabindex="0"
-        role="button"
-        aria-label={`${s.stage}. Trace provenance back to source.`}
+      <button
+        type="button"
+        class:list={['trace-tab', `trace-tab--${s.kind}`, { 'is-active': i === 0 }]}
+        role="tab"
+        aria-selected={i === 0 ? 'true' : 'false'}
+        data-trace-tab
+        data-index={i}
       >
-        <span class="chain__node" aria-hidden="true"></span>
-        <div class="chain__card">
-          <div class="chain__card-top">
-            <span class="chain__tag mono">{s.label}</span>
-            <span class="chain__stage">{s.stage}</span>
-          </div>
-          <p class="chain__body">{s.body}</p>
-          <span class="chain__meta mono">{s.meta}</span>
-        </div>
-      </li>
+        <span class="trace-tab__n mono">0{i + 1}</span>
+        <strong>{s.stage}</strong>
+      </button>
     ))}
-  </ol>
+  </div>
+
+  <div class="trace-stage">
+    <div class="trace-stage__rail" aria-hidden="true">
+      {evidenceChain.map((s, i) => (
+        <span class:list={['trace-stage__node', `trace-stage__node--${s.kind}`, { 'is-active': i === 0 }]} data-trace-node></span>
+      ))}
+    </div>
+
+    <div class="trace-stage__panels">
+      {evidenceChain.map((s, i) => (
+        <article
+          class:list={['trace-panel', `trace-panel--${s.kind}`, { 'is-active': i === 0 }]}
+          data-trace-panel
+          data-index={i}
+          aria-hidden={i === 0 ? 'false' : 'true'}
+        >
+          <div class="trace-panel__index mono">0{i + 1}</div>
+          <div class="trace-panel__body">
+            <div class="trace-panel__head">
+              <span class="trace-panel__tag mono">{s.label}</span>
+              <h3>{s.stage}</h3>
+            </div>
+            <p>{s.body}</p>
+            <div class="trace-panel__meta">
+              <span class="mono">{s.meta}</span>
+              <span class="trace-panel__status"><i></i>{i === 0 ? 'Origin point' : i === evidenceChain.length - 1 ? 'Decision output' : 'Reasoning step'}</span>
+            </div>
+          </div>
+          <div class="trace-panel__signal" aria-hidden="true"></div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="trace-progress" aria-hidden="true">
+    <span class="trace-progress__line"></span>
+    {evidenceChain.map((s, i) => (
+      <span class:list={['trace-progress__dot', `trace-progress__dot--${s.kind}`, { 'is-active': i === 0 }]} data-trace-progress-dot>
+        <b>{i + 1}</b>
+      </span>
+    ))}
+  </div>
 </div>
 
 <style>
-  .chain { --active: -1; }
-  .chain__control {
-    display: flex; align-items: center; gap: var(--space-m);
-    flex-wrap: wrap; margin-bottom: var(--space-l);
+  .trace-explorer {
+    --trace-blue: #79a8ff;
+    --trace-cyan: #58e7e4;
+    --trace-violet: #ad82ff;
+    --trace-amber: #f3b65a;
+    --trace-border: rgba(130, 164, 221, .18);
+    border: 1px solid var(--trace-border);
+    border-radius: 1.2rem;
+    background:
+      radial-gradient(circle at 72% 35%, rgba(48, 104, 213, .11), transparent 32rem),
+      linear-gradient(145deg, rgba(7, 19, 37, .96), rgba(3, 10, 20, .98));
+    box-shadow: 0 34px 90px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.025);
+    overflow: hidden;
   }
-  .no-js .chain__trace { display: none; }
-  .btn--sm { padding: 0.6em 1em; font-size: 0.9rem; }
-  .chain__hint { font-size: var(--step--1); color: var(--text-faint); }
 
-  .chain__list { list-style: none; padding: 0; display: grid; gap: 0; }
-  .chain__step {
+  .trace-explorer__top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.4rem 1.5rem 1.1rem;
+    border-bottom: 1px solid var(--trace-border);
+    background: rgba(5, 14, 28, .72);
+  }
+  .trace-explorer__top > div:first-child { max-width: 42rem; }
+  .trace-explorer__eyebrow { color: var(--trace-blue); font-size: .68rem; letter-spacing: .16em; }
+  .trace-explorer__top p { margin-top: .45rem; color: #aeb9c9; font-size: .98rem; line-height: 1.55; }
+  .trace-explorer__actions { display: flex; gap: .55rem; flex-wrap: wrap; }
+  .trace-btn {
+    min-height: 2.6rem;
+    padding: 0 .9rem;
+    border: 1px solid rgba(135,166,220,.22);
+    border-radius: .55rem;
+    background: rgba(11, 26, 48, .62);
+    color: #d7e2f4;
+    font-family: var(--font-display);
+    font-size: .83rem;
+    cursor: pointer;
+    transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  }
+  .trace-btn:hover { transform: translateY(-1px); border-color: rgba(111,160,255,.55); }
+  .trace-btn--primary { background: linear-gradient(110deg,#86a8ff,#5fcfe8); color:#071020; border-color:transparent; font-weight:650; }
+
+  .trace-tabs {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0,1fr));
+    gap: 1px;
+    background: var(--trace-border);
+    border-bottom: 1px solid var(--trace-border);
+  }
+  .trace-tab {
+    min-width: 0;
+    min-height: 5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .55rem;
+    align-items: center;
+    padding: .85rem .9rem;
+    border: 0;
+    background: #071323;
+    color: #8e9eb5;
+    cursor: pointer;
+    text-align: left;
+    transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  }
+  .trace-tab:hover { background: #0a1a30; color:#dce6f6; }
+  .trace-tab.is-active { background: linear-gradient(180deg, rgba(24,51,93,.92), rgba(8,24,45,.96)); color:#f2f6ff; box-shadow: inset 0 -2px var(--tab-color,#78a2ff); }
+  .trace-tab__n { font-size:.58rem; color:#5d7293; }
+  .trace-tab strong { font-size:.82rem; font-weight:600; white-space:nowrap; }
+  .trace-tab--fact { --tab-color: var(--trace-cyan); }
+  .trace-tab--inference { --tab-color: var(--trace-amber); }
+  .trace-tab--unknown { --tab-color: var(--trace-violet); }
+  .trace-tab--decision { --tab-color: var(--trace-blue); }
+
+  .trace-stage {
     position: relative;
-    padding: var(--space-s) 0 var(--space-m) clamp(1.6rem, 5vw, 2.6rem);
-    outline: none;
+    display: grid;
+    grid-template-columns: 3.6rem 1fr;
+    gap: 1rem;
+    min-height: 22rem;
+    padding: 1.5rem;
   }
-  .chain__step::before { /* connector segment along the axis */
-    content: '';
-    position: absolute;
-    left: calc(-1 * clamp(0.42rem, 1.6vw, 1.02rem));
-    top: 1.5em; bottom: -0.2em;
-    width: 2px;
-    background: var(--surface-border);
-    transition: background var(--dur-2) var(--ease-out);
+  .trace-stage__rail {
+    position: relative;
+    display: grid;
+    grid-template-rows: repeat(6,1fr);
+    justify-items: center;
   }
-  .chain__step:last-child::before { display: none; }
+  .trace-stage__rail::before {
+    content:'';
+    position:absolute;
+    top:.9rem; bottom:.9rem; left:50%;
+    width:2px;
+    transform:translateX(-50%);
+    background:linear-gradient(#688bc7,rgba(104,139,199,.17));
+  }
+  .trace-stage__node {
+    position:relative;
+    z-index:1;
+    align-self:center;
+    width:.85rem; height:.85rem;
+    border-radius:50%;
+    background:#071323;
+    border:2px solid #6881aa;
+    transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+  .trace-stage__node.is-active { transform:scale(1.28); background:var(--node-color,#79a8ff); border-color:var(--node-color,#79a8ff); box-shadow:0 0 0 6px color-mix(in srgb,var(--node-color,#79a8ff) 15%,transparent),0 0 22px color-mix(in srgb,var(--node-color,#79a8ff) 45%,transparent); }
+  .trace-stage__node--fact { --node-color:var(--trace-cyan); }
+  .trace-stage__node--inference { --node-color:var(--trace-amber); }
+  .trace-stage__node--unknown { --node-color:var(--trace-violet); }
+  .trace-stage__node--decision { --node-color:var(--trace-blue); }
 
-  .chain__node {
-    position: absolute;
-    left: calc(-1 * clamp(0.85rem, 2.4vw, 1.45rem));
-    top: 0.9em;
-    width: 0.95rem; height: 0.95rem;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--node-color, var(--ink-400));
-    z-index: 1;
-    transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+  .trace-stage__panels { position:relative; min-height:19rem; }
+  .trace-panel {
+    --panel-color:#7f96bb;
+    position:absolute;
+    inset:0;
+    display:grid;
+    grid-template-columns: 5.5rem 1fr 8rem;
+    gap:1.25rem;
+    align-items:stretch;
+    padding:1.6rem;
+    border:1px solid rgba(133,167,225,.20);
+    border-radius:.95rem;
+    background:linear-gradient(120deg,rgba(20,38,66,.92),rgba(8,21,40,.92));
+    box-shadow:inset 0 1px rgba(255,255,255,.035),0 20px 50px rgba(0,0,0,.16);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(8px) scale(.985);
+    transition:opacity 220ms ease,transform 220ms ease,visibility 220ms;
   }
-  .chain__step--source .chain__node,
-  .chain__step--observation .chain__node { --node-color: var(--ink-400); }
-  .chain__step--fact .chain__node { --node-color: var(--fact); background: var(--fact); }
-  .chain__step--inference .chain__node { --node-color: var(--infer); }
-  .chain__step--unknown .chain__node { --node-color: var(--unknown); border-style: dotted; }
-  .chain__step--decision .chain__node { --node-color: var(--accent); background: var(--accent); }
+  .trace-panel.is-active { opacity:1; visibility:visible; transform:none; }
+  .trace-panel--fact { --panel-color:var(--trace-cyan); }
+  .trace-panel--inference { --panel-color:var(--trace-amber); }
+  .trace-panel--unknown { --panel-color:var(--trace-violet); }
+  .trace-panel--decision { --panel-color:var(--trace-blue); }
+  .trace-panel__index {
+    font-size:3rem;
+    line-height:1;
+    color:color-mix(in srgb,var(--panel-color) 68%,#fff);
+    opacity:.8;
+    padding-top:.25rem;
+  }
+  .trace-panel__body { align-self:center; max-width:48rem; }
+  .trace-panel__head { display:flex; align-items:center; gap:.7rem; flex-wrap:wrap; }
+  .trace-panel__tag { padding:.32rem .48rem; border-radius:.35rem; background:color-mix(in srgb,var(--panel-color) 18%,transparent); border:1px solid color-mix(in srgb,var(--panel-color) 44%,transparent); color:var(--panel-color); font-size:.62rem; letter-spacing:.11em; }
+  .trace-panel h3 { margin:0; color:#f2f6ff; font-family:var(--font-display); font-size:clamp(1.45rem,2.2vw,2.15rem); letter-spacing:-.025em; }
+  .trace-panel__body > p { margin-top:.9rem; color:#c4cedc; font-family:var(--font-serif); font-size:clamp(1.05rem,1.35vw,1.22rem); line-height:1.65; }
+  .trace-panel__meta { margin-top:1.1rem; display:flex; gap:.8rem 1.4rem; align-items:center; flex-wrap:wrap; }
+  .trace-panel__meta > span:first-child { color:#7f91a9; font-size:.72rem; letter-spacing:.05em; }
+  .trace-panel__status { display:inline-flex; align-items:center; gap:.45rem; color:#9faec2; font-size:.76rem; }
+  .trace-panel__status i { width:.46rem;height:.46rem;border-radius:50%;background:var(--panel-color);box-shadow:0 0 12px var(--panel-color); }
+  .trace-panel__signal { align-self:stretch; border-radius:.7rem; background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--panel-color) 22%,transparent),transparent 66%),repeating-linear-gradient(0deg,transparent 0 17px,color-mix(in srgb,var(--panel-color) 9%,transparent) 18px 19px); border:1px solid color-mix(in srgb,var(--panel-color) 18%,transparent); }
 
-  .chain__card {
-    background: var(--bg-raised);
-    border: 1px solid var(--surface-border);
-    border-radius: var(--radius-m);
-    padding: var(--space-s) var(--space-m);
-    transition: transform var(--dur-2) var(--ease-out),
-      box-shadow var(--dur-2) var(--ease-out),
-      border-color var(--dur-2) var(--ease-out);
+  .trace-progress {
+    position:relative;
+    height:3.3rem;
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    align-items:center;
+    padding:0 2rem;
+    border-top:1px solid var(--trace-border);
+    background:rgba(3,10,20,.74);
   }
-  .chain__card-top { display: flex; align-items: baseline; gap: 0.9ch; margin-bottom: 0.35em; }
-  .chain__tag {
-    font-size: 0.66rem; letter-spacing: 0.12em;
-    color: var(--on-accent); background: var(--node-color, var(--ink-500));
-    padding: 0.2em 0.5em; border-radius: var(--radius-xs);
-  }
-  .chain__step--inference .chain__tag,
-  .chain__step--unknown .chain__tag { color: var(--paper-0); }
-  .chain__stage { font-family: var(--font-display); font-weight: 500; font-size: var(--step-0); }
-  .chain__body { color: var(--text-muted); font-size: 0.98rem; }
-  .chain__meta { display: block; margin-top: 0.5em; font-size: var(--step--1); color: var(--text-faint); }
+  .trace-progress__line { position:absolute; left:calc(2rem + 8.33%); right:calc(2rem + 8.33%); top:50%; height:1px; background:rgba(110,145,201,.24); }
+  .trace-progress__dot { position:relative; z-index:1; justify-self:center; width:1.55rem; height:1.55rem; border-radius:50%; display:grid; place-items:center; background:#071323; border:1px solid #415778; color:#657897; transition:all 180ms ease; }
+  .trace-progress__dot b { font-family:var(--font-mono); font-size:.52rem; }
+  .trace-progress__dot.is-active { background:var(--dot-color,#79a8ff); border-color:var(--dot-color,#79a8ff); color:#06101d; box-shadow:0 0 16px color-mix(in srgb,var(--dot-color,#79a8ff) 50%,transparent); }
+  .trace-progress__dot--fact{--dot-color:var(--trace-cyan)}.trace-progress__dot--inference{--dot-color:var(--trace-amber)}.trace-progress__dot--unknown{--dot-color:var(--trace-violet)}.trace-progress__dot--decision{--dot-color:var(--trace-blue)}
 
-  /* hover / focus / active emphasis */
-  .chain__step:hover .chain__card,
-  .chain__step:focus-visible .chain__card,
-  .chain__step.is-active .chain__card {
-    transform: translateX(4px);
-    border-color: var(--node-color, var(--accent));
-    box-shadow: var(--shadow-2);
+  @media (max-width: 68rem) {
+    .trace-tabs { grid-template-columns:repeat(3,1fr); }
+    .trace-panel { grid-template-columns:4rem 1fr; }
+    .trace-panel__signal { display:none; }
   }
-  .chain__step:hover .chain__node,
-  .chain__step:focus-visible .chain__node,
-  .chain__step.is-active .chain__node {
-    transform: scale(1.25);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--node-color, var(--accent)) 22%, transparent);
-  }
-  .chain__step.is-active::before,
-  .chain__step.is-lit::before,
-  .chain__step.is-traced::before { background: var(--accent); }
-
-  /* provenance path: steps on the traced route read as connected + certain,
-     everything off the route recedes so the reasoning path stands out */
-  .chain[data-chain] .chain__step.is-traced .chain__node {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
-  }
-  .chain__step.is-traced .chain__card { border-color: color-mix(in srgb, var(--accent) 45%, var(--surface-border)); }
-  .chain__step.is-active .chain__card { box-shadow: var(--shadow-3); }
-
-  @media (min-width: 40rem) {
-    .chain__card { padding: var(--space-m) var(--space-l); }
-    .chain__body { font-size: var(--step-0); }
+  @media (max-width: 44rem) {
+    .trace-explorer__top { align-items:flex-start; flex-direction:column; }
+    .trace-tabs { grid-template-columns:repeat(2,1fr); }
+    .trace-stage { grid-template-columns:1fr; padding:1rem; }
+    .trace-stage__rail { display:none; }
+    .trace-stage__panels { min-height:23rem; }
+    .trace-panel { grid-template-columns:1fr; gap:.5rem; padding:1.2rem; }
+    .trace-panel__index { font-size:1.3rem; }
+    .trace-panel h3 { font-size:1.55rem; }
+    .trace-panel__body > p { font-size:1rem; }
+    .trace-progress { padding-inline:.8rem; }
+    .trace-progress__line { left:9%;right:9%; }
   }
 </style>
 
 <script>
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll('[data-chain]').forEach((chain) => {
-    const steps = Array.from(chain.querySelectorAll<HTMLElement>('[data-chain-step]'));
-    const traceBtns = chain.querySelectorAll<HTMLElement>('[data-chain-trace]');
-    let timers: number[] = [];
+  document.querySelectorAll<HTMLElement>('[data-trace-explorer]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-trace-tab]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-trace-panel]'));
+    const nodes = Array.from(root.querySelectorAll<HTMLElement>('[data-trace-node]'));
+    const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-trace-progress-dot]'));
+    const playButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-trace-play]'));
+    let active = 0;
+    let timer: number | null = null;
 
-    const clear = () => {
-      timers.forEach((t) => window.clearTimeout(t));
-      timers = [];
-      steps.forEach((s) => s.classList.remove('is-active', 'is-lit', 'is-traced'));
+    const select = (index: number) => {
+      active = Math.max(0, Math.min(index, tabs.length - 1));
+      tabs.forEach((tab, i) => {
+        const on = i === active;
+        tab.classList.toggle('is-active', on);
+        tab.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panels.forEach((panel, i) => {
+        const on = i === active;
+        panel.classList.toggle('is-active', on);
+        panel.setAttribute('aria-hidden', on ? 'false' : 'true');
+      });
+      nodes.forEach((node, i) => node.classList.toggle('is-active', i === active));
+      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === active));
     };
 
-    // Light the whole provenance path 0..idx, with `idx` as the focus.
-    const light = (idx: number) => {
-      steps.forEach((s, i) => {
-        s.classList.toggle('is-lit', i < idx);
-        s.classList.toggle('is-traced', i <= idx);
-        s.classList.toggle('is-active', i === idx);
-      });
+    tabs.forEach((tab, i) => tab.addEventListener('click', () => {
+      if (timer) window.clearInterval(timer);
+      select(i);
+    }));
+
+    const play = (direction: 'forward' | 'reverse') => {
+      if (timer) window.clearInterval(timer);
+      const order = direction === 'forward'
+        ? Array.from({ length: tabs.length }, (_, i) => i)
+        : Array.from({ length: tabs.length }, (_, i) => tabs.length - 1 - i);
+      let cursor = 0;
+      select(order[cursor]);
+      timer = window.setInterval(() => {
+        cursor += 1;
+        if (cursor >= order.length) {
+          if (timer) window.clearInterval(timer);
+          timer = null;
+          return;
+        }
+        select(order[cursor]);
+      }, 650);
     };
 
-    // Hover / focus: reveal that step's provenance instantly.
-    steps.forEach((s, i) => {
-      const reveal = () => { clear(); light(i); };
-      s.addEventListener('mouseenter', reveal);
-      s.addEventListener('focus', reveal);
-      // Click / keyboard: animate the provenance trace (default: backward).
-      s.addEventListener('click', () => play(i, 'reverse'));
-      s.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(i, 'reverse'); }
-      });
-    });
-
-    // Animate a trace to/from `from`. Reverse = decision → source.
-    const play = (from: number, dir: 'reverse' | 'forward') => {
-      clear();
-      if (reduce) { light(from); return; } // no stepwise animation
-      const order =
-        dir === 'reverse'
-          ? Array.from({ length: from + 1 }, (_, k) => from - k) // from → 0
-          : Array.from({ length: from + 1 }, (_, k) => k); // 0 → from
-      order.forEach((stepIndex, seq) => {
-        timers.push(
-          window.setTimeout(() => {
-            steps.forEach((s) => s.classList.remove('is-active'));
-            steps[stepIndex].classList.add('is-active', 'is-traced');
-            // keep everything already visited lit
-            const visited = order.slice(0, seq + 1);
-            steps.forEach((s, i) => s.classList.toggle('is-traced', visited.includes(i)));
-            // final resting state: full path lit with `from` active
-            if (seq === order.length - 1) light(from);
-          }, seq * 300)
-        );
-      });
-    };
-
-    traceBtns.forEach((btn) =>
-      btn.addEventListener('click', () => {
-        const dir = btn.getAttribute('data-chain-trace') === 'forward' ? 'forward' : 'reverse';
-        play(steps.length - 1, dir);
-      })
-    );
+    playButtons.forEach((button) => button.addEventListener('click', () => {
+      play(button.dataset.tracePlay === 'forward' ? 'forward' : 'reverse');
+    }));
   });
 </script>
