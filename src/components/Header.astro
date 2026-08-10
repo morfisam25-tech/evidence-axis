@@ -4,10 +4,10 @@ import { primaryNav } from '@data/nav';
 import { cta } from '@config/site';
 
 const current = Astro.url.pathname;
-const isActive = (href: string) =>
-  href === '/' ? current === '/' : current.startsWith(href);
+const isHome = current === '/';
+const isActive = (href: string) => href === '/' ? current === '/' : current.startsWith(href);
 ---
-<header class="site-header" data-header>
+<header class:list={['site-header', { 'site-header--home': isHome }]} data-header>
   <div class="container-wide site-header__inner">
     <Logo />
 
@@ -15,11 +15,7 @@ const isActive = (href: string) =>
       <ul>
         {primaryNav.map((item) => (
           <li>
-            <a
-              href={item.href}
-              class:list={['primary-nav__link', { 'is-active': isActive(item.href) }]}
-              aria-current={isActive(item.href) ? 'page' : undefined}
-            >
+            <a href={item.href} class:list={['primary-nav__link', { 'is-active': isActive(item.href) }]} aria-current={isActive(item.href) ? 'page' : undefined}>
               {item.label}
             </a>
           </li>
@@ -28,41 +24,24 @@ const isActive = (href: string) =>
     </nav>
 
     <div class="site-header__cta">
-      <a href={cta.primary.href} class="btn btn--sm">
-        {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
+      <a href={cta.primary.href} class="header-cta">
+        {cta.primary.label}<span aria-hidden="true">→</span>
       </a>
     </div>
 
-    <button
-      type="button"
-      class="nav-toggle"
-      aria-expanded="false"
-      aria-controls="mobile-nav"
-      aria-label="Open menu"
-      data-nav-toggle
-    >
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" data-nav-toggle>
       <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i></span>
     </button>
   </div>
 </header>
 
-<!-- Mobile navigation panel -->
 <div class="mobile-nav" id="mobile-nav" data-mobile-nav hidden>
   <nav aria-label="Mobile" class="container">
     <ul>
       {primaryNav.map((item) => (
-        <li>
-          <a href={item.href} class="mobile-nav__link">
-            <span class="mobile-nav__label">{item.label}</span>
-            <span class="mobile-nav__arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
+        <li><a href={item.href} class="mobile-nav__link"><span>{item.label}</span><span aria-hidden="true">→</span></a></li>
       ))}
-      <li class="mobile-nav__cta">
-        <a href={cta.primary.href} class="btn btn--lg">
-          {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-      </li>
+      <li class="mobile-nav__cta"><a href={cta.primary.href} class="header-cta">{cta.primary.label}<span aria-hidden="true">→</span></a></li>
     </ul>
   </nav>
 </div>
@@ -72,109 +51,95 @@ const isActive = (href: string) =>
     position: sticky;
     top: 0;
     z-index: var(--z-header);
-    background: color-mix(in srgb, var(--bg) 82%, transparent);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid transparent;
-    transition: border-color var(--dur-2) var(--ease-out),
-      background var(--dur-2) var(--ease-out);
+    transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
   }
-  .site-header[data-scrolled] {
-    border-bottom-color: var(--hairline);
+  .site-header--home {
+    background: rgba(2, 9, 20, .86);
+    border-bottom-color: rgba(112, 159, 222, .12);
   }
-  .site-header__inner {
-    display: flex;
-    align-items: center;
-    gap: var(--space-m);
-    height: 4.5rem;
-  }
-  .primary-nav {
-    margin-left: auto;
-    display: none;
-  }
-  .primary-nav ul {
-    display: flex;
-    gap: clamp(0.5rem, 1.6vw, 1.4rem);
-    list-style: none;
-    padding: 0;
-  }
+  .site-header[data-scrolled] { border-bottom-color: var(--hairline); }
+  .site-header--home[data-scrolled] { background: rgba(2, 9, 20, .94); border-bottom-color: rgba(112, 159, 222, .19); }
+  .site-header__inner { display: flex; align-items: center; gap: var(--space-m); min-height: 4.5rem; }
+  .primary-nav { margin-left: auto; display: none; }
+  .primary-nav ul { display: flex; align-items: center; gap: clamp(.55rem, 1.5vw, 1.45rem); list-style: none; padding: 0; margin: 0; }
   .primary-nav__link {
-    font-family: var(--font-display);
-    font-size: 0.92rem;
-    font-weight: 500;
-    letter-spacing: -0.01em;
+    position: relative;
     color: var(--text-muted);
     text-decoration: none;
-    padding: 0.4em 0.1em;
-    position: relative;
-    transition: color var(--dur-1) var(--ease-out);
+    font-family: var(--font-display);
+    font-size: .88rem;
+    font-weight: 500;
+    letter-spacing: -.01em;
+    transition: color 150ms ease;
   }
+  .site-header--home .primary-nav__link { color: #a8b4c7; }
+  .primary-nav__link:hover, .primary-nav__link.is-active { color: var(--text); }
+  .site-header--home .primary-nav__link:hover, .site-header--home .primary-nav__link.is-active { color: #f2f6ff; }
   .primary-nav__link::after {
     content: '';
     position: absolute;
-    left: 0; right: 0; bottom: -0.15em;
-    height: 1.5px;
-    background: var(--accent);
+    left: 0; right: 0; bottom: -.45rem;
+    height: 1px;
+    background: linear-gradient(90deg, #72a0ff, #58e0e3);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform var(--dur-2) var(--ease-out);
+    transition: transform 180ms ease;
   }
-  .primary-nav__link:hover { color: var(--text); }
-  .primary-nav__link:hover::after,
-  .primary-nav__link.is-active::after { transform: scaleX(1); }
-  .primary-nav__link.is-active { color: var(--text); }
-
+  .primary-nav__link:hover::after, .primary-nav__link.is-active::after { transform: scaleX(1); }
   .site-header__cta { display: none; }
-  .btn--sm { padding: 0.6em 1em; font-size: 0.92rem; }
-
-  .nav-toggle {
-    margin-left: auto;
-    background: transparent;
-    border: 1px solid var(--surface-border);
-    border-radius: var(--radius-s);
-    width: 2.6rem; height: 2.6rem;
+  .header-cta {
+    min-height: 2.75rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    gap: .7rem;
+    padding: 0 1.15rem;
+    border-radius: .45rem;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: .88rem;
+    font-weight: 620;
+    color: #071020;
+    background: linear-gradient(110deg, #8ba9ff, #55c7ef);
+    border: 1px solid #91b3ff;
+    box-shadow: 0 8px 25px rgba(50, 101, 225, .2), inset 0 1px rgba(255,255,255,.4);
+  }
+  .nav-toggle {
+    margin-left: auto;
+    width: 2.6rem;
+    height: 2.6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-s);
+    background: transparent;
     color: var(--text);
+    cursor: pointer;
   }
+  .site-header--home .nav-toggle { color: #eff5ff; border-color: rgba(121, 159, 214, .26); }
   .nav-toggle__bars { display: grid; gap: 5px; width: 18px; }
-  .nav-toggle__bars i {
-    display: block; height: 1.6px; background: currentColor; border-radius: 2px;
-    transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-1);
-  }
+  .nav-toggle__bars i { display: block; height: 1.6px; background: currentColor; border-radius: 2px; transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-1); }
   .nav-toggle[aria-expanded='true'] .nav-toggle__bars i:first-child { transform: translateY(3.3px) rotate(45deg); }
   .nav-toggle[aria-expanded='true'] .nav-toggle__bars i:last-child { transform: translateY(-3.3px) rotate(-45deg); }
-
   .mobile-nav {
     position: fixed;
-    inset: 4.5rem 0 0 0;
+    inset: 4.5rem 0 0;
     z-index: calc(var(--z-header) - 1);
-    background: var(--bg);
-    border-top: 1px solid var(--hairline);
+    background: rgba(3, 10, 22, .98);
+    border-top: 1px solid rgba(120, 153, 200, .16);
     padding-block: var(--space-l);
     overflow-y: auto;
-    animation: mobileIn var(--dur-2) var(--ease-out);
   }
   .mobile-nav[hidden] { display: none; }
-  @keyframes mobileIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
-  .mobile-nav ul { list-style: none; padding: 0; display: grid; }
-  .mobile-nav__link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--hairline);
-    text-decoration: none;
-    color: var(--text);
-    font-family: var(--font-display);
-    font-size: var(--step-1);
-    font-weight: 500;
-  }
-  .mobile-nav__arrow { color: var(--accent); }
+  .mobile-nav ul { list-style: none; padding: 0; margin: 0; display: grid; }
+  .mobile-nav__link { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid rgba(120,153,200,.14); color: #eef4ff; text-decoration: none; font-family: var(--font-display); font-size: var(--step-1); }
+  .mobile-nav__link span:last-child { color: #65dbe2; }
   .mobile-nav__cta { margin-top: var(--space-l); }
-
   @media (min-width: 64rem) {
     .primary-nav { display: block; }
     .site-header__cta { display: block; }

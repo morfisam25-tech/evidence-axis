@@ -3,55 +3,34 @@ interface Step { n: string; title: string; body: string; }
 interface Props { steps: readonly Step[]; columns?: boolean; }
 const { steps, columns = false } = Astro.props;
 ---
-<ol class:list={['flow', { 'flow--columns': columns }]}>
+<ol class:list={['flow-new', { 'flow-new--columns': columns }]}>
   {steps.map((s, i) => (
-    <li class="flow__step" data-reveal style={`--reveal-delay:${i * 70}ms;`}>
-      <span class="flow__n mono">{s.n}</span>
-      <div class="flow__content">
-        <h3 class="flow__title">{s.title}</h3>
-        <p class="flow__body">{s.body}</p>
+    <li class="flow-new__step" data-reveal style={`--reveal-delay:${i * 65}ms;`}>
+      <div class="flow-new__number mono"><span>{s.n}</span></div>
+      <div class="flow-new__content">
+        <h3>{s.title}</h3>
+        <p>{s.body}</p>
       </div>
+      <span class="flow-new__arrow" aria-hidden="true">→</span>
     </li>
   ))}
 </ol>
 
 <style>
-  .flow { list-style: none; padding: 0; display: grid; gap: 0; }
-  .flow__step {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-m);
-    padding: var(--space-m) 0;
-    border-top: 1px solid var(--hairline);
-    position: relative;
-  }
-  .flow__step:first-child { border-top: none; }
-  .flow__n {
-    font-size: var(--step-1);
-    color: var(--accent);
-    font-weight: 500;
-    line-height: 1.1;
-  }
-  .flow__title { font-size: var(--step-1); }
-  .flow__body { margin-top: var(--space-2xs); color: var(--text-muted); max-width: 52ch; }
-
-  .flow--columns {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-m);
-  }
-  .flow--columns .flow__step {
-    border-top: none;
-    background: var(--bg-raised);
-    border: 1px solid var(--surface-border);
-    border-radius: var(--radius-m);
-    padding: var(--space-m);
-    grid-template-columns: 1fr;
-    gap: var(--space-2xs);
-  }
-  .flow--columns .flow__n { display: block; margin-bottom: var(--space-2xs); }
-
-  @media (min-width: 52rem) {
-    .flow--columns { grid-template-columns: repeat(3, 1fr); }
-  }
+  .flow-new{list-style:none;padding:0;margin:0;display:grid;gap:.8rem}
+  .flow-new__step{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1.1rem 1.2rem;border:1px solid rgba(127,160,215,.16);border-radius:.85rem;background:linear-gradient(135deg,rgba(12,29,53,.9),rgba(6,17,31,.94));box-shadow:inset 0 1px rgba(255,255,255,.025);transition:transform 170ms ease,border-color 170ms ease,background 170ms ease}
+  .flow-new__step:hover{transform:translateY(-3px);border-color:rgba(92,153,255,.38);background:linear-gradient(135deg,rgba(18,40,73,.96),rgba(7,21,40,.96))}
+  .flow-new__number{width:2.5rem;height:2.5rem;display:grid;place-items:center;border-radius:.62rem;border:1px solid rgba(95,151,255,.28);background:rgba(45,91,175,.12);color:#7fa7ff;font-size:.68rem;letter-spacing:.06em}
+  .flow-new__content h3{margin:0;color:#eef4ff;font-family:var(--font-display);font-size:1.02rem;letter-spacing:-.015em}
+  .flow-new__content p{margin-top:.38rem;color:#99a9be;font-size:.9rem;line-height:1.55;max-width:48ch}
+  .flow-new__arrow{color:#5ee2df;font-size:1.2rem;opacity:.65}
+  .flow-new--columns{grid-template-columns:repeat(2,1fr)}
+  .flow-new--columns .flow-new__step{min-height:10.5rem;grid-template-columns:1fr auto;grid-template-rows:auto 1fr;align-items:start;padding:1.2rem}
+  .flow-new--columns .flow-new__number{grid-column:1;grid-row:1}
+  .flow-new--columns .flow-new__content{grid-column:1/-1;grid-row:2;margin-top:.6rem}
+  .flow-new--columns .flow-new__arrow{grid-column:2;grid-row:1;justify-self:end}
+  .flow-new--columns .flow-new__content h3{font-size:1.08rem}
+  .flow-new--columns .flow-new__content p{font-size:.92rem}
+  @media(min-width:66rem){.flow-new--columns{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:44rem){.flow-new--columns{grid-template-columns:1fr}.flow-new__step{grid-template-columns:auto 1fr}.flow-new__arrow{display:none}}
 </style>

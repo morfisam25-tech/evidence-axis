@@ -1,60 +1,71 @@
 ---
 import { evidenceStates } from '@data/method';
-interface Props {
-  compact?: boolean;
-}
+interface Props { compact?: boolean; }
 const { compact = false } = Astro.props;
 ---
-<div class:list={['fiu', { 'fiu--compact': compact }]}>
+<div class:list={['fiu-grid', { 'fiu-grid--compact': compact }]}>
   {evidenceStates.map((s, i) => (
-    <article class:list={['fiu__card', `fiu__card--${s.key}`]} data-reveal style={`--reveal-delay:${i * 90}ms;`}>
-      <header class="fiu__head">
-        <span class:list={['fiu__marker', `fiu__marker--${s.key}`]} aria-hidden="true"></span>
-        <span class:list={['state', `state--${s.key}`]}>{s.label}</span>
-      </header>
-      <p class="fiu__def">{s.definition}</p>
-      {!compact && <p class="fiu__ex mono">{s.example}</p>}
+    <article class:list={['fiu-card', `fiu-card--${s.key}`]} data-reveal style={`--reveal-delay:${i * 90}ms;`}>
+      <div class="fiu-card__top">
+        <div class="fiu-card__icon" aria-hidden="true">
+          <span>{s.key === 'fact' ? '✓' : s.key === 'inference' ? '↗' : '?'}</span>
+        </div>
+        <div>
+          <small class="mono">0{i + 1}</small>
+          <h3>{s.label}</h3>
+        </div>
+      </div>
+      <p class="fiu-card__definition">{s.definition}</p>
+      {!compact && (
+        <div class="fiu-card__example">
+          <span class="mono">EXAMPLE</span>
+          <p>{s.example}</p>
+        </div>
+      )}
+      <div class="fiu-card__edge" aria-hidden="true"></div>
     </article>
   ))}
 </div>
 
 <style>
-  .fiu {
-    display: grid;
-    gap: var(--space-m);
-    grid-template-columns: 1fr;
+  .fiu-grid {
+    --fiu-cyan:#5be4df;
+    --fiu-amber:#f0b45b;
+    --fiu-violet:#ab83fa;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1rem;
   }
-  .fiu__card {
-    position: relative;
-    background: var(--bg-raised);
-    border: 1px solid var(--surface-border);
-    border-top: 3px solid var(--card-color, var(--unknown));
-    border-radius: var(--radius-m);
-    padding: var(--space-m);
-    overflow: hidden;
+  .fiu-card {
+    --card-color:#8da0bc;
+    position:relative;
+    min-height:19rem;
+    display:flex;
+    flex-direction:column;
+    padding:1.35rem;
+    border:1px solid color-mix(in srgb,var(--card-color) 30%,rgba(120,151,202,.14));
+    border-radius:1rem;
+    background:
+      radial-gradient(circle at 88% 12%,color-mix(in srgb,var(--card-color) 13%,transparent),transparent 34%),
+      linear-gradient(145deg,rgba(13,30,54,.94),rgba(7,17,31,.96));
+    box-shadow:inset 0 1px rgba(255,255,255,.035),0 24px 50px rgba(0,0,0,.16);
+    overflow:hidden;
+    transition:transform 180ms ease,border-color 180ms ease,box-shadow 180ms ease;
   }
-  .fiu__card--fact { --card-color: var(--fact); border-top-style: solid; }
-  .fiu__card--inference { --card-color: var(--infer); border-top-style: dashed; }
-  .fiu__card--unknown { --card-color: var(--unknown); border-top-style: dotted; }
-  .fiu__head {
-    display: flex;
-    align-items: center;
-    gap: 0.8ch;
-    margin-bottom: var(--space-s);
-  }
-  .fiu__marker { width: 1rem; height: 1rem; border-radius: 50%; flex: none; }
-  .fiu__marker--fact { background: var(--fact); }
-  .fiu__marker--inference { background: linear-gradient(90deg, var(--infer) 50%, transparent 50%); border: 1.5px solid var(--infer); }
-  .fiu__marker--unknown { background: transparent; border: 1.5px solid var(--unknown); }
-  .fiu__def { color: var(--text); line-height: var(--leading-body); }
-  .fiu__ex {
-    margin-top: var(--space-s);
-    font-size: var(--step--1);
-    color: var(--text-faint);
-    padding-top: var(--space-s);
-    border-top: 1px solid var(--hairline);
-  }
-  @media (min-width: 52rem) {
-    .fiu { grid-template-columns: repeat(3, 1fr); }
-  }
+  .fiu-card:hover { transform:translateY(-5px); border-color:color-mix(in srgb,var(--card-color) 62%,transparent); box-shadow:0 30px 70px rgba(0,0,0,.25),0 0 30px color-mix(in srgb,var(--card-color) 9%,transparent); }
+  .fiu-card--fact{--card-color:var(--fiu-cyan)}
+  .fiu-card--inference{--card-color:var(--fiu-amber)}
+  .fiu-card--unknown{--card-color:var(--fiu-violet)}
+  .fiu-card__top{display:flex;align-items:center;gap:.9rem;}
+  .fiu-card__icon{width:2.9rem;height:2.9rem;display:grid;place-items:center;border-radius:.8rem;border:1px solid color-mix(in srgb,var(--card-color) 46%,transparent);background:color-mix(in srgb,var(--card-color) 12%,transparent);color:var(--card-color);box-shadow:inset 0 0 18px color-mix(in srgb,var(--card-color) 7%,transparent);}
+  .fiu-card__icon span{font-size:1.2rem;font-weight:800;}
+  .fiu-card__top small{display:block;color:#667a98;font-size:.57rem;letter-spacing:.12em;}
+  .fiu-card__top h3{margin:.1rem 0 0;color:#f2f6ff;font-family:var(--font-display);font-size:1.28rem;letter-spacing:-.02em;}
+  .fiu-card__definition{margin-top:1.15rem;color:#c6d0de;font-size:1.05rem;line-height:1.65;}
+  .fiu-card__example{margin-top:auto;padding-top:1.15rem;border-top:1px solid rgba(128,157,205,.14);}
+  .fiu-card__example>span{color:var(--card-color);font-size:.58rem;letter-spacing:.13em;}
+  .fiu-card__example p{margin-top:.45rem;color:#8fa0b7;font-size:.9rem;line-height:1.55;}
+  .fiu-card__edge{position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent,var(--card-color),transparent);opacity:.65;}
+  .fiu-grid--compact .fiu-card{min-height:auto;}
+  @media(min-width:52rem){.fiu-grid{grid-template-columns:repeat(3,1fr)}}
 </style>
