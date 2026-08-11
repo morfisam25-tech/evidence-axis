@@ -1,367 +1,93 @@
 ---
 import { offers, cta } from '@config/site';
-/**
- * Homepage hero.
- * Layered by capability:
- *  - Base / fallback (this markup): a CSS/SVG "evidence field" that aligns
- *    onto the axis. Fully readable with no JS, and used for reduced-motion,
- *    mobile, and no-WebGL.
- *  - Enhancement (Phase 2): on capable desktops, src/scripts/hero-spatial
- *    adds `.hero--spatial-ready` ONLY after the WebGL2 scene has loaded, fonts
- *    are ready and a first frame has rendered — then swaps in a full-bleed
- *    procedural Three.js scene (scatter → classify → align → decision).
- * Essential headline, pricing and CTA text always live in semantic DOM,
- * never inside the canvas.
- */
-const fragments = [
-  { label: 'pricing page', state: 'fact', x: -46, y: -30, r: -6, d: 0 },
-  { label: 'documentation', state: 'fact', x: -60, y: 46, r: 5, d: 90 },
-  { label: 'changelog', state: 'inference', x: 40, y: -54, r: 7, d: 180 },
-  { label: 'public reviews', state: 'inference', x: 54, y: 30, r: -5, d: 140 },
-  { label: 'marketplace', state: 'unknown', x: -30, y: 92, r: 4, d: 240 },
-  { label: 'private churn', state: 'unknown', x: 48, y: 96, r: -7, d: 300 },
-];
-const rows = [
-  { state: 'fact', label: 'Fact', note: 'evidence-backed' },
-  { state: 'inference', label: 'Inference', note: 'reasoned' },
-  { state: 'unknown', label: 'Unknown', note: 'unresolved' },
-];
 ---
-<section class="hero" data-hero data-surface="dark" aria-labelledby="hero-title">
-  <div class="hero__stage">
-  <canvas class="hero__canvas" data-hero-canvas aria-hidden="true"></canvas>
-  <div class="container-wide hero__grid">
-    <div class="hero__copy">
-      <span class="label eyebrow">Competitor intelligence for B2B SaaS</span>
-      <h1 id="hero-title" class="hero__title">
-        Scattered competitor information,<br />
-        <span class="hero__title-accent">resolved into decision-ready evidence.</span>
-      </h1>
-      <p class="hero__lede">
-        You rarely lack competitor information. You lack clarity about what is
-        actually supported, what is marketing language, and what remains unknown.
-        Evidence Axis turns public evidence into a structured decision brief —
-        every claim sourced, dated, and marked Fact, Inference or Unknown.
-      </p>
-      <div class="hero__actions">
-        <a href={cta.primary.href} class="btn btn--lg">
-          {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href={cta.secondary.href} class="btn btn--ghost btn--lg">
-          {cta.secondary.label}
-        </a>
+<section class="hero-v5" data-hero-v5 aria-labelledby="hero-v5-title">
+  <div class="hero-v5__mesh" aria-hidden="true"></div>
+  <div class="container-wide hero-v5__layout">
+    <div class="hero-v5__copy">
+      <div class="hero-v5__eyebrow mono"><span></span>COMPETITOR INTELLIGENCE FOR B2B SAAS</div>
+      <h1 id="hero-v5-title">Know what competitors can prove.<em>See what they can’t.</em></h1>
+      <p>Decision-ready competitor evidence from lawful public sources. Sourced, dated, and separated into Fact, Inference, and Unknown.</p>
+      <div class="hero-v5__actions">
+        <a href={cta.primary.href} class="hero-v5__primary">{cta.primary.label}<span aria-hidden="true">→</span></a>
+        <a href="/sample-report/" class="hero-v5__secondary">View Sample Report</a>
       </div>
-      <p class="hero__meta mono">
-        Two-Competitor Decision Brief · <strong>{offers.twoCompetitor.priceDisplay}</strong>
-        pilot · {offers.twoCompetitor.delivery} · asynchronous, no sales call
-      </p>
-
-      <ol class="hero__states" data-hero-states data-active="0" aria-hidden="true">
-        <li>Scattered</li>
-        <li>Classified</li>
-        <li>Aligned</li>
-        <li>Decision</li>
-      </ol>
+      <div class="hero-v5__proof mono">
+        <span><b>{offers.twoCompetitor.priceDisplay}</b> pilot</span>
+        <span><b>{offers.twoCompetitor.delivery}</b></span>
+        <span><b>public</b> evidence</span>
+      </div>
     </div>
 
-    <div class="hero__visual" aria-hidden="true">
-      <div class="evidence-field" data-evidence-field>
-        <svg class="evidence-field__axis" viewBox="0 0 40 320" preserveAspectRatio="none">
-          <line x1="20" y1="6" x2="20" y2="314" />
-        </svg>
-        <span class="ef-axis-label ef-axis-label--top mono">AXIS</span>
-        <span class="ef-axis-label ef-axis-label--bottom mono">DECISION</span>
-
-        {fragments.map((f) => (
-          <span
-            class:list={['ef-frag', `ef-frag--${f.state}`]}
-            style={`--fx:${f.x}px; --fy:${f.y}px; --fr:${f.r}deg; --fd:${f.d}ms;`}
-          >
-            <i class="ef-frag__dot"></i>{f.label}
-          </span>
-        ))}
-
-        <ul class="ef-rows">
-          {rows.map((r, i) => (
-            <li class:list={['ef-row', `ef-row--${r.state}`]} style={`--rd:${i * 120 + 380}ms;`}>
-              <span class="ef-row__marker"></span>
-              <span class="ef-row__label mono">{r.label}</span>
-              <span class="ef-row__note mono">{r.note}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div class="ef-decision" style="--rd:820ms;">
-          <span class="mono">→ decision implication</span>
+    <div class="hero-v5__visual" data-visual>
+      <div class="hero-v5__spatial" data-spatial aria-hidden="true">
+        <div class="halo halo-a"></div><div class="halo halo-b"></div><div class="halo halo-c"></div>
+        <div class="axis-shell">
+          <div class="axis-shell__top"></div>
+          <div class="axis-shell__body"><span class="axis-shell__beam"></span><span class="axis-shell__scan"></span></div>
+          <div class="axis-shell__bottom"></div>
         </div>
+        <div class="depth-card depth-card--left"></div>
+        <div class="depth-card depth-card--right"></div>
+        <div class="depth-card depth-card--decision"></div>
+      </div>
+
+      <div class="hero-v5__labels">
+        <div class="axis-label axis-label--top mono">EVIDENCE AXIS</div>
+        <div class="axis-label axis-label--bottom mono">VERIFIED · TRACEABLE · DECISION-READY</div>
+
+        <article class="hero-card hero-card--unknown hero-card--u1"><small>UNKNOWN</small><strong>Roadmap intent</strong><span>not established</span></article>
+        <article class="hero-card hero-card--unknown hero-card--u2"><small>UNKNOWN</small><strong>Private usage</strong><span>not public</span></article>
+
+        <div class="hero-facts">
+          <article class="hero-card hero-card--fact"><i>✓</i><div><small>FACT / 01</small><strong>Pricing page</strong><span>checked + dated</span></div></article>
+          <article class="hero-card hero-card--fact"><i>✓</i><div><small>FACT / 02</small><strong>Documentation</strong><span>public source</span></div></article>
+          <article class="hero-card hero-card--fact"><i>✓</i><div><small>FACT / 03</small><strong>Product evidence</strong><span>source locked</span></div></article>
+        </div>
+
+        <div class="hero-infer"><small>INFERENCE</small><strong>Packaging shift</strong><span>reasoning layer</span></div>
+        <div class="hero-decision"><div class="hero-decision__top mono"><span>DECISION OUTPUT</span><b>READY</b></div><strong>Decision-Ready Brief</strong><p>Evidence separated from judgment. Unknowns kept visible.</p><span class="hero-decision__route mono">FACT → REASON → MOVE</span></div>
       </div>
     </div>
   </div>
-
-  <div class="hero__scroll" aria-hidden="true">
-    <span class="mono">scroll</span>
-    <span class="hero__scroll-line"></span>
-  </div>
-  </div><!-- /.hero__stage -->
 </section>
 
 <script>
-  import { initHeroSpatial } from '../scripts/hero-spatial';
-  initHeroSpatial();
+  const root = document.querySelector('[data-hero-v5]');
+  const visual = root?.querySelector('[data-visual]');
+  const spatial = root?.querySelector('[data-spatial]');
+  if (visual && spatial && matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    visual.addEventListener('pointermove', (event) => {
+      const r = visual.getBoundingClientRect();
+      const nx = ((event.clientX-r.left)/r.width-.5)*2;
+      const ny = ((event.clientY-r.top)/r.height-.5)*2;
+      spatial.style.setProperty('--ry', `${nx*17}deg`);
+      spatial.style.setProperty('--rx', `${-ny*10}deg`);
+      root.style.setProperty('--mx', `${nx*10}px`);
+      root.style.setProperty('--my', `${ny*7}px`);
+    });
+    visual.addEventListener('pointerleave', () => {
+      spatial.style.setProperty('--ry','0deg'); spatial.style.setProperty('--rx','0deg');
+      root.style.setProperty('--mx','0px'); root.style.setProperty('--my','0px');
+    });
+  }
 </script>
 
 <style>
-  .hero {
-    position: relative;
-    background:
-      radial-gradient(120% 90% at 78% 8%, color-mix(in srgb, var(--signal-600) 20%, transparent), transparent 55%),
-      var(--bg);
-    color: var(--text);
-    padding-block: clamp(3rem, 2rem + 8vw, 7rem) clamp(3rem, 2rem + 5vw, 5.5rem);
-    overflow: clip;
-  }
-  .hero__grid {
-    display: grid;
-    gap: clamp(2.5rem, 6vw, 5rem);
-    align-items: center;
-    grid-template-columns: 1fr;
-  }
-  .hero__title {
-    font-size: var(--step-6);
-    margin-top: var(--space-xs);
-    letter-spacing: -0.025em;
-  }
-  .hero__title-accent { color: var(--accent); }
-  .hero__lede {
-    margin-top: var(--space-l);
-    max-width: 52ch;
-    font-size: var(--step-1);
-    color: var(--text-muted);
-  }
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-s);
-    margin-top: var(--space-l);
-  }
-  .hero__meta {
-    margin-top: var(--space-l);
-    font-size: var(--step--1);
-    color: var(--text-faint);
-    letter-spacing: 0.01em;
-  }
-  .hero__meta strong { color: var(--accent); font-weight: 500; }
-
-  /* ---- Phase 2 spatial enhancement (progressive) ---- */
-  .hero__canvas { display: none; pointer-events: none; }
-  .hero__stage { position: relative; }
-  .hero__states { display: none; }
-  .hero__states {
-    list-style: none; padding: 0; margin: var(--space-xl) 0 0;
-    flex-wrap: wrap; gap: 0.5rem 1.15rem;
-    font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--text-faint);
-  }
-  .hero__states li { position: relative; padding-left: 1.05rem; transition: color var(--dur-2) var(--ease-out); }
-  .hero__states li::before {
-    content: ''; position: absolute; left: 0; top: 0.5em;
-    width: 0.5rem; height: 0.5rem; border-radius: 50%;
-    border: 1px solid currentColor;
-    transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
-  }
-  .hero__states[data-active='0'] li:nth-child(-n+1),
-  .hero__states[data-active='1'] li:nth-child(-n+2),
-  .hero__states[data-active='2'] li:nth-child(-n+3),
-  .hero__states[data-active='3'] li:nth-child(-n+4) { color: var(--accent); }
-  .hero__states[data-active='0'] li:nth-child(-n+1)::before,
-  .hero__states[data-active='1'] li:nth-child(-n+2)::before,
-  .hero__states[data-active='2'] li:nth-child(-n+3)::before,
-  .hero__states[data-active='3'] li:nth-child(-n+4)::before { background: var(--accent); border-color: var(--accent); }
-
-  .hero--spatial-ready { padding-block: 0; min-height: 240vh; }
-  .hero--spatial-ready .hero__stage {
-    position: sticky; top: 0; height: 100vh; min-height: 620px;
-    display: flex; align-items: center; overflow: hidden;
-    padding-block: clamp(4.5rem, 11vh, 7rem) 2rem;
-  }
-  .hero--spatial-ready .hero__canvas {
-    display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
-  }
-  .hero--spatial-ready .hero__stage::after {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(90deg,
-      var(--bg) 0%,
-      var(--bg) 30%,
-      color-mix(in srgb, var(--bg) 72%, transparent) 46%,
-      transparent 70%);
-  }
-  .hero--spatial-ready .hero__grid { position: relative; z-index: 2; width: 100%; }
-  .hero--spatial-ready .hero__visual { display: none; }
-  .hero--spatial-ready .hero__states { display: flex; }
-  .hero--spatial-ready .hero__title { font-size: var(--step-5); }
-  /* Pinned view has a fixed vertical budget — tighten the rhythm so headline,
-     pricing microcopy and the state row all stay above the fold. */
-  .hero--spatial-ready .hero__lede { margin-top: var(--space-m); }
-  .hero--spatial-ready .hero__actions { margin-top: var(--space-m); }
-  .hero--spatial-ready .hero__meta { margin-top: var(--space-m); }
-  .hero--spatial-ready .hero__states { margin-top: var(--space-m); }
-
-  /* ---- Evidence field visual ---- */
-  .hero__visual { min-height: 340px; display: grid; place-items: center; }
-  .evidence-field {
-    position: relative;
-    width: min(100%, 30rem);
-    height: 340px;
-  }
-  .evidence-field__axis {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 100%;
-  }
-  .evidence-field__axis line {
-    stroke: var(--axis-line);
-    stroke-width: 1.5;
-    stroke-dasharray: 2 4;
-  }
-  .ef-axis-label {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    color: var(--text-faint);
-  }
-  .ef-axis-label--top { top: -0.2rem; }
-  .ef-axis-label--bottom { bottom: -0.4rem; color: var(--accent); }
-
-  .ef-frag {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5ch;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    background: color-mix(in srgb, var(--bg-raised) 88%, transparent);
-    border: 1px solid var(--surface-border);
-    border-radius: var(--radius-s);
-    padding: 0.32em 0.6em;
-    white-space: nowrap;
-    backdrop-filter: blur(3px);
-    transform: translate(calc(-50% + var(--fx)), calc(-50% + var(--fy))) rotate(var(--fr));
-    animation: fragAlign 900ms var(--ease-out) both;
-    animation-delay: var(--fd);
-    box-shadow: var(--shadow-2);
-  }
-  .ef-frag__dot { width: 0.5em; height: 0.5em; border-radius: 50%; flex: none; }
-  .ef-frag--fact .ef-frag__dot { background: var(--fact); }
-  .ef-frag--inference .ef-frag__dot { background: var(--infer); }
-  .ef-frag--unknown .ef-frag__dot { background: transparent; border: 1px solid var(--unknown); }
-
-  @keyframes fragAlign {
-    0% { opacity: 0; transform: translate(calc(-50% + var(--fx)), calc(-50% + var(--fy))) rotate(var(--fr)) scale(0.9); }
-    60% { opacity: 1; }
-    100% { opacity: 0.55; transform: translate(calc(-50% + var(--fx)), calc(-50% + var(--fy))) rotate(var(--fr)) scale(1); }
-  }
-
-  .ef-rows {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: 0.55rem;
-    width: min(88%, 22rem);
-    z-index: var(--z-raised);
-  }
-  .ef-row {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 0.7ch;
-    background: var(--bg-raised);
-    border: 1px solid var(--surface-border);
-    border-left-width: 3px;
-    border-radius: var(--radius-s);
-    padding: 0.6em 0.8em;
-    box-shadow: var(--shadow-3);
-    animation: rowIn 600ms var(--ease-out) both;
-    animation-delay: var(--rd);
-  }
-  .ef-row--fact { border-left-color: var(--fact); }
-  .ef-row--inference { border-left-color: var(--infer); border-left-style: dashed; }
-  .ef-row--unknown { border-left-color: var(--unknown); border-left-style: dotted; }
-  .ef-row__marker { width: 0.7em; height: 0.7em; border-radius: 50%; }
-  .ef-row--fact .ef-row__marker { background: var(--fact); }
-  .ef-row--inference .ef-row__marker { background: linear-gradient(90deg, var(--infer) 50%, transparent 50%); border: 1px solid var(--infer); }
-  .ef-row--unknown .ef-row__marker { background: transparent; border: 1px solid var(--unknown); }
-  .ef-row__label { font-size: 0.78rem; color: var(--text); font-weight: 500; }
-  .ef-row__note { font-size: 0.66rem; color: var(--text-faint); }
-
-  @keyframes rowIn {
-    from { opacity: 0; transform: translateX(-8px); }
-    to { opacity: 1; transform: none; }
-  }
-
-  .ef-decision {
-    position: absolute;
-    left: 50%;
-    bottom: 0.2rem;
-    transform: translateX(-50%);
-    background: var(--accent);
-    color: var(--on-accent);
-    font-size: 0.7rem;
-    padding: 0.4em 0.8em;
-    border-radius: var(--radius-s);
-    animation: rowIn 600ms var(--ease-out) both;
-    animation-delay: var(--rd);
-    box-shadow: var(--shadow-3);
-  }
-
-  .hero__scroll {
-    position: absolute;
-    left: var(--gutter);
-    bottom: 1.2rem;
-    display: none;
-    align-items: center;
-    gap: 0.7ch;
-    color: var(--text-faint);
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-  .hero__scroll-line { width: 3rem; height: 1px; background: var(--hairline); position: relative; overflow: hidden; }
-  .hero__scroll-line::after {
-    content: ''; position: absolute; inset: 0; width: 40%;
-    background: var(--accent);
-    animation: scrollHint 2.4s var(--ease-in-out) infinite;
-  }
-  @keyframes scrollHint { 0% { transform: translateX(-120%); } 100% { transform: translateX(300%); } }
-
-  @media (min-width: 64rem) {
-    .hero__grid { grid-template-columns: 1.05fr 0.95fr; }
-    .hero__scroll { display: flex; }
-  }
-
-  /* Short laptop heights: keep headline, pricing and CTA inside the pinned view. */
-  @media (min-width: 64rem) and (max-height: 820px) {
-    .hero--spatial-ready .hero__title { font-size: var(--step-4); }
-    .hero--spatial-ready .hero__lede { margin-top: var(--space-m); font-size: var(--step-0); }
-    .hero--spatial-ready .hero__states { margin-top: var(--space-l); }
-    .hero--spatial-ready .hero__stage { padding-block: clamp(3.5rem, 8vh, 5rem) 1.25rem; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .ef-frag { animation: none; opacity: 0.55; }
-    .ef-row, .ef-decision { animation: none; opacity: 1; transform: translateX(-50%); }
-    .ef-row { transform: none; }
-    .hero__scroll-line::after { animation: none; }
-  }
+  .hero-v5{--cyan:#57e4dc;--blue:#7fa8ff;--amber:#f3b45b;--violet:#aa84ff;position:relative;overflow:hidden;background:linear-gradient(116deg,#020713 0%,#051020 48%,#0a1832 100%);color:#f7f9fc;min-height:calc(100svh - 4.9rem);isolation:isolate}
+  .hero-v5::before{content:'';position:absolute;inset:auto 2% -20% 35%;height:52rem;background:radial-gradient(circle,rgba(67,124,255,.2),rgba(36,218,210,.05) 38%,transparent 68%);filter:blur(30px);z-index:-2}.hero-v5__mesh{position:absolute;inset:0;z-index:-3;background-image:linear-gradient(rgba(105,145,207,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(105,145,207,.035) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(90deg,transparent 0,#000 36%,#000 100%)}
+  .hero-v5__layout{min-height:calc(100svh - 4.9rem);display:grid;grid-template-columns:minmax(24rem,.78fr) minmax(42rem,1.32fr);gap:2.25rem;align-items:center;padding-block:clamp(3rem,6vh,5rem)}
+  .hero-v5__copy{z-index:4;max-width:36rem}.hero-v5__eyebrow{display:flex;align-items:center;gap:.75rem;color:#7da6ff;font-size:.68rem;letter-spacing:.16em}.hero-v5__eyebrow span{width:1.55rem;height:1px;background:currentColor;box-shadow:0 0 12px currentColor}.hero-v5 h1{margin:1.1rem 0 0;font-family:var(--font-display);font-size:clamp(3.2rem,4.45vw,5.15rem);line-height:1;letter-spacing:-.055em;font-weight:680;max-width:10ch}.hero-v5 h1 em{display:block;margin-top:.13em;font-style:normal;background:linear-gradient(100deg,#8db1ff,#68a7ff 45%,#59dfd9);-webkit-background-clip:text;background-clip:text;color:transparent}.hero-v5__copy>p{margin:1.3rem 0 0;max-width:49ch;color:#bcc8d8;font-size:1.08rem;line-height:1.68}.hero-v5__actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.45rem}.hero-v5__actions a{display:inline-flex;align-items:center;justify-content:center;min-height:3.25rem;padding:0 1.25rem;border-radius:.72rem;text-decoration:none;font-family:var(--font-display);font-weight:700}.hero-v5__primary{gap:.8rem;color:#07101b;background:linear-gradient(110deg,#8badff,#59d8e3);box-shadow:0 16px 36px rgba(58,111,231,.25)}.hero-v5__secondary{color:#e5edf8;border:1px solid rgba(138,174,226,.25);background:rgba(6,17,32,.6)}.hero-v5__proof{display:flex;gap:1.15rem;flex-wrap:wrap;margin-top:1.2rem;color:#7f93ae;font-size:.65rem;text-transform:uppercase;letter-spacing:.06em}.hero-v5__proof b{color:#d2dfef;font-weight:700}
+  .hero-v5__visual{position:relative;height:clamp(40rem,75vh,51rem);perspective:1200px}.hero-v5__spatial{--rx:0deg;--ry:0deg;position:absolute;inset:4% 0 0 0;transform-style:preserve-3d;transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform 160ms cubic-bezier(.2,.8,.2,1);will-change:transform}.halo{position:absolute;left:56%;top:52%;border-radius:50%;border:1px solid rgba(104,165,255,.2);transform-style:preserve-3d}.halo-a{width:34rem;height:34rem;transform:translate(-50%,-50%) rotateX(70deg) translateZ(-130px)}.halo-b{width:27rem;height:27rem;border-style:dashed;transform:translate(-50%,-50%) rotateX(70deg) translateZ(-20px)}.halo-c{width:20rem;height:20rem;border-color:rgba(87,228,220,.3);transform:translate(-50%,-50%) rotateX(70deg) translateZ(80px)}
+  .axis-shell{position:absolute;left:50%;top:8%;width:22rem;height:36rem;transform:translateX(-50%) translateZ(60px);transform-style:preserve-3d}.axis-shell__body{position:absolute;inset:1.5rem 1.1rem;background:linear-gradient(90deg,rgba(7,24,45,.98),rgba(34,121,164,.22) 35%,rgba(52,188,195,.16) 50%,rgba(28,94,145,.25) 70%,rgba(5,19,38,.98));border-left:1px solid rgba(84,192,236,.48);border-right:1px solid rgba(84,192,236,.48);box-shadow:inset 0 0 80px rgba(71,169,236,.13),0 0 100px rgba(46,112,255,.18)}.axis-shell__top,.axis-shell__bottom{position:absolute;left:-.4rem;right:-.4rem;height:4rem;border:1px solid rgba(91,153,255,.5);background:linear-gradient(#163255,#07111f 58%,#173b62);border-radius:50% / 45%;box-shadow:inset 0 1px rgba(255,255,255,.16),0 0 34px rgba(50,118,255,.22)}.axis-shell__top{top:-.4rem;transform:translateZ(35px)}.axis-shell__bottom{bottom:-.4rem;transform:translateZ(28px)}.axis-shell__beam{position:absolute;left:50%;top:-.8rem;bottom:-.8rem;width:3px;transform:translateX(-50%);background:linear-gradient(transparent,#9adfff 10%,#67a8ff 48%,#5ce8df 88%,transparent);box-shadow:0 0 10px #7bcaff,0 0 34px rgba(86,181,255,.82),0 0 95px rgba(58,120,255,.42)}.axis-shell__scan{position:absolute;left:12%;right:12%;height:4rem;top:28%;border-top:1px solid rgba(93,235,229,.48);border-bottom:1px solid rgba(93,235,229,.2);background:linear-gradient(180deg,rgba(82,230,225,.09),transparent);animation:scan 5s ease-in-out infinite}
+  .depth-card{position:absolute;border-radius:1rem;filter:blur(.15px);box-shadow:0 30px 70px rgba(0,0,0,.28)}.depth-card--left{left:14%;top:32%;width:15rem;height:8rem;background:linear-gradient(130deg,rgba(78,49,134,.25),rgba(20,16,47,.06));transform:translateZ(-60px) rotateY(14deg)}.depth-card--right{right:10%;top:28%;width:16rem;height:12rem;background:linear-gradient(130deg,rgba(185,114,31,.18),rgba(53,32,9,.04));transform:translateZ(75px) rotateY(-10deg)}.depth-card--decision{right:2%;top:49%;width:15rem;height:15rem;background:linear-gradient(145deg,rgba(18,72,135,.3),rgba(8,17,36,.1));transform:translateZ(145px) rotateY(-7deg)}
+  .hero-v5__labels{position:absolute;inset:0;z-index:5;pointer-events:none}.axis-label{position:absolute;left:50%;transform:translateX(-50%);text-align:center;color:#e7effb;letter-spacing:.18em;font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,.6)}.axis-label--top{top:9.6%;font-size:.82rem}.axis-label--bottom{bottom:16%;font-size:.62rem;color:#9cb1cb}
+  .hero-card,.hero-infer,.hero-decision{position:absolute;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}.hero-card{border-radius:.75rem;box-shadow:0 18px 35px rgba(0,0,0,.2)}.hero-card small{display:block;font-size:.68rem;letter-spacing:.1em;font-weight:800}.hero-card strong{display:block;margin-top:.28rem;font-size:1.05rem;color:#f5f8fb}.hero-card span{display:block;margin-top:.25rem;font-size:.78rem;color:#b2c0d2}.hero-card--unknown{width:13.2rem;padding:1rem 1.05rem;border:1px solid rgba(170,132,255,.5);background:linear-gradient(135deg,rgba(51,35,91,.92),rgba(12,19,37,.95))}.hero-card--unknown small{color:#b995ff}.hero-card--u1{left:6%;top:29%;transform:translate(var(--mx),var(--my))}.hero-card--u2{left:15%;bottom:24%;transform:translate(calc(var(--mx)*-.35),calc(var(--my)*-.35))}
+  .hero-facts{position:absolute;left:50%;top:30%;width:15rem;transform:translateX(-50%);display:grid;gap:.75rem}.hero-card--fact{position:relative!important;display:grid;grid-template-columns:2rem 1fr;gap:.75rem;align-items:center;padding:.85rem 1rem;border:1px solid rgba(87,230,225,.7);background:linear-gradient(105deg,rgba(5,69,82,.96),rgba(5,27,48,.96))}.hero-card--fact i{width:1.8rem;height:1.8rem;display:grid;place-items:center;border-radius:.5rem;background:rgba(72,225,220,.14);color:#66ebe5;font-style:normal;font-weight:900}.hero-card--fact small{color:#66e6df}
+  .hero-infer{right:14%;top:32%;width:14rem;padding:1rem 1rem 1.05rem;border-left:3px solid var(--amber);background:linear-gradient(105deg,rgba(65,39,12,.94),rgba(15,21,34,.94));border-radius:.2rem .7rem .7rem .2rem;box-shadow:0 20px 40px rgba(0,0,0,.22)}.hero-infer small{display:block;color:var(--amber);font-size:.72rem;letter-spacing:.12em;font-weight:800}.hero-infer strong{display:block;margin-top:.45rem;color:#fff3df;font-size:1.05rem}.hero-infer span{display:block;margin-top:.25rem;color:#c9bda8;font-size:.78rem}
+  .hero-decision{right:2%;top:49%;width:15.5rem;padding:1rem 1.05rem 1.15rem;border:1px solid rgba(101,158,255,.55);border-radius:.85rem;background:linear-gradient(145deg,rgba(9,35,72,.98),rgba(4,14,31,.98));box-shadow:0 28px 65px rgba(0,0,0,.32),inset 0 0 45px rgba(54,120,255,.06)}.hero-decision__top{display:flex;justify-content:space-between;color:#81a7df;font-size:.62rem}.hero-decision__top b{color:#64e5dd}.hero-decision>strong{display:block;margin-top:1.15rem;font-family:var(--font-display);font-size:1.55rem;line-height:1.05}.hero-decision p{margin:.75rem 0 0;color:#aec0d4;font-size:.82rem;line-height:1.55}.hero-decision__route{display:block;margin-top:1rem;padding-top:.75rem;border-top:1px solid rgba(116,156,215,.2);color:#97aeca;font-size:.62rem}
+  @keyframes scan{0%,100%{top:22%;opacity:.5}50%{top:70%;opacity:1}}
+  @media(max-width:72rem){.hero-v5__layout{grid-template-columns:1fr;min-height:auto}.hero-v5__copy{max-width:46rem;padding-top:1rem}.hero-v5__visual{height:42rem}.hero-v5 h1{font-size:clamp(3rem,8vw,4.7rem)}}
+  @media(max-width:48rem){.hero-v5{min-height:auto}.hero-v5__layout{padding-block:3rem}.hero-v5__visual{height:34rem;transform:scale(.82);transform-origin:top center;margin-bottom:-5rem}.hero-v5__copy>p{font-size:1rem}.hero-v5__proof{gap:.7rem}.hero-card--u1{left:0}.hero-card--u2{left:5%}.hero-infer{right:2%}.hero-decision{right:-3%}}
+  @media(prefers-reduced-motion:reduce){.axis-shell__scan{animation:none}.hero-v5__spatial{transition:none}}
 </style>

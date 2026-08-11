@@ -4,181 +4,48 @@ import { primaryNav } from '@data/nav';
 import { cta } from '@config/site';
 
 const current = Astro.url.pathname;
-const isActive = (href: string) =>
-  href === '/' ? current === '/' : current.startsWith(href);
+const isHome = current === '/';
+const isActive = (href: string) => href === '/' ? current === '/' : current.startsWith(href);
 ---
-<header class="site-header" data-header>
+<header class:list={['site-header', { 'site-header--home': isHome }]} data-header>
   <div class="container-wide site-header__inner">
-    <Logo />
+    <div class="site-header__brand"><Logo /></div>
 
     <nav class="primary-nav" aria-label="Primary">
       <ul>
         {primaryNav.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class:list={['primary-nav__link', { 'is-active': isActive(item.href) }]}
-              aria-current={isActive(item.href) ? 'page' : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
+          <li><a href={item.href} class:list={['primary-nav__link', { 'is-active': isActive(item.href) }]} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a></li>
         ))}
       </ul>
     </nav>
 
-    <div class="site-header__cta">
-      <a href={cta.primary.href} class="btn btn--sm">
-        {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
+    <div class="site-header__cta"><a href={cta.primary.href} class="header-cta">{cta.primary.label}<span aria-hidden="true">→</span></a></div>
 
-    <button
-      type="button"
-      class="nav-toggle"
-      aria-expanded="false"
-      aria-controls="mobile-nav"
-      aria-label="Open menu"
-      data-nav-toggle
-    >
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" data-nav-toggle>
       <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i></span>
     </button>
   </div>
 </header>
 
-<!-- Mobile navigation panel -->
 <div class="mobile-nav" id="mobile-nav" data-mobile-nav hidden>
   <nav aria-label="Mobile" class="container">
     <ul>
-      {primaryNav.map((item) => (
-        <li>
-          <a href={item.href} class="mobile-nav__link">
-            <span class="mobile-nav__label">{item.label}</span>
-            <span class="mobile-nav__arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
-      ))}
-      <li class="mobile-nav__cta">
-        <a href={cta.primary.href} class="btn btn--lg">
-          {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-      </li>
+      {primaryNav.map((item) => <li><a href={item.href} class="mobile-nav__link"><span>{item.label}</span><span aria-hidden="true">→</span></a></li>)}
+      <li class="mobile-nav__cta"><a href={cta.primary.href} class="header-cta">{cta.primary.label}<span aria-hidden="true">→</span></a></li>
     </ul>
   </nav>
 </div>
 
 <style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: var(--z-header);
-    background: color-mix(in srgb, var(--bg) 82%, transparent);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid transparent;
-    transition: border-color var(--dur-2) var(--ease-out),
-      background var(--dur-2) var(--ease-out);
-  }
-  .site-header[data-scrolled] {
-    border-bottom-color: var(--hairline);
-  }
-  .site-header__inner {
-    display: flex;
-    align-items: center;
-    gap: var(--space-m);
-    height: 4.5rem;
-  }
-  .primary-nav {
-    margin-left: auto;
-    display: none;
-  }
-  .primary-nav ul {
-    display: flex;
-    gap: clamp(0.5rem, 1.6vw, 1.4rem);
-    list-style: none;
-    padding: 0;
-  }
-  .primary-nav__link {
-    font-family: var(--font-display);
-    font-size: 0.92rem;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    color: var(--text-muted);
-    text-decoration: none;
-    padding: 0.4em 0.1em;
-    position: relative;
-    transition: color var(--dur-1) var(--ease-out);
-  }
-  .primary-nav__link::after {
-    content: '';
-    position: absolute;
-    left: 0; right: 0; bottom: -0.15em;
-    height: 1.5px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--dur-2) var(--ease-out);
-  }
-  .primary-nav__link:hover { color: var(--text); }
-  .primary-nav__link:hover::after,
-  .primary-nav__link.is-active::after { transform: scaleX(1); }
-  .primary-nav__link.is-active { color: var(--text); }
-
-  .site-header__cta { display: none; }
-  .btn--sm { padding: 0.6em 1em; font-size: 0.92rem; }
-
-  .nav-toggle {
-    margin-left: auto;
-    background: transparent;
-    border: 1px solid var(--surface-border);
-    border-radius: var(--radius-s);
-    width: 2.6rem; height: 2.6rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--text);
-  }
-  .nav-toggle__bars { display: grid; gap: 5px; width: 18px; }
-  .nav-toggle__bars i {
-    display: block; height: 1.6px; background: currentColor; border-radius: 2px;
-    transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-1);
-  }
-  .nav-toggle[aria-expanded='true'] .nav-toggle__bars i:first-child { transform: translateY(3.3px) rotate(45deg); }
-  .nav-toggle[aria-expanded='true'] .nav-toggle__bars i:last-child { transform: translateY(-3.3px) rotate(-45deg); }
-
-  .mobile-nav {
-    position: fixed;
-    inset: 4.5rem 0 0 0;
-    z-index: calc(var(--z-header) - 1);
-    background: var(--bg);
-    border-top: 1px solid var(--hairline);
-    padding-block: var(--space-l);
-    overflow-y: auto;
-    animation: mobileIn var(--dur-2) var(--ease-out);
-  }
-  .mobile-nav[hidden] { display: none; }
-  @keyframes mobileIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
-  .mobile-nav ul { list-style: none; padding: 0; display: grid; }
-  .mobile-nav__link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--hairline);
-    text-decoration: none;
-    color: var(--text);
-    font-family: var(--font-display);
-    font-size: var(--step-1);
-    font-weight: 500;
-  }
-  .mobile-nav__arrow { color: var(--accent); }
-  .mobile-nav__cta { margin-top: var(--space-l); }
-
-  @media (min-width: 64rem) {
-    .primary-nav { display: block; }
-    .site-header__cta { display: block; }
-    .nav-toggle { display: none; }
-    .mobile-nav { display: none !important; }
-  }
+  .site-header{position:sticky;top:0;z-index:var(--z-header);background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--hairline);transition:.2s ease}
+  .site-header--home{background:rgba(4,10,22,.94);border-bottom-color:rgba(122,166,226,.18);box-shadow:0 10px 35px rgba(0,0,0,.14)}
+  .site-header--home[data-scrolled]{background:rgba(4,10,22,.98);border-bottom-color:rgba(122,166,226,.28)}
+  .site-header__inner{display:flex;align-items:center;gap:var(--space-m);min-height:4.9rem}
+  .site-header__brand{display:flex;align-items:center;min-width:max-content}.site-header--home .site-header__brand{filter:brightness(1.7) saturate(1.2)}
+  .site-header--home :global(.logo-word){font-size:1.22rem!important;font-weight:650!important;letter-spacing:-.025em!important}.site-header--home :global(.logo-word-a){color:#f4f8ff!important}.site-header--home :global(.logo-word-b){color:#7ea7ff!important}.site-header--home :global(.logo-mark){width:29px;height:29px}
+  .primary-nav{margin-left:auto;display:none}.primary-nav ul{display:flex;align-items:center;gap:clamp(.7rem,1.45vw,1.4rem);list-style:none;padding:0;margin:0}.primary-nav__link{position:relative;color:var(--text-muted);text-decoration:none;font-family:var(--font-display);font-size:.86rem;font-weight:560;letter-spacing:-.01em;transition:color .15s ease}.site-header--home .primary-nav__link{color:#aebbd0}.primary-nav__link:hover,.primary-nav__link.is-active{color:var(--text)}.site-header--home .primary-nav__link:hover,.site-header--home .primary-nav__link.is-active{color:#fff}.primary-nav__link::after{content:'';position:absolute;left:0;right:0;bottom:-.52rem;height:2px;border-radius:99px;background:linear-gradient(90deg,#73a4ff,#55e1dd);transform:scaleX(0);transform-origin:left;transition:transform .18s ease}.primary-nav__link:hover::after,.primary-nav__link.is-active::after{transform:scaleX(1)}
+  .site-header__cta{display:none}.header-cta{min-height:2.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.75rem;padding:0 1.2rem;border-radius:.7rem;text-decoration:none;font-family:var(--font-display);font-size:.88rem;font-weight:700;color:#07101c;background:linear-gradient(110deg,#8db0ff,#56d6e2);border:1px solid rgba(255,255,255,.3);box-shadow:0 10px 28px rgba(58,111,231,.25),inset 0 1px rgba(255,255,255,.45)}
+  .nav-toggle{margin-left:auto;width:2.7rem;height:2.7rem;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--surface-border);border-radius:.65rem;background:transparent;color:var(--text);cursor:pointer}.site-header--home .nav-toggle{color:#eff5ff;border-color:rgba(121,159,214,.28)}.nav-toggle__bars{display:grid;gap:5px;width:18px}.nav-toggle__bars i{display:block;height:1.7px;background:currentColor;border-radius:2px;transition:.2s ease}.nav-toggle[aria-expanded='true'] .nav-toggle__bars i:first-child{transform:translateY(3.3px) rotate(45deg)}.nav-toggle[aria-expanded='true'] .nav-toggle__bars i:last-child{transform:translateY(-3.3px) rotate(-45deg)}
+  .mobile-nav{position:fixed;inset:4.9rem 0 0;z-index:calc(var(--z-header) - 1);background:rgba(3,10,22,.99);border-top:1px solid rgba(120,153,200,.16);padding-block:var(--space-l);overflow-y:auto}.mobile-nav[hidden]{display:none}.mobile-nav ul{list-style:none;padding:0;margin:0;display:grid}.mobile-nav__link{display:flex;align-items:center;justify-content:space-between;padding:1rem 0;border-bottom:1px solid rgba(120,153,200,.14);color:#eef4ff;text-decoration:none;font-family:var(--font-display);font-size:var(--step-1)}.mobile-nav__link span:last-child{color:#65dbe2}.mobile-nav__cta{margin-top:var(--space-l)}
+  @media(min-width:64rem){.primary-nav{display:block}.site-header__cta{display:block}.nav-toggle{display:none}.mobile-nav{display:none!important}}
 </style>
