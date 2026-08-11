@@ -1,367 +1,132 @@
 ---
 import { offers, cta } from '@config/site';
-/**
- * Homepage hero.
- * Layered by capability:
- *  - Base / fallback (this markup): a CSS/SVG "evidence field" that aligns
- *    onto the axis. Fully readable with no JS, and used for reduced-motion,
- *    mobile, and no-WebGL.
- *  - Enhancement (Phase 2): on capable desktops, src/scripts/hero-spatial
- *    adds `.hero--spatial-ready` ONLY after the WebGL2 scene has loaded, fonts
- *    are ready and a first frame has rendered — then swaps in a full-bleed
- *    procedural Three.js scene (scatter → classify → align → decision).
- * Essential headline, pricing and CTA text always live in semantic DOM,
- * never inside the canvas.
- */
-const fragments = [
-  { label: 'pricing page', state: 'fact', x: -46, y: -30, r: -6, d: 0 },
-  { label: 'documentation', state: 'fact', x: -60, y: 46, r: 5, d: 90 },
-  { label: 'changelog', state: 'inference', x: 40, y: -54, r: 7, d: 180 },
-  { label: 'public reviews', state: 'inference', x: 54, y: 30, r: -5, d: 140 },
-  { label: 'marketplace', state: 'unknown', x: -30, y: 92, r: 4, d: 240 },
-  { label: 'private churn', state: 'unknown', x: 48, y: 96, r: -7, d: 300 },
-];
-const rows = [
-  { state: 'fact', label: 'Fact', note: 'evidence-backed' },
-  { state: 'inference', label: 'Inference', note: 'reasoned' },
-  { state: 'unknown', label: 'Unknown', note: 'unresolved' },
-];
+const videoUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210b59996f5308097b38adf0144d37a46&profile_id=139&oauth2_token_id=1223210874';
+const strategyPoster = 'https://pikwizard.com/pw/medium/e3ad9ee9a75e652615ffefac616044a8.jpg';
+const meetingPoster = 'https://thumbs.wbm.im/pw/medium/e045190bd63c620ddbabb39a991b37e9.jpg';
 ---
-<section class="hero" data-hero data-surface="dark" aria-labelledby="hero-title">
-  <div class="hero__stage">
-  <canvas class="hero__canvas" data-hero-canvas aria-hidden="true"></canvas>
-  <div class="container-wide hero__grid">
-    <div class="hero__copy">
-      <span class="label eyebrow">Competitor intelligence for B2B SaaS</span>
-      <h1 id="hero-title" class="hero__title">
-        Scattered competitor information,<br />
-        <span class="hero__title-accent">resolved into decision-ready evidence.</span>
+<section class="hero-pro" data-surface="dark" aria-labelledby="hero-title">
+  <video class="hero-pro__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+    <source src={videoUrl} type="video/mp4" />
+  </video>
+  <div class="hero-pro__overlay" aria-hidden="true"></div>
+  <div class="hero-pro__gridline" aria-hidden="true"></div>
+
+  <div class="container-wide hero-pro__inner">
+    <div class="hero-pro__copy">
+      <span class="hero-pro__eyebrow mono">Competitor intelligence for B2B SaaS</span>
+      <h1 id="hero-title" class="hero-pro__title">
+        <span>Know what competitors can prove.</span>
+        <em>See what they can’t.</em>
       </h1>
-      <p class="hero__lede">
-        You rarely lack competitor information. You lack clarity about what is
-        actually supported, what is marketing language, and what remains unknown.
-        Evidence Axis turns public evidence into a structured decision brief —
-        every claim sourced, dated, and marked Fact, Inference or Unknown.
-      </p>
-      <div class="hero__actions">
-        <a href={cta.primary.href} class="btn btn--lg">
-          {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href={cta.secondary.href} class="btn btn--ghost btn--lg">
-          {cta.secondary.label}
-        </a>
-      </div>
-      <p class="hero__meta mono">
-        Two-Competitor Decision Brief · <strong>{offers.twoCompetitor.priceDisplay}</strong>
-        pilot · {offers.twoCompetitor.delivery} · asynchronous, no sales call
+      <p class="hero-pro__lede">
+        Source-checked competitor evidence built around a real decision. Facts stay facts. Inferences stay labeled. Unknowns stay visible.
       </p>
 
-      <ol class="hero__states" data-hero-states data-active="0" aria-hidden="true">
-        <li>Scattered</li>
-        <li>Classified</li>
-        <li>Aligned</li>
-        <li>Decision</li>
-      </ol>
+      <div class="hero-pro__actions">
+        <a class="hero-pro__cta" href={cta.primary.href}>{cta.primary.label}<span aria-hidden="true">→</span></a>
+        <a class="hero-pro__ghost" href="/sample-report/">View Sample Report</a>
+      </div>
+
+      <div class="hero-pro__proof mono" aria-label="Pilot details">
+        <span><strong>{offers.twoCompetitor.priceDisplay}</strong><small>PILOT</small></span>
+        <span><strong>{offers.twoCompetitor.delivery}</strong><small>DELIVERY</small></span>
+        <span><strong>PUBLIC</strong><small>CHECKED / DATED</small></span>
+      </div>
     </div>
 
-    <div class="hero__visual" aria-hidden="true">
-      <div class="evidence-field" data-evidence-field>
-        <svg class="evidence-field__axis" viewBox="0 0 40 320" preserveAspectRatio="none">
-          <line x1="20" y1="6" x2="20" y2="314" />
-        </svg>
-        <span class="ef-axis-label ef-axis-label--top mono">AXIS</span>
-        <span class="ef-axis-label ef-axis-label--bottom mono">DECISION</span>
+    <div class="hero-pro__stage" data-stage>
+      <figure class="hero-pro__photo hero-pro__photo--one">
+        <img src={strategyPoster} alt="Business professionals collaborating in a modern office" />
+        <figcaption><span>GLOBAL SIGNAL MAP</span><b>Public sources in context</b></figcaption>
+      </figure>
 
-        {fragments.map((f) => (
-          <span
-            class:list={['ef-frag', `ef-frag--${f.state}`]}
-            style={`--fx:${f.x}px; --fy:${f.y}px; --fr:${f.r}deg; --fd:${f.d}ms;`}
-          >
-            <i class="ef-frag__dot"></i>{f.label}
-          </span>
-        ))}
-
-        <ul class="ef-rows">
-          {rows.map((r, i) => (
-            <li class:list={['ef-row', `ef-row--${r.state}`]} style={`--rd:${i * 120 + 380}ms;`}>
-              <span class="ef-row__marker"></span>
-              <span class="ef-row__label mono">{r.label}</span>
-              <span class="ef-row__note mono">{r.note}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div class="ef-decision" style="--rd:820ms;">
-          <span class="mono">→ decision implication</span>
+      <div class="axis-object" data-axis-object aria-label="Interactive Evidence Axis model">
+        <div class="axis-object__halo"></div>
+        <div class="axis-object__cap axis-object__cap--top"><span>EVIDENCE AXIS</span></div>
+        <div class="axis-object__body">
+          <div class="axis-object__beam"></div>
+          <div class="axis-object__ring axis-object__ring--fact"><span>FACT</span><small>verified</small></div>
+          <div class="axis-object__ring axis-object__ring--inference"><span>INFERENCE</span><small>reasoned</small></div>
+          <div class="axis-object__ring axis-object__ring--unknown"><span>UNKNOWN</span><small>unresolved</small></div>
+          <div class="axis-object__card axis-object__card--a">Pricing page</div>
+          <div class="axis-object__card axis-object__card--b">Documentation</div>
+          <div class="axis-object__card axis-object__card--c">Decision brief</div>
         </div>
+        <div class="axis-object__cap axis-object__cap--bottom"><span>TRACEABLE · DECISION-READY</span></div>
       </div>
+
+      <figure class="hero-pro__photo hero-pro__photo--two">
+        <img src={meetingPoster} alt="Executives discussing a business decision in an office" />
+        <figcaption><span>DECISION ROOM</span><b>Evidence before judgment</b></figcaption>
+      </figure>
     </div>
   </div>
-
-  <div class="hero__scroll" aria-hidden="true">
-    <span class="mono">scroll</span>
-    <span class="hero__scroll-line"></span>
-  </div>
-  </div><!-- /.hero__stage -->
 </section>
 
 <script>
-  import { initHeroSpatial } from '../scripts/hero-spatial';
-  initHeroSpatial();
+  const stage = document.querySelector('[data-stage]');
+  const object = document.querySelector('[data-axis-object]');
+  if (stage instanceof HTMLElement && object instanceof HTMLElement && matchMedia('(pointer:fine)').matches) {
+    stage.addEventListener('pointermove', (event) => {
+      const box = stage.getBoundingClientRect();
+      const x = (event.clientX - box.left) / box.width - 0.5;
+      const y = (event.clientY - box.top) / box.height - 0.5;
+      object.style.setProperty('--rx', `${(-y * 12).toFixed(2)}deg`);
+      object.style.setProperty('--ry', `${(x * 18).toFixed(2)}deg`);
+    });
+    stage.addEventListener('pointerleave', () => {
+      object.style.setProperty('--rx', '0deg');
+      object.style.setProperty('--ry', '0deg');
+    });
+  }
 </script>
 
 <style>
-  .hero {
-    position: relative;
-    background:
-      radial-gradient(120% 90% at 78% 8%, color-mix(in srgb, var(--signal-600) 20%, transparent), transparent 55%),
-      var(--bg);
-    color: var(--text);
-    padding-block: clamp(3rem, 2rem + 8vw, 7rem) clamp(3rem, 2rem + 5vw, 5.5rem);
-    overflow: clip;
-  }
-  .hero__grid {
-    display: grid;
-    gap: clamp(2.5rem, 6vw, 5rem);
-    align-items: center;
-    grid-template-columns: 1fr;
-  }
-  .hero__title {
-    font-size: var(--step-6);
-    margin-top: var(--space-xs);
-    letter-spacing: -0.025em;
-  }
-  .hero__title-accent { color: var(--accent); }
-  .hero__lede {
-    margin-top: var(--space-l);
-    max-width: 52ch;
-    font-size: var(--step-1);
-    color: var(--text-muted);
-  }
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-s);
-    margin-top: var(--space-l);
-  }
-  .hero__meta {
-    margin-top: var(--space-l);
-    font-size: var(--step--1);
-    color: var(--text-faint);
-    letter-spacing: 0.01em;
-  }
-  .hero__meta strong { color: var(--accent); font-weight: 500; }
+  .hero-pro{position:relative;overflow:hidden;min-height:calc(100svh - 5rem);background:#020713;color:#f5f8ff;isolation:isolate}
+  .hero-pro__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.12) contrast(1.08) brightness(.58);transform:scale(1.03)}
+  .hero-pro__overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,7,18,.99) 0%,rgba(2,7,18,.88) 31%,rgba(2,7,18,.48) 54%,rgba(2,7,18,.2) 78%,rgba(2,7,18,.42) 100%),linear-gradient(180deg,rgba(2,7,18,.18),rgba(2,7,18,.1) 60%,rgba(2,7,18,.75));z-index:1}
+  .hero-pro__gridline{position:absolute;inset:0;z-index:1;opacity:.12;background-image:linear-gradient(rgba(111,153,221,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(111,153,221,.16) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(90deg,transparent 0,#000 48%,#000 100%)}
+  .hero-pro__inner{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,.9fr) minmax(34rem,1.1fr);gap:clamp(2rem,4vw,4rem);align-items:center;min-height:calc(100svh - 5rem);padding-block:clamp(4rem,8vh,7rem)}
+  .hero-pro__copy{position:relative;z-index:5;max-width:47rem}
+  .hero-pro__eyebrow{display:flex;align-items:center;gap:.7rem;color:#8caeff;font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+  .hero-pro__eyebrow::before{content:'';width:1.8rem;height:1px;background:currentColor;box-shadow:0 0 12px currentColor}
+  .hero-pro__title{margin:1.15rem 0 0;max-width:9.2ch;font-family:var(--font-display);font-size:clamp(4rem,5.6vw,6.7rem);line-height:.92;letter-spacing:-.064em;font-weight:780}
+  .hero-pro__title span{display:block;color:#fff;text-shadow:0 10px 35px rgba(0,0,0,.66)}
+  .hero-pro__title em{display:block;margin-top:.12em;font-style:normal;background:linear-gradient(100deg,#a0bdff 0%,#72a0ff 43%,#54dfd7 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 24px rgba(76,141,242,.25))}
+  .hero-pro__lede{max-width:42rem;margin:1.5rem 0 0;color:#d3deed;font-family:var(--font-serif);font-size:1.08rem;line-height:1.72;text-shadow:0 2px 12px rgba(0,0,0,.55)}
+  .hero-pro__actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.7rem}
+  .hero-pro__actions a{display:inline-flex;align-items:center;justify-content:center;min-height:3.45rem;padding:0 1.28rem;border-radius:.75rem;font-family:var(--font-display);font-weight:800;text-decoration:none}
+  .hero-pro__cta{gap:.85rem;background:linear-gradient(115deg,#8bb0ff,#4ddbd4);color:#06101a;box-shadow:0 18px 46px rgba(53,130,229,.27)}
+  .hero-pro__ghost{border:1px solid rgba(151,185,231,.24);background:rgba(5,14,29,.56);color:#e8f1ff;backdrop-filter:blur(12px)}
+  .hero-pro__proof{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.15rem}
+  .hero-pro__proof>span{display:grid;grid-template-columns:auto auto;gap:.42rem;align-items:center;min-height:2.2rem;padding:0 .75rem;border-radius:.55rem;border:1px solid rgba(139,171,217,.18);background:rgba(7,17,33,.64);backdrop-filter:blur(10px)}
+  .hero-pro__proof strong{font-size:.73rem;color:#fff}.hero-pro__proof small{font-size:.56rem;color:#9baec8;letter-spacing:.09em}
 
-  /* ---- Phase 2 spatial enhancement (progressive) ---- */
-  .hero__canvas { display: none; pointer-events: none; }
-  .hero__stage { position: relative; }
-  .hero__states { display: none; }
-  .hero__states {
-    list-style: none; padding: 0; margin: var(--space-xl) 0 0;
-    flex-wrap: wrap; gap: 0.5rem 1.15rem;
-    font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--text-faint);
-  }
-  .hero__states li { position: relative; padding-left: 1.05rem; transition: color var(--dur-2) var(--ease-out); }
-  .hero__states li::before {
-    content: ''; position: absolute; left: 0; top: 0.5em;
-    width: 0.5rem; height: 0.5rem; border-radius: 50%;
-    border: 1px solid currentColor;
-    transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
-  }
-  .hero__states[data-active='0'] li:nth-child(-n+1),
-  .hero__states[data-active='1'] li:nth-child(-n+2),
-  .hero__states[data-active='2'] li:nth-child(-n+3),
-  .hero__states[data-active='3'] li:nth-child(-n+4) { color: var(--accent); }
-  .hero__states[data-active='0'] li:nth-child(-n+1)::before,
-  .hero__states[data-active='1'] li:nth-child(-n+2)::before,
-  .hero__states[data-active='2'] li:nth-child(-n+3)::before,
-  .hero__states[data-active='3'] li:nth-child(-n+4)::before { background: var(--accent); border-color: var(--accent); }
+  .hero-pro__stage{position:relative;min-height:40rem;perspective:1300px;transform-style:preserve-3d}
+  .axis-object{--rx:0deg;--ry:0deg;position:absolute;left:50%;top:50%;width:min(25rem,48%);height:34rem;transform:translate(-50%,-50%) rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .18s ease-out;filter:drop-shadow(0 35px 60px rgba(0,0,0,.52))}
+  .axis-object__halo{position:absolute;inset:13% -20%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(57,134,248,.22),rgba(66,225,216,.08) 38%,transparent 70%);filter:blur(18px);transform:translateZ(-60px)}
+  .axis-object__cap{position:absolute;left:7%;right:7%;height:3.25rem;border-radius:50%;border:1px solid rgba(114,162,233,.52);display:grid;place-items:center;background:radial-gradient(ellipse at center,rgba(67,131,210,.28),rgba(11,27,54,.84) 58%,rgba(3,9,19,.98));box-shadow:inset 0 0 28px rgba(64,151,255,.16),0 0 34px rgba(58,134,244,.16);transform-style:preserve-3d}
+  .axis-object__cap span{font:800 .68rem/1 var(--font-mono);letter-spacing:.16em;color:#ecf3ff;text-shadow:0 0 14px rgba(255,255,255,.25)}
+  .axis-object__cap--top{top:0;transform:translateZ(30px) rotateX(6deg)}
+  .axis-object__cap--bottom{bottom:0;transform:translateZ(18px) rotateX(-4deg)}
+  .axis-object__cap--bottom span{font-size:.54rem;color:#9ab1ce}
+  .axis-object__body{position:absolute;left:11%;right:11%;top:1.65rem;bottom:1.65rem;border-inline:1px solid rgba(111,160,227,.42);background:linear-gradient(90deg,rgba(74,220,211,.035),rgba(82,134,229,.12),rgba(74,220,211,.035));transform-style:preserve-3d;overflow:visible}
+  .axis-object__beam{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%) translateZ(14px);background:linear-gradient(180deg,transparent,#56e2da 18%,#70a7ff 52%,#56e2da 82%,transparent);box-shadow:0 0 24px rgba(76,225,216,.7)}
+  .axis-object__ring{position:absolute;left:50%;width:76%;height:3.1rem;transform:translateX(-50%) rotateX(64deg) translateZ(24px);border-radius:50%;border:1px solid currentColor;background:rgba(4,11,24,.65);box-shadow:0 0 22px color-mix(in srgb,currentColor 20%,transparent);display:flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--font-mono);font-weight:800;letter-spacing:.11em}
+  .axis-object__ring span{font-size:.62rem}.axis-object__ring small{font-size:.46rem;opacity:.65}.axis-object__ring--fact{top:18%;color:#55e1d9}.axis-object__ring--inference{top:44%;color:#f0ab4b}.axis-object__ring--unknown{top:70%;color:#b18aff}
+  .axis-object__card{position:absolute;min-width:8rem;padding:.72rem .85rem;border-radius:.65rem;border:1px solid rgba(135,176,231,.22);background:rgba(5,15,31,.82);backdrop-filter:blur(10px);font:700 .68rem/1 var(--font-mono);color:#dce7f5;box-shadow:0 18px 32px rgba(0,0,0,.24)}
+  .axis-object__card--a{left:-20%;top:30%;transform:translateZ(84px) rotateY(9deg) rotateZ(-3deg);border-color:rgba(85,225,217,.32)}
+  .axis-object__card--b{right:-24%;top:50%;transform:translateZ(100px) rotateY(-10deg) rotateZ(3deg);border-color:rgba(240,171,75,.3)}
+  .axis-object__card--c{right:-16%;bottom:14%;transform:translateZ(74px) rotateY(-6deg);border-color:rgba(177,138,255,.3)}
 
-  .hero--spatial-ready { padding-block: 0; min-height: 240vh; }
-  .hero--spatial-ready .hero__stage {
-    position: sticky; top: 0; height: 100vh; min-height: 620px;
-    display: flex; align-items: center; overflow: hidden;
-    padding-block: clamp(4.5rem, 11vh, 7rem) 2rem;
-  }
-  .hero--spatial-ready .hero__canvas {
-    display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
-  }
-  .hero--spatial-ready .hero__stage::after {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(90deg,
-      var(--bg) 0%,
-      var(--bg) 30%,
-      color-mix(in srgb, var(--bg) 72%, transparent) 46%,
-      transparent 70%);
-  }
-  .hero--spatial-ready .hero__grid { position: relative; z-index: 2; width: 100%; }
-  .hero--spatial-ready .hero__visual { display: none; }
-  .hero--spatial-ready .hero__states { display: flex; }
-  .hero--spatial-ready .hero__title { font-size: var(--step-5); }
-  /* Pinned view has a fixed vertical budget — tighten the rhythm so headline,
-     pricing microcopy and the state row all stay above the fold. */
-  .hero--spatial-ready .hero__lede { margin-top: var(--space-m); }
-  .hero--spatial-ready .hero__actions { margin-top: var(--space-m); }
-  .hero--spatial-ready .hero__meta { margin-top: var(--space-m); }
-  .hero--spatial-ready .hero__states { margin-top: var(--space-m); }
+  .hero-pro__photo{position:absolute;margin:0;width:12.5rem;aspect-ratio:.82/1;border-radius:1rem;overflow:hidden;border:1px solid rgba(143,181,234,.24);background:#081426;box-shadow:0 24px 55px rgba(0,0,0,.34);transform-style:preserve-3d}
+  .hero-pro__photo img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.04) brightness(.85)}
+  .hero-pro__photo::after{content:'';position:absolute;inset:36% 0 0;background:linear-gradient(transparent,rgba(3,10,20,.94))}
+  .hero-pro__photo figcaption{position:absolute;z-index:2;left:.85rem;right:.85rem;bottom:.8rem;display:grid;gap:.2rem}.hero-pro__photo figcaption span{font:800 .53rem/1 var(--font-mono);letter-spacing:.1em;color:#55e1d9}.hero-pro__photo figcaption b{font-size:.75rem;color:#edf4ff}
+  .hero-pro__photo--one{left:1%;top:9%;transform:translateZ(-40px) rotateY(13deg) rotateZ(-2deg)}
+  .hero-pro__photo--two{right:0;bottom:7%;width:11.2rem;transform:translateZ(-15px) rotateY(-13deg) rotateZ(2deg)}
 
-  /* ---- Evidence field visual ---- */
-  .hero__visual { min-height: 340px; display: grid; place-items: center; }
-  .evidence-field {
-    position: relative;
-    width: min(100%, 30rem);
-    height: 340px;
-  }
-  .evidence-field__axis {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 100%;
-  }
-  .evidence-field__axis line {
-    stroke: var(--axis-line);
-    stroke-width: 1.5;
-    stroke-dasharray: 2 4;
-  }
-  .ef-axis-label {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    color: var(--text-faint);
-  }
-  .ef-axis-label--top { top: -0.2rem; }
-  .ef-axis-label--bottom { bottom: -0.4rem; color: var(--accent); }
-
-  .ef-frag {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5ch;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    background: color-mix(in srgb, var(--bg-raised) 88%, transparent);
-    border: 1px solid var(--surface-border);
-    border-radius: var(--radius-s);
-    padding: 0.32em 0.6em;
-    white-space: nowrap;
-    backdrop-filter: blur(3px);
-    transform: translate(calc(-50% + var(--fx)), calc(-50% + var(--fy))) rotate(var(--fr));
-    animation: fragAlign 900ms var(--ease-out) both;
-    animation-delay: var(--fd);
-    box-shadow: var(--shadow-2);
-  }
-  .ef-frag__dot { width: 0.5em; height: 0.5em; border-radius: 50%; flex: none; }
-  .ef-frag--fact .ef-frag__dot { background: var(--fact); }
-  .ef-frag--inference .ef-frag__dot { background: var(--infer); }
-  .ef-frag--unknown .ef-frag__dot { background: transparent; border: 1px solid var(--unknown); }
-
-  @keyframes fragAlign {
-    0% { opacity: 0; transform: translate(calc(-50% + var(--fx)), calc(-50% + var(--fy))) rotate(var(--fr)) scale(0.9); }
-    60% { opacity: 1; }
-    100% { opacity: 0.55; transform: translate(calc(-50% + var(--fx)), calc(-50% + var(--fy))) rotate(var(--fr)) scale(1); }
-  }
-
-  .ef-rows {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: 0.55rem;
-    width: min(88%, 22rem);
-    z-index: var(--z-raised);
-  }
-  .ef-row {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 0.7ch;
-    background: var(--bg-raised);
-    border: 1px solid var(--surface-border);
-    border-left-width: 3px;
-    border-radius: var(--radius-s);
-    padding: 0.6em 0.8em;
-    box-shadow: var(--shadow-3);
-    animation: rowIn 600ms var(--ease-out) both;
-    animation-delay: var(--rd);
-  }
-  .ef-row--fact { border-left-color: var(--fact); }
-  .ef-row--inference { border-left-color: var(--infer); border-left-style: dashed; }
-  .ef-row--unknown { border-left-color: var(--unknown); border-left-style: dotted; }
-  .ef-row__marker { width: 0.7em; height: 0.7em; border-radius: 50%; }
-  .ef-row--fact .ef-row__marker { background: var(--fact); }
-  .ef-row--inference .ef-row__marker { background: linear-gradient(90deg, var(--infer) 50%, transparent 50%); border: 1px solid var(--infer); }
-  .ef-row--unknown .ef-row__marker { background: transparent; border: 1px solid var(--unknown); }
-  .ef-row__label { font-size: 0.78rem; color: var(--text); font-weight: 500; }
-  .ef-row__note { font-size: 0.66rem; color: var(--text-faint); }
-
-  @keyframes rowIn {
-    from { opacity: 0; transform: translateX(-8px); }
-    to { opacity: 1; transform: none; }
-  }
-
-  .ef-decision {
-    position: absolute;
-    left: 50%;
-    bottom: 0.2rem;
-    transform: translateX(-50%);
-    background: var(--accent);
-    color: var(--on-accent);
-    font-size: 0.7rem;
-    padding: 0.4em 0.8em;
-    border-radius: var(--radius-s);
-    animation: rowIn 600ms var(--ease-out) both;
-    animation-delay: var(--rd);
-    box-shadow: var(--shadow-3);
-  }
-
-  .hero__scroll {
-    position: absolute;
-    left: var(--gutter);
-    bottom: 1.2rem;
-    display: none;
-    align-items: center;
-    gap: 0.7ch;
-    color: var(--text-faint);
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-  .hero__scroll-line { width: 3rem; height: 1px; background: var(--hairline); position: relative; overflow: hidden; }
-  .hero__scroll-line::after {
-    content: ''; position: absolute; inset: 0; width: 40%;
-    background: var(--accent);
-    animation: scrollHint 2.4s var(--ease-in-out) infinite;
-  }
-  @keyframes scrollHint { 0% { transform: translateX(-120%); } 100% { transform: translateX(300%); } }
-
-  @media (min-width: 64rem) {
-    .hero__grid { grid-template-columns: 1.05fr 0.95fr; }
-    .hero__scroll { display: flex; }
-  }
-
-  /* Short laptop heights: keep headline, pricing and CTA inside the pinned view. */
-  @media (min-width: 64rem) and (max-height: 820px) {
-    .hero--spatial-ready .hero__title { font-size: var(--step-4); }
-    .hero--spatial-ready .hero__lede { margin-top: var(--space-m); font-size: var(--step-0); }
-    .hero--spatial-ready .hero__states { margin-top: var(--space-l); }
-    .hero--spatial-ready .hero__stage { padding-block: clamp(3.5rem, 8vh, 5rem) 1.25rem; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .ef-frag { animation: none; opacity: 0.55; }
-    .ef-row, .ef-decision { animation: none; opacity: 1; transform: translateX(-50%); }
-    .ef-row { transform: none; }
-    .hero__scroll-line::after { animation: none; }
-  }
+  @media(max-width:1080px){.hero-pro__inner{grid-template-columns:1fr}.hero-pro__copy{max-width:50rem}.hero-pro__stage{min-height:32rem}.axis-object{width:19rem;height:28rem}.hero-pro__photo--one{left:12%}.hero-pro__photo--two{right:12%}}
+  @media(max-width:720px){.hero-pro{min-height:58rem}.hero-pro__inner{min-height:58rem;align-items:start;padding-block:3.5rem 4rem}.hero-pro__title{font-size:clamp(3.35rem,14vw,4.7rem)}.hero-pro__lede{font-size:1rem}.hero-pro__stage{min-height:24rem;margin-top:1rem}.axis-object{width:15rem;height:21rem}.axis-object__ring{height:2.3rem}.hero-pro__photo{display:none}.axis-object__card{font-size:.55rem;min-width:6rem}.axis-object__card--a{left:-10%}.axis-object__card--b{right:-14%}.axis-object__card--c{right:-10%}.hero-pro__overlay{background:linear-gradient(180deg,rgba(2,7,18,.28),rgba(2,7,18,.8) 45%,#020713 100%)}}
+  @media(prefers-reduced-motion:reduce){.hero-pro__video{display:none}.axis-object{transition:none}}
 </style>
