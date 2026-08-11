@@ -2,31 +2,65 @@
 import { offers, cta } from '@config/site';
 import ProductVideo from './ProductVideo.astro';
 ---
-<section class="hero7" aria-labelledby="hero7-title">
+<section class="hero8" aria-labelledby="hero8-title">
   <ProductVideo />
-  <div class="hero7__shade" aria-hidden="true"></div>
-  <div class="container-wide hero7__inner">
-    <div class="hero7__copy">
-      <div class="hero7__eyebrow mono"><span></span>COMPETITOR INTELLIGENCE FOR B2B SAAS</div>
-      <h1 id="hero7-title"><span>Know what competitors can prove.</span><em>See what they can’t.</em></h1>
-      <p>Evidence Axis turns scattered public competitor information into a source-checked decision brief. Facts stay facts. Inferences stay labeled. Unknowns stay visible.</p>
-      <div class="hero7__actions">
-        <a class="hero7__primary" href={cta.primary.href}>{cta.primary.label}<span aria-hidden="true">→</span></a>
-        <a class="hero7__secondary" href="/sample-report/">View Sample Report</a>
+  <div class="hero8__shade" aria-hidden="true"></div>
+
+  <div class="container-wide hero8__inner">
+    <div class="hero8__copy">
+      <div class="hero8__eyebrow mono"><span></span>COMPETITOR INTELLIGENCE FOR B2B SAAS</div>
+      <h1 id="hero8-title"><span>Know what competitors can prove.</span><em>See what they can’t.</em></h1>
+      <p>Source-checked competitor evidence built around a real decision. Facts stay facts. Inferences stay labeled. Unknowns stay visible.</p>
+
+      <div class="hero8__actions">
+        <a class="hero8__primary" href={cta.primary.href}>{cta.primary.label}<span aria-hidden="true">→</span></a>
+        <button class="hero8__film" type="button" data-watch-film><span class="play">▶</span> Watch 90-second film</button>
+        <a class="hero8__secondary" href="/sample-report/">View Sample Report</a>
       </div>
-      <div class="hero7__proof mono">
+
+      <div class="hero8__proof mono">
         <span><b>{offers.twoCompetitor.priceDisplay}</b><small>PILOT</small></span>
         <span><b>{offers.twoCompetitor.delivery}</b><small>DELIVERY</small></span>
-        <span><b>PUBLIC</b><small>EVIDENCE</small></span>
+        <span><b>PUBLIC</b><small>CHECKED / DATED</small></span>
       </div>
     </div>
   </div>
-  <a class="hero7__scroll mono" href="#proof">SCROLL TO THE EVIDENCE <span>↓</span></a>
+
+  <a class="hero8__scroll mono" href="#visual-proof">SEE THE OUTPUT <span>↓</span></a>
+
+  <dialog class="film-dialog" data-film-dialog>
+    <button class="film-dialog__close" type="button" data-film-close aria-label="Close video">×</button>
+    <div class="film-dialog__head"><span>EVIDENCE AXIS</span><b>90-SECOND WALKTHROUGH</b></div>
+    <video class="film-dialog__video" data-film-video controls playsinline></video>
+    <div class="film-dialog__foot">SOURCE → OBSERVATION → FACT → INFERENCE → MOVE</div>
+  </dialog>
 </section>
 
+<script>
+  const open = document.querySelector('[data-watch-film]');
+  const dialog = document.querySelector('[data-film-dialog]');
+  const close = document.querySelector('[data-film-close]');
+  const modalVideo = document.querySelector('[data-film-video]');
+  const bgVideo = document.querySelector('[data-product-video-media]');
+
+  if (open instanceof HTMLButtonElement && dialog instanceof HTMLDialogElement && modalVideo instanceof HTMLVideoElement && bgVideo instanceof HTMLVideoElement) {
+    open.addEventListener('click', () => {
+      if (!modalVideo.src) modalVideo.src = bgVideo.currentSrc || bgVideo.src;
+      dialog.showModal();
+      modalVideo.currentTime = 0;
+      modalVideo.play().catch(() => {});
+    });
+    const shut = () => { modalVideo.pause(); dialog.close(); };
+    close?.addEventListener('click', shut);
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) shut(); });
+    dialog.addEventListener('cancel', (event) => { event.preventDefault(); shut(); });
+  }
+</script>
+
 <style>
-  .hero7{position:relative;min-height:calc(100svh - 5rem);overflow:hidden;background:#020713;color:#fff;isolation:isolate}.hero7__shade{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(2,7,18,.99) 0%,rgba(2,7,18,.94) 25%,rgba(2,7,18,.68) 44%,rgba(2,7,18,.18) 69%,rgba(2,7,18,.04) 100%),linear-gradient(180deg,rgba(2,7,18,.08),rgba(2,7,18,.06) 70%,rgba(2,7,18,.84))}.hero7__inner{position:relative;z-index:2;min-height:calc(100svh - 5rem);display:flex;align-items:center;padding-block:clamp(4rem,8vh,7rem)}.hero7__copy{width:min(42rem,46vw);padding:1rem 0}.hero7__eyebrow{display:flex;align-items:center;gap:.75rem;color:#83a9ff;font-size:.7rem;letter-spacing:.17em;font-weight:700}.hero7__eyebrow span{width:1.65rem;height:1px;background:currentColor;box-shadow:0 0 14px currentColor}.hero7 h1{margin:1.15rem 0 0;max-width:11ch;font-family:var(--font-display);font-size:clamp(3.55rem,5.25vw,6.15rem);line-height:.94;letter-spacing:-.06em;font-weight:720}.hero7 h1 span{display:block;color:#fff;text-shadow:0 4px 28px rgba(0,0,0,.55)}.hero7 h1 em{display:block;margin-top:.14em;font-style:normal;background:linear-gradient(100deg,#91b4ff 0%,#6f9eff 42%,#4fe0da 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 22px rgba(47,126,231,.22))}.hero7__copy>p{max-width:39rem;margin:1.5rem 0 0;color:#d2dbea;font-size:1.08rem;line-height:1.72;text-shadow:0 2px 12px rgba(0,0,0,.45)}.hero7__actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.65rem}.hero7__actions a{min-height:3.45rem;display:inline-flex;align-items:center;justify-content:center;padding:0 1.35rem;border-radius:.75rem;text-decoration:none;font-family:var(--font-display);font-weight:750}.hero7__primary{gap:.85rem;color:#06101a;background:linear-gradient(115deg,#8aafff,#48d7d4);box-shadow:0 18px 46px rgba(53,130,229,.27)}.hero7__secondary{color:#edf5ff;border:1px solid rgba(151,185,231,.32);background:rgba(5,14,29,.72);backdrop-filter:blur(12px)}.hero7__proof{display:flex;gap:.55rem;margin-top:1.2rem;flex-wrap:wrap}.hero7__proof>span{display:grid;grid-template-columns:auto auto;gap:.42rem;align-items:center;min-height:2.2rem;padding:0 .75rem;border-radius:.55rem;border:1px solid rgba(139,171,217,.18);background:rgba(7,17,33,.68);backdrop-filter:blur(10px)}.hero7__proof b{color:#f6f9fe;font-size:.74rem}.hero7__proof small{color:#8ca0bd;font-size:.58rem;letter-spacing:.09em}.hero7__scroll{position:absolute;z-index:3;left:50%;bottom:1.25rem;transform:translateX(-50%);display:flex;align-items:center;gap:.6rem;color:#7891b4;text-decoration:none;font-size:.58rem;letter-spacing:.12em}.hero7__scroll span{color:#4fe0da;font-size:.9rem;animation:scrollHint 1.8s ease-in-out infinite}@keyframes scrollHint{50%{transform:translateY(5px)}}
-  @media(max-width:1050px){.hero7__copy{width:min(39rem,58vw)}.hero7__shade{background:linear-gradient(90deg,rgba(2,7,18,.99) 0%,rgba(2,7,18,.9) 52%,rgba(2,7,18,.36) 100%)}}
-  @media(max-width:760px){.hero7{min-height:48rem}.hero7__inner{min-height:48rem;align-items:flex-end;padding-bottom:5rem}.hero7__copy{width:100%}.hero7 h1{font-size:clamp(3.05rem,13vw,4.35rem)}.hero7__copy>p{font-size:1rem;max-width:31rem}.hero7__shade{background:linear-gradient(180deg,rgba(2,7,18,.32) 0%,rgba(2,7,18,.64) 35%,rgba(2,7,18,.98) 65%,#020712 100%)}.hero7__scroll{display:none}}
-  @media(prefers-reduced-motion:reduce){.hero7__scroll span{animation:none}}
+  .hero8{position:relative;min-height:calc(100svh - 5rem);overflow:hidden;background:#020713;color:#fff;isolation:isolate}.hero8__shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(2,7,18,.98) 0%,rgba(2,7,18,.82) 31%,rgba(2,7,18,.32) 56%,rgba(2,7,18,.08) 100%),linear-gradient(180deg,transparent 60%,rgba(2,7,18,.58))}.hero8__inner{position:relative;z-index:2;min-height:calc(100svh - 5rem);display:flex;align-items:center;padding-block:clamp(4rem,8vh,7rem)}.hero8__copy{width:min(43rem,48vw);padding:1rem 0}.hero8__eyebrow{display:flex;align-items:center;gap:.75rem;color:#89adff;font-size:.7rem;letter-spacing:.17em;font-weight:800}.hero8__eyebrow span{width:1.65rem;height:1px;background:currentColor;box-shadow:0 0 14px currentColor}.hero8 h1{margin:1.1rem 0 0;max-width:11ch;font-family:var(--font-display);font-size:clamp(3.7rem,5.3vw,6.25rem);line-height:.94;letter-spacing:-.06em;font-weight:760}.hero8 h1 span{display:block;color:#fff;text-shadow:0 8px 34px rgba(0,0,0,.7)}.hero8 h1 em{display:block;margin-top:.12em;font-style:normal;background:linear-gradient(100deg,#9bb9ff 0%,#6e9dff 43%,#53e0d9 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 22px rgba(47,126,231,.24))}.hero8__copy>p{max-width:39rem;margin:1.45rem 0 0;color:#d8e1ef;font-size:1.1rem;line-height:1.7;text-shadow:0 2px 14px rgba(0,0,0,.55)}.hero8__actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.65rem}.hero8__actions a,.hero8__actions button{min-height:3.45rem;display:inline-flex;align-items:center;justify-content:center;padding:0 1.28rem;border-radius:.75rem;font-family:var(--font-display);font-weight:780;font-size:.95rem;cursor:pointer}.hero8__primary{gap:.85rem;color:#06101a;background:linear-gradient(115deg,#8aafff,#48d7d4);box-shadow:0 18px 46px rgba(53,130,229,.27);text-decoration:none}.hero8__film{gap:.65rem;color:#fff;border:1px solid rgba(255,255,255,.26);background:rgba(8,19,37,.72);backdrop-filter:blur(12px)}.hero8__film .play{display:grid;place-items:center;width:1.65rem;height:1.65rem;border-radius:50%;background:#fff;color:#07101d;font-size:.58rem;padding-left:.08rem}.hero8__secondary{color:#dce7f7;text-decoration:none;border:1px solid rgba(151,185,231,.2);background:rgba(5,14,29,.45)}.hero8__proof{display:flex;gap:.55rem;margin-top:1.15rem;flex-wrap:wrap}.hero8__proof>span{display:grid;grid-template-columns:auto auto;gap:.42rem;align-items:center;min-height:2.2rem;padding:0 .75rem;border-radius:.55rem;border:1px solid rgba(139,171,217,.18);background:rgba(7,17,33,.62);backdrop-filter:blur(10px)}.hero8__proof b{color:#fff;font-size:.74rem}.hero8__proof small{color:#9baec8;font-size:.58rem;letter-spacing:.09em}.hero8__scroll{position:absolute;z-index:3;left:50%;bottom:1.25rem;transform:translateX(-50%);display:flex;align-items:center;gap:.6rem;color:#8ca2bf;text-decoration:none;font-size:.58rem;letter-spacing:.12em}.hero8__scroll span{color:#4fe0da;font-size:.9rem;animation:scrollHint 1.8s ease-in-out infinite}@keyframes scrollHint{50%{transform:translateY(5px)}}
+  .film-dialog{width:min(92vw,74rem);padding:0;border:1px solid rgba(111,160,225,.28);border-radius:1.2rem;overflow:hidden;background:#030915;color:#fff;box-shadow:0 50px 140px rgba(0,0,0,.72)}.film-dialog::backdrop{background:rgba(1,4,10,.84);backdrop-filter:blur(8px)}.film-dialog__head,.film-dialog__foot{display:flex;align-items:center;justify-content:space-between;min-height:3rem;padding:0 1rem;border-bottom:1px solid rgba(123,160,213,.15);font:750 .62rem/1 var(--font-mono);letter-spacing:.1em;color:#7f97b9}.film-dialog__head b{color:#e8f1fd}.film-dialog__video{display:block;width:100%;aspect-ratio:16/9;background:#000}.film-dialog__foot{justify-content:center;border:0;border-top:1px solid rgba(123,160,213,.15);color:#69ddd8}.film-dialog__close{position:absolute;top:.65rem;right:.75rem;z-index:3;width:2rem;height:2rem;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(2,7,18,.78);color:#fff;font-size:1.25rem;cursor:pointer}
+  @media(max-width:1050px){.hero8__copy{width:min(40rem,60vw)}.hero8__shade{background:linear-gradient(90deg,rgba(2,7,18,.98) 0%,rgba(2,7,18,.82) 48%,rgba(2,7,18,.22) 100%)}}
+  @media(max-width:760px){.hero8{min-height:49rem}.hero8__inner{min-height:49rem;align-items:flex-end;padding-bottom:5rem}.hero8__copy{width:100%}.hero8 h1{font-size:clamp(3.05rem,13vw,4.45rem)}.hero8__copy>p{font-size:1rem;max-width:31rem}.hero8__shade{background:linear-gradient(180deg,rgba(2,7,18,.18) 0%,rgba(2,7,18,.55) 35%,rgba(2,7,18,.98) 64%,#020713 100%)}.hero8__scroll{display:none}.hero8__secondary{display:none}}
+  @media(prefers-reduced-motion:reduce){.hero8__scroll span{animation:none}}
 </style>
