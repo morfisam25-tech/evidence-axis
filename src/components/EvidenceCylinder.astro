@@ -1,0 +1,234 @@
+<div class="axis3d" data-axis3d aria-hidden="true">
+  <canvas class="axis3d__canvas"></canvas>
+
+  <div class="axis3d__cap axis3d__cap--top">
+    <span>EVIDENCE AXIS</span>
+    <small>PUBLIC EVIDENCE ENGINE</small>
+  </div>
+
+  <div class="axis3d__cap axis3d__cap--bottom">
+    <strong>VERIFIED · TRACEABLE</strong>
+    <span>DECISION-READY</span>
+  </div>
+
+  <div class="axis3d__card axis3d__card--fact1">
+    <small>FACT / 01</small><b>Pricing page</b><span>checked + dated</span>
+  </div>
+  <div class="axis3d__card axis3d__card--fact2">
+    <small>FACT / 02</small><b>Documentation</b><span>public source</span>
+  </div>
+  <div class="axis3d__card axis3d__card--fact3">
+    <small>FACT / 03</small><b>Product evidence</b><span>source locked</span>
+  </div>
+  <div class="axis3d__card axis3d__card--unknown1">
+    <small>UNKNOWN</small><b>Roadmap intent</b><span>not established</span>
+  </div>
+  <div class="axis3d__card axis3d__card--unknown2">
+    <small>UNKNOWN</small><b>Private usage</b><span>not public</span>
+  </div>
+  <div class="axis3d__card axis3d__card--infer">
+    <small>INFERENCE</small><b>Packaging shift</b><span>reasoning layer</span>
+  </div>
+  <div class="axis3d__decision">
+    <div><small>DECISION OUTPUT</small><em>READY</em></div>
+    <b>Decision-Ready<br/>Brief</b>
+    <span>Evidence separated from judgment.<br/>Unknowns kept visible.</span>
+    <footer>FACT → REASON → MOVE</footer>
+  </div>
+
+  <div class="axis3d__hint">MOVE POINTER · ROTATE MODEL</div>
+</div>
+
+<script>
+  import * as THREE from 'three';
+
+  const roots = document.querySelectorAll<HTMLElement>('[data-axis3d]');
+
+  roots.forEach((root) => {
+    const canvas = root.querySelector<HTMLCanvasElement>('.axis3d__canvas');
+    if (!canvas) return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+    camera.position.set(0, 0.1, 7.2);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.22;
+
+    const group = new THREE.Group();
+    group.rotation.y = -0.12;
+    scene.add(group);
+
+    const cyan = new THREE.Color(0x49e2dd);
+    const blue = new THREE.Color(0x5d8eff);
+    const deep = new THREE.Color(0x061528);
+    const violet = new THREE.Color(0x8e63ff);
+    const amber = new THREE.Color(0xffa34c);
+
+    const glass = new THREE.MeshPhysicalMaterial({
+      color: 0x0b3159,
+      transparent: true,
+      opacity: 0.3,
+      roughness: 0.12,
+      metalness: 0.08,
+      transmission: 0.44,
+      thickness: 1.5,
+      clearcoat: 1,
+      clearcoatRoughness: 0.12,
+      side: THREE.DoubleSide,
+      depthWrite: false,
+    });
+
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(1.65, 1.65, 3.72, 72, 1, true), glass);
+    group.add(body);
+
+    const inner = new THREE.Mesh(
+      new THREE.CylinderGeometry(1.43, 1.43, 3.48, 48, 8, true),
+      new THREE.MeshBasicMaterial({ color: 0x1d75b9, transparent: true, opacity: 0.055, wireframe: true, depthWrite: false })
+    );
+    group.add(inner);
+
+    const capMat = new THREE.MeshPhysicalMaterial({
+      color: 0x071527,
+      metalness: 0.62,
+      roughness: 0.24,
+      clearcoat: 1,
+      clearcoatRoughness: 0.08,
+    });
+    const capTop = new THREE.Mesh(new THREE.CylinderGeometry(1.78, 1.78, 0.16, 72), capMat);
+    capTop.position.y = 1.9;
+    const capBottom = capTop.clone();
+    capBottom.position.y = -1.9;
+    group.add(capTop, capBottom);
+
+    const ringMat = new THREE.MeshBasicMaterial({ color: blue, transparent: true, opacity: 0.8 });
+    const ringGeo = new THREE.TorusGeometry(1.73, 0.018, 12, 96);
+    const ringTop = new THREE.Mesh(ringGeo, ringMat);
+    ringTop.rotation.x = Math.PI / 2;
+    ringTop.position.y = 1.84;
+    const ringBottom = ringTop.clone();
+    ringBottom.position.y = -1.84;
+    group.add(ringTop, ringBottom);
+
+    const beam = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.018, 0.018, 3.52, 18),
+      new THREE.MeshBasicMaterial({ color: cyan, transparent: true, opacity: 0.92 })
+    );
+    group.add(beam);
+
+    const haloGeo = new THREE.CylinderGeometry(0.12, 0.12, 3.48, 24);
+    const halo = new THREE.Mesh(haloGeo, new THREE.MeshBasicMaterial({ color: 0x58cfff, transparent: true, opacity: 0.07, depthWrite: false }));
+    group.add(halo);
+
+    const nodeGeo = new THREE.SphereGeometry(0.045, 16, 16);
+    for (let i = 0; i < 16; i++) {
+      const material = new THREE.MeshBasicMaterial({ color: i % 4 === 0 ? amber : i % 5 === 0 ? violet : cyan, transparent: true, opacity: 0.8 });
+      const node = new THREE.Mesh(nodeGeo, material);
+      const a = (i / 16) * Math.PI * 2;
+      const r = 0.7 + (i % 3) * 0.32;
+      node.position.set(Math.cos(a) * r, -1.45 + (i % 8) * 0.42, Math.sin(a) * r);
+      group.add(node);
+    }
+
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x55d9e4, transparent: true, opacity: 0.18 });
+    for (let i = 0; i < 10; i++) {
+      const y = -1.45 + i * 0.32;
+      const points = [new THREE.Vector3(-1.3, y, 0), new THREE.Vector3(1.3, y + (i % 2 ? 0.12 : -0.08), 0)];
+      group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), lineMat));
+    }
+
+    const panelGeo = new THREE.BoxGeometry(0.92, 0.48, 0.055);
+    const makePanel = (x: number, y: number, z: number, color: number, ry: number) => {
+      const m = new THREE.MeshPhysicalMaterial({ color, transparent: true, opacity: 0.34, roughness: 0.2, metalness: 0.15, clearcoat: 0.9 });
+      const panel = new THREE.Mesh(panelGeo, m);
+      panel.position.set(x, y, z);
+      panel.rotation.y = ry;
+      group.add(panel);
+      return panel;
+    };
+    const panels = [
+      makePanel(-0.48, 0.86, 1.2, 0x078d96, 0.06),
+      makePanel(0.42, 0.08, 1.3, 0x078d96, -0.05),
+      makePanel(-0.34, -0.72, 1.25, 0x078d96, 0.04),
+      makePanel(-1.65, 0.55, 0.25, 0x43227a, -0.32),
+      makePanel(-1.48, -0.92, -0.15, 0x43227a, -0.24),
+      makePanel(1.58, 0.65, 0.05, 0x76450b, 0.28),
+    ];
+
+    const ambient = new THREE.AmbientLight(0x7ea8ff, 1.25);
+    const key = new THREE.PointLight(0x66dfff, 18, 12, 2);
+    key.position.set(2.4, 2.7, 4.8);
+    const rim = new THREE.PointLight(0x4e72ff, 14, 10, 2);
+    rim.position.set(-3, -1.8, -2.5);
+    scene.add(ambient, key, rim);
+
+    let targetX = 0;
+    let targetY = -0.1;
+    let pointerX = 0;
+    let pointerY = 0;
+    let running = true;
+
+    const setPointer = (event: PointerEvent) => {
+      const rect = root.getBoundingClientRect();
+      pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+      pointerY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+      targetY = pointerX * 0.42;
+      targetX = -pointerY * 0.14;
+      root.style.setProperty('--px', pointerX.toFixed(3));
+      root.style.setProperty('--py', pointerY.toFixed(3));
+    };
+    root.addEventListener('pointermove', setPointer, { passive: true });
+    root.addEventListener('pointerleave', () => {
+      pointerX = 0;
+      pointerY = 0;
+      targetY = -0.1;
+      targetX = 0;
+      root.style.setProperty('--px', '0');
+      root.style.setProperty('--py', '0');
+    });
+
+    const resize = () => {
+      const { width, height } = root.getBoundingClientRect();
+      if (!width || !height) return;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+    const ro = new ResizeObserver(resize);
+    ro.observe(root);
+    resize();
+
+    const io = new IntersectionObserver(([entry]) => { running = Boolean(entry?.isIntersecting); }, { threshold: 0.02 });
+    io.observe(root);
+
+    const clock = new THREE.Clock();
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const tick = () => {
+      requestAnimationFrame(tick);
+      if (!running) return;
+      const t = clock.getElapsedTime();
+      if (!reduced.matches) {
+        group.rotation.y += (targetY + Math.sin(t * 0.16) * 0.085 - group.rotation.y) * 0.045;
+        group.rotation.x += (targetX - group.rotation.x) * 0.04;
+        group.position.y = Math.sin(t * 0.55) * 0.035;
+        ringTop.rotation.z = t * 0.055;
+        ringBottom.rotation.z = -t * 0.045;
+        panels.forEach((panel, i) => { panel.position.z += Math.sin(t * 0.8 + i) * 0.0008; });
+        halo.scale.x = halo.scale.z = 1 + Math.sin(t * 1.1) * 0.07;
+      }
+      renderer.render(scene, camera);
+    };
+    tick();
+  });
+</script>
+
+<style>
+  .axis3d{--px:0;--py:0;position:relative;width:100%;height:100%;min-height:38rem;isolation:isolate;perspective:1500px;pointer-events:auto}.axis3d::before{content:'';position:absolute;z-index:-2;left:50%;top:51%;width:72%;height:78%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(40,124,255,.2),rgba(22,199,202,.07) 42%,transparent 70%);filter:blur(24px)}.axis3d__canvas{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 35px 58px rgba(0,0,0,.5))}.axis3d__cap{position:absolute;z-index:4;left:50%;width:46%;transform:translateX(calc(-50% + var(--px)*7px));text-align:center;pointer-events:none;text-shadow:0 3px 18px rgba(0,0,0,.85);transition:transform .12s linear}.axis3d__cap--top{top:9.4%}.axis3d__cap--bottom{bottom:8.6%}.axis3d__cap span,.axis3d__cap strong{display:block;color:#f7fbff;font:850 clamp(.72rem,1vw,1rem)/1 var(--font-mono);letter-spacing:.16em}.axis3d__cap small{display:block;margin-top:.45rem;color:#78b9e9;font:760 clamp(.48rem,.65vw,.62rem)/1 var(--font-mono);letter-spacing:.12em}.axis3d__cap--bottom strong{color:#8daed8;font-size:clamp(.55rem,.7vw,.68rem)}.axis3d__cap--bottom span{margin-top:.32rem;color:#58ddd7;font-size:clamp(.56rem,.72vw,.7rem)}
+  .axis3d__card,.axis3d__decision{position:absolute;z-index:5;padding:.78rem .9rem;border-radius:.72rem;background:linear-gradient(145deg,rgba(7,21,40,.95),rgba(5,14,29,.88));border:1px solid rgba(121,163,220,.24);box-shadow:0 20px 55px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.04);backdrop-filter:blur(13px);transition:transform .12s linear,box-shadow .22s ease}.axis3d__card small{display:block;font:850 .58rem/1 var(--font-mono);letter-spacing:.09em}.axis3d__card b{display:block;margin-top:.38rem;color:#fff;font:780 clamp(.78rem,1vw,.95rem)/1.08 var(--font-display)}.axis3d__card span{display:block;margin-top:.3rem;color:#9eb0c8;font-size:clamp(.62rem,.76vw,.72rem)}.axis3d__card--fact1,.axis3d__card--fact2,.axis3d__card--fact3{width:31%;border-color:rgba(72,224,214,.42);background:linear-gradient(145deg,rgba(5,65,78,.92),rgba(5,28,47,.9))}.axis3d__card--fact1 small,.axis3d__card--fact2 small,.axis3d__card--fact3 small{color:#54e2db}.axis3d__card--fact1{left:42%;top:31%;transform:translate(calc(var(--px)*-10px),calc(var(--py)*-5px))}.axis3d__card--fact2{left:43%;top:45%;transform:translate(calc(var(--px)*-7px),calc(var(--py)*-4px))}.axis3d__card--fact3{left:42%;top:59%;transform:translate(calc(var(--px)*-5px),calc(var(--py)*-3px))}.axis3d__card--unknown1,.axis3d__card--unknown2{width:28%;border-color:rgba(151,103,255,.42);background:linear-gradient(145deg,rgba(47,28,88,.94),rgba(15,20,47,.9))}.axis3d__card--unknown1 small,.axis3d__card--unknown2 small{color:#be9bff}.axis3d__card--unknown1{left:3%;top:29%;transform:translate(calc(var(--px)*-18px),calc(var(--py)*-8px)) rotateY(4deg)}.axis3d__card--unknown2{left:10%;top:62%;transform:translate(calc(var(--px)*-13px),calc(var(--py)*-6px)) rotateY(3deg)}.axis3d__card--infer{right:1.5%;top:34%;width:27%;border-color:rgba(255,163,76,.44);background:linear-gradient(145deg,rgba(69,42,16,.94),rgba(24,20,25,.9));transform:translate(calc(var(--px)*12px),calc(var(--py)*-7px)) rotateY(-4deg)}.axis3d__card--infer small{color:#ffad58}.axis3d__decision{right:-1%;top:51%;width:30%;min-height:12.8rem;padding:1rem;border-color:rgba(86,147,255,.5);background:linear-gradient(145deg,rgba(8,38,77,.97),rgba(5,18,42,.96));transform:translate(calc(var(--px)*18px),calc(var(--py)*7px)) rotateY(-5deg);box-shadow:0 28px 70px rgba(0,0,0,.46),0 0 45px rgba(49,113,238,.14)}.axis3d__decision>div{display:flex;justify-content:space-between;align-items:center}.axis3d__decision small{font:800 .52rem/1 var(--font-mono);letter-spacing:.08em;color:#82a7df}.axis3d__decision em{font:850 .52rem/1 var(--font-mono);font-style:normal;color:#52e0d8}.axis3d__decision>b{display:block;margin-top:1.15rem;color:#fff;font:800 clamp(1.2rem,1.55vw,1.55rem)/.95 var(--font-display);letter-spacing:-.035em}.axis3d__decision>span{display:block;margin-top:.7rem;color:#9eb1cc;font-size:clamp(.62rem,.75vw,.72rem);line-height:1.45}.axis3d__decision footer{margin-top:1.2rem;padding-top:.72rem;border-top:1px solid rgba(128,166,220,.15);color:#7194c7;font:750 .52rem/1 var(--font-mono);letter-spacing:.08em}.axis3d__hint{position:absolute;left:50%;bottom:2.3%;transform:translateX(-50%);color:#5d789c;font:750 .52rem/1 var(--font-mono);letter-spacing:.14em;white-space:nowrap}.axis3d:hover .axis3d__decision{box-shadow:0 36px 85px rgba(0,0,0,.5),0 0 68px rgba(49,113,238,.2)}
+  @media(max-width:1100px){.axis3d{min-height:33rem}.axis3d__decision{width:32%;right:-3%}.axis3d__card--infer{right:-2%}.axis3d__cap{width:50%}}
+  @media(max-width:760px){.axis3d{min-height:28rem}.axis3d__card--unknown1,.axis3d__card--unknown2,.axis3d__card--infer,.axis3d__decision,.axis3d__hint{display:none}.axis3d__card--fact1,.axis3d__card--fact2,.axis3d__card--fact3{width:42%;left:42%;padding:.6rem}.axis3d__cap{width:58%}.axis3d__cap--top{top:8%}.axis3d__cap--bottom{bottom:7%}}
+</style>

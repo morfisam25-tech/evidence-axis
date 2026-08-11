@@ -1,0 +1,15 @@
+---
+import ProductFilm from './ProductFilm.astro';
+---
+<div class="product-video" data-product-video aria-hidden="true">
+  <ProductFilm />
+  <div class="product-video__glass"></div>
+  <div class="product-video__rail product-video__rail--top"><span class="live-dot"></span><b>90-SECOND EVIDENCE FILM</b><em>PUBLIC → CLASSIFY → DECIDE</em></div>
+  <div class="product-video__rail product-video__rail--bottom"><span>FACT</span><i></i><span>INFERENCE</span><i></i><span>UNKNOWN</span><i></i><b>DECISION-READY BRIEF</b></div>
+</div>
+
+<style>
+  .product-video{position:absolute;inset:0;overflow:hidden;isolation:isolate;background:#020713}.product-video :global(.film){opacity:1}.product-video__glass{position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(circle at 73% 46%,rgba(55,135,255,.08),transparent 32%),linear-gradient(115deg,rgba(255,255,255,.018),transparent 36%,transparent 72%,rgba(69,220,212,.025))}.product-video__rail{position:absolute;z-index:8;display:flex;align-items:center;gap:.65rem;border:1px solid rgba(119,160,219,.16);background:rgba(2,9,20,.76);backdrop-filter:blur(14px);font:800 .58rem/1 var(--font-mono);letter-spacing:.09em;text-transform:uppercase;color:#8098ba}.product-video__rail--top{right:3%;top:2.5rem;padding:.65rem .8rem;border-radius:.65rem}.product-video__rail--top b{color:#dce8f8}.product-video__rail--top em{font-style:normal;color:#4edbd4}.product-video__rail--bottom{right:3%;bottom:2rem;padding:.62rem .8rem;border-radius:.6rem}.product-video__rail--bottom i{width:1.25rem;height:1px;background:#385779}.product-video__rail--bottom b{color:#dfe9f8}.live-dot{width:.45rem;height:.45rem;border-radius:50%;background:#4ce1d8;box-shadow:0 0 15px #4ce1d8;animation:pulseFilm 1.6s ease-in-out infinite}@keyframes pulseFilm{50%{opacity:.35;transform:scale(.75)}}
+  @media(max-width:760px){.product-video__rail--top{top:1rem;right:1rem}.product-video__rail--top em,.product-video__rail--bottom{display:none}}
+  @media(prefers-reduced-motion:reduce){.live-dot{animation:none}}
+</style>

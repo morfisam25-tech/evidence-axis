@@ -1,238 +1,130 @@
 ---
 import Base from '@layouts/Base.astro';
 import Hero from '@components/Hero.astro';
-import SectionIntro from '@components/SectionIntro.astro';
-import FactInferenceUnknown from '@components/FactInferenceUnknown.astro';
-import EvidenceChain from '@components/EvidenceChain.astro';
-import ServiceOffer from '@components/ServiceOffer.astro';
-import ProcessFlow from '@components/ProcessFlow.astro';
-import ReportPreview from '@components/ReportPreview.astro';
-import CTASection from '@components/CTASection.astro';
-import { site, offers } from '@config/site';
-import { methodSteps } from '@data/method';
-
-const questions = [
-  'Which advertised capabilities appear to be genuinely shipped, and which read as marketing language?',
-  'How do two competitors position and package the same capability differently?',
-  'Where does publicly visible pricing and packaging actually diverge?',
-  'What product gaps have public evidence behind them?',
-  'What remains unknown after reasonable public investigation?',
-];
+import { site, offers, cta } from '@config/site';
+import { evidenceMatrixVisual, decisionBriefVisual } from '@data/v8Visuals';
 ---
 <Base title={site.name} description={site.description} path="/">
   <Hero />
 
-  <!-- BUYER PROBLEM -->
-  <section class="section" data-surface="dark">
-    <div class="container-wide problem">
-      <div class="problem__lead">
-        <SectionIntro
-          eyebrow="The problem"
-          title="The issue is rarely a shortage of competitor information."
-          lede="It is scattered across pricing pages, documentation, changelogs, marketplaces, reviews and announcements. What is missing is a clear line between what is verified, what is a reasonable inference, and what simply cannot be known."
-        />
-      </div>
-      <ul class="problem__list axis-frame">
-        <li class="axis-tick" data-reveal>
-          <span class="label">Marketing vs. shipped</span>
-          <p>A feature named on a landing page is not evidence that it works the way a buyer assumes.</p>
-        </li>
-        <li class="axis-tick" data-reveal style="--reveal-delay:80ms;">
-          <span class="label">Signal vs. certainty</span>
-          <p>A single review or a vague claim becomes a "fact" the moment nobody records where it came from.</p>
-        </li>
-        <li class="axis-tick" data-reveal style="--reveal-delay:160ms;">
-          <span class="label">Noise vs. decision</span>
-          <p>Most competitor decks answer questions no one is deciding on. The decision is what should set the boundary.</p>
-        </li>
-      </ul>
-    </div>
-  </section>
+  <main class="home8">
+    <section class="visual8" id="visual-proof" aria-labelledby="visual8-title">
+      <div class="container-wide">
+        <header class="section-head section-head--center">
+          <span class="kicker">WHAT YOU ACTUALLY RECEIVE</span>
+          <h2 id="visual8-title">Evidence you can inspect — not a wall of prose.</h2>
+          <p>The brief keeps the claim, evidence state, source and decision use visible. These previews illustrate the format; the live sample shows the sourced Intercom × Zendesk case.</p>
+        </header>
 
-  <!-- WHAT WE DO / METHOD DEMONSTRATION -->
-  <section class="section container">
-    <SectionIntro
-      eyebrow="The method"
-      title="Every claim is sourced, dated, and marked."
-      lede="Evidence Axis separates what the evidence supports from what it merely suggests, and names what it cannot establish. Three states run through the analysis, the report, and this site."
-    />
-    <div class="method-demo">
-      <FactInferenceUnknown />
-    </div>
-  </section>
+        <div class="visual8__gallery">
+          <figure class="visual-card visual-card--matrix">
+            <img src={evidenceMatrixVisual} alt="Illustrative Evidence Axis evidence matrix showing Fact, Inference and Unknown states" loading="eager" />
+            <figcaption><span>01 / EVIDENCE MATRIX</span><b>Claim → state → source → decision use</b></figcaption>
+          </figure>
+          <figure class="visual-card visual-card--brief">
+            <img src={decisionBriefVisual} alt="Illustrative Evidence Axis decision brief spread" loading="lazy" />
+            <figcaption><span>02 / DECISION BRIEF</span><b>What is supported, what is inferred, what remains open</b></figcaption>
+          </figure>
+        </div>
 
-  <!-- EVIDENCE CHAIN -->
-  <section class="section" data-surface="dark">
-    <div class="container">
-      <SectionIntro
-        eyebrow="Traceable reasoning"
-        title="A conclusion you can walk back to its source."
-        lede="Nothing arrives as an assertion. Each decision implication keeps a visible path: from the public source, through the observation, to the fact, the inference, and the unknown."
-      />
-      <div class="chain-wrap">
-        <EvidenceChain />
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="section container" id="services">
-    <SectionIntro
-      eyebrow="Services"
-      title="Three ways to turn a question into evidence."
-      lede="Fixed, transparent entry pricing. No subscription, no account, no checkout — the engagement starts with a question and a defined boundary."
-    />
-    <div class="offer-grid">
-      <ServiceOffer
-        name={offers.twoCompetitor.name}
-        priceDisplay={offers.twoCompetitor.priceDisplay}
-        priceNote={offers.twoCompetitor.priceNote}
-        delivery={offers.twoCompetitor.delivery}
-        scope={offers.twoCompetitor.scope}
-        featured
-        points={[
-          'One defined decision question',
-          'Two named competitors, or you vs. a competitor',
-          'Evidence matrix with Fact / Inference / Unknown',
-          'Source register with check dates',
-        ]}
-        href="/competitor-brief/"
-      />
-      <ServiceOffer
-        name={offers.fiveCompetitor.name}
-        priceDisplay={offers.fiveCompetitor.priceDisplay}
-        priceNote={offers.fiveCompetitor.priceNote}
-        delivery={offers.fiveCompetitor.delivery}
-        scope={offers.fiveCompetitor.scope}
-        points={[
-          'Broader competitor set, one research question',
-          'Positioning, packaging and capability evidence',
-          'Contradictions and open unknowns surfaced',
-          'Decision implications for your context',
-        ]}
-        href="/competitor-brief/"
-      />
-      <ServiceOffer
-        name={offers.blueprint.name}
-        priceDisplay={offers.blueprint.priceDisplay}
-        priceNote={offers.blueprint.priceNote}
-        delivery={offers.blueprint.delivery}
-        scope={offers.blueprint.scope}
-        points={[
-          'Scoped around the decision to be made',
-          'Category, positioning and offer architecture',
-          'Deeper evidence base and synthesis',
-        ]}
-        href="/strategic-blueprint/"
-        ctaLabel="Discuss scope"
-      />
-    </div>
-  </section>
-
-  <!-- EXAMPLE QUESTIONS -->
-  <section class="section" data-surface="dark">
-    <div class="container questions">
-      <SectionIntro
-        eyebrow="Questions that fit"
-        title="Bring a decision, not a topic."
-        lede="The service works best when a real choice is on the table. A few questions it is built to answer:"
-      />
-      <ul class="questions__list">
-        {questions.map((q, i) => (
-          <li class="questions__item" data-reveal style={`--reveal-delay:${i * 60}ms;`}>
-            <span class="questions__n mono">Q{i + 1}</span>
-            <p>{q}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- SAMPLE REPORT PROMOTION -->
-  <section class="section container">
-    <div class="sample">
-      <div class="sample__copy">
-        <SectionIntro
-          eyebrow="The deliverable"
-          title="The report reads like the site: structured, sourced, honest about its limits."
-          lede="You receive an executive decision summary, an evidence matrix, source-backed observations, contradictions, unknowns, and decision implications — not a wall of screenshots."
-        />
-        <div class="sample__actions">
-          <a href="/sample-report/" class="btn btn--lg">View Sample Report<span class="btn-arrow" aria-hidden="true">→</span></a>
-          <a href="/method/" class="btn btn--ghost btn--lg">See the method</a>
+        <div class="visual8__links">
+          <a class="button-dark" href="/sample-report/">Open live sample report →</a>
+          <a class="text-link" href="/method/">See the research method</a>
         </div>
       </div>
-      <div class="sample__preview">
-        <ReportPreview />
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PROCESS -->
-  <section class="section" data-surface="dark">
-    <div class="container">
-      <SectionIntro
-        eyebrow="How it works"
-        title="From decision question to decision brief."
-        lede="Asynchronous by design. You send the question; the evidence comes back structured."
-      />
-      <div class="process-wrap">
-        <ProcessFlow steps={methodSteps.slice(0, 6)} columns />
-      </div>
-    </div>
-  </section>
-
-  <!-- RESEARCH BOUNDARIES -->
-  <section class="section container">
-    <div class="boundaries axis-frame">
-      <SectionIntro
-        eyebrow="Research boundaries"
-        title="What public evidence can — and cannot — establish."
-      />
-      <div class="boundaries__cols">
-        <div class="boundaries__col" data-reveal>
-          <h3 class="boundaries__h"><span class="state state--fact">In scope</span></h3>
-          <p>Public websites, pricing and product pages, documentation, help centres, changelogs, app marketplaces, public reviews, announcements and other lawful public sources — plus anything you choose to share.</p>
+    <section class="workflow8" aria-labelledby="workflow8-title">
+      <div class="container-wide workflow8__grid">
+        <div class="workflow8__copy">
+          <span class="kicker kicker--light">WHY THE WORKFLOW MATTERS</span>
+          <h2 id="workflow8-title">A fast summary is useful. A decision brief needs traceability.</h2>
+          <p>Evidence Axis uses AI inside a controlled research workflow, then keeps source records, evidence states and unresolved questions visible. The distinction is the workflow and evidence discipline — not a claim that AI cannot perform research tasks.</p>
+          <a href="/method/">Read the method →</a>
         </div>
-        <div class="boundaries__col" data-reveal style="--reveal-delay:100ms;">
-          <h3 class="boundaries__h"><span class="state state--unknown">Out of scope</span></h3>
-          <p>Confidential roadmaps, private revenue or churn, internal strategy, private usage metrics, or anything requiring unauthorized access. When the evidence runs out, we mark it Unknown rather than guess.</p>
+        <div class="workflow8__steps" aria-label="Evidence Axis workflow">
+          <article class="step step--cyan"><span>01</span><b>Open the source</b><p>Lawful public competitor evidence with a check date.</p></article>
+          <article class="step step--amber"><span>02</span><b>Separate judgment</b><p>Fact, Inference and Unknown never silently merge.</p></article>
+          <article class="step step--violet"><span>03</span><b>Trace the move</b><p>Decision implications lead backward to the evidence.</p></article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <CTASection />
+    <section class="offers8" id="services" aria-labelledby="offers8-title">
+      <div class="container-wide">
+        <header class="offers8__head">
+          <div><span class="kicker">ENGAGEMENTS</span><h2 id="offers8-title">Choose the smallest brief that can settle the question.</h2></div>
+          <p>Start with a narrow buying decision. Expand the research boundary only when the decision genuinely needs a wider evidence field.</p>
+        </header>
+
+        <div class="offers8__grid">
+          <article class="offer-main">
+            <div class="offer-main__ribbon">MOST COMMON START</div>
+            <div class="offer-main__content">
+              <span class="offer-label">FAST DECISION</span>
+              <h3>{offers.twoCompetitor.name}</h3>
+              <p>Two named competitors, one defined decision question, an evidence matrix, source register, explicit Unknowns and decision implications.</p>
+              <div class="offer-main__stats">
+                <div class="price-stat"><small>STARTING PRICE</small><strong>{offers.twoCompetitor.priceDisplay}</strong></div>
+                <div class="delivery-stat"><small>DELIVERY</small><strong>{offers.twoCompetitor.delivery}</strong></div>
+              </div>
+              <div class="offer-chips"><span>Evidence matrix</span><span>Source register</span><span>Fact / Inference / Unknown</span></div>
+              <a href="/competitor-brief/">Start with two <b>→</b></a>
+            </div>
+          </article>
+
+          <div class="offers8__side">
+            <article class="offer-side offer-side--blue">
+              <div class="offer-side__top"><span>BROADER READ</span><strong>{offers.fiveCompetitor.priceDisplay}</strong></div>
+              <h3>{offers.fiveCompetitor.name}</h3>
+              <p>Five named competitors around one research question, with positioning, packaging and capability evidence surfaced together.</p>
+              <footer><b>{offers.fiveCompetitor.delivery}</b><a href="/competitor-brief/">Compare five →</a></footer>
+            </article>
+            <article class="offer-side offer-side--violet">
+              <div class="offer-side__top"><span>STRATEGIC SCOPE</span><strong>{offers.blueprint.priceDisplay}</strong></div>
+              <h3>{offers.blueprint.name}</h3>
+              <p>For a higher-stakes decision that needs a wider evidence base, deeper synthesis and a custom research boundary.</p>
+              <footer><b>{offers.blueprint.delivery}</b><a href="/strategic-blueprint/">Scope a blueprint →</a></footer>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sample8" aria-labelledby="sample8-title">
+      <div class="container-wide sample8__grid">
+        <div class="sample8__frame">
+          <img src={decisionBriefVisual} alt="Illustrative decision brief visual" loading="lazy" />
+          <span class="sample8__badge">LIVE SAMPLE AVAILABLE</span>
+        </div>
+        <div class="sample8__copy">
+          <span class="kicker kicker--light">SEE THE STANDARD BEFORE YOU BUY</span>
+          <h2 id="sample8-title">Intercom × Zendesk. Eight first-party sources. Visible evidence states.</h2>
+          <p>The live sample shows the research standard, source register, Fact / Inference / Unknown separation and the limits of what public evidence can establish.</p>
+          <div><a class="button-light" href="/sample-report/">View Sample Report →</a><a class="text-link text-link--light" href="/report/evidence-axis-sample-intercom-vs-zendesk.pdf">Open PDF</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final8" aria-labelledby="final8-title">
+      <div class="container final8__inner">
+        <span class="kicker">START SMALL</span>
+        <h2 id="final8-title">Bring the decision your team keeps debating.</h2>
+        <p>Send the competitors, the question, and the context that changes what “better” means for your team.</p>
+        <div><a href={cta.primary.href}>Start a Brief →</a><a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a></div>
+      </div>
+    </section>
+  </main>
 </Base>
 
 <style>
-  .problem { display: grid; gap: var(--space-xl); }
-  .problem__list { list-style: none; padding: 0; display: grid; gap: var(--space-l); }
-  .problem__list li p { margin-top: 0.4em; color: var(--text-muted); max-width: 52ch; }
-  .method-demo { margin-top: var(--space-xl); }
-  .chain-wrap { margin-top: var(--space-xl); max-width: 52rem; }
-  .offer-grid { display: grid; gap: var(--space-m); margin-top: var(--space-xl); grid-template-columns: 1fr; }
-  .questions__list { list-style: none; padding: 0; margin-top: var(--space-xl); display: grid; gap: 0; }
-  .questions__item {
-    display: grid; grid-template-columns: auto 1fr; gap: var(--space-m); align-items: baseline;
-    padding: var(--space-m) 0; border-top: 1px solid var(--hairline);
-  }
-  .questions__item p { font-family: var(--font-serif); font-size: var(--step-1); color: var(--text); }
-  .questions__n { color: var(--accent); font-size: 0.8rem; }
-  .sample { display: grid; gap: var(--space-xl); align-items: center; }
-  .sample__actions { display: flex; flex-wrap: wrap; gap: var(--space-s); margin-top: var(--space-l); }
-  .process-wrap { margin-top: var(--space-xl); }
-  .boundaries__cols { display: grid; gap: var(--space-l); margin-top: var(--space-l); }
-  .boundaries__h { margin-bottom: var(--space-s); }
-  .boundaries__col p { color: var(--text-muted); max-width: 48ch; }
-
-  @media (min-width: 52rem) {
-    .problem { grid-template-columns: 1fr 1fr; align-items: start; }
-    .offer-grid { grid-template-columns: repeat(3, 1fr); }
-    .sample { grid-template-columns: 1fr 1fr; }
-    .boundaries__cols { grid-template-columns: 1fr 1fr; }
-  }
-  @media (min-width: 64rem) {
-    .problem__lead { position: sticky; top: 6rem; }
-  }
+  .home8{--ink:#0b1320;--muted:#5e6978;--cyan:#14b9b1;--amber:#f29a35;--violet:#7651df;--blue:#537ff0;--coral:#ef654b;background:#f7f1e8;color:var(--ink)}.kicker{font:800 .68rem/1 var(--font-mono);letter-spacing:.16em;text-transform:uppercase;color:#5578bf}.kicker--light{color:#8fb4ff}.section-head h2,.workflow8 h2,.offers8 h2,.sample8 h2,.final8 h2{margin:.8rem 0 0;font-family:var(--font-display);font-size:clamp(2.4rem,4vw,4.25rem);line-height:1;letter-spacing:-.05em}.section-head p,.offers8__head>p,.workflow8__copy>p,.sample8__copy>p,.final8 p{color:var(--muted);font-size:1.08rem;line-height:1.7}.section-head--center{text-align:center;max-width:54rem;margin:0 auto}.section-head--center p{margin:1rem auto 0}
+  .visual8{padding:clamp(5.5rem,8vw,8rem) 0;background:linear-gradient(180deg,#fbf7f0,#efe7da)}.visual8__gallery{margin-top:3rem;display:grid;grid-template-columns:1.12fr .88fr;gap:1.4rem;align-items:center;perspective:1500px}.visual-card{position:relative;margin:0;border-radius:1.45rem;overflow:hidden;background:#07111e;border:1px solid rgba(48,72,105,.18);box-shadow:0 34px 85px rgba(48,39,25,.17);transition:transform .28s ease,box-shadow .28s ease}.visual-card--matrix{transform:rotateY(2deg) rotateX(.5deg)}.visual-card--brief{transform:rotateY(-3deg) translateY(1.5rem)}.visual-card:hover{transform:translateY(-10px) rotateY(0);box-shadow:0 45px 100px rgba(48,39,25,.23)}.visual-card img{display:block;width:100%;aspect-ratio:1.7/1;object-fit:cover}.visual-card figcaption{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1rem 1.15rem;background:#07111e;color:#dbe6f5}.visual-card figcaption span{font:800 .6rem/1 var(--font-mono);letter-spacing:.11em;color:#5fe0d9}.visual-card figcaption b{font-size:.82rem;text-align:right}.visual8__links{display:flex;justify-content:center;gap:1rem;margin-top:3rem}.button-dark,.button-light{display:inline-flex;align-items:center;min-height:3.2rem;padding:0 1.2rem;border-radius:.72rem;text-decoration:none;font-weight:800}.button-dark{background:#0b1627;color:#fff}.button-light{background:#fff;color:#081222}.text-link{display:inline-flex;align-items:center;color:#244e88;font-weight:750;text-decoration:none}.text-link--light{color:#91b9ff}
+  .workflow8{padding:clamp(5.8rem,8vw,8.5rem) 0;background:#07111e;color:#eef5ff}.workflow8__grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(2.5rem,6vw,6rem);align-items:center}.workflow8 h2{color:#fff}.workflow8__copy>p{color:#a9bad0}.workflow8__copy>a{display:inline-flex;margin-top:1.2rem;color:#65ddd8;text-decoration:none;font-weight:800}.workflow8__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.step{--accent:var(--cyan);min-height:18rem;padding:1.5rem;border-radius:1.25rem;background:linear-gradient(155deg,rgba(26,49,78,.8),rgba(8,18,34,.95));border:1px solid color-mix(in srgb,var(--accent) 32%,transparent);box-shadow:0 26px 55px rgba(0,0,0,.25);transform:perspective(900px) rotateX(0);transition:.25s ease}.step:hover{transform:perspective(900px) rotateX(4deg) translateY(-7px)}.step--amber{--accent:var(--amber)}.step--violet{--accent:var(--violet)}.step span{font:800 .68rem/1 var(--font-mono);color:var(--accent)}.step b{display:block;margin:4.5rem 0 .7rem;font:750 1.45rem/1.05 var(--font-display);color:#fff}.step p{margin:0;color:#9fb1c9;line-height:1.65}
+  .offers8{padding:clamp(5.8rem,8vw,8rem) 0;background:#f8f4ed}.offers8__head{display:grid;grid-template-columns:1.15fr .85fr;gap:2rem;align-items:end}.offers8__head>p{margin:0}.offers8__grid{margin-top:3rem;display:grid;grid-template-columns:1.07fr .93fr;gap:1.2rem}.offer-main{display:grid;grid-template-columns:3.5rem 1fr;min-height:34rem;border-radius:1.45rem;overflow:hidden;background:linear-gradient(145deg,#eef9fa,#eaf2ff);border:1px solid rgba(23,122,132,.2);box-shadow:0 30px 70px rgba(35,45,62,.12)}.offer-main__ribbon{display:flex;align-items:center;justify-content:center;padding:.75rem;background:#0a7a83;color:#fff;writing-mode:vertical-rl;transform:rotate(180deg);font:800 .62rem/1 var(--font-mono);letter-spacing:.12em}.offer-main__content{padding:2rem}.offer-label{font:800 .7rem/1 var(--font-mono);letter-spacing:.13em;color:#07828a}.offer-main h3,.offer-side h3{margin:1rem 0 .45rem;font:760 2rem/1.05 var(--font-display);letter-spacing:-.035em}.offer-main__content>p,.offer-side>p{color:#56677a;line-height:1.65}.offer-main__stats{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:2rem 0}.offer-main__stats>div{min-height:8.6rem;padding:1.1rem;border-radius:1rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:0 18px 38px rgba(0,0,0,.1)}.offer-main__stats small{font:850 .65rem/1 var(--font-mono);letter-spacing:.1em}.offer-main__stats strong{margin-top:.5rem;font:850 clamp(2rem,3vw,3.35rem)/1 var(--font-display)}.price-stat{background:linear-gradient(145deg,#ffb347,#f47e35);color:#281207}.delivery-stat{background:linear-gradient(145deg,#ff6d5a,#e8443c);color:#fff}.offer-chips{display:flex;flex-wrap:wrap;gap:.45rem}.offer-chips span{padding:.5rem .65rem;border-radius:99px;background:#fff;border:1px solid rgba(52,85,119,.12);font-size:.76rem;color:#506176}.offer-main__content>a{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;min-height:3.5rem;padding:0 1rem;border-radius:.72rem;background:linear-gradient(100deg,#13878d,#2a9fa6);color:#fff;text-decoration:none;font-weight:850}.offers8__side{display:grid;grid-template-rows:1fr 1fr;gap:1.2rem}.offer-side{--accent:var(--blue);padding:1.6rem;border-radius:1.35rem;background:#fff;border:1px solid color-mix(in srgb,var(--accent) 20%,#dce2eb);box-shadow:0 24px 58px rgba(35,45,62,.09);border-left:.38rem solid var(--accent)}.offer-side--violet{--accent:var(--violet)}.offer-side__top{display:flex;justify-content:space-between;gap:1rem;align-items:center}.offer-side__top span{font:800 .65rem/1 var(--font-mono);letter-spacing:.12em;color:var(--accent)}.offer-side__top strong{padding:.55rem .75rem;border-radius:.65rem;background:color-mix(in srgb,var(--accent) 13%,#fff);color:var(--accent);font:850 1.55rem/1 var(--font-display)}.offer-side h3{font-size:1.7rem}.offer-side footer{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-top:1.5rem;padding-top:1rem;border-top:1px solid #e8ebef}.offer-side footer b{font-size:.85rem;color:#69788b}.offer-side footer a{color:#101b2b;text-decoration:none;font-weight:800}
+  .sample8{padding:clamp(5.8rem,8vw,8rem) 0;background:linear-gradient(115deg,#0a1830,#102857 60%,#172a54);color:#fff}.sample8__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,5rem);align-items:center}.sample8__frame{position:relative;border-radius:1.25rem;overflow:hidden;box-shadow:0 34px 90px rgba(0,0,0,.4);transform:perspective(1400px) rotateY(4deg)}.sample8__frame img{display:block;width:100%;aspect-ratio:1.72/1;object-fit:cover}.sample8__badge{position:absolute;left:1rem;bottom:1rem;padding:.55rem .7rem;border-radius:.55rem;background:#52dfd8;color:#07111e;font:850 .62rem/1 var(--font-mono);letter-spacing:.09em}.sample8__copy h2{color:#fff}.sample8__copy>p{color:#b7c6dc}.sample8__copy>div{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.4rem}
+  .final8{padding:clamp(5rem,7vw,7rem) 0;background:linear-gradient(120deg,#ef684c,#f08c46 55%,#ffb25a)}.final8__inner{text-align:center;max-width:52rem}.final8 h2{color:#17110e}.final8 p{max-width:40rem;margin:1rem auto 0;color:#4e2a20}.final8__inner>div{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:1.5rem}.final8__inner a{display:inline-flex;align-items:center;min-height:3.25rem;padding:0 1.15rem;border-radius:.7rem;background:#111925;color:#fff;text-decoration:none;font-weight:850}.final8__inner a+ a{background:transparent;color:#3a2019;border:1px solid rgba(52,28,21,.28)}
+  @media(max-width:980px){.visual8__gallery,.workflow8__grid,.offers8__grid,.sample8__grid,.offers8__head{grid-template-columns:1fr}.visual-card--brief{transform:none}.workflow8__steps{grid-template-columns:repeat(3,1fr)}.offers8__side{grid-template-columns:1fr 1fr;grid-template-rows:auto}}
+  @media(max-width:720px){.visual8,.workflow8,.offers8{padding:4.5rem 0}.visual8__gallery,.workflow8__steps,.offers8__side{grid-template-columns:1fr}.visual-card--matrix,.visual-card--brief,.sample8__frame{transform:none}.section-head h2,.workflow8 h2,.offers8 h2,.sample8 h2,.final8 h2{font-size:clamp(2.15rem,10vw,3rem)}.offer-main{grid-template-columns:2.7rem 1fr}.offer-main__content{padding:1.35rem}.offer-main__stats{grid-template-columns:1fr}.step{min-height:13rem}.step b{margin-top:2.7rem}.visual8__links{flex-direction:column;align-items:center}}
+  @media(prefers-reduced-motion:reduce){.visual-card,.step{transition:none}.visual-card:hover,.step:hover{transform:none}}
 </style>

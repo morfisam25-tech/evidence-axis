@@ -1,367 +1,103 @@
 ---
 import { offers, cta } from '@config/site';
-/**
- * Homepage hero.
- * Layered by capability:
- *  - Base / fallback (this markup): a CSS/SVG "evidence field" that aligns
- *    onto the axis. Fully readable with no JS, and used for reduced-motion,
- *    mobile, and no-WebGL.
- *  - Enhancement (Phase 2): on capable desktops, src/scripts/hero-spatial
- *    adds `.hero--spatial-ready` ONLY after the WebGL2 scene has loaded, fonts
- *    are ready and a first frame has rendered — then swaps in a full-bleed
- *    procedural Three.js scene (scatter → classify → align → decision).
- * Essential headline, pricing and CTA text always live in semantic DOM,
- * never inside the canvas.
- */
-const fragments = [
-  { label: 'pricing page', state: 'fact', x: -46, y: -30, r: -6, d: 0 },
-  { label: 'documentation', state: 'fact', x: -60, y: 46, r: 5, d: 90 },
-  { label: 'changelog', state: 'inference', x: 40, y: -54, r: 7, d: 180 },
-  { label: 'public reviews', state: 'inference', x: 54, y: 30, r: -5, d: 140 },
-  { label: 'marketplace', state: 'unknown', x: -30, y: 92, r: 4, d: 240 },
-  { label: 'private churn', state: 'unknown', x: 48, y: 96, r: -7, d: 300 },
-];
-const rows = [
-  { state: 'fact', label: 'Fact', note: 'evidence-backed' },
-  { state: 'inference', label: 'Inference', note: 'reasoned' },
-  { state: 'unknown', label: 'Unknown', note: 'unresolved' },
-];
+import EvidenceCylinder from './EvidenceCylinder.astro';
 ---
-<section class="hero" data-hero data-surface="dark" aria-labelledby="hero-title">
-  <div class="hero__stage">
-  <canvas class="hero__canvas" data-hero-canvas aria-hidden="true"></canvas>
-  <div class="container-wide hero__grid">
-    <div class="hero__copy">
-      <span class="label eyebrow">Competitor intelligence for B2B SaaS</span>
-      <h1 id="hero-title" class="hero__title">
-        Scattered competitor information,<br />
-        <span class="hero__title-accent">resolved into decision-ready evidence.</span>
-      </h1>
-      <p class="hero__lede">
-        You rarely lack competitor information. You lack clarity about what is
-        actually supported, what is marketing language, and what remains unknown.
-        Evidence Axis turns public evidence into a structured decision brief —
-        every claim sourced, dated, and marked Fact, Inference or Unknown.
-      </p>
-      <div class="hero__actions">
-        <a href={cta.primary.href} class="btn btn--lg">
-          {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href={cta.secondary.href} class="btn btn--ghost btn--lg">
-          {cta.secondary.label}
-        </a>
-      </div>
-      <p class="hero__meta mono">
-        Two-Competitor Decision Brief · <strong>{offers.twoCompetitor.priceDisplay}</strong>
-        pilot · {offers.twoCompetitor.delivery} · asynchronous, no sales call
-      </p>
+<section class="hero9" aria-labelledby="hero9-title">
+  <div class="hero9__cinema" aria-hidden="true">
+    <video
+      class="hero9__video"
+      data-hero-video
+      src="https://videos.pexels.com/video-files/29453328/12678848_1920_1080_30fps.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      tabindex="-1"
+    ></video>
+    <div class="hero9__video-glass"></div>
+    <div class="hero9__video-label mono"><i></i> CINEMATIC DATA LOOP <span>LIVE MOTION</span></div>
+  </div>
 
-      <ol class="hero__states" data-hero-states data-active="0" aria-hidden="true">
-        <li>Scattered</li>
-        <li>Classified</li>
-        <li>Aligned</li>
-        <li>Decision</li>
-      </ol>
+  <div class="hero9__ambient" aria-hidden="true"></div>
+  <div class="hero9__shade" aria-hidden="true"></div>
+
+  <div class="container-wide hero9__inner">
+    <div class="hero9__copy">
+      <div class="hero9__eyebrow mono"><span></span>COMPETITOR INTELLIGENCE FOR B2B SAAS</div>
+      <h1 id="hero9-title"><span>Know what competitors can prove.</span><em>See what they can’t.</em></h1>
+      <p>Source-checked competitor evidence built around a real decision. Facts stay facts. Inferences stay labeled. Unknowns stay visible.</p>
+
+      <div class="hero9__actions">
+        <a class="hero9__primary" href={cta.primary.href}>{cta.primary.label}<span aria-hidden="true">→</span></a>
+        <a class="hero9__secondary" href="/sample-report/">View Sample Report</a>
+      </div>
+
+      <div class="hero9__proof mono">
+        <span><b>{offers.twoCompetitor.priceDisplay}</b><small>PILOT</small></span>
+        <span><b>{offers.twoCompetitor.delivery}</b><small>DELIVERY</small></span>
+        <span><b>PUBLIC</b><small>CHECKED / DATED</small></span>
+      </div>
     </div>
 
-    <div class="hero__visual" aria-hidden="true">
-      <div class="evidence-field" data-evidence-field>
-        <svg class="evidence-field__axis" viewBox="0 0 40 320" preserveAspectRatio="none">
-          <line x1="20" y1="6" x2="20" y2="314" />
-        </svg>
-        <span class="ef-axis-label ef-axis-label--top mono">AXIS</span>
-        <span class="ef-axis-label ef-axis-label--bottom mono">DECISION</span>
-
-        {fragments.map((f) => (
-          <span
-            class:list={['ef-frag', `ef-frag--${f.state}`]}
-            style={`--fx:${f.x}px; --fy:${f.y}px; --fr:${f.r}deg; --fd:${f.d}ms;`}
-          >
-            <i class="ef-frag__dot"></i>{f.label}
-          </span>
-        ))}
-
-        <ul class="ef-rows">
-          {rows.map((r, i) => (
-            <li class:list={['ef-row', `ef-row--${r.state}`]} style={`--rd:${i * 120 + 380}ms;`}>
-              <span class="ef-row__marker"></span>
-              <span class="ef-row__label mono">{r.label}</span>
-              <span class="ef-row__note mono">{r.note}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div class="ef-decision" style="--rd:820ms;">
-          <span class="mono">→ decision implication</span>
-        </div>
-      </div>
+    <div class="hero9__model">
+      <EvidenceCylinder />
     </div>
   </div>
 
-  <div class="hero__scroll" aria-hidden="true">
-    <span class="mono">scroll</span>
-    <span class="hero__scroll-line"></span>
-  </div>
-  </div><!-- /.hero__stage -->
+  <a class="hero9__scroll mono" href="#visual-proof">SEE THE OUTPUT <span>↓</span></a>
 </section>
 
 <script>
-  import { initHeroSpatial } from '../scripts/hero-spatial';
-  initHeroSpatial();
+  const videos = document.querySelectorAll<HTMLVideoElement>('[data-hero-video]');
+  videos.forEach((video) => {
+    const tuneDuration = () => {
+      if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+      const targetSeconds = 24;
+      const rate = Math.min(1.25, Math.max(0.35, video.duration / targetSeconds));
+      video.playbackRate = rate;
+      video.defaultPlaybackRate = rate;
+    };
+    video.addEventListener('loadedmetadata', tuneDuration, { once: true });
+    if (video.readyState >= 1) tuneDuration();
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let visible = true;
+    const sync = () => {
+      if (reduced.matches || document.hidden || !visible) video.pause();
+      else video.play().catch(() => {});
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = Boolean(entry?.isIntersecting);
+      sync();
+    }, { threshold: 0.04 });
+    observer.observe(video);
+    document.addEventListener('visibilitychange', sync);
+    reduced.addEventListener?.('change', sync);
+    sync();
+  });
 </script>
 
 <style>
-  .hero {
-    position: relative;
-    background:
-      radial-gradient(120% 90% at 78% 8%, color-mix(in srgb, var(--signal-600) 20%, transparent), transparent 55%),
-      var(--bg);
-    color: var(--text);
-    padding-block: clamp(3rem, 2rem + 8vw, 7rem) clamp(3rem, 2rem + 5vw, 5.5rem);
-    overflow: clip;
-  }
-  .hero__grid {
-    display: grid;
-    gap: clamp(2.5rem, 6vw, 5rem);
-    align-items: center;
-    grid-template-columns: 1fr;
-  }
-  .hero__title {
-    font-size: var(--step-6);
-    margin-top: var(--space-xs);
-    letter-spacing: -0.025em;
-  }
-  .hero__title-accent { color: var(--accent); }
-  .hero__lede {
-    margin-top: var(--space-l);
-    max-width: 52ch;
-    font-size: var(--step-1);
-    color: var(--text-muted);
-  }
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-s);
-    margin-top: var(--space-l);
-  }
-  .hero__meta {
-    margin-top: var(--space-l);
-    font-size: var(--step--1);
-    color: var(--text-faint);
-    letter-spacing: 0.01em;
-  }
-  .hero__meta strong { color: var(--accent); font-weight: 500; }
+  .hero9{position:relative;min-height:calc(100svh - 5rem);overflow:hidden;background:#020713;color:#fff;isolation:isolate;border-bottom:1px solid rgba(101,146,213,.12)}
+  .hero9__cinema{position:absolute;z-index:0;right:-3%;top:5%;width:63%;height:88%;overflow:hidden;border-radius:2.1rem 0 0 2.1rem;transform:perspective(1800px) rotateY(-3.5deg);transform-origin:right center;border:1px solid rgba(102,153,229,.2);box-shadow:0 50px 140px rgba(0,0,0,.54),0 0 150px rgba(36,102,236,.12);background:#06101f}
+  .hero9__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.25) contrast(1.08) brightness(.68);transform:scale(1.04)}
+  .hero9__video-glass{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,7,18,.72),rgba(3,10,24,.14) 35%,rgba(9,31,66,.08) 75%,rgba(3,10,24,.28)),linear-gradient(180deg,rgba(2,7,18,.16),transparent 55%,rgba(2,7,18,.52));box-shadow:inset 0 0 110px rgba(51,128,255,.08)}
+  .hero9__video-label{position:absolute;right:2rem;top:1.45rem;display:flex;align-items:center;gap:.55rem;padding:.58rem .75rem;border-radius:99px;background:rgba(4,13,28,.68);border:1px solid rgba(115,163,230,.2);backdrop-filter:blur(12px);color:#a7b9d2;font-size:.55rem;letter-spacing:.1em}.hero9__video-label i{width:.45rem;height:.45rem;border-radius:50%;background:#50e0d7;box-shadow:0 0 14px #50e0d7}.hero9__video-label span{color:#55ddd6;margin-left:.15rem}
+  .hero9__ambient{position:absolute;z-index:0;right:8%;top:8%;width:48%;height:86%;background:radial-gradient(circle at 45% 48%,rgba(27,116,255,.22),transparent 46%),radial-gradient(circle at 62% 64%,rgba(36,208,199,.12),transparent 34%);filter:blur(28px);pointer-events:none}
+  .hero9__shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#020713 0%,rgba(2,7,18,.99) 24%,rgba(2,7,18,.83) 40%,rgba(2,7,18,.3) 59%,rgba(2,7,18,.06) 78%,rgba(2,7,18,.18) 100%),linear-gradient(180deg,rgba(2,7,18,.06),transparent 60%,rgba(2,7,18,.72))}
+  .hero9__inner{position:relative;z-index:3;min-height:calc(100svh - 5rem);display:grid;grid-template-columns:.86fr 1.14fr;align-items:center;gap:clamp(1rem,2.5vw,2.6rem);padding-block:clamp(3.4rem,7vh,6.4rem)}
+  .hero9__copy{position:relative;z-index:7;width:100%;max-width:43rem;padding:1rem 0}
+  .hero9__eyebrow{display:flex;align-items:center;gap:.75rem;color:#89adff;font-size:.7rem;letter-spacing:.17em;font-weight:800}.hero9__eyebrow span{width:1.65rem;height:1px;background:currentColor;box-shadow:0 0 14px currentColor}
+  .hero9 h1{margin:1.1rem 0 0;max-width:10.4ch;font-family:var(--font-display);font-size:clamp(3.55rem,5vw,6rem);line-height:.94;letter-spacing:-.06em;font-weight:760}.hero9 h1 span{display:block;color:#fff;text-shadow:0 8px 34px rgba(0,0,0,.76)}.hero9 h1 em{display:block;margin-top:.12em;font-style:normal;background:linear-gradient(100deg,#9bb9ff 0%,#6e9dff 43%,#53e0d9 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 22px rgba(47,126,231,.24))}
+  .hero9__copy>p{max-width:37rem;margin:1.4rem 0 0;color:#d8e1ef;font-size:1.06rem;line-height:1.7;text-shadow:0 2px 14px rgba(0,0,0,.65)}
+  .hero9__actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.55rem}.hero9__actions a{min-height:3.45rem;display:inline-flex;align-items:center;justify-content:center;padding:0 1.28rem;border-radius:.75rem;font-family:var(--font-display);font-weight:780;font-size:.95rem;text-decoration:none}.hero9__primary{gap:.85rem;color:#06101a;background:linear-gradient(115deg,#8aafff,#48d7d4);box-shadow:0 18px 46px rgba(53,130,229,.27)}.hero9__secondary{color:#e4edf9;border:1px solid rgba(151,185,231,.25);background:rgba(5,14,29,.65);backdrop-filter:blur(12px)}
+  .hero9__proof{display:flex;gap:.55rem;margin-top:1.15rem;flex-wrap:wrap}.hero9__proof>span{display:grid;grid-template-columns:auto auto;gap:.42rem;align-items:center;min-height:2.2rem;padding:0 .75rem;border-radius:.55rem;border:1px solid rgba(139,171,217,.18);background:rgba(7,17,33,.72);backdrop-filter:blur(10px)}.hero9__proof b{color:#fff;font-size:.74rem}.hero9__proof small{color:#9baec8;font-size:.58rem;letter-spacing:.09em}
+  .hero9__model{position:relative;z-index:5;height:min(78vh,49rem);min-height:38rem;margin-right:-2.5rem;filter:drop-shadow(0 35px 65px rgba(0,0,0,.32))}
+  .hero9__scroll{position:absolute;z-index:8;left:50%;bottom:1.1rem;transform:translateX(-50%);display:flex;align-items:center;gap:.6rem;color:#7892b7;text-decoration:none;font-size:.56rem;letter-spacing:.12em}.hero9__scroll span{color:#4fe0da;font-size:.9rem;animation:scrollHint 1.8s ease-in-out infinite}@keyframes scrollHint{50%{transform:translateY(5px)}}
 
-  /* ---- Phase 2 spatial enhancement (progressive) ---- */
-  .hero__canvas { display: none; pointer-events: none; }
-  .hero__stage { position: relative; }
-  .hero__states { display: none; }
-  .hero__states {
-    list-style: none; padding: 0; margin: var(--space-xl) 0 0;
-    flex-wrap: wrap; gap: 0.5rem 1.15rem;
-    font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--text-faint);
-  }
-  .hero__states li { position: relative; padding-left: 1.05rem; transition: color var(--dur-2) var(--ease-out); }
-  .hero__states li::before {
-    content: ''; position: absolute; left: 0; top: 0.5em;
-    width: 0.5rem; height: 0.5rem; border-radius: 50%;
-    border: 1px solid currentColor;
-    transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
-  }
-  .hero__states[data-active='0'] li:nth-child(-n+1),
-  .hero__states[data-active='1'] li:nth-child(-n+2),
-  .hero__states[data-active='2'] li:nth-child(-n+3),
-  .hero__states[data-active='3'] li:nth-child(-n+4) { color: var(--accent); }
-  .hero__states[data-active='0'] li:nth-child(-n+1)::before,
-  .hero__states[data-active='1'] li:nth-child(-n+2)::before,
-  .hero__states[data-active='2'] li:nth-child(-n+3)::before,
-  .hero__states[data-active='3'] li:nth-child(-n+4)::before { background: var(--accent); border-color: var(--accent); }
-
-  .hero--spatial-ready { padding-block: 0; min-height: 240vh; }
-  .hero--spatial-ready .hero__stage {
-    position: sticky; top: 0; height: 100vh; min-height: 620px;
-    display: flex; align-items: center; overflow: hidden;
-    padding-block: clamp(4.5rem, 11vh, 7rem) 2rem;
-  }
-  .hero--spatial-ready .hero__canvas {
-    display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
-  }
-  .hero--spatial-ready .hero__stage::after {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(90deg,
-      var(--bg) 0%,
-      var(--bg) 30%,
-      color-mix(in srgb, var(--bg) 72%, transparent) 46%,
-      transparent 70%);
-  }
-  .hero--spatial-ready .hero__grid { position: relative; z-index: 2; width: 100%; }
-  .hero--spatial-ready .hero__visual { display: none; }
-  .hero--spatial-ready .hero__states { display: flex; }
-  .hero--spatial-ready .hero__title { font-size: var(--step-5); }
-  /* Pinned view has a fixed vertical budget — tighten the rhythm so headline,
-     pricing microcopy and the state row all stay above the fold. */
-  .hero--spatial-ready .hero__lede { margin-top: var(--space-m); }
-  .hero--spatial-ready .hero__actions { margin-top: var(--space-m); }
-  .hero--spatial-ready .hero__meta { margin-top: var(--space-m); }
-  .hero--spatial-ready .hero__states { margin-top: var(--space-m); }
-
-  /* ---- Evidence field visual ---- */
-  .hero__visual { min-height: 340px; display: grid; place-items: center; }
-  .evidence-field {
-    position: relative;
-    width: min(100%, 30rem);
-    height: 340px;
-  }
-  .evidence-field__axis {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 100%;
-  }
-  .evidence-field__axis line {
-    stroke: var(--axis-line);
-    stroke-width: 1.5;
-    stroke-dasharray: 2 4;
-  }
-  .ef-axis-label {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    color: var(--text-faint);
-  }
-  .ef-axis-label--top { top: -0.2rem; }
-  .ef-axis-label--bottom { bottom: -0.4rem; color: var(--accent); }
-
-  .ef-frag {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5ch;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    background: color-mix(in srgb, var(--bg-raised) 88%, transparent);
-    border: 1px solid var(--surface-border);
-    border-radius: var(--radius-s);
-    padding: 0.32em 0.6em;
-    white-space: nowrap;
-    backdrop-filter: blur(3px);
-    transform: translate(calc(-50% + var(--fx)), calc(-50% + var(--fy))) rotate(var(--fr));
-    animation: fragAlign 900ms var(--ease-out) both;
-    animation-delay: var(--fd);
-    box-shadow: var(--shadow-2);
-  }
-  .ef-frag__dot { width: 0.5em; height: 0.5em; border-radius: 50%; flex: none; }
-  .ef-frag--fact .ef-frag__dot { background: var(--fact); }
-  .ef-frag--inference .ef-frag__dot { background: var(--infer); }
-  .ef-frag--unknown .ef-frag__dot { background: transparent; border: 1px solid var(--unknown); }
-
-  @keyframes fragAlign {
-    0% { opacity: 0; transform: translate(calc(-50% + var(--fx)), calc(-50% + var(--fy))) rotate(var(--fr)) scale(0.9); }
-    60% { opacity: 1; }
-    100% { opacity: 0.55; transform: translate(calc(-50% + var(--fx)), calc(-50% + var(--fy))) rotate(var(--fr)) scale(1); }
-  }
-
-  .ef-rows {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: 0.55rem;
-    width: min(88%, 22rem);
-    z-index: var(--z-raised);
-  }
-  .ef-row {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 0.7ch;
-    background: var(--bg-raised);
-    border: 1px solid var(--surface-border);
-    border-left-width: 3px;
-    border-radius: var(--radius-s);
-    padding: 0.6em 0.8em;
-    box-shadow: var(--shadow-3);
-    animation: rowIn 600ms var(--ease-out) both;
-    animation-delay: var(--rd);
-  }
-  .ef-row--fact { border-left-color: var(--fact); }
-  .ef-row--inference { border-left-color: var(--infer); border-left-style: dashed; }
-  .ef-row--unknown { border-left-color: var(--unknown); border-left-style: dotted; }
-  .ef-row__marker { width: 0.7em; height: 0.7em; border-radius: 50%; }
-  .ef-row--fact .ef-row__marker { background: var(--fact); }
-  .ef-row--inference .ef-row__marker { background: linear-gradient(90deg, var(--infer) 50%, transparent 50%); border: 1px solid var(--infer); }
-  .ef-row--unknown .ef-row__marker { background: transparent; border: 1px solid var(--unknown); }
-  .ef-row__label { font-size: 0.78rem; color: var(--text); font-weight: 500; }
-  .ef-row__note { font-size: 0.66rem; color: var(--text-faint); }
-
-  @keyframes rowIn {
-    from { opacity: 0; transform: translateX(-8px); }
-    to { opacity: 1; transform: none; }
-  }
-
-  .ef-decision {
-    position: absolute;
-    left: 50%;
-    bottom: 0.2rem;
-    transform: translateX(-50%);
-    background: var(--accent);
-    color: var(--on-accent);
-    font-size: 0.7rem;
-    padding: 0.4em 0.8em;
-    border-radius: var(--radius-s);
-    animation: rowIn 600ms var(--ease-out) both;
-    animation-delay: var(--rd);
-    box-shadow: var(--shadow-3);
-  }
-
-  .hero__scroll {
-    position: absolute;
-    left: var(--gutter);
-    bottom: 1.2rem;
-    display: none;
-    align-items: center;
-    gap: 0.7ch;
-    color: var(--text-faint);
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-  .hero__scroll-line { width: 3rem; height: 1px; background: var(--hairline); position: relative; overflow: hidden; }
-  .hero__scroll-line::after {
-    content: ''; position: absolute; inset: 0; width: 40%;
-    background: var(--accent);
-    animation: scrollHint 2.4s var(--ease-in-out) infinite;
-  }
-  @keyframes scrollHint { 0% { transform: translateX(-120%); } 100% { transform: translateX(300%); } }
-
-  @media (min-width: 64rem) {
-    .hero__grid { grid-template-columns: 1.05fr 0.95fr; }
-    .hero__scroll { display: flex; }
-  }
-
-  /* Short laptop heights: keep headline, pricing and CTA inside the pinned view. */
-  @media (min-width: 64rem) and (max-height: 820px) {
-    .hero--spatial-ready .hero__title { font-size: var(--step-4); }
-    .hero--spatial-ready .hero__lede { margin-top: var(--space-m); font-size: var(--step-0); }
-    .hero--spatial-ready .hero__states { margin-top: var(--space-l); }
-    .hero--spatial-ready .hero__stage { padding-block: clamp(3.5rem, 8vh, 5rem) 1.25rem; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .ef-frag { animation: none; opacity: 0.55; }
-    .ef-row, .ef-decision { animation: none; opacity: 1; transform: translateX(-50%); }
-    .ef-row { transform: none; }
-    .hero__scroll-line::after { animation: none; }
-  }
+  @media(max-width:1180px){.hero9__inner{grid-template-columns:.9fr 1.1fr}.hero9__model{margin-right:-5rem}.hero9__cinema{width:67%}.hero9 h1{font-size:clamp(3.35rem,5vw,5.4rem)}}
+  @media(max-width:900px){.hero9{min-height:58rem}.hero9__inner{min-height:58rem;display:flex;align-items:flex-end;padding-bottom:5rem}.hero9__copy{max-width:39rem}.hero9__model{position:absolute;z-index:2;right:-11rem;top:1rem;width:47rem;height:37rem;opacity:.78}.hero9__cinema{right:-26%;top:0;width:94%;height:62%;border-radius:0;transform:none;opacity:.72}.hero9__shade{background:linear-gradient(180deg,rgba(2,7,18,.12) 0%,rgba(2,7,18,.48) 33%,rgba(2,7,18,.92) 60%,#020713 78%)}.hero9 h1{font-size:clamp(3.25rem,8vw,5.1rem)}}
+  @media(max-width:640px){.hero9{min-height:52rem}.hero9__inner{min-height:52rem;padding-bottom:4rem}.hero9__model{right:-14rem;top:1rem;width:40rem;height:31rem;opacity:.55}.hero9__cinema{right:-42%;width:122%;height:54%;opacity:.58}.hero9__video-label{display:none}.hero9 h1{font-size:clamp(3rem,13vw,4.15rem)}.hero9__copy>p{font-size:.98rem}.hero9__secondary{display:none}.hero9__scroll{display:none}}
+  @media(prefers-reduced-motion:reduce){.hero9__scroll span{animation:none}.hero9__video{opacity:.62}}
 </style>

@@ -1,0 +1,29 @@
+name: Package redesign v4
+
+on:
+  push:
+    branches:
+      - redesign-v4
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout redesign
+        uses: actions/checkout@v4
+
+      - name: Create source archive
+        run: |
+          zip -r evidence-axis-redesign-v4-full.zip . \
+            -x '.git/*' 'node_modules/*' 'dist/*' '.astro/*'
+
+      - name: Upload source archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-axis-redesign-v4-full
+          path: evidence-axis-redesign-v4-full.zip
+          if-no-files-found: error
+          retention-days: 7
