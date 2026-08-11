@@ -1,54 +1,15 @@
 ---
 import ProductFilm from './ProductFilm.astro';
-import { heroVideoData } from '@data/heroVideo';
 ---
 <div class="product-video" data-product-video aria-hidden="true">
-  <div class="product-video__fallback"><ProductFilm /></div>
-  <video
-    class="product-video__media"
-    data-product-video-media
-    src={heroVideoData}
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    tabindex="-1"
-  ></video>
-  <div class="product-video__grade"></div>
-  <div class="product-video__grid"></div>
-  <div class="product-video__hud product-video__hud--top">
-    <span class="live-dot"></span><b>90-SECOND EVIDENCE FILM</b><em>PUBLIC → CLASSIFY → DECIDE</em>
-  </div>
-  <div class="product-video__hud product-video__hud--bottom">
-    <span>FACT</span><i></i><span>INFERENCE</span><i></i><span>UNKNOWN</span><i></i><strong>DECISION-READY BRIEF</strong>
-  </div>
+  <ProductFilm />
+  <div class="product-video__glass"></div>
+  <div class="product-video__rail product-video__rail--top"><span class="live-dot"></span><b>90-SECOND EVIDENCE FILM</b><em>PUBLIC → CLASSIFY → DECIDE</em></div>
+  <div class="product-video__rail product-video__rail--bottom"><span>FACT</span><i></i><span>INFERENCE</span><i></i><span>UNKNOWN</span><i></i><b>DECISION-READY BRIEF</b></div>
 </div>
 
-<script>
-  const root = document.querySelector('[data-product-video]');
-  const video = root?.querySelector('[data-product-video-media]');
-  if (video instanceof HTMLVideoElement) {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let visible = true;
-    const sync = () => {
-      if (reduced.matches || document.hidden || !visible) video.pause();
-      else video.play().catch(() => {});
-    };
-    const observer = new IntersectionObserver(([entry]) => {
-      visible = Boolean(entry?.isIntersecting);
-      sync();
-    }, { threshold: 0.05 });
-    observer.observe(root);
-    document.addEventListener('visibilitychange', sync);
-    reduced.addEventListener?.('change', sync);
-    video.addEventListener('loadeddata', () => root.classList.add('is-video-ready'), { once: true });
-    sync();
-  }
-</script>
-
 <style>
-  .product-video{position:absolute;inset:0;overflow:hidden;isolation:isolate;background:#020713}.product-video__fallback{position:absolute;inset:0;opacity:.28;filter:saturate(.9) contrast(1.06);transition:opacity .5s ease}.product-video.is-video-ready .product-video__fallback{opacity:.05}.product-video__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#020713;filter:saturate(1.18) contrast(1.1) brightness(.9);transform:scale(1.015)}.product-video__grade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,7,18,.9) 0%,rgba(2,7,18,.62) 30%,rgba(2,7,18,.18) 58%,rgba(2,7,18,.16) 100%),linear-gradient(180deg,rgba(4,9,20,.16),rgba(4,9,20,.03) 58%,rgba(2,7,18,.74));pointer-events:none}.product-video__grid{position:absolute;inset:0;opacity:.18;background-image:linear-gradient(rgba(105,150,255,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(105,150,255,.11) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(90deg,transparent 0,#000 45%,#000 100%)}.product-video__hud{position:absolute;z-index:4;display:flex;align-items:center;gap:.58rem;border:1px solid rgba(129,169,225,.18);background:rgba(3,10,22,.62);backdrop-filter:blur(14px);font:700 .59rem/1 var(--font-mono);letter-spacing:.1em;color:#8da5c5}.product-video__hud--top{right:clamp(1rem,3vw,3rem);top:clamp(1rem,2.5vw,2.5rem);padding:.62rem .75rem;border-radius:.6rem}.product-video__hud--top b{color:#ecf4ff}.product-video__hud--top em{font-style:normal;color:#56ded7}.product-video__hud--bottom{right:clamp(1rem,3vw,3rem);bottom:clamp(1.4rem,3vw,3rem);padding:.62rem .8rem;border-radius:.6rem}.product-video__hud--bottom i{width:1.25rem;height:1px;background:linear-gradient(90deg,#6d95ff,#49dcd5)}.product-video__hud--bottom strong{color:#eef5ff}.live-dot{width:.46rem;height:.46rem;border-radius:50%;background:#49e1d7;box-shadow:0 0 14px #49e1d7;animation:livePulse 1.6s ease-in-out infinite}@keyframes livePulse{50%{opacity:.35;transform:scale(.76)}}
-  @media(max-width:760px){.product-video__media{object-position:62% center}.product-video__grade{background:linear-gradient(180deg,rgba(2,7,18,.18) 0%,rgba(2,7,18,.36) 28%,rgba(2,7,18,.94) 62%,#020713 100%)}.product-video__hud--top{top:1rem;right:1rem}.product-video__hud--top em,.product-video__hud--bottom{display:none}}
-  @media(prefers-reduced-motion:reduce){.live-dot{animation:none}.product-video__media{opacity:.7}}
+  .product-video{position:absolute;inset:0;overflow:hidden;isolation:isolate;background:#020713}.product-video :global(.film){opacity:1}.product-video__glass{position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(circle at 73% 46%,rgba(55,135,255,.08),transparent 32%),linear-gradient(115deg,rgba(255,255,255,.018),transparent 36%,transparent 72%,rgba(69,220,212,.025))}.product-video__rail{position:absolute;z-index:8;display:flex;align-items:center;gap:.65rem;border:1px solid rgba(119,160,219,.16);background:rgba(2,9,20,.76);backdrop-filter:blur(14px);font:800 .58rem/1 var(--font-mono);letter-spacing:.09em;text-transform:uppercase;color:#8098ba}.product-video__rail--top{right:3%;top:2.5rem;padding:.65rem .8rem;border-radius:.65rem}.product-video__rail--top b{color:#dce8f8}.product-video__rail--top em{font-style:normal;color:#4edbd4}.product-video__rail--bottom{right:3%;bottom:2rem;padding:.62rem .8rem;border-radius:.6rem}.product-video__rail--bottom i{width:1.25rem;height:1px;background:#385779}.product-video__rail--bottom b{color:#dfe9f8}.live-dot{width:.45rem;height:.45rem;border-radius:50%;background:#4ce1d8;box-shadow:0 0 15px #4ce1d8;animation:pulseFilm 1.6s ease-in-out infinite}@keyframes pulseFilm{50%{opacity:.35;transform:scale(.75)}}
+  @media(max-width:760px){.product-video__rail--top{top:1rem;right:1rem}.product-video__rail--top em,.product-video__rail--bottom{display:none}}
+  @media(prefers-reduced-motion:reduce){.live-dot{animation:none}}
 </style>
