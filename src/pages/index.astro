@@ -12,94 +12,136 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
   <main class="home-v10">
     <section class="film-v10" id="system-film" data-surface="dark" aria-labelledby="film-title">
       <div class="container-wide film-v10__grid">
-        <div>
+        <div class="film-v10__copy">
           <span class="v10-kicker v10-kicker--light">SYSTEM FILM</span>
-          <h2 id="film-title">See the evidence system move before you inspect the output.</h2>
-          <p>The film introduces the workflow: public source, evidence state, preserved unknowns, and the brief that reaches the decision.</p>
-          <div class="film-v10__chips mono"><span>PUBLIC SOURCES</span><span>CLASSIFY</span><span>TRACE</span><span>DECIDE</span></div>
+          <h2 id="film-title">Watch the evidence move from public source to decision.</h2>
+          <p>This short film sits below the hero by design. The three-dimensional Evidence Axis appears once, at the top. Here the visitor sees the workflow in motion without repeating the cylinder.</p>
+          <div class="film-v10__chips mono"><span>PUBLIC SOURCE</span><span>CLASSIFY</span><span>TRACE</span><span>DECIDE</span></div>
         </div>
-        <div class="film-v10__player film-v10__player--imageback">
-          <img class="film-v10__poster" src="/assets/v10/corporate-strategy.webp" alt="Illustrative Evidence Axis strategy team reviewing market intelligence" />
-          <video data-system-film muted loop playsinline autoplay controls preload="metadata" poster="/assets/v10/corporate-strategy.webp"><source src={filmUrl} type="video/mp4" /></video>
-          <div class="film-v10__frame"><span>SYSTEM FILM</span><b>Evidence Axis / decision flow</b></div>
+
+        <div class="film-v10__stage">
+          <div class="film-v10__player">
+            <video data-system-film muted loop playsinline autoplay controls preload="metadata" poster="/assets/v10/command-center-approved.svg">
+              <source src={filmUrl} type="video/mp4" />
+            </video>
+            <div class="film-v10__frame"><span>24-SECOND SYSTEM FILM</span><b>Evidence Axis / decision flow</b></div>
+          </div>
+          <figure class="film-v10__card film-v10__card--a"><img src="/assets/v10/global-signal.webp" alt="Illustrative global market signal map" /><figcaption>GLOBAL SIGNALS</figcaption></figure>
+          <figure class="film-v10__card film-v10__card--b"><img src="/assets/v10/command-center-approved.svg" alt="Business team studying strategic evidence" /><figcaption>DECISION ROOM</figcaption></figure>
         </div>
       </div>
     </section>
 
-    <section class="signal-v10" id="research-context" aria-labelledby="signal-title">
-      <div class="container-wide signal-v10__grid">
-        <div class="signal-v10__copy">
-          <span class="v10-kicker">RESEARCH CONTEXT</span>
-          <h2 id="signal-title">The research starts wider than a comparison table.</h2>
-          <p>Public competitor pages, documentation, pricing changes, product announcements and market signals are organized around the decision your team is actually making.</p>
-          <ul><li>The decision question defines the boundary</li><li>Every material claim keeps a source and check date</li><li>Missing evidence stays visible instead of being filled in</li></ul>
-        </div>
-        <figure class="v10-media v10-media--wide"><img src="/assets/v10/global-signal.webp" alt="Illustrative global market signal map designed for Evidence Axis" loading="lazy" /><figcaption><span>APPROVED VISUAL SYSTEM</span><b>Global Signal Map</b></figcaption></figure>
+    <section class="proofbar-v10" aria-label="Evidence Axis operating principles">
+      <div class="container-wide proofbar-v10__grid">
+        <article><span>01</span><b>100% traceable</b><p>Every material claim keeps a source.</p></article>
+        <article><span>02</span><b>Source-backed</b><p>Public, identifiable, dated evidence.</p></article>
+        <article><span>03</span><b>Decision-ready</b><p>Built around the move your team is considering.</p></article>
+        <article><span>04</span><b>Audit-ready</b><p>The evidence trail stays visible.</p></article>
       </div>
     </section>
 
-    <section class="room-v10" data-surface="dark" aria-labelledby="room-title">
-      <div class="container-wide room-v10__grid">
-        <figure class="v10-media v10-media--room"><img src="/assets/v10/command-center.webp" alt="Illustrative Evidence Axis decision room with business professionals reviewing evidence" loading="lazy" /><figcaption><span>APPROVED VISUAL SYSTEM</span><b>Decision room / public evidence</b></figcaption></figure>
-        <div>
-          <span class="v10-kicker v10-kicker--light">PUBLIC SOURCES. STRUCTURED EVIDENCE.</span>
-          <h2 id="room-title">A source should stay attached to the claim that came from it.</h2>
-          <p>Evidence Axis separates what a source plainly supports from interpretation. That keeps a polished sentence from masquerading as certainty.</p>
-          <div class="room-v10__states"><span class="state state--fact"><b>FACT</b> directly supported</span><span class="state state--inference"><b>INFERENCE</b> reasoned from evidence</span><span class="state state--unknown"><b>UNKNOWN</b> not established</span></div>
+    <section class="insight-v10" aria-labelledby="insight-title">
+      <div class="container-wide">
+        <header class="v10-head v10-head--center"><span class="v10-kicker">WHY EVIDENCE AXIS IS DIFFERENT</span><h2 id="insight-title">Structured evidence beats generic AI output.</h2><p>AI can summarize fast. Evidence Axis keeps the source, evidence state, decision boundary and unresolved questions visible so a polished sentence cannot quietly become “fact.”</p></header>
+        <div class="insight-v10__grid">
+          <article class="insight-card insight-card--cyan"><span>01</span><h3>Evidence before interpretation.</h3><p>Source, observation and fact stay attached before any strategic inference is written.</p><a href="/method/">See the method →</a></article>
+          <article class="insight-card insight-card--blue"><span>02</span><h3>Source-backed and citable.</h3><p>Every material claim points to identifiable public evidence and a check date.</p><a href="/sample-report/">Open the sample →</a></article>
+          <article class="insight-card insight-card--amber"><span>03</span><h3>Decision-scoped from the start.</h3><p>The question your team is deciding determines what gets investigated and what does not.</p><a href="/competitor-brief/">See the brief →</a></article>
+          <article class="insight-card insight-card--violet"><span>04</span><h3>Judgment stays separated.</h3><p>Fact, Inference and Unknown never silently blur into one another.</p><a href="/method/">Trace the logic →</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="offers-v10" id="services" aria-labelledby="offers-title">
+      <div class="container-wide">
+        <header class="offers-v10__head"><div><span class="v10-kicker">CHOOSE THE RIGHT BRIEF FOR YOUR DECISION</span><h2 id="offers-title">Start with the smallest brief that can settle the question.</h2></div><p>Broader research only makes sense when the decision genuinely needs a wider evidence field.</p></header>
+
+        <div class="pricing-v10">
+          <article class="price-card price-card--cyan">
+            <div class="price-card__flag mono">FAST START</div>
+            <span class="price-card__label mono">TWO-COMPETITOR</span>
+            <h3>{offers.twoCompetitor.name}</h3>
+            <p>{offers.twoCompetitor.scope} One defined decision question with a traceable evidence trail.</p>
+            <div class="price-card__price"><small>STARTING PRICE</small><strong>{offers.twoCompetitor.priceDisplay}</strong><em>{offers.twoCompetitor.priceNote}</em></div>
+            <div class="price-card__delivery"><small>DELIVERY</small><b>{offers.twoCompetitor.delivery}</b></div>
+            <ul><li>Two named competitors</li><li>Evidence matrix + source register</li><li>Fact / Inference / Unknown separation</li><li>Decision implications</li></ul>
+            <a href="/competitor-brief/">Start a Two-Competitor Brief →</a>
+          </article>
+
+          <article class="price-card price-card--orange">
+            <div class="price-card__flag mono">BROADER READ</div>
+            <span class="price-card__label mono">FIVE-COMPETITOR</span>
+            <h3>{offers.fiveCompetitor.name}</h3>
+            <p>{offers.fiveCompetitor.scope} Positioning, packaging and capability evidence surfaced together.</p>
+            <div class="price-card__price"><small>STARTING PRICE</small><strong>{offers.fiveCompetitor.priceDisplay}</strong></div>
+            <div class="price-card__delivery"><small>DELIVERY</small><b>{offers.fiveCompetitor.delivery}</b></div>
+            <ul><li>Five named competitors</li><li>One research question</li><li>Contradictions surfaced</li><li>Decision implications</li></ul>
+            <a href="/competitor-brief/">Start a Five-Competitor Brief →</a>
+          </article>
+
+          <article class="price-card price-card--violet">
+            <div class="price-card__flag mono">STRATEGIC</div>
+            <span class="price-card__label mono">STRATEGIC SCOPE</span>
+            <h3>{offers.blueprint.name}</h3>
+            <p>{offers.blueprint.scope} Deeper synthesis with a custom research boundary.</p>
+            <div class="price-card__price"><small>PRICING</small><strong>{offers.blueprint.priceDisplay}</strong></div>
+            <div class="price-card__delivery"><small>DELIVERY</small><b>{offers.blueprint.delivery}</b></div>
+            <ul><li>Custom research boundary</li><li>Wider evidence base</li><li>Offer and category architecture</li><li>Strategic synthesis</li></ul>
+            <a href="/strategic-blueprint/">Scope a Strategic Blueprint →</a>
+          </article>
+
+          <aside class="included-card">
+            <span class="price-card__label mono">ALL BRIEFS INCLUDE</span>
+            <div><b>Source-backed</b><p>Every material claim stays attached to evidence.</p></div>
+            <div><b>Traceable</b><p>Walk a conclusion back to its source.</p></div>
+            <div><b>Decision-ready</b><p>Built around a real commercial move.</p></div>
+            <div><b>Unknowns visible</b><p>Missing evidence is named, not guessed.</p></div>
+            <a href="/contact/">Need a custom scope? →</a>
+          </aside>
         </div>
       </div>
     </section>
 
     <section class="outputs-v10" aria-labelledby="outputs-title">
       <div class="container-wide">
-        <header class="v10-head v10-head--center"><span class="v10-kicker">WHAT YOU RECEIVE</span><h2 id="outputs-title">Evidence you can inspect. Conclusions you can walk backward.</h2><p>The visual below shows the decision interface direction. The live Intercom × Zendesk sample remains the sourced proof of the research standard.</p></header>
-        <div class="outputs-v10__gallery outputs-v10__gallery--single">
-          <figure class="v10-media v10-media--dashboard"><img src="/assets/v10/decision-dashboard.webp" alt="Illustrative Evidence Axis decision dashboard" loading="lazy" /><figcaption><span>APPROVED VISUAL SYSTEM</span><b>Decision Dashboard</b></figcaption></figure>
+        <header class="v10-head v10-head--center"><span class="v10-kicker">SAMPLE OUTPUTS THAT DRIVE DECISIONS</span><h2 id="outputs-title">Inspect the evidence. Inspect the reasoning. Then inspect the move.</h2><p>The homepage now shows the format instead of burying it in prose.</p></header>
+        <div class="outputs-v10__gallery outputs-v10__gallery--three">
+          <figure class="v10-media"><img src="/assets/v10/evidence-matrix.svg" alt="Illustrative Evidence Axis evidence matrix" loading="lazy" /><figcaption><span>EVIDENCE MATRIX</span><b>See what is supported and where certainty ends.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/decision-brief.svg" alt="Illustrative Evidence Axis decision brief" loading="lazy" /><figcaption><span>DECISION BRIEF</span><b>Traceable insight written for a real decision.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/decision-dashboard.webp" alt="Illustrative Evidence Axis decision dashboard" loading="lazy" /><figcaption><span>DECISION DASHBOARD</span><b>Evidence, state and implication in one view.</b></figcaption></figure>
         </div>
         <div class="outputs-v10__actions"><a class="v10-button v10-button--dark" href="/sample-report/">Open live sample report →</a><a class="v10-link" href="/method/">See the research method</a></div>
       </div>
     </section>
 
-    <section class="library-v10" data-surface="dark" aria-labelledby="library-title">
-      <div class="container-wide library-v10__grid">
-        <div class="library-v10__copy">
-          <span class="v10-kicker v10-kicker--light">THE FULL VISUAL SYSTEM</span>
-          <h2 id="library-title">The approved Evidence Axis visual language, used as one connected system.</h2>
-          <p>These are the approved concepts for research context, evidence matrices, decision rooms, AI workflow, command views and decision-ready outputs. They are now part of the site rather than sitting outside the build.</p>
-          <div class="library-v10__links"><a href="#services">See engagements →</a><a href="/sample-report/">Open sourced sample →</a></div>
-        </div>
-        <figure class="library-v10__board"><img src="/assets/v10/approved-visual-gallery.webp" alt="Ten approved Evidence Axis visual concepts shown together" loading="lazy" /><figcaption><span>10 APPROVED CONCEPTS</span><b>One visual system across the site</b></figcaption></figure>
+    <section class="world-v10" data-surface="dark" aria-labelledby="world-title">
+      <div class="container-wide world-v10__grid">
+        <div class="world-v10__copy"><span class="v10-kicker v10-kicker--light">MARKET INTELLIGENCE</span><h2 id="world-title">See the world. Move with clarity.</h2><p>Competitive signals, public product evidence, market shifts and positioning moves are organized around the decision—not around a giant competitor encyclopedia.</p><a class="v10-button v10-button--light" href="/market-intelligence/">Explore Market Intelligence →</a></div>
+        <figure class="world-v10__visual"><img src="/assets/v10/global-signal.webp" alt="Illustrative global signal map" loading="lazy" /><div class="world-v10__metric world-v10__metric--one"><small>PUBLIC SIGNAL</small><b>Pricing change</b><span>source checked</span></div><div class="world-v10__metric world-v10__metric--two"><small>PRODUCT SIGNAL</small><b>Feature shipped</b><span>date confirmed</span></div><div class="world-v10__metric world-v10__metric--three"><small>OPEN QUESTION</small><b>Private adoption</b><span>unknown</span></div></figure>
       </div>
     </section>
 
-    <section class="ai-v10" aria-labelledby="ai-title">
-      <div class="container-wide ai-v10__grid">
-        <div><span class="v10-kicker">AI INSIDE A CONTROLLED WORKFLOW</span><h2 id="ai-title">AI can research and summarize. The difference is what happens to the evidence.</h2><p>Evidence Axis uses AI where it helps, then applies source discipline, explicit evidence states, a decision boundary, and visible unknowns. The reasoning stays inspectable.</p><div class="ai-v10__badges"><span>Source-linked</span><span>State-labeled</span><span>Unknowns preserved</span><span>Decision-scoped</span></div></div>
-        <figure class="v10-media v10-media--ai"><img src="/assets/v10/corporate-strategy.webp" alt="Illustrative strategy team working with evidence and market intelligence" loading="lazy" /><figcaption><span>APPROVED VISUAL SYSTEM</span><b>Human judgment + structured evidence</b></figcaption></figure>
-      </div>
-    </section>
-
-    <section class="offers-v10" id="services" aria-labelledby="offers-title">
-      <div class="container-wide">
-        <header class="offers-v10__head"><div><span class="v10-kicker">ENGAGEMENTS</span><h2 id="offers-title">Start with the smallest brief that can settle the question.</h2></div><p>Broader research only makes sense when the decision genuinely needs a wider evidence field.</p></header>
-        <div class="offers-v10__grid">
-          <article class="offer-v10 offer-v10--primary"><div class="offer-v10__ribbon mono">MOST COMMON START</div><div class="offer-v10__body"><span class="offer-v10__label mono">FAST DECISION</span><h3>{offers.twoCompetitor.name}</h3><p>{offers.twoCompetitor.scope} One defined decision question, evidence matrix, source register, explicit Unknowns and decision implications.</p><div class="offer-v10__metrics"><div class="metric metric--orange"><small>STARTING PRICE</small><strong>{offers.twoCompetitor.priceDisplay}</strong><span>{offers.twoCompetitor.priceNote}</span></div><div class="metric metric--red"><small>DELIVERY</small><strong>{offers.twoCompetitor.delivery}</strong><span>from a defined research question</span></div></div><div class="offer-v10__chips"><span>Evidence matrix</span><span>Source register</span><span>Fact / Inference / Unknown</span></div><a href="/competitor-brief/">Start with two <b>→</b></a></div></article>
-          <div class="offers-v10__side">
-            <article class="offer-v10 offer-v10--blue"><div class="offer-v10__top"><span class="mono">BROADER READ</span><strong>{offers.fiveCompetitor.priceDisplay}</strong></div><h3>{offers.fiveCompetitor.name}</h3><p>{offers.fiveCompetitor.scope} Positioning, packaging and capability evidence surfaced together.</p><footer><b>{offers.fiveCompetitor.delivery}</b><a href="/competitor-brief/">Compare five →</a></footer></article>
-            <article class="offer-v10 offer-v10--violet"><div class="offer-v10__top"><span class="mono">STRATEGIC SCOPE</span><strong>{offers.blueprint.priceDisplay}</strong></div><h3>{offers.blueprint.name}</h3><p>{offers.blueprint.scope} Deeper synthesis with a custom research boundary.</p><footer><b>{offers.blueprint.delivery}</b><a href="/strategic-blueprint/">Scope a blueprint →</a></footer></article>
-          </div>
+    <section class="gallery-v10" aria-labelledby="gallery-title">
+      <div class="container-wide gallery-v10__grid">
+        <div class="gallery-v10__copy"><span class="v10-kicker">APPROVED VISUAL SYSTEM</span><h2 id="gallery-title">One visual language across the research, evidence and decision.</h2><p>The site now uses the approved strategy-room, market-signal, evidence-matrix and decision-interface direction instead of isolated placeholder art.</p><div class="gallery-v10__links"><a href="/method/">See how it works →</a><a href="/sample-report/">Open the sourced sample →</a></div></div>
+        <div class="gallery-v10__mosaic">
+          <figure><img src="/assets/v10/command-center-approved.svg" alt="Business professionals studying evidence in a decision room" loading="lazy" /></figure>
+          <figure><img src="/assets/v10/corporate-strategy.webp" alt="Strategy team reviewing market evidence" loading="lazy" /></figure>
+          <figure><img src="/assets/v10/decision-dashboard.webp" alt="Decision dashboard visual" loading="lazy" /></figure>
+          <figure><img src="/assets/v10/global-signal.webp" alt="Global signal map visual" loading="lazy" /></figure>
         </div>
       </div>
     </section>
 
     <section class="sample-v10" aria-labelledby="sample-title">
       <div class="container-wide sample-v10__grid">
-        <figure class="v10-media v10-media--sample"><img src="/assets/v10/global-signal.webp" alt="Illustrative Evidence Axis research visual" loading="lazy" /><figcaption><span>LIVE SAMPLE AVAILABLE</span><b>See the sourced report next</b></figcaption></figure>
+        <figure class="v10-media v10-media--sample"><img src="/assets/v10/command-center-approved.svg" alt="Illustrative Evidence Axis research team reviewing strategic evidence" loading="lazy" /><figcaption><span>LIVE SAMPLE AVAILABLE</span><b>See the sourced report next</b></figcaption></figure>
         <div class="sample-v10__copy"><span class="v10-kicker v10-kicker--light">SEE THE STANDARD BEFORE YOU BUY</span><h2 id="sample-title">Intercom × Zendesk. Eight first-party sources. Visible evidence states.</h2><p>The live sample shows the research standard, source register, Fact / Inference / Unknown separation and the limits of what public evidence can establish.</p><div><a class="v10-button v10-button--light" href="/sample-report/">View Sample Report →</a><a class="v10-link v10-link--light" href="/report/evidence-axis-sample-intercom-vs-zendesk.pdf">Open PDF</a></div></div>
       </div>
     </section>
 
-    <section class="final-v10" aria-labelledby="final-title"><div class="container final-v10__inner"><span class="v10-kicker">START SMALL</span><h2 id="final-title">Bring the decision your team keeps debating.</h2><p>Send the competitors, the question, and the context that changes what “better” means for your team.</p><div><a href="/contact/">Start a Brief →</a>{contact.email && <a href={`mailto:${contact.email}`}>{contact.email}</a>}</div></div></section>
+    <section class="final-v10" aria-labelledby="final-title"><div class="container-wide final-v10__panel"><div><span class="v10-kicker">START SMALL</span><h2 id="final-title">Make the next competitive decision with evidence attached.</h2><p>Send the competitors, the question and the context that changes what “better” means for your team.</p><div class="final-v10__actions"><a href="/contact/">Start a Brief →</a>{contact.email && <a href={`mailto:${contact.email}`}>{contact.email}</a>}</div></div><img src="/assets/v10/command-center-approved.svg" alt="Business professionals reviewing evidence" loading="lazy" /></div></section>
   </main>
 </Base>
 
@@ -114,11 +156,3 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
     document.addEventListener('visibilitychange', sync);
   }
 </script>
-
-<style>
-  .film-v10__player--imageback{isolation:isolate}.film-v10__poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.82;z-index:0}.film-v10__player video{position:relative;z-index:1}.film-v10__frame{z-index:2}
-  .outputs-v10__gallery--single{grid-template-columns:1fr;max-width:66rem;margin-inline:auto}.v10-media--dashboard{aspect-ratio:16/9}.v10-media--dashboard img{object-fit:cover}
-  .library-v10{padding:clamp(5.8rem,8vw,8.5rem) 0;background:radial-gradient(circle at 78% 28%,rgba(76,143,255,.18),transparent 27%),#06101d;color:#fff}.library-v10__grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(2rem,5vw,5rem);align-items:center}.library-v10__copy h2{margin:.8rem 0 0;font-family:var(--font-display);font-size:clamp(2.5rem,4.2vw,4.6rem);line-height:.96;letter-spacing:-.055em;color:#fff}.library-v10__copy p{color:#b2c2d7}.library-v10__links{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.3rem}.library-v10__links a{color:#65ddd8;text-decoration:none;font-weight:800}.library-v10__board{position:relative;margin:0;overflow:hidden;border-radius:1.3rem;border:1px solid rgba(120,166,230,.23);background:#07111e;box-shadow:0 34px 90px rgba(0,0,0,.38);transform:perspective(1500px) rotateY(-2deg)}.library-v10__board img{display:block;width:100%;height:auto}.library-v10__board figcaption{position:absolute;left:1rem;right:1rem;bottom:1rem;display:flex;justify-content:space-between;gap:1rem;padding:.72rem .85rem;border-radius:.65rem;background:rgba(3,10,22,.78);backdrop-filter:blur(12px);font-size:.76rem}.library-v10__board figcaption span{font:850 .58rem/1 var(--font-mono);letter-spacing:.11em;color:#58dfd7}.library-v10__board figcaption b{color:#eef5ff}
-  .ai-v10{background:linear-gradient(180deg,#f8f4ed,#eee5d7);color:#0b1320}.ai-v10__copy h2,.ai-v10 h2{color:#0b1320}.ai-v10__copy p,.ai-v10 p{color:#5e6978}.ai-v10__badges span{background:#fff;border-color:rgba(55,111,220,.14);color:#3d5068}
-  @media(max-width:980px){.library-v10__grid{grid-template-columns:1fr}.library-v10__board{transform:none}}
-</style>
