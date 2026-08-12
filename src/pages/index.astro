@@ -3,6 +3,7 @@ import Base from '@layouts/Base.astro';
 import Hero from '@components/Hero.astro';
 import { site, offers, contact } from '@config/site';
 import '../styles/home-v10.css';
+import '../styles/home-final.css';
 
 const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210b59996f5308097b38adf0144d37a46&profile_id=139&oauth2_token_id=1223210874';
 ---
@@ -15,7 +16,7 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
         <div class="film-v10__copy">
           <span class="v10-kicker v10-kicker--light">SYSTEM FILM</span>
           <h2 id="film-title">Watch the evidence move from public source to decision.</h2>
-          <p>The three-dimensional Evidence Axis appears once, in the hero. This section is the motion layer: a short film showing the workflow without repeating the cylinder.</p>
+          <p>The three-dimensional Evidence Axis appears once, in the hero. Here the workflow moves: public source, classification, traceable reasoning, then the decision output.</p>
           <div class="film-v10__chips mono"><span>PUBLIC SOURCE</span><span>CLASSIFY</span><span>TRACE</span><span>DECIDE</span></div>
         </div>
 
@@ -44,9 +45,9 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
     <section class="gallery-v10" aria-labelledby="gallery-title">
       <div class="container-wide gallery-v10__grid">
         <div class="gallery-v10__copy">
-          <span class="v10-kicker">APPROVED VISUAL SYSTEM</span>
-          <h2 id="gallery-title">Research, evidence and decision — in one visual language.</h2>
-          <p>The homepage now uses the approved strategy-room, global-signal, decision-dashboard and evidence-interface direction instead of isolated placeholder art.</p>
+          <span class="v10-kicker">RESEARCH IN CONTEXT</span>
+          <h2 id="gallery-title">See the signals, the evidence and the decision in one system.</h2>
+          <p>Strategy-room views, market signals, evidence matrices and decision interfaces are connected to the same research trail instead of living in separate decks.</p>
           <div class="gallery-v10__links"><a href="/method/">See how it works →</a><a href="/sample-report/">Open the sourced sample →</a></div>
         </div>
         <div class="gallery-v10__mosaic">
@@ -60,7 +61,7 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
 
     <section class="insight-v10" aria-labelledby="insight-title">
       <div class="container-wide">
-        <header class="v10-head v10-head--center"><span class="v10-kicker">WHY EVIDENCE AXIS IS DIFFERENT</span><h2 id="insight-title">Structured evidence beats generic AI output.</h2><p>AI can summarize fast. Evidence Axis keeps the source, evidence state, decision boundary and unresolved questions visible so a polished sentence cannot quietly become “fact.”</p></header>
+        <header class="v10-head v10-head--center"><span class="v10-kicker">WHY EVIDENCE AXIS IS DIFFERENT</span><h2 id="insight-title">Research that keeps proof separate from judgment.</h2><p>Fast summaries are easy. The hard part is preserving the source, evidence state, decision boundary and unresolved questions so confidence does not outrun the evidence.</p></header>
         <div class="insight-v10__grid">
           <article class="insight-card insight-card--cyan"><span>01</span><h3>Evidence before interpretation.</h3><p>Source, observation and fact stay attached before any strategic inference is written.</p><a href="/method/">See the method →</a></article>
           <article class="insight-card insight-card--blue"><span>02</span><h3>Source-backed and citable.</h3><p>Every material claim points to identifiable public evidence and a check date.</p><a href="/sample-report/">Open the sample →</a></article>
@@ -122,7 +123,7 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
 
     <section class="outputs-v10" aria-labelledby="outputs-title">
       <div class="container-wide">
-        <header class="v10-head v10-head--center"><span class="v10-kicker">SAMPLE OUTPUTS THAT DRIVE DECISIONS</span><h2 id="outputs-title">Inspect the evidence. Inspect the reasoning. Then inspect the move.</h2><p>The approved visuals are part of the page now, not just design references.</p></header>
+        <header class="v10-head v10-head--center"><span class="v10-kicker">SAMPLE OUTPUTS THAT DRIVE DECISIONS</span><h2 id="outputs-title">Inspect the evidence. Inspect the reasoning. Then inspect the move.</h2><p>The homepage shows the working format directly: evidence matrix, decision brief, dashboard, workflow and strategy-room views.</p></header>
         <div class="outputs-v10__gallery outputs-v10__gallery--three">
           <figure class="v10-media"><img src="/assets/v10/evidence-matrix.svg" alt="Evidence Axis evidence matrix sample" loading="lazy" /><figcaption><span>EVIDENCE MATRIX</span><b>See what is supported and where certainty ends.</b></figcaption></figure>
           <figure class="v10-media"><img src="/assets/v10/decision-brief.svg" alt="Evidence Axis decision-ready output" loading="lazy" /><figcaption><span>DECISION OUTPUT</span><b>Traceable insight written for a real decision.</b></figcaption></figure>
@@ -132,6 +133,23 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
           <figure class="v10-media"><img src="/assets/v10/decision-room.svg" alt="Business team reviewing strategic evidence" loading="lazy" /><figcaption><span>STRATEGY ROOM</span><b>Evidence becomes useful when it changes a move.</b></figcaption></figure>
         </div>
         <div class="outputs-v10__actions"><a class="v10-button v10-button--dark" href="/sample-report/">Open live sample report →</a><a class="v10-link" href="/method/">See the research method</a></div>
+      </div>
+    </section>
+
+    <section class="ai-v10" data-surface="dark" aria-labelledby="ai-title">
+      <div class="container-wide ai-v10__grid">
+        <div class="ai-v10__copy">
+          <span class="v10-kicker v10-kicker--light">WHY A CHATBOT ALONE IS NOT THE PRODUCT</span>
+          <h2 id="ai-title">Fluent answers are not the same as decision evidence.</h2>
+          <p>General AI is useful for speed. Evidence Axis adds the parts a serious competitive decision still needs: a defined research boundary, identifiable public sources, visible evidence states and a traceable path from source to implication.</p>
+          <ul class="ai-v10__points">
+            <li>Claims stay attached to identifiable sources and check dates.</li>
+            <li>Fact, Inference and Unknown remain visibly separate.</li>
+            <li>The research question limits what is investigated and claimed.</li>
+            <li>A decision implication can be traced backward to the evidence that produced it.</li>
+          </ul>
+        </div>
+        <figure class="ai-v10__visual"><img src="/assets/v10/ai-comparison.svg" alt="Comparison between generic AI output and structured, source-traceable Evidence Axis research" loading="lazy" /></figure>
       </div>
     </section>
 
