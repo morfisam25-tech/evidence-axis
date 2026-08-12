@@ -1,132 +1,108 @@
 ---
 import { offers, cta } from '@config/site';
-const videoUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210b59996f5308097b38adf0144d37a46&profile_id=139&oauth2_token_id=1223210874';
-const strategyPoster = 'https://pikwizard.com/pw/medium/e3ad9ee9a75e652615ffefac616044a8.jpg';
-const meetingPoster = 'https://thumbs.wbm.im/pw/medium/e045190bd63c620ddbabb39a991b37e9.jpg';
 ---
-<section class="hero-pro" data-surface="dark" aria-labelledby="hero-title">
-  <video class="hero-pro__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-    <source src={videoUrl} type="video/mp4" />
-  </video>
-  <div class="hero-pro__overlay" aria-hidden="true"></div>
-  <div class="hero-pro__gridline" aria-hidden="true"></div>
+<section class="hero-v10" data-surface="dark" aria-labelledby="hero-v10-title">
+  <div class="hero-v10__grid" aria-hidden="true"></div>
+  <div class="hero-v10__glow" aria-hidden="true"></div>
 
-  <div class="container-wide hero-pro__inner">
-    <div class="hero-pro__copy">
-      <span class="hero-pro__eyebrow mono">Competitor intelligence for B2B SaaS</span>
-      <h1 id="hero-title" class="hero-pro__title">
+  <div class="container-wide hero-v10__inner">
+    <div class="hero-v10__copy">
+      <div class="hero-v10__eyebrow mono"><span></span>COMPETITOR INTELLIGENCE FOR B2B SAAS</div>
+      <h1 id="hero-v10-title">
         <span>Know what competitors can prove.</span>
         <em>See what they can’t.</em>
       </h1>
-      <p class="hero-pro__lede">
-        Source-checked competitor evidence built around a real decision. Facts stay facts. Inferences stay labeled. Unknowns stay visible.
-      </p>
+      <p class="hero-v10__lede">Source-checked competitor evidence built around a real decision. Facts stay facts. Inferences stay labeled. Unknowns stay visible.</p>
 
-      <div class="hero-pro__actions">
-        <a class="hero-pro__cta" href={cta.primary.href}>{cta.primary.label}<span aria-hidden="true">→</span></a>
-        <a class="hero-pro__ghost" href="/sample-report/">View Sample Report</a>
+      <div class="hero-v10__actions">
+        <a class="hero-v10__primary" href={cta.primary.href}>{cta.primary.label}<span aria-hidden="true">→</span></a>
+        <a class="hero-v10__secondary" href="/sample-report/">View Sample Report</a>
       </div>
 
-      <div class="hero-pro__proof mono" aria-label="Pilot details">
-        <span><strong>{offers.twoCompetitor.priceDisplay}</strong><small>PILOT</small></span>
-        <span><strong>{offers.twoCompetitor.delivery}</strong><small>DELIVERY</small></span>
-        <span><strong>PUBLIC</strong><small>CHECKED / DATED</small></span>
+      <div class="hero-v10__proof mono" aria-label="Pilot details">
+        <span><b>{offers.twoCompetitor.priceDisplay}</b><small>PILOT</small></span>
+        <span><b>{offers.twoCompetitor.delivery}</b><small>DELIVERY</small></span>
+        <span><b>PUBLIC</b><small>CHECKED / DATED</small></span>
       </div>
     </div>
 
-    <div class="hero-pro__stage" data-stage>
-      <figure class="hero-pro__photo hero-pro__photo--one">
-        <img src={strategyPoster} alt="Business professionals collaborating in a modern office" />
-        <figcaption><span>GLOBAL SIGNAL MAP</span><b>Public sources in context</b></figcaption>
-      </figure>
-
-      <div class="axis-object" data-axis-object aria-label="Interactive Evidence Axis model">
-        <div class="axis-object__halo"></div>
-        <div class="axis-object__cap axis-object__cap--top"><span>EVIDENCE AXIS</span></div>
-        <div class="axis-object__body">
-          <div class="axis-object__beam"></div>
-          <div class="axis-object__ring axis-object__ring--fact"><span>FACT</span><small>verified</small></div>
-          <div class="axis-object__ring axis-object__ring--inference"><span>INFERENCE</span><small>reasoned</small></div>
-          <div class="axis-object__ring axis-object__ring--unknown"><span>UNKNOWN</span><small>unresolved</small></div>
-          <div class="axis-object__card axis-object__card--a">Pricing page</div>
-          <div class="axis-object__card axis-object__card--b">Documentation</div>
-          <div class="axis-object__card axis-object__card--c">Decision brief</div>
-        </div>
-        <div class="axis-object__cap axis-object__cap--bottom"><span>TRACEABLE · DECISION-READY</span></div>
+    <div class="axis-stage" data-axis-stage aria-label="Interactive three-dimensional Evidence Axis model">
+      <canvas class="axis-stage__canvas" data-axis-canvas aria-hidden="true"></canvas>
+      <div class="axis-stage__fallback" aria-hidden="true">
+        <div class="axis-stage__fallback-body"></div>
       </div>
 
-      <figure class="hero-pro__photo hero-pro__photo--two">
-        <img src={meetingPoster} alt="Executives discussing a business decision in an office" />
-        <figcaption><span>DECISION ROOM</span><b>Evidence before judgment</b></figcaption>
-      </figure>
+      <div class="axis-label axis-label--brand mono">EVIDENCE AXIS</div>
+      <div class="axis-state axis-state--fact">
+        <span>FACT</span><b>verified</b>
+      </div>
+      <div class="axis-state axis-state--inference">
+        <span>INFERENCE</span><b>reasoned</b>
+      </div>
+      <div class="axis-state axis-state--unknown">
+        <span>UNKNOWN</span><b>unresolved</b>
+      </div>
+
+      <div class="axis-tag axis-tag--pricing"><small>SOURCE</small><b>Pricing page</b></div>
+      <div class="axis-tag axis-tag--docs"><small>SOURCE</small><b>Documentation</b></div>
+      <div class="axis-tag axis-tag--brief"><small>OUTPUT</small><b>Decision brief</b></div>
+
+      <div class="axis-stage__footer mono">VERIFIED · TRACEABLE · DECISION-READY</div>
+      <div class="axis-stage__hint mono">MOVE POINTER · ROTATE MODEL</div>
     </div>
   </div>
+
+  <a class="hero-v10__scroll mono" href="#system-film">SYSTEM FILM <span>↓</span></a>
 </section>
 
 <script>
-  const stage = document.querySelector('[data-stage]');
-  const object = document.querySelector('[data-axis-object]');
-  if (stage instanceof HTMLElement && object instanceof HTMLElement && matchMedia('(pointer:fine)').matches) {
-    stage.addEventListener('pointermove', (event) => {
-      const box = stage.getBoundingClientRect();
-      const x = (event.clientX - box.left) / box.width - 0.5;
-      const y = (event.clientY - box.top) / box.height - 0.5;
-      object.style.setProperty('--rx', `${(-y * 12).toFixed(2)}deg`);
-      object.style.setProperty('--ry', `${(x * 18).toFixed(2)}deg`);
-    });
-    stage.addEventListener('pointerleave', () => {
-      object.style.setProperty('--rx', '0deg');
-      object.style.setProperty('--ry', '0deg');
-    });
-  }
+  import '../scripts/hero-v10';
 </script>
 
 <style>
-  .hero-pro{position:relative;overflow:hidden;min-height:calc(100svh - 5rem);background:#020713;color:#f5f8ff;isolation:isolate}
-  .hero-pro__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.12) contrast(1.08) brightness(.58);transform:scale(1.03)}
-  .hero-pro__overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,7,18,.99) 0%,rgba(2,7,18,.88) 31%,rgba(2,7,18,.48) 54%,rgba(2,7,18,.2) 78%,rgba(2,7,18,.42) 100%),linear-gradient(180deg,rgba(2,7,18,.18),rgba(2,7,18,.1) 60%,rgba(2,7,18,.75));z-index:1}
-  .hero-pro__gridline{position:absolute;inset:0;z-index:1;opacity:.12;background-image:linear-gradient(rgba(111,153,221,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(111,153,221,.16) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(90deg,transparent 0,#000 48%,#000 100%)}
-  .hero-pro__inner{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,.9fr) minmax(34rem,1.1fr);gap:clamp(2rem,4vw,4rem);align-items:center;min-height:calc(100svh - 5rem);padding-block:clamp(4rem,8vh,7rem)}
-  .hero-pro__copy{position:relative;z-index:5;max-width:47rem}
-  .hero-pro__eyebrow{display:flex;align-items:center;gap:.7rem;color:#8caeff;font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
-  .hero-pro__eyebrow::before{content:'';width:1.8rem;height:1px;background:currentColor;box-shadow:0 0 12px currentColor}
-  .hero-pro__title{margin:1.15rem 0 0;max-width:9.2ch;font-family:var(--font-display);font-size:clamp(4rem,5.6vw,6.7rem);line-height:.92;letter-spacing:-.064em;font-weight:780}
-  .hero-pro__title span{display:block;color:#fff;text-shadow:0 10px 35px rgba(0,0,0,.66)}
-  .hero-pro__title em{display:block;margin-top:.12em;font-style:normal;background:linear-gradient(100deg,#a0bdff 0%,#72a0ff 43%,#54dfd7 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 24px rgba(76,141,242,.25))}
-  .hero-pro__lede{max-width:42rem;margin:1.5rem 0 0;color:#d3deed;font-family:var(--font-serif);font-size:1.08rem;line-height:1.72;text-shadow:0 2px 12px rgba(0,0,0,.55)}
-  .hero-pro__actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.7rem}
-  .hero-pro__actions a{display:inline-flex;align-items:center;justify-content:center;min-height:3.45rem;padding:0 1.28rem;border-radius:.75rem;font-family:var(--font-display);font-weight:800;text-decoration:none}
-  .hero-pro__cta{gap:.85rem;background:linear-gradient(115deg,#8bb0ff,#4ddbd4);color:#06101a;box-shadow:0 18px 46px rgba(53,130,229,.27)}
-  .hero-pro__ghost{border:1px solid rgba(151,185,231,.24);background:rgba(5,14,29,.56);color:#e8f1ff;backdrop-filter:blur(12px)}
-  .hero-pro__proof{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.15rem}
-  .hero-pro__proof>span{display:grid;grid-template-columns:auto auto;gap:.42rem;align-items:center;min-height:2.2rem;padding:0 .75rem;border-radius:.55rem;border:1px solid rgba(139,171,217,.18);background:rgba(7,17,33,.64);backdrop-filter:blur(10px)}
-  .hero-pro__proof strong{font-size:.73rem;color:#fff}.hero-pro__proof small{font-size:.56rem;color:#9baec8;letter-spacing:.09em}
+  .hero-v10{position:relative;overflow:hidden;min-height:calc(100svh - 5rem);background:#020713;color:#f4f8ff;isolation:isolate}
+  .hero-v10__grid{position:absolute;inset:0;opacity:.18;background-image:linear-gradient(rgba(102,149,222,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(102,149,222,.11) 1px,transparent 1px);background-size:70px 70px;mask-image:linear-gradient(90deg,transparent 0,#000 34%,#000 100%)}
+  .hero-v10__glow{position:absolute;inset:-20% -12% -20% 36%;background:radial-gradient(circle at 58% 46%,rgba(54,129,255,.25),transparent 24%),radial-gradient(circle at 58% 49%,rgba(72,230,217,.12),transparent 42%);filter:blur(7px)}
+  .hero-v10::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(2,7,18,.98) 0%,rgba(2,7,18,.87) 31%,rgba(2,7,18,.38) 54%,rgba(2,7,18,.06) 82%),linear-gradient(180deg,transparent 62%,rgba(2,7,18,.62));z-index:1}
+  .hero-v10__inner{position:relative;z-index:2;min-height:calc(100svh - 5rem);display:grid;grid-template-columns:minmax(0,.84fr) minmax(34rem,1.16fr);gap:clamp(1.5rem,3vw,3rem);align-items:center;padding-block:clamp(4rem,8vh,6.5rem)}
+  .hero-v10__copy{position:relative;z-index:4;max-width:47rem}
+  .hero-v10__eyebrow{display:flex;align-items:center;gap:.72rem;color:#86adff;font-size:.7rem;font-weight:800;letter-spacing:.18em}
+  .hero-v10__eyebrow span{width:1.75rem;height:1px;background:currentColor;box-shadow:0 0 13px currentColor}
+  .hero-v10 h1{margin:1.15rem 0 0;max-width:9.3ch;font-family:var(--font-display);font-size:clamp(4rem,5.45vw,6.6rem);line-height:.92;letter-spacing:-.064em;font-weight:780}
+  .hero-v10 h1 span{display:block;color:#fff;text-shadow:0 12px 36px rgba(0,0,0,.64)}
+  .hero-v10 h1 em{display:block;margin-top:.12em;font-style:normal;background:linear-gradient(100deg,#9fbdff 0%,#70a0ff 46%,#54e0d8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 9px 24px rgba(68,141,247,.24))}
+  .hero-v10__lede{max-width:41rem;margin:1.45rem 0 0;color:#d5dfed;font-family:var(--font-serif);font-size:1.08rem;line-height:1.72}
+  .hero-v10__actions{display:flex;flex-wrap:wrap;gap:.78rem;margin-top:1.7rem}
+  .hero-v10__actions a{display:inline-flex;align-items:center;justify-content:center;min-height:3.45rem;padding:0 1.28rem;border-radius:.78rem;font-family:var(--font-display);font-weight:800;text-decoration:none}
+  .hero-v10__primary{gap:.8rem;background:linear-gradient(115deg,#8db1ff,#4edbd4);color:#06101a;box-shadow:0 18px 46px rgba(53,130,229,.27)}
+  .hero-v10__secondary{border:1px solid rgba(151,185,231,.24);background:rgba(5,14,29,.52);color:#e9f2ff;backdrop-filter:blur(12px)}
+  .hero-v10__proof{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.15rem}
+  .hero-v10__proof>span{display:grid;grid-template-columns:auto auto;gap:.42rem;align-items:center;min-height:2.25rem;padding:0 .8rem;border-radius:.58rem;border:1px solid rgba(139,171,217,.19);background:rgba(7,17,33,.64);backdrop-filter:blur(10px)}
+  .hero-v10__proof b{font-size:.75rem;color:#fff}.hero-v10__proof small{font-size:.56rem;color:#9baec8;letter-spacing:.09em}
 
-  .hero-pro__stage{position:relative;min-height:40rem;perspective:1300px;transform-style:preserve-3d}
-  .axis-object{--rx:0deg;--ry:0deg;position:absolute;left:50%;top:50%;width:min(25rem,48%);height:34rem;transform:translate(-50%,-50%) rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .18s ease-out;filter:drop-shadow(0 35px 60px rgba(0,0,0,.52))}
-  .axis-object__halo{position:absolute;inset:13% -20%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(57,134,248,.22),rgba(66,225,216,.08) 38%,transparent 70%);filter:blur(18px);transform:translateZ(-60px)}
-  .axis-object__cap{position:absolute;left:7%;right:7%;height:3.25rem;border-radius:50%;border:1px solid rgba(114,162,233,.52);display:grid;place-items:center;background:radial-gradient(ellipse at center,rgba(67,131,210,.28),rgba(11,27,54,.84) 58%,rgba(3,9,19,.98));box-shadow:inset 0 0 28px rgba(64,151,255,.16),0 0 34px rgba(58,134,244,.16);transform-style:preserve-3d}
-  .axis-object__cap span{font:800 .68rem/1 var(--font-mono);letter-spacing:.16em;color:#ecf3ff;text-shadow:0 0 14px rgba(255,255,255,.25)}
-  .axis-object__cap--top{top:0;transform:translateZ(30px) rotateX(6deg)}
-  .axis-object__cap--bottom{bottom:0;transform:translateZ(18px) rotateX(-4deg)}
-  .axis-object__cap--bottom span{font-size:.54rem;color:#9ab1ce}
-  .axis-object__body{position:absolute;left:11%;right:11%;top:1.65rem;bottom:1.65rem;border-inline:1px solid rgba(111,160,227,.42);background:linear-gradient(90deg,rgba(74,220,211,.035),rgba(82,134,229,.12),rgba(74,220,211,.035));transform-style:preserve-3d;overflow:visible}
-  .axis-object__beam{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%) translateZ(14px);background:linear-gradient(180deg,transparent,#56e2da 18%,#70a7ff 52%,#56e2da 82%,transparent);box-shadow:0 0 24px rgba(76,225,216,.7)}
-  .axis-object__ring{position:absolute;left:50%;width:76%;height:3.1rem;transform:translateX(-50%) rotateX(64deg) translateZ(24px);border-radius:50%;border:1px solid currentColor;background:rgba(4,11,24,.65);box-shadow:0 0 22px color-mix(in srgb,currentColor 20%,transparent);display:flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--font-mono);font-weight:800;letter-spacing:.11em}
-  .axis-object__ring span{font-size:.62rem}.axis-object__ring small{font-size:.46rem;opacity:.65}.axis-object__ring--fact{top:18%;color:#55e1d9}.axis-object__ring--inference{top:44%;color:#f0ab4b}.axis-object__ring--unknown{top:70%;color:#b18aff}
-  .axis-object__card{position:absolute;min-width:8rem;padding:.72rem .85rem;border-radius:.65rem;border:1px solid rgba(135,176,231,.22);background:rgba(5,15,31,.82);backdrop-filter:blur(10px);font:700 .68rem/1 var(--font-mono);color:#dce7f5;box-shadow:0 18px 32px rgba(0,0,0,.24)}
-  .axis-object__card--a{left:-20%;top:30%;transform:translateZ(84px) rotateY(9deg) rotateZ(-3deg);border-color:rgba(85,225,217,.32)}
-  .axis-object__card--b{right:-24%;top:50%;transform:translateZ(100px) rotateY(-10deg) rotateZ(3deg);border-color:rgba(240,171,75,.3)}
-  .axis-object__card--c{right:-16%;bottom:14%;transform:translateZ(74px) rotateY(-6deg);border-color:rgba(177,138,255,.3)}
+  .axis-stage{--pointer-x:0px;--pointer-y:0px;position:relative;height:min(68vh,42rem);min-height:35rem;perspective:1500px;isolation:isolate;transform:translateX(1.5rem)}
+  .axis-stage::before{content:'';position:absolute;inset:8% 4%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(54,140,255,.2),rgba(55,218,207,.07) 35%,transparent 69%);filter:blur(20px);transform:translate(var(--pointer-x),var(--pointer-y));transition:transform .18s ease-out}
+  .axis-stage__canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;filter:drop-shadow(0 35px 70px rgba(0,0,0,.45))}
+  .axis-stage__fallback{position:absolute;z-index:1;left:50%;top:50%;width:52%;height:78%;transform:translate(-50%,-50%);border:1px solid rgba(104,154,230,.36);border-radius:44% / 8%;background:linear-gradient(90deg,rgba(44,111,197,.06),rgba(72,212,207,.09),rgba(44,111,197,.06));box-shadow:0 0 50px rgba(53,128,238,.12)}
+  .axis-stage__fallback::before,.axis-stage__fallback::after{content:'';position:absolute;left:-1px;right:-1px;height:3.1rem;border:1px solid rgba(104,154,230,.5);border-radius:50%;background:radial-gradient(ellipse at center,rgba(74,220,211,.13),rgba(12,30,61,.64) 60%,rgba(3,9,20,.95))}
+  .axis-stage__fallback::before{top:-1.55rem}.axis-stage__fallback::after{bottom:-1.55rem}
+  .axis-stage--webgl .axis-stage__fallback{opacity:.15}
+  .axis-stage__fallback-body{position:absolute;left:50%;top:8%;bottom:8%;width:2px;transform:translateX(-50%);background:linear-gradient(transparent,#52e4da,#75a5ff,#52e4da,transparent);box-shadow:0 0 20px rgba(82,228,218,.62)}
+  .axis-label{position:absolute;z-index:5;left:50%;top:8.8%;transform:translateX(-50%) translate(var(--pointer-x),var(--pointer-y));color:#eef5ff;font-size:.82rem;font-weight:800;letter-spacing:.19em;text-shadow:0 0 18px rgba(255,255,255,.22);white-space:nowrap}
+  .axis-state{position:absolute;z-index:5;left:50%;width:12.8rem;min-height:3.7rem;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:.55rem;border-radius:999px;background:rgba(3,11,24,.75);backdrop-filter:blur(10px);font-family:var(--font-mono);font-weight:800;letter-spacing:.12em;box-shadow:0 10px 35px rgba(0,0,0,.18)}
+  .axis-state::before{content:'';position:absolute;inset:0;border:1px solid currentColor;border-radius:999px;opacity:.68}
+  .axis-state span,.axis-state b{position:relative}.axis-state span{font-size:.8rem}.axis-state b{font-family:var(--font-display);font-size:.78rem;letter-spacing:0;text-transform:none;color:#e9f1fd}
+  .axis-state--fact{top:25%;color:#55e1d9}.axis-state--inference{top:48%;color:#f0aa49}.axis-state--unknown{top:71%;color:#ad84ff}
+  .axis-tag{position:absolute;z-index:6;min-width:10.5rem;padding:.78rem .9rem;border-radius:.78rem;border:1px solid rgba(133,174,230,.24);background:rgba(5,15,31,.88);backdrop-filter:blur(12px);box-shadow:0 18px 45px rgba(0,0,0,.3);transition:transform .18s ease-out}
+  .axis-tag small{display:block;margin-bottom:.3rem;font:800 .52rem/1 var(--font-mono);letter-spacing:.12em;color:#7794ba}.axis-tag b{font:760 .94rem/1.1 var(--font-display);color:#eef5ff}
+  .axis-tag--pricing{left:5%;top:31%;transform:translate(calc(var(--pointer-x) * -.65),calc(var(--pointer-y) * -.55)) rotate(-3deg);border-color:rgba(85,225,217,.32)}
+  .axis-tag--docs{right:1%;top:47%;transform:translate(calc(var(--pointer-x) * .7),calc(var(--pointer-y) * .55)) rotate(3deg);border-color:rgba(240,170,73,.32)}
+  .axis-tag--brief{right:8%;bottom:14%;transform:translate(calc(var(--pointer-x) * .45),calc(var(--pointer-y) * .35)) rotate(-1deg);border-color:rgba(173,132,255,.32)}
+  .axis-stage__footer{position:absolute;z-index:5;left:50%;bottom:8.4%;transform:translateX(-50%);color:#91a8c5;font-size:.58rem;letter-spacing:.12em;white-space:nowrap}
+  .axis-stage__hint{position:absolute;z-index:5;left:50%;bottom:1.5%;transform:translateX(-50%);color:#5c7698;font-size:.52rem;letter-spacing:.12em;white-space:nowrap}
+  .hero-v10__scroll{position:absolute;z-index:4;left:50%;bottom:1.3rem;transform:translateX(-50%);display:flex;align-items:center;gap:.55rem;color:#7f97b8;text-decoration:none;font-size:.58rem;letter-spacing:.13em}.hero-v10__scroll span{color:#55e1d9;font-size:.9rem;animation:v10hint 1.7s ease-in-out infinite}@keyframes v10hint{50%{transform:translateY(5px)}}
 
-  .hero-pro__photo{position:absolute;margin:0;width:12.5rem;aspect-ratio:.82/1;border-radius:1rem;overflow:hidden;border:1px solid rgba(143,181,234,.24);background:#081426;box-shadow:0 24px 55px rgba(0,0,0,.34);transform-style:preserve-3d}
-  .hero-pro__photo img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.04) brightness(.85)}
-  .hero-pro__photo::after{content:'';position:absolute;inset:36% 0 0;background:linear-gradient(transparent,rgba(3,10,20,.94))}
-  .hero-pro__photo figcaption{position:absolute;z-index:2;left:.85rem;right:.85rem;bottom:.8rem;display:grid;gap:.2rem}.hero-pro__photo figcaption span{font:800 .53rem/1 var(--font-mono);letter-spacing:.1em;color:#55e1d9}.hero-pro__photo figcaption b{font-size:.75rem;color:#edf4ff}
-  .hero-pro__photo--one{left:1%;top:9%;transform:translateZ(-40px) rotateY(13deg) rotateZ(-2deg)}
-  .hero-pro__photo--two{right:0;bottom:7%;width:11.2rem;transform:translateZ(-15px) rotateY(-13deg) rotateZ(2deg)}
-
-  @media(max-width:1080px){.hero-pro__inner{grid-template-columns:1fr}.hero-pro__copy{max-width:50rem}.hero-pro__stage{min-height:32rem}.axis-object{width:19rem;height:28rem}.hero-pro__photo--one{left:12%}.hero-pro__photo--two{right:12%}}
-  @media(max-width:720px){.hero-pro{min-height:58rem}.hero-pro__inner{min-height:58rem;align-items:start;padding-block:3.5rem 4rem}.hero-pro__title{font-size:clamp(3.35rem,14vw,4.7rem)}.hero-pro__lede{font-size:1rem}.hero-pro__stage{min-height:24rem;margin-top:1rem}.axis-object{width:15rem;height:21rem}.axis-object__ring{height:2.3rem}.hero-pro__photo{display:none}.axis-object__card{font-size:.55rem;min-width:6rem}.axis-object__card--a{left:-10%}.axis-object__card--b{right:-14%}.axis-object__card--c{right:-10%}.hero-pro__overlay{background:linear-gradient(180deg,rgba(2,7,18,.28),rgba(2,7,18,.8) 45%,#020713 100%)}}
-  @media(prefers-reduced-motion:reduce){.hero-pro__video{display:none}.axis-object{transition:none}}
+  @media(max-width:1120px){.hero-v10__inner{grid-template-columns:1fr}.hero-v10__copy{max-width:50rem}.axis-stage{height:36rem;transform:none}.hero-v10::after{background:linear-gradient(180deg,rgba(2,7,18,.28),rgba(2,7,18,.62) 46%,rgba(2,7,18,.93) 100%)}}
+  @media(max-width:720px){.hero-v10{min-height:62rem}.hero-v10__inner{min-height:62rem;padding-bottom:5rem}.hero-v10 h1{font-size:clamp(3.15rem,13vw,4.55rem)}.hero-v10__lede{font-size:1rem}.axis-stage{height:27rem;min-height:27rem}.axis-state{width:9.8rem;min-height:2.7rem}.axis-state span{font-size:.58rem}.axis-state b{font-size:.6rem}.axis-tag{min-width:8.2rem;padding:.6rem .7rem}.axis-tag b{font-size:.72rem}.axis-tag--pricing{left:0}.axis-tag--docs{right:0}.axis-tag--brief{right:2%}.axis-label{font-size:.62rem}.axis-stage__footer{font-size:.46rem}.axis-stage__hint,.hero-v10__scroll{display:none}}
+  @media(prefers-reduced-motion:reduce){.hero-v10__scroll span{animation:none}.axis-tag{transition:none}}
 </style>
