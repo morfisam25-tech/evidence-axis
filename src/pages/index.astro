@@ -13,19 +13,20 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
     <section class="film-v10" id="system-film" data-surface="dark" aria-labelledby="film-title">
       <div class="container-wide film-v10__grid">
         <div>
-          <span class="v10-kicker v10-kicker--light">20–24 SECOND SYSTEM FILM</span>
+          <span class="v10-kicker v10-kicker--light">SYSTEM FILM</span>
           <h2 id="film-title">See the evidence system move before you inspect the output.</h2>
-          <p>This short film is a visual introduction to the workflow: public source, evidence state, preserved unknowns, and the brief that reaches the decision.</p>
+          <p>The film introduces the workflow: public source, evidence state, preserved unknowns, and the brief that reaches the decision.</p>
           <div class="film-v10__chips mono"><span>PUBLIC SOURCES</span><span>CLASSIFY</span><span>TRACE</span><span>DECIDE</span></div>
         </div>
-        <div class="film-v10__player">
-          <video data-system-film muted loop playsinline autoplay controls preload="metadata" poster="/assets/v10/global-signal.svg"><source src={filmUrl} type="video/mp4" /></video>
+        <div class="film-v10__player film-v10__player--imageback">
+          <img class="film-v10__poster" src="/assets/v10/corporate-strategy.webp" alt="Illustrative Evidence Axis strategy team reviewing market intelligence" />
+          <video data-system-film muted loop playsinline autoplay controls preload="metadata" poster="/assets/v10/corporate-strategy.webp"><source src={filmUrl} type="video/mp4" /></video>
           <div class="film-v10__frame"><span>SYSTEM FILM</span><b>Evidence Axis / decision flow</b></div>
         </div>
       </div>
     </section>
 
-    <section class="signal-v10" aria-labelledby="signal-title">
+    <section class="signal-v10" id="research-context" aria-labelledby="signal-title">
       <div class="container-wide signal-v10__grid">
         <div class="signal-v10__copy">
           <span class="v10-kicker">RESEARCH CONTEXT</span>
@@ -33,13 +34,13 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
           <p>Public competitor pages, documentation, pricing changes, product announcements and market signals are organized around the decision your team is actually making.</p>
           <ul><li>The decision question defines the boundary</li><li>Every material claim keeps a source and check date</li><li>Missing evidence stays visible instead of being filled in</li></ul>
         </div>
-        <figure class="v10-media v10-media--wide"><img src="/assets/v10/global-signal.svg" alt="Illustrative Evidence Axis global signal map interface concept" loading="lazy" /><figcaption><span>ILLUSTRATIVE INTERFACE CONCEPT</span><b>Global Signal Map</b></figcaption></figure>
+        <figure class="v10-media v10-media--wide"><img src="/assets/v10/global-signal.webp" alt="Illustrative global market signal map designed for Evidence Axis" loading="lazy" /><figcaption><span>APPROVED VISUAL SYSTEM</span><b>Global Signal Map</b></figcaption></figure>
       </div>
     </section>
 
     <section class="room-v10" data-surface="dark" aria-labelledby="room-title">
       <div class="container-wide room-v10__grid">
-        <figure class="v10-media v10-media--room"><img src="/assets/v10/decision-room.svg" alt="Illustrative Evidence Axis decision room interface concept" loading="lazy" /><figcaption><span>ILLUSTRATIVE INTERFACE CONCEPT</span><b>Decision room / public evidence</b></figcaption></figure>
+        <figure class="v10-media v10-media--room"><img src="/assets/v10/command-center.webp" alt="Illustrative Evidence Axis decision room with business professionals reviewing evidence" loading="lazy" /><figcaption><span>APPROVED VISUAL SYSTEM</span><b>Decision room / public evidence</b></figcaption></figure>
         <div>
           <span class="v10-kicker v10-kicker--light">PUBLIC SOURCES. STRUCTURED EVIDENCE.</span>
           <h2 id="room-title">A source should stay attached to the claim that came from it.</h2>
@@ -51,19 +52,30 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
 
     <section class="outputs-v10" aria-labelledby="outputs-title">
       <div class="container-wide">
-        <header class="v10-head v10-head--center"><span class="v10-kicker">WHAT YOU RECEIVE</span><h2 id="outputs-title">Evidence you can inspect. Conclusions you can walk backward.</h2><p>The concepts below show the intended report experience. Sample numbers and interface data are illustrative; the live Intercom × Zendesk report is sourced separately.</p></header>
-        <div class="outputs-v10__gallery">
-          <figure class="v10-media v10-media--matrix"><img src="/assets/v10/evidence-matrix.svg" alt="Illustrative Evidence Axis evidence matrix interface concept" loading="lazy" /><figcaption><span>ILLUSTRATIVE INTERFACE CONCEPT</span><b>Evidence Matrix</b></figcaption></figure>
-          <figure class="v10-media v10-media--brief"><img src="/assets/v10/decision-brief.svg" alt="Illustrative Evidence Axis decision-ready brief interface concept" loading="lazy" /><figcaption><span>ILLUSTRATIVE INTERFACE CONCEPT</span><b>Decision-Ready Brief</b></figcaption></figure>
+        <header class="v10-head v10-head--center"><span class="v10-kicker">WHAT YOU RECEIVE</span><h2 id="outputs-title">Evidence you can inspect. Conclusions you can walk backward.</h2><p>The visual below shows the decision interface direction. The live Intercom × Zendesk sample remains the sourced proof of the research standard.</p></header>
+        <div class="outputs-v10__gallery outputs-v10__gallery--single">
+          <figure class="v10-media v10-media--dashboard"><img src="/assets/v10/decision-dashboard.webp" alt="Illustrative Evidence Axis decision dashboard" loading="lazy" /><figcaption><span>APPROVED VISUAL SYSTEM</span><b>Decision Dashboard</b></figcaption></figure>
         </div>
         <div class="outputs-v10__actions"><a class="v10-button v10-button--dark" href="/sample-report/">Open live sample report →</a><a class="v10-link" href="/method/">See the research method</a></div>
       </div>
     </section>
 
-    <section class="ai-v10" data-surface="dark" aria-labelledby="ai-title">
+    <section class="library-v10" data-surface="dark" aria-labelledby="library-title">
+      <div class="container-wide library-v10__grid">
+        <div class="library-v10__copy">
+          <span class="v10-kicker v10-kicker--light">THE FULL VISUAL SYSTEM</span>
+          <h2 id="library-title">The approved Evidence Axis visual language, used as one connected system.</h2>
+          <p>These are the approved concepts for research context, evidence matrices, decision rooms, AI workflow, command views and decision-ready outputs. They are now part of the site rather than sitting outside the build.</p>
+          <div class="library-v10__links"><a href="#services">See engagements →</a><a href="/sample-report/">Open sourced sample →</a></div>
+        </div>
+        <figure class="library-v10__board"><img src="/assets/v10/approved-visual-gallery.webp" alt="Ten approved Evidence Axis visual concepts shown together" loading="lazy" /><figcaption><span>10 APPROVED CONCEPTS</span><b>One visual system across the site</b></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ai-v10" aria-labelledby="ai-title">
       <div class="container-wide ai-v10__grid">
-        <div><span class="v10-kicker v10-kicker--light">AI INSIDE A CONTROLLED WORKFLOW</span><h2 id="ai-title">AI can research and summarize. The difference is what happens to the evidence.</h2><p>Evidence Axis uses AI where it helps, then applies source discipline, explicit evidence states, a decision boundary, and visible unknowns. The point is to make the reasoning inspectable.</p><div class="ai-v10__badges"><span>Source-linked</span><span>State-labeled</span><span>Unknowns preserved</span><span>Decision-scoped</span></div></div>
-        <figure class="v10-media v10-media--ai"><img src="/assets/v10/ai-comparison.svg" alt="Illustrative comparison of generic AI output and a structured Evidence Axis workflow" loading="lazy" /><figcaption><span>ILLUSTRATIVE INTERFACE CONCEPT</span><b>Structured evidence workflow</b></figcaption></figure>
+        <div><span class="v10-kicker">AI INSIDE A CONTROLLED WORKFLOW</span><h2 id="ai-title">AI can research and summarize. The difference is what happens to the evidence.</h2><p>Evidence Axis uses AI where it helps, then applies source discipline, explicit evidence states, a decision boundary, and visible unknowns. The reasoning stays inspectable.</p><div class="ai-v10__badges"><span>Source-linked</span><span>State-labeled</span><span>Unknowns preserved</span><span>Decision-scoped</span></div></div>
+        <figure class="v10-media v10-media--ai"><img src="/assets/v10/corporate-strategy.webp" alt="Illustrative strategy team working with evidence and market intelligence" loading="lazy" /><figcaption><span>APPROVED VISUAL SYSTEM</span><b>Human judgment + structured evidence</b></figcaption></figure>
       </div>
     </section>
 
@@ -82,7 +94,7 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
 
     <section class="sample-v10" aria-labelledby="sample-title">
       <div class="container-wide sample-v10__grid">
-        <figure class="v10-media v10-media--sample"><img src="/assets/v10/decision-brief.svg" alt="Illustrative Evidence Axis brief interface concept" loading="lazy" /><figcaption><span>INTERFACE CONCEPT</span><b>See the sourced report next</b></figcaption></figure>
+        <figure class="v10-media v10-media--sample"><img src="/assets/v10/global-signal.webp" alt="Illustrative Evidence Axis research visual" loading="lazy" /><figcaption><span>LIVE SAMPLE AVAILABLE</span><b>See the sourced report next</b></figcaption></figure>
         <div class="sample-v10__copy"><span class="v10-kicker v10-kicker--light">SEE THE STANDARD BEFORE YOU BUY</span><h2 id="sample-title">Intercom × Zendesk. Eight first-party sources. Visible evidence states.</h2><p>The live sample shows the research standard, source register, Fact / Inference / Unknown separation and the limits of what public evidence can establish.</p><div><a class="v10-button v10-button--light" href="/sample-report/">View Sample Report →</a><a class="v10-link v10-link--light" href="/report/evidence-axis-sample-intercom-vs-zendesk.pdf">Open PDF</a></div></div>
       </div>
     </section>
@@ -102,3 +114,11 @@ const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210
     document.addEventListener('visibilitychange', sync);
   }
 </script>
+
+<style>
+  .film-v10__player--imageback{isolation:isolate}.film-v10__poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.82;z-index:0}.film-v10__player video{position:relative;z-index:1}.film-v10__frame{z-index:2}
+  .outputs-v10__gallery--single{grid-template-columns:1fr;max-width:66rem;margin-inline:auto}.v10-media--dashboard{aspect-ratio:16/9}.v10-media--dashboard img{object-fit:cover}
+  .library-v10{padding:clamp(5.8rem,8vw,8.5rem) 0;background:radial-gradient(circle at 78% 28%,rgba(76,143,255,.18),transparent 27%),#06101d;color:#fff}.library-v10__grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(2rem,5vw,5rem);align-items:center}.library-v10__copy h2{margin:.8rem 0 0;font-family:var(--font-display);font-size:clamp(2.5rem,4.2vw,4.6rem);line-height:.96;letter-spacing:-.055em;color:#fff}.library-v10__copy p{color:#b2c2d7}.library-v10__links{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.3rem}.library-v10__links a{color:#65ddd8;text-decoration:none;font-weight:800}.library-v10__board{position:relative;margin:0;overflow:hidden;border-radius:1.3rem;border:1px solid rgba(120,166,230,.23);background:#07111e;box-shadow:0 34px 90px rgba(0,0,0,.38);transform:perspective(1500px) rotateY(-2deg)}.library-v10__board img{display:block;width:100%;height:auto}.library-v10__board figcaption{position:absolute;left:1rem;right:1rem;bottom:1rem;display:flex;justify-content:space-between;gap:1rem;padding:.72rem .85rem;border-radius:.65rem;background:rgba(3,10,22,.78);backdrop-filter:blur(12px);font-size:.76rem}.library-v10__board figcaption span{font:850 .58rem/1 var(--font-mono);letter-spacing:.11em;color:#58dfd7}.library-v10__board figcaption b{color:#eef5ff}
+  .ai-v10{background:linear-gradient(180deg,#f8f4ed,#eee5d7);color:#0b1320}.ai-v10__copy h2,.ai-v10 h2{color:#0b1320}.ai-v10__copy p,.ai-v10 p{color:#5e6978}.ai-v10__badges span{background:#fff;border-color:rgba(55,111,220,.14);color:#3d5068}
+  @media(max-width:980px){.library-v10__grid{grid-template-columns:1fr}.library-v10__board{transform:none}}
+</style>
