@@ -1,238 +1,104 @@
 ---
 import Base from '@layouts/Base.astro';
 import Hero from '@components/Hero.astro';
-import SectionIntro from '@components/SectionIntro.astro';
-import FactInferenceUnknown from '@components/FactInferenceUnknown.astro';
-import EvidenceChain from '@components/EvidenceChain.astro';
-import ServiceOffer from '@components/ServiceOffer.astro';
-import ProcessFlow from '@components/ProcessFlow.astro';
-import ReportPreview from '@components/ReportPreview.astro';
-import CTASection from '@components/CTASection.astro';
-import { site, offers } from '@config/site';
-import { methodSteps } from '@data/method';
+import { site, offers, contact } from '@config/site';
+import '../styles/home-v10.css';
 
-const questions = [
-  'Which advertised capabilities appear to be genuinely shipped, and which read as marketing language?',
-  'How do two competitors position and package the same capability differently?',
-  'Where does publicly visible pricing and packaging actually diverge?',
-  'What product gaps have public evidence behind them?',
-  'What remains unknown after reasonable public investigation?',
-];
+const filmUrl = 'https://player.vimeo.com/external/443395616.sd.mp4?s=a7af94d210b59996f5308097b38adf0144d37a46&profile_id=139&oauth2_token_id=1223210874';
 ---
 <Base title={site.name} description={site.description} path="/">
   <Hero />
 
-  <!-- BUYER PROBLEM -->
-  <section class="section" data-surface="dark">
-    <div class="container-wide problem">
-      <div class="problem__lead">
-        <SectionIntro
-          eyebrow="The problem"
-          title="The issue is rarely a shortage of competitor information."
-          lede="It is scattered across pricing pages, documentation, changelogs, marketplaces, reviews and announcements. What is missing is a clear line between what is verified, what is a reasonable inference, and what simply cannot be known."
-        />
-      </div>
-      <ul class="problem__list axis-frame">
-        <li class="axis-tick" data-reveal>
-          <span class="label">Marketing vs. shipped</span>
-          <p>A feature named on a landing page is not evidence that it works the way a buyer assumes.</p>
-        </li>
-        <li class="axis-tick" data-reveal style="--reveal-delay:80ms;">
-          <span class="label">Signal vs. certainty</span>
-          <p>A single review or a vague claim becomes a "fact" the moment nobody records where it came from.</p>
-        </li>
-        <li class="axis-tick" data-reveal style="--reveal-delay:160ms;">
-          <span class="label">Noise vs. decision</span>
-          <p>Most competitor decks answer questions no one is deciding on. The decision is what should set the boundary.</p>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- WHAT WE DO / METHOD DEMONSTRATION -->
-  <section class="section container">
-    <SectionIntro
-      eyebrow="The method"
-      title="Every claim is sourced, dated, and marked."
-      lede="Evidence Axis separates what the evidence supports from what it merely suggests, and names what it cannot establish. Three states run through the analysis, the report, and this site."
-    />
-    <div class="method-demo">
-      <FactInferenceUnknown />
-    </div>
-  </section>
-
-  <!-- EVIDENCE CHAIN -->
-  <section class="section" data-surface="dark">
-    <div class="container">
-      <SectionIntro
-        eyebrow="Traceable reasoning"
-        title="A conclusion you can walk back to its source."
-        lede="Nothing arrives as an assertion. Each decision implication keeps a visible path: from the public source, through the observation, to the fact, the inference, and the unknown."
-      />
-      <div class="chain-wrap">
-        <EvidenceChain />
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="section container" id="services">
-    <SectionIntro
-      eyebrow="Services"
-      title="Three ways to turn a question into evidence."
-      lede="Fixed, transparent entry pricing. No subscription, no account, no checkout — the engagement starts with a question and a defined boundary."
-    />
-    <div class="offer-grid">
-      <ServiceOffer
-        name={offers.twoCompetitor.name}
-        priceDisplay={offers.twoCompetitor.priceDisplay}
-        priceNote={offers.twoCompetitor.priceNote}
-        delivery={offers.twoCompetitor.delivery}
-        scope={offers.twoCompetitor.scope}
-        featured
-        points={[
-          'One defined decision question',
-          'Two named competitors, or you vs. a competitor',
-          'Evidence matrix with Fact / Inference / Unknown',
-          'Source register with check dates',
-        ]}
-        href="/competitor-brief/"
-      />
-      <ServiceOffer
-        name={offers.fiveCompetitor.name}
-        priceDisplay={offers.fiveCompetitor.priceDisplay}
-        priceNote={offers.fiveCompetitor.priceNote}
-        delivery={offers.fiveCompetitor.delivery}
-        scope={offers.fiveCompetitor.scope}
-        points={[
-          'Broader competitor set, one research question',
-          'Positioning, packaging and capability evidence',
-          'Contradictions and open unknowns surfaced',
-          'Decision implications for your context',
-        ]}
-        href="/competitor-brief/"
-      />
-      <ServiceOffer
-        name={offers.blueprint.name}
-        priceDisplay={offers.blueprint.priceDisplay}
-        priceNote={offers.blueprint.priceNote}
-        delivery={offers.blueprint.delivery}
-        scope={offers.blueprint.scope}
-        points={[
-          'Scoped around the decision to be made',
-          'Category, positioning and offer architecture',
-          'Deeper evidence base and synthesis',
-        ]}
-        href="/strategic-blueprint/"
-        ctaLabel="Discuss scope"
-      />
-    </div>
-  </section>
-
-  <!-- EXAMPLE QUESTIONS -->
-  <section class="section" data-surface="dark">
-    <div class="container questions">
-      <SectionIntro
-        eyebrow="Questions that fit"
-        title="Bring a decision, not a topic."
-        lede="The service works best when a real choice is on the table. A few questions it is built to answer:"
-      />
-      <ul class="questions__list">
-        {questions.map((q, i) => (
-          <li class="questions__item" data-reveal style={`--reveal-delay:${i * 60}ms;`}>
-            <span class="questions__n mono">Q{i + 1}</span>
-            <p>{q}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- SAMPLE REPORT PROMOTION -->
-  <section class="section container">
-    <div class="sample">
-      <div class="sample__copy">
-        <SectionIntro
-          eyebrow="The deliverable"
-          title="The report reads like the site: structured, sourced, honest about its limits."
-          lede="You receive an executive decision summary, an evidence matrix, source-backed observations, contradictions, unknowns, and decision implications — not a wall of screenshots."
-        />
-        <div class="sample__actions">
-          <a href="/sample-report/" class="btn btn--lg">View Sample Report<span class="btn-arrow" aria-hidden="true">→</span></a>
-          <a href="/method/" class="btn btn--ghost btn--lg">See the method</a>
+  <main class="home-v10">
+    <section class="film-v10" id="system-film" data-surface="dark" aria-labelledby="film-title">
+      <div class="container-wide film-v10__grid">
+        <div>
+          <span class="v10-kicker v10-kicker--light">20–24 SECOND SYSTEM FILM</span>
+          <h2 id="film-title">See the evidence system move before you inspect the output.</h2>
+          <p>This short film is a visual introduction to the workflow: public source, evidence state, preserved unknowns, and the brief that reaches the decision.</p>
+          <div class="film-v10__chips mono"><span>PUBLIC SOURCES</span><span>CLASSIFY</span><span>TRACE</span><span>DECIDE</span></div>
+        </div>
+        <div class="film-v10__player">
+          <video data-system-film muted loop playsinline autoplay controls preload="metadata" poster="/assets/v10/global-signal.svg"><source src={filmUrl} type="video/mp4" /></video>
+          <div class="film-v10__frame"><span>SYSTEM FILM</span><b>Evidence Axis / decision flow</b></div>
         </div>
       </div>
-      <div class="sample__preview">
-        <ReportPreview />
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PROCESS -->
-  <section class="section" data-surface="dark">
-    <div class="container">
-      <SectionIntro
-        eyebrow="How it works"
-        title="From decision question to decision brief."
-        lede="Asynchronous by design. You send the question; the evidence comes back structured."
-      />
-      <div class="process-wrap">
-        <ProcessFlow steps={methodSteps.slice(0, 6)} columns />
-      </div>
-    </div>
-  </section>
-
-  <!-- RESEARCH BOUNDARIES -->
-  <section class="section container">
-    <div class="boundaries axis-frame">
-      <SectionIntro
-        eyebrow="Research boundaries"
-        title="What public evidence can — and cannot — establish."
-      />
-      <div class="boundaries__cols">
-        <div class="boundaries__col" data-reveal>
-          <h3 class="boundaries__h"><span class="state state--fact">In scope</span></h3>
-          <p>Public websites, pricing and product pages, documentation, help centres, changelogs, app marketplaces, public reviews, announcements and other lawful public sources — plus anything you choose to share.</p>
+    <section class="signal-v10" aria-labelledby="signal-title">
+      <div class="container-wide signal-v10__grid">
+        <div class="signal-v10__copy">
+          <span class="v10-kicker">RESEARCH CONTEXT</span>
+          <h2 id="signal-title">The research starts wider than a comparison table.</h2>
+          <p>Public competitor pages, documentation, pricing changes, product announcements and market signals are organized around the decision your team is actually making.</p>
+          <ul><li>The decision question defines the boundary</li><li>Every material claim keeps a source and check date</li><li>Missing evidence stays visible instead of being filled in</li></ul>
         </div>
-        <div class="boundaries__col" data-reveal style="--reveal-delay:100ms;">
-          <h3 class="boundaries__h"><span class="state state--unknown">Out of scope</span></h3>
-          <p>Confidential roadmaps, private revenue or churn, internal strategy, private usage metrics, or anything requiring unauthorized access. When the evidence runs out, we mark it Unknown rather than guess.</p>
+        <figure class="v10-media v10-media--wide"><img src="/assets/v10/global-signal.svg" alt="Illustrative Evidence Axis global signal map interface concept" loading="lazy" /><figcaption><span>ILLUSTRATIVE INTERFACE CONCEPT</span><b>Global Signal Map</b></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="room-v10" data-surface="dark" aria-labelledby="room-title">
+      <div class="container-wide room-v10__grid">
+        <figure class="v10-media v10-media--room"><img src="/assets/v10/decision-room.svg" alt="Illustrative Evidence Axis decision room interface concept" loading="lazy" /><figcaption><span>ILLUSTRATIVE INTERFACE CONCEPT</span><b>Decision room / public evidence</b></figcaption></figure>
+        <div>
+          <span class="v10-kicker v10-kicker--light">PUBLIC SOURCES. STRUCTURED EVIDENCE.</span>
+          <h2 id="room-title">A source should stay attached to the claim that came from it.</h2>
+          <p>Evidence Axis separates what a source plainly supports from interpretation. That keeps a polished sentence from masquerading as certainty.</p>
+          <div class="room-v10__states"><span class="state state--fact"><b>FACT</b> directly supported</span><span class="state state--inference"><b>INFERENCE</b> reasoned from evidence</span><span class="state state--unknown"><b>UNKNOWN</b> not established</span></div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <CTASection />
+    <section class="outputs-v10" aria-labelledby="outputs-title">
+      <div class="container-wide">
+        <header class="v10-head v10-head--center"><span class="v10-kicker">WHAT YOU RECEIVE</span><h2 id="outputs-title">Evidence you can inspect. Conclusions you can walk backward.</h2><p>The concepts below show the intended report experience. Sample numbers and interface data are illustrative; the live Intercom × Zendesk report is sourced separately.</p></header>
+        <div class="outputs-v10__gallery">
+          <figure class="v10-media v10-media--matrix"><img src="/assets/v10/evidence-matrix.svg" alt="Illustrative Evidence Axis evidence matrix interface concept" loading="lazy" /><figcaption><span>ILLUSTRATIVE INTERFACE CONCEPT</span><b>Evidence Matrix</b></figcaption></figure>
+          <figure class="v10-media v10-media--brief"><img src="/assets/v10/decision-brief.svg" alt="Illustrative Evidence Axis decision-ready brief interface concept" loading="lazy" /><figcaption><span>ILLUSTRATIVE INTERFACE CONCEPT</span><b>Decision-Ready Brief</b></figcaption></figure>
+        </div>
+        <div class="outputs-v10__actions"><a class="v10-button v10-button--dark" href="/sample-report/">Open live sample report →</a><a class="v10-link" href="/method/">See the research method</a></div>
+      </div>
+    </section>
+
+    <section class="ai-v10" data-surface="dark" aria-labelledby="ai-title">
+      <div class="container-wide ai-v10__grid">
+        <div><span class="v10-kicker v10-kicker--light">AI INSIDE A CONTROLLED WORKFLOW</span><h2 id="ai-title">AI can research and summarize. The difference is what happens to the evidence.</h2><p>Evidence Axis uses AI where it helps, then applies source discipline, explicit evidence states, a decision boundary, and visible unknowns. The point is to make the reasoning inspectable.</p><div class="ai-v10__badges"><span>Source-linked</span><span>State-labeled</span><span>Unknowns preserved</span><span>Decision-scoped</span></div></div>
+        <figure class="v10-media v10-media--ai"><img src="/assets/v10/ai-comparison.svg" alt="Illustrative comparison of generic AI output and a structured Evidence Axis workflow" loading="lazy" /><figcaption><span>ILLUSTRATIVE INTERFACE CONCEPT</span><b>Structured evidence workflow</b></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="offers-v10" id="services" aria-labelledby="offers-title">
+      <div class="container-wide">
+        <header class="offers-v10__head"><div><span class="v10-kicker">ENGAGEMENTS</span><h2 id="offers-title">Start with the smallest brief that can settle the question.</h2></div><p>Broader research only makes sense when the decision genuinely needs a wider evidence field.</p></header>
+        <div class="offers-v10__grid">
+          <article class="offer-v10 offer-v10--primary"><div class="offer-v10__ribbon mono">MOST COMMON START</div><div class="offer-v10__body"><span class="offer-v10__label mono">FAST DECISION</span><h3>{offers.twoCompetitor.name}</h3><p>{offers.twoCompetitor.scope} One defined decision question, evidence matrix, source register, explicit Unknowns and decision implications.</p><div class="offer-v10__metrics"><div class="metric metric--orange"><small>STARTING PRICE</small><strong>{offers.twoCompetitor.priceDisplay}</strong><span>{offers.twoCompetitor.priceNote}</span></div><div class="metric metric--red"><small>DELIVERY</small><strong>{offers.twoCompetitor.delivery}</strong><span>from a defined research question</span></div></div><div class="offer-v10__chips"><span>Evidence matrix</span><span>Source register</span><span>Fact / Inference / Unknown</span></div><a href="/competitor-brief/">Start with two <b>→</b></a></div></article>
+          <div class="offers-v10__side">
+            <article class="offer-v10 offer-v10--blue"><div class="offer-v10__top"><span class="mono">BROADER READ</span><strong>{offers.fiveCompetitor.priceDisplay}</strong></div><h3>{offers.fiveCompetitor.name}</h3><p>{offers.fiveCompetitor.scope} Positioning, packaging and capability evidence surfaced together.</p><footer><b>{offers.fiveCompetitor.delivery}</b><a href="/competitor-brief/">Compare five →</a></footer></article>
+            <article class="offer-v10 offer-v10--violet"><div class="offer-v10__top"><span class="mono">STRATEGIC SCOPE</span><strong>{offers.blueprint.priceDisplay}</strong></div><h3>{offers.blueprint.name}</h3><p>{offers.blueprint.scope} Deeper synthesis with a custom research boundary.</p><footer><b>{offers.blueprint.delivery}</b><a href="/strategic-blueprint/">Scope a blueprint →</a></footer></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sample-v10" aria-labelledby="sample-title">
+      <div class="container-wide sample-v10__grid">
+        <figure class="v10-media v10-media--sample"><img src="/assets/v10/decision-brief.svg" alt="Illustrative Evidence Axis brief interface concept" loading="lazy" /><figcaption><span>INTERFACE CONCEPT</span><b>See the sourced report next</b></figcaption></figure>
+        <div class="sample-v10__copy"><span class="v10-kicker v10-kicker--light">SEE THE STANDARD BEFORE YOU BUY</span><h2 id="sample-title">Intercom × Zendesk. Eight first-party sources. Visible evidence states.</h2><p>The live sample shows the research standard, source register, Fact / Inference / Unknown separation and the limits of what public evidence can establish.</p><div><a class="v10-button v10-button--light" href="/sample-report/">View Sample Report →</a><a class="v10-link v10-link--light" href="/report/evidence-axis-sample-intercom-vs-zendesk.pdf">Open PDF</a></div></div>
+      </div>
+    </section>
+
+    <section class="final-v10" aria-labelledby="final-title"><div class="container final-v10__inner"><span class="v10-kicker">START SMALL</span><h2 id="final-title">Bring the decision your team keeps debating.</h2><p>Send the competitors, the question, and the context that changes what “better” means for your team.</p><div><a href="/contact/">Start a Brief →</a>{contact.email && <a href={`mailto:${contact.email}`}>{contact.email}</a>}</div></div></section>
+  </main>
 </Base>
 
-<style>
-  .problem { display: grid; gap: var(--space-xl); }
-  .problem__list { list-style: none; padding: 0; display: grid; gap: var(--space-l); }
-  .problem__list li p { margin-top: 0.4em; color: var(--text-muted); max-width: 52ch; }
-  .method-demo { margin-top: var(--space-xl); }
-  .chain-wrap { margin-top: var(--space-xl); max-width: 52rem; }
-  .offer-grid { display: grid; gap: var(--space-m); margin-top: var(--space-xl); grid-template-columns: 1fr; }
-  .questions__list { list-style: none; padding: 0; margin-top: var(--space-xl); display: grid; gap: 0; }
-  .questions__item {
-    display: grid; grid-template-columns: auto 1fr; gap: var(--space-m); align-items: baseline;
-    padding: var(--space-m) 0; border-top: 1px solid var(--hairline);
+<script>
+  const film = document.querySelector('[data-system-film]');
+  if (film instanceof HTMLVideoElement) {
+    let onScreen = true;
+    const sync = () => { if (document.hidden || !onScreen) film.pause(); else film.play().catch(() => {}); };
+    const io = new IntersectionObserver(([entry]) => { onScreen = Boolean(entry?.isIntersecting); sync(); }, { threshold: .08 });
+    io.observe(film);
+    film.addEventListener('timeupdate', () => { if (film.currentTime >= 24) film.currentTime = 0; });
+    document.addEventListener('visibilitychange', sync);
   }
-  .questions__item p { font-family: var(--font-serif); font-size: var(--step-1); color: var(--text); }
-  .questions__n { color: var(--accent); font-size: 0.8rem; }
-  .sample { display: grid; gap: var(--space-xl); align-items: center; }
-  .sample__actions { display: flex; flex-wrap: wrap; gap: var(--space-s); margin-top: var(--space-l); }
-  .process-wrap { margin-top: var(--space-xl); }
-  .boundaries__cols { display: grid; gap: var(--space-l); margin-top: var(--space-l); }
-  .boundaries__h { margin-bottom: var(--space-s); }
-  .boundaries__col p { color: var(--text-muted); max-width: 48ch; }
-
-  @media (min-width: 52rem) {
-    .problem { grid-template-columns: 1fr 1fr; align-items: start; }
-    .offer-grid { grid-template-columns: repeat(3, 1fr); }
-    .sample { grid-template-columns: 1fr 1fr; }
-    .boundaries__cols { grid-template-columns: 1fr 1fr; }
-  }
-  @media (min-width: 64rem) {
-    .problem__lead { position: sticky; top: 6rem; }
-  }
-</style>
+</script>
