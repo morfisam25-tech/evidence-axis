@@ -1,0 +1,38 @@
+name: Install Evidence Axis v10 media
+
+on:
+  push:
+    paths:
+      - 'assets-upload/v10-assets-bundle.zip'
+
+permissions:
+  contents: write
+
+jobs:
+  install-media:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Unpack approved media
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/assets/v10
+          unzip -oq assets-upload/v10-assets-bundle.zip -d public/assets/v10
+          rm -f assets-upload/v10-assets-bundle.zip
+          rmdir assets-upload 2>/dev/null || true
+          ls -lh public/assets/v10
+
+      - name: Commit media to same branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Evidence Axis Media Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add -A public/assets/v10 assets-upload || true
+          git commit -m 'Install approved Evidence Axis homepage media' || exit 0
+          git push origin HEAD:${GITHUB_REF_NAME}
