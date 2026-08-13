@@ -5,12 +5,12 @@ import SectionIntro from '@components/SectionIntro.astro';
 import CTASection from '@components/CTASection.astro';
 
 const standards = [
-  { t: 'Evidence before assertion', d: 'Nothing enters a brief as a bare claim. Every finding carries its source and the date it was checked.' },
-  { t: 'Separate what is known from what is guessed', d: 'Fact, Inference and Unknown are kept distinct — in the analysis and in the report.' },
-  { t: 'Name the unknowns', d: 'When public evidence runs out, that is stated plainly rather than filled with a confident-sounding guess.' },
-  { t: 'Public evidence, plus your context', d: 'Competitor findings come from lawful, publicly accessible evidence, plus whatever a client chooses to share. No private or confidential competitor data.' },
-  { t: 'Decision usefulness over volume', d: 'A brief is measured by whether it helps you decide — not by how many pages or screenshots it contains.' },
-  { t: 'Verifiable by you', d: 'Every source is listed so you can check any finding yourself. The method is meant to be audited.' },
+  { t: 'Evidence before assertion', d: 'Nothing enters a brief as a bare claim. Every material finding carries its source and the date it was checked.' },
+  { t: 'Separate what is known from what is inferred', d: 'Fact, Inference and Unknown remain visibly distinct — in the research process and in the final brief.' },
+  { t: 'Name the unknowns', d: 'When public evidence runs out, that boundary is stated plainly rather than filled with a confident-sounding guess.' },
+  { t: 'Public evidence, plus your context', d: 'Competitor findings come from lawful, publicly accessible evidence, plus whatever context a client chooses to share. No private competitor data.' },
+  { t: 'Decision usefulness over volume', d: 'A brief is measured by whether it helps a team decide — not by page count, screenshot count or research theatre.' },
+  { t: 'Verifiable by you', d: 'Sources are listed so a finding can be checked independently. The method is designed to withstand scrutiny.' },
 ];
 ---
 <Base
@@ -21,21 +21,29 @@ const standards = [
   <PageHeader
     eyebrow="About"
     title="A practice built on evidence discipline."
-    lede="Evidence Axis exists because most competitor work confuses information with clarity. The practice is small and focused by design, and its standards are the product."
+    lede="Competitor information is abundant. Decision-grade evidence is not. Evidence Axis turns the public record into a traceable line from source to implication — without hiding uncertainty."
   />
+
+  <section class="about-visual-section">
+    <div class="container-wide">
+      <figure class="about-visual-frame">
+        <img src="/assets/v10/decision-room.svg" alt="Evidence Axis decision room showing evidence states and source-backed reasoning" loading="eager" />
+        <figcaption><span>THE STANDARD</span><b>Source → evidence state → reasoning → decision</b></figcaption>
+      </figure>
+    </div>
+  </section>
 
   <section class="section container">
     <div class="about-lead measure">
       <p class="about-lead__p">
         B2B SaaS teams rarely lack competitor information. They lack a defensible line between what is
         verified, what is a reasonable read, and what simply cannot be known from public sources.
-        Evidence Axis was built to draw that line — carefully, and in a form you can act on.
+        Evidence Axis is built to draw that line carefully and make it useful for a real decision.
       </p>
       <p class="about-lead__p">
-        The work is asynchronous and founder-led at launch. That is a deliberate choice, not a
-        limitation to disguise: it keeps the standards consistent and the method close to the work.
-        What earns trust here is not scale or a client logo wall — it is the quality of the analysis,
-        the honesty about uncertainty, and the fact that every finding can be checked.
+        Engagements are asynchronous and tightly scoped so the research stays close to the decision.
+        Trust comes from the work itself: identifiable sources, visible evidence states, explicit limitations,
+        and a line of reasoning that can be checked rather than simply accepted.
       </p>
     </div>
   </section>
@@ -45,7 +53,7 @@ const standards = [
       <SectionIntro
         eyebrow="Working standards"
         title="The standards are the product."
-        lede="These are not aspirations printed on a page. They are the rules every brief is held to."
+        lede="These are operating rules for every brief, not marketing language added after the work is done."
       />
       <dl class="std axis-frame">
         {standards.map((s) => (
@@ -64,7 +72,7 @@ const standards = [
       <p class="about-lead__p">
         A competitor decision made on marketing language is a decision made on someone else's terms.
         Evidence Axis turns the public record into something you can reason from — and marks clearly
-        where reasoning has to stop. That is the whole of it.
+        where reasoning has to stop.
       </p>
     </div>
   </section>
@@ -73,6 +81,12 @@ const standards = [
 </Base>
 
 <style>
+  .about-visual-section { padding: 2rem 0 0; background: linear-gradient(180deg,#07111f,#f7f2ea 88%); }
+  .about-visual-frame { position: relative; margin: 0; overflow: hidden; border-radius: 1.4rem; border: 1px solid rgba(105,164,235,.28); box-shadow: 0 34px 80px rgba(11,24,42,.26); background:#06111e; }
+  .about-visual-frame img { display:block; width:100%; height:auto; max-height:38rem; object-fit:cover; }
+  .about-visual-frame figcaption { position:absolute; left:1rem; right:1rem; bottom:1rem; display:flex; gap:.7rem; align-items:center; padding:.75rem .9rem; border-radius:.72rem; background:rgba(2,9,19,.76); backdrop-filter:blur(12px); color:#fff; }
+  .about-visual-frame figcaption span { font:800 .62rem/1 var(--font-mono); letter-spacing:.13em; color:#58ded7; }
+  .about-visual-frame figcaption b { font:700 .82rem/1.2 var(--font-display); }
   .about-lead__p { font-size: var(--step-1); color: var(--text-muted); margin-bottom: var(--space-m); }
   .about-lead__p:first-child { color: var(--text); }
   .std { margin-top: var(--space-xl); display: grid; gap: 0; }
