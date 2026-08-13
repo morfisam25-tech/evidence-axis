@@ -340,3 +340,7 @@ time.tag {
   }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
+
+
+/* APPROVED-PAGE-VISUAL-STYLES */
+.approved-page-visual{padding:clamp(1.5rem,3vw,3rem) 0 clamp(3rem,6vw,5rem);background:#030a16;color:#fff}.approved-page-visual__inner{max-width:92rem}.approved-page-visual__frame{margin:0;overflow:hidden;border-radius:1.35rem;border:1px solid rgba(91,164,255,.28);background:#061224;box-shadow:0 30px 90px rgba(0,0,0,.32)}.approved-page-visual__frame img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}@media(max-width:720px){.approved-page-visual{padding-top:1rem}.approved-page-visual__frame{border-radius:.9rem}.approved-page-visual__frame img{aspect-ratio:4/3}}
