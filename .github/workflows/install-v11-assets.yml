@@ -5,7 +5,7 @@ on:
     branches:
       - redesign-v10
     paths:
-      - 'assets-v11.zip.b64'
+      - 'assets-v11.ready'
 
 permissions:
   contents: write
@@ -23,14 +23,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [ ! -f assets-v11.zip.b64 ]; then
-            echo 'No bundle present; nothing to do.'
-            exit 0
+          shopt -s nullglob
+          PARTS=(assets-v11.part-*)
+          if [ ${#PARTS[@]} -eq 0 ]; then
+            echo 'No asset parts present; nothing to do.'
+            exit 1
           fi
-          base64 --decode assets-v11.zip.b64 > /tmp/assets-v11.zip
+          cat "${PARTS[@]}" | base64 --decode > /tmp/assets-v11.zip
           mkdir -p public/assets/v10
           unzip -qo /tmp/assets-v11.zip -d public/assets/v10
-          rm -f assets-v11.zip.b64
+          rm -f assets-v11.part-* assets-v11.ready
 
       - name: Commit installed assets
         shell: bash
