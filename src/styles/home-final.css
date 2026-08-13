@@ -181,3 +181,12 @@
   .system-reel__slide figcaption{bottom:4rem}
 }
 @media(prefers-reduced-motion:reduce){.system-reel__slide{animation:none;opacity:0}.system-reel__slide--1{opacity:1;transform:none}}
+
+
+/* REAL-FILM-PASS-V2 — actual continuous video, not a presentation reel */
+.film-v10__stage--real-video{min-height:clamp(28rem,42vw,42rem);}
+.film-v10__player--real-video{inset:0!important;transform:none!important;overflow:hidden;background:#020713;}
+.film-v10__player--real-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;transform:scale(1.02);}
+.film-v10__player--real-video .film-v10__frame{z-index:3;top:auto;bottom:1rem;left:1rem;right:1rem;background:rgba(2,9,20,.72);border:1px solid rgba(124,168,225,.2);backdrop-filter:blur(12px);padding:.68rem .8rem;border-radius:.7rem;}
+.film-v10__stage--real-video .film-v10__card{display:none!important;}
+@media(max-width:620px){.film-v10__stage--real-video{min-height:22rem}.film-v10__player--real-video iframe{transform:scale(1.12)}}
