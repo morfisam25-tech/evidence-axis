@@ -1,5 +1,4 @@
 ---
-// Self-hosted open fonts (no commercial license required).
 import '@fontsource/space-grotesk/500.css';
 import '@fontsource/space-grotesk/700.css';
 import '@fontsource/newsreader/400.css';
@@ -7,110 +6,67 @@ import '@fontsource/newsreader/500.css';
 import '@fontsource/newsreader/400-italic.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
-
 import '../styles/tokens.css';
 import '../styles/global.css';
 import '../styles/site-final.css';
-
 import BaseHead from '@components/BaseHead.astro';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
-
-interface Props {
-  title: string;
-  description: string;
-  path?: string;
-  ogType?: 'website' | 'article';
-  noindex?: boolean;
-}
+interface Props { title: string; description: string; path?: string; ogType?: 'website' | 'article'; noindex?: boolean; }
 const { title, description, path, ogType, noindex } = Astro.props;
+const approvedVisuals: Record<string, { src: string; eyebrow: string; title: string; alt: string }> = {
+  '/': { src:'/assets/v10/approved/market-intelligence-war-room.webp', eyebrow:'RESEARCH IN CONTEXT', title:'Signals, evidence and decisions in one working view.', alt:'Evidence Axis research in context command center' },
+  '/competitor-brief/': { src:'/assets/v10/approved/two-competitor-decision-brief.webp', eyebrow:'COMPETITOR BRIEF', title:'A two-competitor decision brief built around visible evidence.', alt:'Two-competitor Evidence Axis decision brief dashboard' },
+  '/market-intelligence/': { src:'/assets/v10/approved/global-trading-command-center.webp', eyebrow:'MARKET INTELLIGENCE', title:'Global signals organized around the decision that matters.', alt:'Global signals market intelligence command center' },
+  '/method/': { src:'/assets/v10/approved/method-from-source-to-decision.webp', eyebrow:'THE METHOD', title:'From public source to classified evidence to decision.', alt:'Evidence Axis source-to-decision workflow dashboard' },
+  '/strategic-blueprint/': { src:'/assets/v10/approved/strategic-blueprint.webp', eyebrow:'STRATEGIC BLUEPRINT', title:'Evidence translated into priorities, choices and a roadmap.', alt:'Evidence Axis strategic market blueprint dashboard' },
+  '/sample-report/': { src:'/assets/v10/approved/sample-report-showcase.webp', eyebrow:'SAMPLE REPORT', title:'See how sourced findings appear inside the final deliverable.', alt:'Evidence Axis Intercom versus Zendesk sample report showcase' },
+  '/about/': { src:'/assets/v10/approved/generic-ai-vs-evidence-axis.webp', eyebrow:'WHY EVIDENCE AXIS', title:'Fluent answers are different from source-traceable evidence.', alt:'Generic AI answer compared with source-traceable Evidence Axis output' },
+  '/contact/': { src:'/assets/v10/approved/decision-ready-showcase.webp', eyebrow:'DECISION OUTPUT', title:'Bring the question. Leave with a clearer decision boundary.', alt:'Evidence Axis decision-ready intelligence dashboard' },
+};
+const approvedVisual = path ? approvedVisuals[path] : undefined;
 ---
 <!doctype html>
 <html lang="en" class="no-js">
-  <head>
-    <BaseHead title={title} description={description} path={path} ogType={ogType} noindex={noindex} />
-  </head>
+  <head><BaseHead title={title} description={description} path={path} ogType={ogType} noindex={noindex} /></head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
     <Header />
     <main id="main">
       <slot />
+      {approvedVisual && (
+        <section class="approved-visual" aria-label={approvedVisual.eyebrow}>
+          <div class="container-wide approved-visual__grid">
+            <div class="approved-visual__copy"><span class="approved-visual__eyebrow mono">{approvedVisual.eyebrow}</span><h2>{approvedVisual.title}</h2></div>
+            <figure class="approved-visual__frame"><img src={approvedVisual.src} alt={approvedVisual.alt} loading={path === '/' ? 'eager' : 'lazy'} decoding="async" /></figure>
+          </div>
+        </section>
+      )}
     </main>
     <Footer />
-
-    <script is:inline>
-      document.documentElement.classList.remove('no-js');
-    </script>
-
+    <script is:inline>document.documentElement.classList.remove('no-js');</script>
     <script>
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
       const header = document.querySelector('[data-header]');
-      const onScroll = () => {
-        if (!header) return;
-        if (window.scrollY > 8) header.setAttribute('data-scrolled', '');
-        else header.removeAttribute('data-scrolled');
-      };
-      onScroll();
-      window.addEventListener('scroll', onScroll, { passive: true });
-
+      const onScroll = () => { if (!header) return; if (window.scrollY > 8) header.setAttribute('data-scrolled', ''); else header.removeAttribute('data-scrolled'); };
+      onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
       if (!reduce && 'IntersectionObserver' in window) {
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const e of entries) {
-              if (e.isIntersecting) {
-                e.target.classList.add('is-in');
-                io.unobserve(e.target);
-              }
-            }
-          },
-          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
-        );
+        const io = new IntersectionObserver((entries) => { for (const e of entries) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } } }, { rootMargin:'0px 0px -8% 0px', threshold:0.08 });
         document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
-      } else {
-        document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-in'));
-      }
-
+      } else document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-in'));
       const toggle = document.querySelector('[data-nav-toggle]') as HTMLButtonElement | null;
       const panel = document.querySelector('[data-mobile-nav]') as HTMLElement | null;
-      const backgrounds = [
-        document.getElementById('main'),
-        document.querySelector('.site-footer'),
-      ].filter(Boolean) as HTMLElement[];
-
+      const backgrounds = [document.getElementById('main'), document.querySelector('.site-footer')].filter(Boolean) as HTMLElement[];
       if (toggle && panel) {
-        const setOpen = (open: boolean) => {
-          toggle.setAttribute('aria-expanded', String(open));
-          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-          panel.hidden = !open;
-          document.body.style.overflow = open ? 'hidden' : '';
-          backgrounds.forEach((el) => { el.inert = open; });
-          if (open) {
-            const first = panel.querySelector<HTMLElement>('a, button');
-            first?.focus();
-          }
-        };
-        toggle.addEventListener('click', () => {
-          setOpen(toggle.getAttribute('aria-expanded') !== 'true');
-        });
-        panel.querySelectorAll('a').forEach((a) =>
-          a.addEventListener('click', () => {
-            toggle.setAttribute('aria-expanded', 'false');
-            toggle.setAttribute('aria-label', 'Open menu');
-            panel.hidden = true;
-            document.body.style.overflow = '';
-            backgrounds.forEach((el) => { el.inert = false; });
-          })
-        );
-        window.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-            setOpen(false);
-            toggle.focus();
-          }
-        });
-        const mq = window.matchMedia('(min-width: 64rem)');
-        mq.addEventListener('change', (e) => { if (e.matches && toggle.getAttribute('aria-expanded') === 'true') setOpen(false); });
+        const setOpen = (open:boolean) => { toggle.setAttribute('aria-expanded', String(open)); toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); panel.hidden=!open; document.body.style.overflow=open?'hidden':''; backgrounds.forEach((el)=>{el.inert=open;}); if(open) panel.querySelector<HTMLElement>('a, button')?.focus(); };
+        toggle.addEventListener('click',()=>setOpen(toggle.getAttribute('aria-expanded')!=='true'));
+        panel.querySelectorAll('a').forEach((a)=>a.addEventListener('click',()=>{toggle.setAttribute('aria-expanded','false'); toggle.setAttribute('aria-label','Open menu'); panel.hidden=true; document.body.style.overflow=''; backgrounds.forEach((el)=>{el.inert=false;});}));
+        window.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){setOpen(false);toggle.focus();}});
+        const mq=window.matchMedia('(min-width: 64rem)'); mq.addEventListener('change',(e)=>{if(e.matches&&toggle.getAttribute('aria-expanded')==='true')setOpen(false);});
       }
     </script>
   </body>
 </html>
+<style is:global>
+.approved-visual{padding:clamp(3.5rem,7vw,7rem) 0;background:radial-gradient(circle at 78% 18%,rgba(73,118,255,.15),transparent 34%),linear-gradient(180deg,#090d17 0%,#0d1320 100%);color:#f6f8ff;overflow:hidden}.approved-visual__grid{display:grid;gap:clamp(1.5rem,4vw,4rem);align-items:center}.approved-visual__copy{max-width:38rem}.approved-visual__eyebrow{display:inline-block;margin-bottom:.85rem;color:#8fb4ff;font-size:.74rem;letter-spacing:.13em}.approved-visual__copy h2{margin:0;max-width:15ch;color:#fff;font-family:var(--font-display);font-size:clamp(2rem,4.1vw,4.6rem);line-height:.98;letter-spacing:-.045em}.approved-visual__frame{margin:0;position:relative;border:1px solid rgba(143,180,255,.26);border-radius:1.25rem;overflow:hidden;background:#101725;box-shadow:0 28px 80px rgba(0,0,0,.34)}.approved-visual__frame img{display:block;width:100%;height:auto;min-height:18rem;object-fit:cover}@media(min-width:64rem){.approved-visual__grid{grid-template-columns:minmax(18rem,.68fr) minmax(0,1.32fr)}}
+</style>
