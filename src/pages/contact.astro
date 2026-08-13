@@ -6,6 +6,21 @@ import { contact, offers } from '@config/site';
 const services = [offers.twoCompetitor, offers.fiveCompetitor, offers.blueprint];
 const email = contact.email ?? 'hello@evidenceaxis.com';
 const mailto = `mailto:${email}?subject=${encodeURIComponent('Evidence Axis brief request')}`;
+
+const sendChecklist = [
+  ['Decision', 'The question or commercial move you need to make.'],
+  ['Competitors', 'The named companies or products the decision depends on.'],
+  ['Context', 'Your company/product URL and anything that changes what “better” means.'],
+  ['Priority', 'The dimensions you already suspect matter: pricing, product, positioning, packaging or another boundary.'],
+  ['Timing', 'Any date by which the evidence needs to be useful.'],
+];
+
+const nextSteps = [
+  ['01', 'Scope check', 'We read the question, confirm whether public evidence can answer it and tighten the boundary where needed.'],
+  ['02', 'Written confirmation', 'You receive the scope, deliverables, timing and price before work begins.'],
+  ['03', 'Research', 'Evidence is collected, dated and separated into Fact, Inference and Unknown.'],
+  ['04', 'Delivery', 'You receive the decision brief and source register on the agreed timeline.'],
+];
 ---
 <Base
   title="Contact"
@@ -14,36 +29,48 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent('Evidence Axis brie
 >
   <PageHeader
     eyebrow="Start a brief"
-    title="Send the question. The evidence comes back structured."
-    lede="Tell us the decision you need to make and the competitors involved. A person reads every inquiry and confirms scope before work begins."
-    meta={['Asynchronous · no sales call', 'Public competitor evidence + your context', 'Payment arranged after scope is agreed']}
+    title="Send the decision. We will define the evidence boundary."
+    lede="Tell us what you need to decide and which competitors bear on it. Scope is confirmed in writing before research begins — no discovery call required."
+    meta={['Asynchronous by default', 'Scope confirmed before work starts', 'Public evidence + your context']}
   />
+
+  <section class="contact-visual">
+    <div class="container-wide contact-visual__grid">
+      <div class="contact-visual__copy">
+        <span class="label">A GOOD INQUIRY CAN BE SHORT</span>
+        <h2>Five things are enough to start.</h2>
+        <p>You do not need to prepare a research brief for us. Give us the decision, the competitors and the context. We turn that into a bounded evidence question.</p>
+        <a class="btn btn--lg" href={mailto}>Email {email}<span class="btn-arrow" aria-hidden="true">→</span></a>
+      </div>
+      <figure class="contact-visual__frame">
+        <img src="/assets/v10/command-center-approved.svg" alt="Evidence Axis decision workflow showing sources, evidence states and decision output" loading="eager" />
+        <figcaption class="mono">QUESTION → BOUNDARY → EVIDENCE → DECISION</figcaption>
+      </figure>
+    </div>
+  </section>
 
   <section class="section container">
     <div class="contact-grid">
       <div class="contact-main">
         <div class="contact-email-card">
-          <span class="label">Launch contact channel</span>
-          <h2>Start your brief by email.</h2>
+          <span class="label">WHAT TO SEND</span>
+          <h2>Give us the decision, not a pile of research instructions.</h2>
           <p>
-            Send the decision or research question, the competitors involved, and any context that changes what should be investigated.
+            A useful first message can be five short bullets. If something is missing, scope is clarified in writing before any paid work begins.
           </p>
 
-          <a class="btn btn--lg" href={mailto}>
-            Email {email}<span class="btn-arrow" aria-hidden="true">→</span>
-          </a>
-
-          <div class="contact-email-details">
-            <h3 class="label">Useful details to include</h3>
-            <ul>
-              <li>Your name, company and role</li>
-              <li>The service you are considering</li>
-              <li>The decision or research question</li>
-              <li>The competitors to investigate</li>
-              <li>Your desired timing</li>
-              <li>Any internal context we should use when defining scope</li>
-            </ul>
+          <div class="contact-checklist">
+            {sendChecklist.map(([title, copy], i) => (
+              <article>
+                <span class="mono">{String(i + 1).padStart(2, '0')}</span>
+                <div><h3>{title}</h3><p>{copy}</p></div>
+              </article>
+            ))}
           </div>
+
+          <a class="btn btn--lg contact-email-cta" href={mailto}>
+            Start the brief by email<span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
 
           <p class="contact-direct mono">
             Direct email: <a href={`mailto:${email}`}>{email}</a>
@@ -52,7 +79,7 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent('Evidence Axis brie
       </div>
 
       <aside class="contact-aside">
-        <h2 class="label contact-aside__h">The three services</h2>
+        <h2 class="label contact-aside__h">CHOOSE A STARTING DEPTH</h2>
         <ul class="contact-services">
           {services.map((s) => (
             <li class="contact-service">
@@ -62,74 +89,84 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent('Evidence Axis brie
             </li>
           ))}
         </ul>
-
-        <div class="contact-note">
-          <h3 class="label">How it works</h3>
-          <ol class="contact-steps">
-            <li>You send a decision question and the competitors involved.</li>
-            <li>We confirm scope, boundary and price — no obligation.</li>
-            <li>The brief is delivered on the agreed timeline.</li>
-            <li>Payment is arranged after scope is agreed, outside this site.</li>
-          </ol>
-        </div>
+        <p class="contact-aside__hint">Not sure? Start with the Two-Competitor Brief. A wider scope only makes sense when the decision genuinely needs it.</p>
+        <a class="contact-aside__link" href="/competitor-brief/">Compare brief options →</a>
 
         <p class="contact-privacy mono">
-          What you share is used only to scope and deliver your brief. See our{' '}
-          <a href="/privacy/">Privacy</a> note.
+          Information you send is used to scope and deliver the work. See our <a href="/privacy/">Privacy</a> note.
         </p>
       </aside>
+    </div>
+  </section>
+
+  <section class="section contact-next" data-surface="dark">
+    <div class="container-wide">
+      <header class="contact-next__head">
+        <span class="label">WHAT HAPPENS NEXT</span>
+        <h2>No sales theatre. Four written steps.</h2>
+        <p>Scope comes before research, and research comes before a recommendation.</p>
+      </header>
+      <div class="contact-next__grid">
+        {nextSteps.map(([n, title, copy]) => (
+          <article>
+            <span class="mono">{n}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
+      </div>
+      <div class="contact-next__cta">
+        <div><b>Ready?</b><span>Send the question and competitors. That is enough to begin.</span></div>
+        <a href={mailto}>Start a Brief →</a>
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .contact-grid { display: grid; gap: var(--space-xl); }
-  .contact-email-card {
-    background: var(--bg-raised);
-    border: 1px solid var(--surface-border);
-    border-radius: var(--radius-l);
-    padding: clamp(var(--space-l), 5vw, var(--space-xl));
-  }
-  .contact-email-card h2 { margin-top: var(--space-s); max-width: 18ch; }
-  .contact-email-card > p { max-width: 62ch; color: var(--text-muted); }
-  .contact-email-card .btn { margin-top: var(--space-m); }
-  .contact-email-details {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-l);
-    border-top: 1px solid var(--hairline);
-  }
-  .contact-email-details ul {
-    margin: var(--space-s) 0 0;
-    padding-left: 1.3em;
-    display: grid;
-    gap: 0.5rem;
-    color: var(--text-muted);
-  }
-  .contact-direct {
-    margin-top: var(--space-l);
-    font-size: var(--step--1);
-    color: var(--text-faint);
-  }
-  .contact-aside__h { display: block; margin-bottom: var(--space-s); }
-  .contact-services { list-style: none; padding: 0; display: grid; gap: var(--space-s); }
-  .contact-service {
-    display: grid; grid-template-columns: 1fr auto; gap: 0.2em var(--space-s); align-items: baseline;
-    padding: var(--space-s) 0; border-top: 1px solid var(--hairline);
-  }
-  .contact-service__name { font-family: var(--font-display); font-weight: 500; font-size: 0.98rem; }
-  .contact-service__price { color: var(--accent); }
-  .contact-service__meta { grid-column: 1 / -1; font-size: var(--step--1); color: var(--text-faint); }
-  .contact-note { margin-top: var(--space-l); }
-  .contact-steps { margin: var(--space-s) 0 0; padding-left: 1.3em; display: grid; gap: 0.5rem; }
-  .contact-steps li { color: var(--text-muted); font-size: 0.95rem; }
-  .contact-privacy { margin-top: var(--space-l); font-size: var(--step--1); color: var(--text-faint); padding-top: var(--space-m); border-top: 1px solid var(--hairline); }
+  .contact-visual{padding:clamp(2rem,4vw,4rem) 0;background:linear-gradient(180deg,#06111f,#0b1b31);color:#fff}
+  .contact-visual__grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+  .contact-visual__copy h2{max-width:10ch;margin:.65rem 0 0;color:#fff;font-size:clamp(2.4rem,4vw,4.6rem);line-height:.96;letter-spacing:-.05em}
+  .contact-visual__copy p{max-width:35rem;margin:1rem 0 0;color:#adbed2;line-height:1.7}
+  .contact-visual__copy .btn{margin-top:1.4rem}
+  .contact-visual__frame{position:relative;margin:0;overflow:hidden;border-radius:1.35rem;border:1px solid rgba(104,168,245,.28);background:#050d18;box-shadow:0 36px 86px rgba(0,0,0,.35)}
+  .contact-visual__frame img{display:block;width:100%;height:auto;max-height:33rem;object-fit:cover}
+  .contact-visual__frame figcaption{position:absolute;left:1rem;bottom:1rem;padding:.55rem .7rem;border-radius:.55rem;background:rgba(2,9,20,.72);color:#79e3db;font-size:.62rem;letter-spacing:.12em;backdrop-filter:blur(10px)}
 
-  @media (min-width: 64rem) {
-    .contact-grid { grid-template-columns: 1.6fr 1fr; align-items: start; }
-    .contact-aside {
-      position: sticky; top: 6rem;
-      background: var(--bg-raised); border: 1px solid var(--surface-border);
-      border-radius: var(--radius-l); padding: var(--space-l);
-    }
-  }
+  .contact-grid{display:grid;gap:var(--space-xl)}
+  .contact-email-card{background:var(--bg-raised);border:1px solid var(--surface-border);border-radius:var(--radius-l);padding:clamp(var(--space-l),5vw,var(--space-xl));box-shadow:0 28px 70px rgba(29,39,52,.10)}
+  .contact-email-card h2{margin-top:var(--space-s);max-width:19ch}
+  .contact-email-card>p{max-width:62ch;color:var(--text-muted)}
+  .contact-checklist{display:grid;gap:.7rem;margin-top:1.7rem}
+  .contact-checklist article{display:grid;grid-template-columns:2rem 1fr;gap:.85rem;padding:1rem;border:1px solid rgba(67,89,119,.12);border-radius:.9rem;background:#fff}
+  .contact-checklist article>span{color:#4e7fd1;font-size:.68rem;font-weight:800;padding-top:.2rem}
+  .contact-checklist h3{font-size:1rem;margin:0}
+  .contact-checklist p{margin:.2rem 0 0;color:#687688;font-size:.88rem;line-height:1.5}
+  .contact-email-cta{margin-top:1.35rem}
+  .contact-direct{margin-top:var(--space-l);font-size:var(--step--1);color:var(--text-faint)}
+
+  .contact-aside__h{display:block;margin-bottom:var(--space-s)}
+  .contact-services{list-style:none;padding:0;display:grid;gap:var(--space-s)}
+  .contact-service{display:grid;grid-template-columns:1fr auto;gap:.2em var(--space-s);align-items:baseline;padding:var(--space-s) 0;border-top:1px solid var(--hairline)}
+  .contact-service__name{font-family:var(--font-display);font-weight:600;font-size:.98rem}
+  .contact-service__price{color:var(--accent);font-weight:800}
+  .contact-service__meta{grid-column:1/-1;font-size:var(--step--1);color:var(--text-faint)}
+  .contact-aside__hint{margin-top:1rem;color:var(--text-muted);font-size:.88rem;line-height:1.55}
+  .contact-aside__link{display:inline-block;margin-top:.8rem;font-weight:800;text-decoration:none}
+  .contact-privacy{margin-top:var(--space-l);font-size:var(--step--1);color:var(--text-faint);padding-top:var(--space-m);border-top:1px solid var(--hairline)}
+
+  .contact-next__head{max-width:55rem}
+  .contact-next__head h2{max-width:12ch;margin:.6rem 0 0;color:#fff;font-size:clamp(2.6rem,4vw,4.8rem);line-height:.96;letter-spacing:-.05em}
+  .contact-next__head p{color:#aebed1}
+  .contact-next__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem}
+  .contact-next__grid article{min-height:14rem;padding:1.2rem;border:1px solid rgba(126,166,222,.15);border-radius:1rem;background:rgba(255,255,255,.025)}
+  .contact-next__grid article>span{color:#55ddd6;font-size:.68rem;font-weight:900}
+  .contact-next__grid h3{margin:.9rem 0 .5rem;color:#fff;font-size:1.18rem}
+  .contact-next__grid p{margin:0;color:#aebed1;font-size:.86rem;line-height:1.55}
+  .contact-next__cta{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1rem;padding:1rem 1.15rem;border-radius:.9rem;background:linear-gradient(100deg,#0a2239,#101c38)}
+  .contact-next__cta div{display:flex;gap:.65rem;flex-wrap:wrap}.contact-next__cta b{color:#58ded7}.contact-next__cta span{color:#d5e1ef}.contact-next__cta a{padding:.75rem 1rem;border:1px solid rgba(83,222,214,.25);border-radius:.65rem;color:#fff;text-decoration:none;font-weight:800;white-space:nowrap}
+
+  @media(min-width:64rem){.contact-grid{grid-template-columns:1.6fr 1fr;align-items:start}.contact-aside{position:sticky;top:6rem;background:var(--bg-raised);border:1px solid var(--surface-border);border-radius:var(--radius-l);padding:var(--space-l);box-shadow:0 24px 60px rgba(31,40,55,.09)}}
+  @media(max-width:900px){.contact-visual__grid{grid-template-columns:1fr}.contact-next__grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.contact-next__grid{grid-template-columns:1fr}.contact-next__cta{align-items:flex-start;flex-direction:column}.contact-next__cta a{width:100%;text-align:center}}
 </style>
