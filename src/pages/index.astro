@@ -4,8 +4,6 @@ import Hero from '@components/Hero.astro';
 import { site, offers, contact } from '@config/site';
 import '../styles/home-v10.css';
 import '../styles/home-final.css';
-
-const filmUrl = '/assets/v10/approved/system-film.mp4';
 ---
 <Base title={site.name} description={site.description} path="/">
   <Hero />
@@ -16,26 +14,31 @@ const filmUrl = '/assets/v10/approved/system-film.mp4';
         <div class="film-v10__copy">
           <span class="v10-kicker v10-kicker--light">SYSTEM FILM</span>
           <h2 id="film-title">Watch the evidence move from public source to decision.</h2>
-          <p>The three-dimensional Evidence Axis appears once, in the hero. Here the workflow moves: public source, classification, traceable reasoning, then the decision output.</p>
+          <p>The three-dimensional Evidence Axis appears once, in the hero. Here the workflow moves automatically: public source, classification, comparison, traceable reasoning and the decision output.</p>
           <div class="film-v10__chips mono"><span>PUBLIC SOURCE</span><span>CLASSIFY</span><span>TRACE</span><span>DECIDE</span></div>
         </div>
 
         <div class="film-v10__stage">
-          <div class="film-v10__player">
-            <video data-system-film muted loop playsinline autoplay controls preload="metadata" poster="/assets/v10/approved/what-you-get.webp">
-              <source src={filmUrl} type="video/mp4" />
-            </video>
-            <div class="film-v10__frame"><span>24-SECOND SYSTEM FILM</span><b>Evidence Axis / decision flow</b></div>
+          <div class="film-v10__player film-v10__player--motion" aria-label="24-second Evidence Axis system film playing automatically">
+            <div class="system-reel" aria-hidden="true">
+              <figure class="system-reel__slide system-reel__slide--1"><img src="/assets/v10/global-signal.webp" alt="" /><figcaption><small>01 · PUBLIC SOURCE</small><b>Find the evidence that bears on the decision.</b></figcaption></figure>
+              <figure class="system-reel__slide system-reel__slide--2"><img src="/assets/v10/evidence-matrix.svg" alt="" /><figcaption><small>02 · CLASSIFY</small><b>Separate Fact, Inference and Unknown.</b></figcaption></figure>
+              <figure class="system-reel__slide system-reel__slide--3"><img src="/assets/v10/decision-dashboard.webp" alt="" /><figcaption><small>03 · COMPARE</small><b>Put the evidence against the dimensions that matter.</b></figcaption></figure>
+              <figure class="system-reel__slide system-reel__slide--4"><img src="/assets/v10/ai-comparison.svg" alt="" /><figcaption><small>04 · TRACE</small><b>Keep reasoning attached to identifiable sources.</b></figcaption></figure>
+              <figure class="system-reel__slide system-reel__slide--5"><img src="/assets/v10/decision-brief.svg" alt="" /><figcaption><small>05 · SYNTHESIZE</small><b>Turn the record into decision implications.</b></figcaption></figure>
+              <figure class="system-reel__slide system-reel__slide--6"><img src="/assets/v10/command-center-approved.svg" alt="" /><figcaption><small>06 · DECIDE</small><b>Know what the evidence supports — and where it stops.</b></figcaption></figure>
+            </div>
+            <div class="film-v10__frame"><span>24-SECOND AUTO SYSTEM FILM</span><b>Evidence Axis / source → state → decision</b></div>
           </div>
-          <figure class="film-v10__card film-v10__card--a"><img src="/assets/v10/corporate-strategy.webp" alt="Strategy team studying a global evidence map" /><figcaption>GLOBAL SIGNALS</figcaption></figure>
-          <figure class="film-v10__card film-v10__card--b"><img src="/assets/v10/command-center.webp" alt="Business team studying strategic evidence" /><figcaption>DECISION ROOM</figcaption></figure>
+          <figure class="film-v10__card film-v10__card--a"><img src="/assets/v10/global-signal.svg" alt="Global market signal interface" /><figcaption>GLOBAL SIGNALS</figcaption></figure>
+          <figure class="film-v10__card film-v10__card--b"><img src="/assets/v10/decision-room.svg" alt="Decision room evidence interface" /><figcaption>DECISION ROOM</figcaption></figure>
         </div>
       </div>
     </section>
 
     <section class="proofbar-v10" aria-label="Evidence Axis operating principles">
       <div class="container-wide proofbar-v10__grid">
-        <article><span>01</span><b>100% traceable</b><p>Every material claim keeps a source.</p></article>
+        <article><span>01</span><b>Traceable</b><p>Every material claim keeps a source.</p></article>
         <article><span>02</span><b>Source-backed</b><p>Public, identifiable, dated evidence.</p></article>
         <article><span>03</span><b>Decision-ready</b><p>Built around the move your team is considering.</p></article>
         <article><span>04</span><b>Audit-ready</b><p>The evidence trail stays visible.</p></article>
@@ -51,7 +54,7 @@ const filmUrl = '/assets/v10/approved/system-film.mp4';
           <div class="gallery-v10__links"><a href="/method/">See how it works →</a><a href="/sample-report/">Open the sourced sample →</a></div>
         </div>
         <div class="gallery-v10__mosaic">
-          <figure><img src="/assets/v10/approved/global-trading-command-center.webp" alt="Decision-ready Evidence Axis interface" loading="eager" /></figure>
+          <figure><img src="/assets/v10/approved/global-trading-command-center.webp" alt="Global trading and research command center" loading="eager" /></figure>
           <figure><img src="/assets/v10/corporate-strategy.webp" alt="Business professionals studying a global market map" loading="lazy" /></figure>
           <figure><img src="/assets/v10/global-signal.webp" alt="Global signal map control room" loading="lazy" /></figure>
           <figure><img src="/assets/v10/command-center.webp" alt="Strategic insights command center" loading="lazy" /></figure>
@@ -63,10 +66,10 @@ const filmUrl = '/assets/v10/approved/system-film.mp4';
       <div class="container-wide">
         <header class="v10-head v10-head--center"><span class="v10-kicker">WHY EVIDENCE AXIS IS DIFFERENT</span><h2 id="insight-title">Research that keeps proof separate from judgment.</h2><p>Fast summaries are easy. The hard part is preserving the source, evidence state, decision boundary and unresolved questions so confidence does not outrun the evidence.</p></header>
         <div class="insight-v10__grid">
-          <article class="insight-card insight-card--cyan"><span>01</span><h3>Evidence before interpretation.</h3><p>Source, observation and fact stay attached before any strategic inference is written.</p><a href="/method/">See the method →</a></article>
+          <article class="insight-card insight-card--cyan"><span>01</span><h3>Evidence before interpretation.</h3><p>Source, observation and fact stay attached before any strategic inference is written.</p><a href="/method/#evidence-states">See the method →</a></article>
           <article class="insight-card insight-card--blue"><span>02</span><h3>Source-backed and citable.</h3><p>Every material claim points to identifiable public evidence and a check date.</p><a href="/sample-report/">Open the sample →</a></article>
           <article class="insight-card insight-card--amber"><span>03</span><h3>Decision-scoped from the start.</h3><p>The question your team is deciding determines what gets investigated and what does not.</p><a href="/competitor-brief/">See the brief →</a></article>
-          <article class="insight-card insight-card--violet"><span>04</span><h3>Judgment stays separated.</h3><p>Fact, Inference and Unknown never silently blur into one another.</p><a href="/method/">Trace the logic →</a></article>
+          <article class="insight-card insight-card--violet"><span>04</span><h3>Judgment stays separated.</h3><p>Fact, Inference and Unknown never silently blur into one another.</p><a href="/method/#evidence-chain">Trace the logic →</a></article>
         </div>
       </div>
     </section>
@@ -121,16 +124,34 @@ const filmUrl = '/assets/v10/approved/system-film.mp4';
       </div>
     </section>
 
+    <section class="deliverables-v10" id="what-you-get" aria-labelledby="deliverables-v10-title">
+      <div class="container-wide">
+        <header class="deliverables-v10__head">
+          <div><span class="v10-kicker">EXACTLY WHAT YOU ARE PAYING FOR</span><h2 id="deliverables-v10-title">From your question to a brief you can verify.</h2></div>
+          <p>No mystery box. You supply the decision and competitors. We investigate the public record, label the evidence state, show the reasoning and return the decision implications with the evidence trail attached.</p>
+        </header>
+        <div class="deliverables-v10__grid">
+          <article><span>01</span><small>YOU SEND</small><h3>The decision question.</h3><p>Your company/product URL if relevant, the named competitors, and the context that changes what “better” means.</p></article>
+          <article><span>02</span><small>WE INVESTIGATE</small><h3>The public evidence that matters.</h3><p>Positioning, pricing, packaging, product/docs evidence, changelogs, public review signals and contradictions — only where they bear on the question.</p></article>
+          <article><span>03</span><small>WE CLASSIFY</small><h3>Fact. Inference. Unknown.</h3><p>Verified observations stay separate from interpretation. Missing or conflicting evidence remains visible instead of being guessed away.</p></article>
+          <article><span>04</span><small>YOU RECEIVE</small><h3>The decision brief.</h3><p>An executive decision summary, evidence matrix, source-backed findings, contradictions/limitations and decision implications.</p></article>
+          <article><span>05</span><small>ALSO INCLUDED</small><h3>The source register.</h3><p>Identifiable public sources and check dates behind material findings, so you can walk a conclusion back to the record yourself.</p></article>
+          <article><span>06</span><small>THE RESULT</small><h3>A clearer decision boundary.</h3><p>What the evidence supports, what it does not support, what remains unresolved and what is worth checking next.</p></article>
+        </div>
+        <div class="deliverables-v10__bottom"><b>Two-Competitor Brief:</b><span>{offers.twoCompetitor.priceDisplay} pilot · {offers.twoCompetitor.delivery}</span><a href="/competitor-brief/">See the full deliverable →</a></div>
+      </div>
+    </section>
+
     <section class="outputs-v10" aria-labelledby="outputs-title">
       <div class="container-wide">
-        <header class="v10-head v10-head--center"><span class="v10-kicker">SAMPLE OUTPUTS THAT DRIVE DECISIONS</span><h2 id="outputs-title">Inspect the evidence. Inspect the reasoning. Then inspect the move.</h2><p>The homepage shows the working format directly: evidence matrix, decision brief, dashboard, workflow and strategy-room views.</p></header>
+        <header class="v10-head v10-head--center"><span class="v10-kicker">SAMPLE OUTPUTS THAT DRIVE DECISIONS</span><h2 id="outputs-title">Inspect the evidence. Inspect the reasoning. Then inspect the move.</h2><p>The working format is visible before you buy: evidence matrix, decision brief, dashboard, workflow and strategy-room views.</p></header>
         <div class="outputs-v10__gallery outputs-v10__gallery--three">
-          <figure class="v10-media"><img src="/assets/v10/approved/what-you-get.webp" alt="Evidence Axis evidence matrix sample" loading="lazy" /><figcaption><span>EVIDENCE MATRIX</span><b>See what is supported and where certainty ends.</b></figcaption></figure>
-          <figure class="v10-media"><img src="/assets/v10/approved/decision-ready-showcase.webp" alt="Evidence Axis decision-ready output" loading="lazy" /><figcaption><span>DECISION OUTPUT</span><b>Traceable insight written for a real decision.</b></figcaption></figure>
-          <figure class="v10-media"><img src="/assets/v10/approved/decision-ready-showcase.webp" alt="Evidence Axis decision dashboard" loading="lazy" /><figcaption><span>DECISION DASHBOARD</span><b>Evidence, state and implication in one view.</b></figcaption></figure>
-          <figure class="v10-media"><img src="/assets/v10/approved/generic-ai-vs-evidence-axis.webp" alt="Structured evidence compared with generic AI output" loading="lazy" /><figcaption><span>AI COMPARISON</span><b>Structure and traceability instead of fluent guesswork.</b></figcaption></figure>
-          <figure class="v10-media"><img src="/assets/v10/approved/what-you-get.webp" alt="Evidence Axis workflow interface" loading="lazy" /><figcaption><span>WORKFLOW</span><b>Public source → classify → trace → decide.</b></figcaption></figure>
-          <figure class="v10-media"><img src="/assets/v10/approved/global-trading-command-center.webp" alt="Business team reviewing strategic evidence" loading="lazy" /><figcaption><span>STRATEGY ROOM</span><b>Evidence becomes useful when it changes a move.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/evidence-matrix.svg" alt="Evidence Axis evidence matrix sample" loading="lazy" /><figcaption><span>EVIDENCE MATRIX</span><b>See what is supported and where certainty ends.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/decision-brief.svg" alt="Evidence Axis decision-ready output" loading="lazy" /><figcaption><span>DECISION OUTPUT</span><b>Traceable insight written for a real decision.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/decision-dashboard.webp" alt="Evidence Axis decision dashboard" loading="lazy" /><figcaption><span>DECISION DASHBOARD</span><b>Evidence, state and implication in one view.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/ai-comparison.svg" alt="Structured evidence compared with generic AI output" loading="lazy" /><figcaption><span>AI COMPARISON</span><b>Structure and traceability instead of fluent guesswork.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/approved-visual-gallery.webp" alt="Evidence Axis workflow interface" loading="lazy" /><figcaption><span>WORKFLOW</span><b>Public source → classify → trace → decide.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/decision-room.svg" alt="Business team reviewing strategic evidence" loading="lazy" /><figcaption><span>STRATEGY ROOM</span><b>Evidence becomes useful when it changes a move.</b></figcaption></figure>
         </div>
         <div class="outputs-v10__actions"><a class="v10-button v10-button--dark" href="/sample-report/">Open live sample report →</a><a class="v10-link" href="/method/">See the research method</a></div>
       </div>
@@ -162,7 +183,7 @@ const filmUrl = '/assets/v10/approved/system-film.mp4';
 
     <section class="sample-v10" aria-labelledby="sample-title">
       <div class="container-wide sample-v10__grid">
-        <figure class="v10-media v10-media--sample"><img src="/assets/v10/command-center.webp" alt="Business professionals reviewing strategic evidence" loading="lazy" /><figcaption><span>LIVE SAMPLE AVAILABLE</span><b>See the sourced report next</b></figcaption></figure>
+        <figure class="v10-media v10-media--sample"><img src="/assets/v10/approved/sample-report-showcase.webp" alt="Evidence Axis sample report preview" loading="lazy" /><figcaption><span>LIVE SAMPLE AVAILABLE</span><b>See the sourced report next</b></figcaption></figure>
         <div class="sample-v10__copy"><span class="v10-kicker v10-kicker--light">SEE THE STANDARD BEFORE YOU BUY</span><h2 id="sample-title">Intercom × Zendesk. Eight first-party sources. Visible evidence states.</h2><p>The live sample shows the research standard, source register, Fact / Inference / Unknown separation and the limits of what public evidence can establish.</p><div><a class="v10-button v10-button--light" href="/sample-report/">View Sample Report →</a><a class="v10-link v10-link--light" href="/report/evidence-axis-sample-intercom-vs-zendesk.pdf">Open PDF</a></div></div>
       </div>
     </section>
@@ -170,15 +191,3 @@ const filmUrl = '/assets/v10/approved/system-film.mp4';
     <section class="final-v10" aria-labelledby="final-title"><div class="container-wide final-v10__panel"><div><span class="v10-kicker">START SMALL</span><h2 id="final-title">Make the next competitive decision with evidence attached.</h2><p>Send the competitors, the question and the context that changes what “better” means for your team.</p><div class="final-v10__actions"><a href="/contact/">Start a Brief →</a>{contact.email && <a href={`mailto:${contact.email}`}>{contact.email}</a>}</div></div><img src="/assets/v10/corporate-strategy.webp" alt="Business professionals reviewing evidence in a market intelligence room" loading="lazy" /></div></section>
   </main>
 </Base>
-
-<script>
-  const film = document.querySelector('[data-system-film]');
-  if (film instanceof HTMLVideoElement) {
-    let onScreen = true;
-    const sync = () => { if (document.hidden || !onScreen) film.pause(); else film.play().catch(() => {}); };
-    const io = new IntersectionObserver(([entry]) => { onScreen = Boolean(entry?.isIntersecting); sync(); }, { threshold: .08 });
-    io.observe(film);
-    film.addEventListener('timeupdate', () => { if (film.currentTime >= 24) film.currentTime = 0; });
-    document.addEventListener('visibilitychange', sync);
-  }
-</script>
