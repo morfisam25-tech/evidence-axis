@@ -1,0 +1,134 @@
+name: Install final eight visuals
+
+on:
+  push:
+    branches: [redesign-v10]
+    paths: ['final8.ready']
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Rebuild final eight image assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/assets/v10/final8
+          for name in research-context global-signals workflow decision-output ai-comparison competitor-brief strategic-blueprint sample-report; do
+            cat asset-chunks/${name}.webp.*.b64 | tr -d '\n' | base64 -d > public/assets/v10/final8/${name}.webp
+            test -s public/assets/v10/final8/${name}.webp
+          done
+
+      - name: Install visuals across site
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          home = Path('src/pages/index.astro')
+          s = home.read_text()
+
+          # Replace the full Research in Context mosaic with four distinct final assets.
+          mosaic = '''<div class="gallery-v10__mosaic">
+          <figure><img src="/assets/v10/final8/research-context.webp" alt="Evidence Axis research in context command center" loading="eager" /></figure>
+          <figure><img src="/assets/v10/final8/global-signals.webp" alt="Global signals intelligence dashboard" loading="lazy" /></figure>
+          <figure><img src="/assets/v10/final8/competitor-brief.webp" alt="Two-competitor decision brief dashboard" loading="lazy" /></figure>
+          <figure><img src="/assets/v10/final8/strategic-blueprint.webp" alt="Strategic market blueprint dashboard" loading="lazy" /></figure>
+        </div>'''
+          s = re.sub(r'<div class="gallery-v10__mosaic">.*?</div>', mosaic, s, count=1, flags=re.S)
+
+          # Replace the six sample-output cards so every card has a sharp, unique, relevant visual.
+          outputs = '''<div class="outputs-v10__gallery outputs-v10__gallery--three">
+          <figure class="v10-media"><img src="/assets/v10/final8/workflow.webp" alt="Evidence Axis public-source to decision workflow" loading="lazy" /><figcaption><span>WORKFLOW</span><b>Public source → classify → trace → decide.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/final8/decision-output.webp" alt="Evidence Axis decision output dashboard" loading="lazy" /><figcaption><span>DECISION OUTPUT</span><b>Traceable insight written for a real decision.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/final8/sample-report.webp" alt="Evidence Axis Intercom versus Zendesk sample report" loading="lazy" /><figcaption><span>SAMPLE REPORT</span><b>See how evidence states and sources appear in a real comparison.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/final8/ai-comparison.webp" alt="Generic AI answer compared with source-traceable Evidence Axis output" loading="lazy" /><figcaption><span>AI COMPARISON</span><b>Structure and traceability instead of fluent guesswork.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/final8/competitor-brief.webp" alt="Two competitor evidence comparison dashboard" loading="lazy" /><figcaption><span>EVIDENCE MATRIX</span><b>Compare the evidence behind two competing choices.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/final8/strategic-blueprint.webp" alt="Strategic market blueprint and roadmap" loading="lazy" /><figcaption><span>STRATEGIC BLUEPRINT</span><b>Move from evidence to priorities and a concrete roadmap.</b></figcaption></figure>
+        </div>'''
+          s = re.sub(r'<div class="outputs-v10__gallery outputs-v10__gallery--three">.*?</div>\s*<div class="outputs-v10__actions">', outputs + '\n        <div class="outputs-v10__actions">', s, count=1, flags=re.S)
+
+          # AI comparison must use the dedicated high-resolution comparison graphic.
+          s = re.sub(r'(<figure class="ai-v10__visual"><img src=")[^"]+("[^>]*></figure>)', r'\1/assets/v10/final8/ai-comparison.webp\2', s, count=1)
+
+          # Market Intelligence visual uses the dedicated global signals scene.
+          s = re.sub(r'(<figure class="world-v10__visual"><img src=")[^"]+("[^>]*></figure>)', r'\1/assets/v10/final8/global-signals.webp\2', s, count=1)
+
+          # Sample block: replace the primary visual with the sharp sample-report dashboard.
+          s = re.sub(r'(<figure class="sample-v10__visual"><img src=")[^"]+("[^>]*></figure>)', r'\1/assets/v10/final8/sample-report.webp\2', s, count=1)
+
+          # Replace old premium assets if any remain in home.
+          remap = {
+            '/assets/v10/premium/research-context.webp':'/assets/v10/final8/research-context.webp',
+            '/assets/v10/premium/global-signals.webp':'/assets/v10/final8/global-signals.webp',
+            '/assets/v10/premium/workflow-dashboard.webp':'/assets/v10/final8/workflow.webp',
+            '/assets/v10/premium/strategy-war-room.webp':'/assets/v10/final8/competitor-brief.webp',
+          }
+          for a,b in remap.items(): s=s.replace(a,b)
+          home.write_text(s)
+
+          # Internal pages: each gets a context-specific sharp asset.
+          page_asset = {
+            'src/pages/competitor-brief.astro':'/assets/v10/final8/competitor-brief.webp',
+            'src/pages/market-intelligence.astro':'/assets/v10/final8/global-signals.webp',
+            'src/pages/method.astro':'/assets/v10/final8/workflow.webp',
+            'src/pages/strategic-blueprint.astro':'/assets/v10/final8/strategic-blueprint.webp',
+            'src/pages/sample-report.astro':'/assets/v10/final8/sample-report.webp',
+            'src/pages/about.astro':'/assets/v10/final8/research-context.webp',
+            'src/pages/contact.astro':'/assets/v10/final8/decision-output.webp',
+          }
+          known = [
+            '/assets/v10/premium/research-context.webp','/assets/v10/premium/global-signals.webp',
+            '/assets/v10/premium/workflow-dashboard.webp','/assets/v10/premium/strategy-war-room.webp',
+            '/assets/v10/approved/what-you-get.webp','/assets/v10/approved/decision-ready-showcase.webp',
+            '/assets/v10/approved-visual-gallery.webp','/assets/v10/decision-dashboard.webp',
+            '/assets/v10/command-center.webp','/assets/v10/corporate-strategy.webp','/assets/v10/global-signal.webp'
+          ]
+          for file, asset in page_asset.items():
+            p=Path(file)
+            if not p.exists(): continue
+            t=p.read_text()
+            # Replace the first substantial visual reference used on the page; then remove broken premium placeholders.
+            done=False
+            for old in known:
+              if old in t and not done:
+                t=t.replace(old,asset,1); done=True
+            t=re.sub(r'/assets/v10/premium/[^\"\']+?\.(?:webp|png|jpg|jpeg)',asset,t)
+            p.write_text(t)
+
+          # Safety checks: no legacy presentation/slideshow markup and all final assets are referenced.
+          h=home.read_text()
+          if 'system-reel__slide' in h:
+            raise SystemExit('Legacy slideshow markup returned')
+          required=[f'/assets/v10/final8/{n}.webp' for n in ['research-context','global-signals','workflow','decision-output','ai-comparison','competitor-brief','strategic-blueprint','sample-report']]
+          missing=[x for x in required if x not in h and x not in ''.join(Path(f).read_text() for f in page_asset if Path(f).exists())]
+          if missing: raise SystemExit(f'Final visual references missing: {missing}')
+          PY
+
+      - name: Remove transfer chunks
+        run: rm -rf asset-chunks final8.ready
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Commit final visual installation
+        run: |
+          git config user.name "Evidence Axis Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Install final eight sharp visuals across site"
+            git push origin HEAD:redesign-v10
+          fi
