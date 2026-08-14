@@ -42,10 +42,21 @@ import { offers, cta } from '@config/site';
     </div>
   </div>
 
-  <a class="hero-v10__scroll mono" href="#system-film">SYSTEM FILM <span>↓</span></a>
+    <a class="hero-v10__scroll mono" href="#intro-film">INTRODUCTION <span>&darr;</span></a>
 </section>
 
-<script>import '../scripts/hero-v10';</script>
+<script>
+  // The WebGL model is decorative (a static CSS fallback already renders in
+  // its place, see .axis-stage__fallback). Defer fetching and running the
+  // ~130KB gzipped three.js bundle until the browser is idle, so it never
+  // competes with fonts, CSS or the hero copy for first paint / LCP.
+  const loadAxisStage = () => import('../scripts/hero-v10');
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(loadAxisStage, { timeout: 2000 });
+  } else {
+    setTimeout(loadAxisStage, 200);
+  }
+</script>
 
 <style>
   .hero-v10{position:relative;overflow:hidden;min-height:calc(100svh - 5rem);background:#020713;color:#f4f8ff;isolation:isolate}
