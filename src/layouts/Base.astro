@@ -45,6 +45,12 @@ const { title, description, path, ogType, noindex } = Astro.props;
     <script>
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+      if (reduce) {
+        document.querySelectorAll('video[autoplay]').forEach((v) => {
+          try { v.removeAttribute('autoplay'); v.pause(); } catch (e) {}
+        });
+      }
+
       const header = document.querySelector('[data-header]');
       const onScroll = () => {
         if (!header) return;
