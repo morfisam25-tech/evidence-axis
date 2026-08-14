@@ -3,11 +3,11 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Evidence Axis — competitor intelligence for B2B SaaS decisions",
+  "description": "Evidence Axis \u2014 competitor intelligence for B2B SaaS decisions",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "node scripts/materialize-system-film.mjs && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "check": "astro check"
   },
