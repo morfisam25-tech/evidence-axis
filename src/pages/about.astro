@@ -3,14 +3,46 @@ import Base from '@layouts/Base.astro';
 import PageHeader from '@components/PageHeader.astro';
 import SectionIntro from '@components/SectionIntro.astro';
 import CTASection from '@components/CTASection.astro';
+import { offers, contact } from '@config/site';
+
+const steps = [
+  {
+    n: '01',
+    k: 'You send the decision',
+    d: 'The commercial question and the competitors that bear on it — plus a URL and any context that changes what “better” means for your team. There is no brief to prepare.',
+  },
+  {
+    n: '02',
+    k: 'We research the public record',
+    d: 'Pricing, documentation, changelogs, public reviews and positioning are collected, quoted and dated. Every finding is classified Fact, Inference or Unknown as it is recorded.',
+  },
+  {
+    n: '03',
+    k: 'You receive a brief you can verify',
+    d: `A source-backed decision brief: the evidence matrix, the reasoning, and the unknowns named. Delivered asynchronously in ${offers.twoCompetitor.delivery} — no discovery call.`,
+  },
+];
+
+const contains = [
+  'The research question and the evidence boundary it is scoped to',
+  'An evidence matrix — every finding marked Fact, Inference or Unknown',
+  'A dated source register you can open and check independently',
+  'The decision implication, reasoned from the aligned evidence',
+  'The unknowns, named plainly where public evidence runs out',
+];
+
+const notDo = [
+  'No private, confidential or non-public competitor data',
+  'No invented “whitespace” — a gap needs public evidence behind it',
+  'No discovery calls or sales theatre; scope is confirmed in writing first',
+  'No confident guess dressed up as insight',
+];
 
 const standards = [
   { t: 'Evidence before assertion', d: 'Nothing enters a brief as a bare claim. Every material finding carries its source and the date it was checked.' },
   { t: 'Separate what is known from what is inferred', d: 'Fact, Inference and Unknown remain visibly distinct — in the research process and in the final brief.' },
   { t: 'Name the unknowns', d: 'When public evidence runs out, that boundary is stated plainly rather than filled with a confident-sounding guess.' },
-  { t: 'Public evidence, plus your context', d: 'Competitor findings come from lawful, publicly accessible evidence, plus whatever context a client chooses to share. No private competitor data.' },
   { t: 'Decision usefulness over volume', d: 'A brief is measured by whether it helps a team decide — not by page count, screenshot count or research theatre.' },
-  { t: 'Verifiable by you', d: 'Sources are listed so a finding can be checked independently. The method is designed to withstand scrutiny.' },
 ];
 ---
 <Base
@@ -23,7 +55,7 @@ const standards = [
     title="A practice built on evidence discipline."
     lede="Competitor information is abundant. Decision-grade evidence is not. Evidence Axis turns the public record into a traceable line from source to implication — without hiding uncertainty."
     image="/assets/evidence-axis/approved/fluent_answers_vs_trusted_evidence.png"
-    imageAlt="Evidence Axis decision room showing evidence states and source-backed reasoning"
+    imageAlt="Generic AI answer versus a sourced, dated Evidence Axis finding"
   />
 
   <section class="section container">
@@ -31,13 +63,49 @@ const standards = [
       <p class="about-lead__p">
         B2B SaaS teams rarely lack competitor information. They lack a defensible line between what is
         verified, what is a reasonable read, and what simply cannot be known from public sources.
-        Evidence Axis is built to draw that line carefully and make it useful for a real decision.
+        Evidence Axis exists to draw that line carefully and make it useful for a real decision.
       </p>
       <p class="about-lead__p">
         Engagements are asynchronous and tightly scoped so the research stays close to the decision.
-        Trust comes from the work itself: identifiable sources, visible evidence states, explicit limitations,
-        and a line of reasoning that can be checked rather than simply accepted.
+        Trust comes from the work itself — identifiable sources, visible evidence states, explicit
+        limits, and reasoning you can check rather than simply accept.
       </p>
+    </div>
+  </section>
+
+  <section class="section" data-surface="dark">
+    <div class="container">
+      <SectionIntro
+        eyebrow="How an engagement works"
+        title="From your question to a brief you can verify."
+        lede="No mystery box. You supply the decision and the competitors; you receive source-backed evidence, not a slide deck."
+      />
+      <div class="ab-steps">
+        {steps.map((s) => (
+          <article class="ab-step" data-reveal>
+            <span class="ab-step__n mono">{s.n}</span>
+            <h3 class="ab-step__k">{s.k}</h3>
+            <p class="ab-step__d">{s.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="ab-two">
+      <div class="ab-col">
+        <SectionIntro eyebrow="What every brief contains" title="Tangible, checkable output." as="h2" />
+        <ul class="ab-list ab-list--yes">
+          {contains.map((c) => <li>{c}</li>)}
+        </ul>
+      </div>
+      <div class="ab-col">
+        <SectionIntro eyebrow="What we don't do" title="The boundaries we keep." as="h2" />
+        <ul class="ab-list ab-list--no">
+          {notDo.map((c) => <li>{c}</li>)}
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -46,7 +114,7 @@ const standards = [
       <SectionIntro
         eyebrow="Working standards"
         title="The standards are the product."
-        lede="These are operating rules for every brief, not marketing language added after the work is done."
+        lede="Operating rules for every brief, not marketing language added after the work is done."
       />
       <dl class="std axis-frame">
         {standards.map((s) => (
@@ -60,34 +128,63 @@ const standards = [
   </section>
 
   <section class="section container">
-    <div class="about-close measure">
-      <SectionIntro eyebrow="Why it exists" title="Because a good decision deserves honest evidence." as="h2" />
-      <p class="about-lead__p">
-        A competitor decision made on marketing language is a decision made on someone else's terms.
-        Evidence Axis turns the public record into something you can reason from — and marks clearly
-        where reasoning has to stop.
-      </p>
-    </div>
+    <a class="ab-proof" href="/sample-report/">
+      <div class="ab-proof__body">
+        <span class="label eyebrow">Method, on a real question</span>
+        <h2 class="ab-proof__t">See it run on Intercom vs Zendesk — first-party sources only.</h2>
+        <p class="ab-proof__d">
+          Rather than describe the method, we ran it on a real, bounded question using only lawful
+          first-party public sources. Read the sourced sample and check the evidence yourself.
+        </p>
+      </div>
+      <span class="ab-proof__cta">Open the sourced sample <span aria-hidden="true">→</span></span>
+    </a>
   </section>
 
   <CTASection title="Put the method to work." />
 </Base>
 
 <style>
-  .about-visual-section { padding: 2rem 0 0; background: linear-gradient(180deg,#07111f,#f7f2ea 88%); }
-  .about-visual-frame { position: relative; margin: 0; overflow: hidden; border-radius: 1.4rem; border: 1px solid rgba(105,164,235,.28); box-shadow: 0 34px 80px rgba(11,24,42,.26); background:#06111e; }
-  .about-visual-frame img { display:block; width:100%; height:auto; max-height:38rem; object-fit:cover; }
-  .about-visual-frame figcaption { position:absolute; left:1rem; right:1rem; bottom:1rem; display:flex; gap:.7rem; align-items:center; padding:.75rem .9rem; border-radius:.72rem; background:rgba(2,9,19,.76); backdrop-filter:blur(12px); color:#fff; }
-  .about-visual-frame figcaption span { font:800 .62rem/1 var(--font-mono); letter-spacing:.13em; color:#58ded7; }
-  .about-visual-frame figcaption b { font:700 .82rem/1.2 var(--font-display); }
   .about-lead__p { font-size: var(--step-1); color: var(--text-muted); margin-bottom: var(--space-m); }
   .about-lead__p:first-child { color: var(--text); }
+
+  .ab-steps { margin-top: var(--space-xl); display: grid; gap: var(--space-m); grid-template-columns: 1fr; }
+  .ab-step { border: 1px solid var(--surface-border); border-radius: var(--radius-m); padding: var(--space-l); background: var(--bg-raised); }
+  .ab-step__n { color: var(--accent); font-size: var(--step-1); }
+  .ab-step__k { font-size: var(--step-1); margin-top: var(--space-2xs); }
+  .ab-step__d { color: var(--text-muted); margin-top: var(--space-2xs); }
+
+  .ab-two { display: grid; gap: var(--space-xl); grid-template-columns: 1fr; }
+  .ab-list { list-style: none; padding: 0; margin: var(--space-m) 0 0; display: grid; gap: var(--space-s); }
+  .ab-list li { position: relative; padding-left: 1.7rem; color: var(--text-muted); max-width: 52ch; }
+  .ab-list li::before { position: absolute; left: 0; top: 0.05em; font-weight: 700; }
+  .ab-list--yes li::before { content: '✓'; color: #2f9e77; }
+  .ab-list--no li::before { content: '✕'; color: var(--text-faint); }
+
   .std { margin-top: var(--space-xl); display: grid; gap: 0; }
   .std__row { display: grid; gap: var(--space-2xs); padding: var(--space-m) 0; border-top: 1px solid var(--hairline); }
   .std__t { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); }
   .std__d { color: var(--text-muted); max-width: 60ch; }
-  .about-close { margin-top: 0; }
+
+  .ab-proof {
+    display: grid; gap: var(--space-l); align-items: center;
+    text-decoration: none; color: inherit;
+    border: 1px solid var(--surface-border); border-radius: var(--radius-l);
+    padding: clamp(1.5rem, 3vw, 2.6rem);
+    background: var(--bg-raised);
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .ab-proof:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .ab-proof__t { font-size: var(--step-3); max-width: 26ch; margin-top: var(--space-2xs); }
+  .ab-proof__d { color: var(--text-muted); margin-top: var(--space-s); max-width: 60ch; }
+  .ab-proof__cta { color: var(--accent); font-weight: 700; white-space: nowrap; }
+
   @media (min-width: 52rem) {
     .std__row { grid-template-columns: 20rem 1fr; gap: var(--space-l); align-items: baseline; }
+    .ab-two { grid-template-columns: 1fr 1fr; }
+    .ab-proof { grid-template-columns: 1fr auto; }
+  }
+  @media (min-width: 64rem) {
+    .ab-steps { grid-template-columns: repeat(3, 1fr); }
   }
 </style>
