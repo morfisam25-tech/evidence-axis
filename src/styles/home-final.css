@@ -82,8 +82,8 @@
 
 /* Outputs: larger and more editorial */
 .outputs-v10{background:linear-gradient(180deg,#faf7f2,#ede4d7)}
-.outputs-v10__gallery--three{grid-template-columns:repeat(3,1fr);gap:1.35rem}
-.outputs-v10__gallery .v10-media{aspect-ratio:1.35/1;border-radius:1.35rem}
+.outputs-v10__gallery--three{grid-template-columns:repeat(2,1fr);gap:1.6rem}
+.outputs-v10__gallery .v10-media{aspect-ratio:1.6/1;border-radius:1.35rem;cursor:zoom-in}
 .outputs-v10__gallery .v10-media:nth-child(1),.outputs-v10__gallery .v10-media:nth-child(4){transform:translateY(1.4rem)}
 .outputs-v10__gallery .v10-media:hover{transform:translateY(-8px)}
 

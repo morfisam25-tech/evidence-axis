@@ -113,6 +113,43 @@ const { title, description, path, ogType, noindex } = Astro.props;
       }
     </script>
 
+    <style is:global>
+      .ea-lightbox{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:2.5vw;background:rgba(3,7,14,.93);backdrop-filter:blur(6px);cursor:zoom-out}
+      .ea-lightbox.is-open{display:flex}
+      .ea-lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;border-radius:.6rem;box-shadow:0 30px 90px rgba(0,0,0,.6);border:1px solid rgba(120,160,220,.25)}
+      .ea-lightbox__hint{position:fixed;bottom:1.1rem;left:0;right:0;text-align:center;color:#9fb2cc;font:500 .72rem/1 var(--font-mono,monospace);letter-spacing:.14em;text-transform:uppercase;pointer-events:none}
+    </style>
+    <script>
+      (() => {
+        const sel = '.outputs-v10__gallery img, .v10-media--sample img, .approved-page-visual__frame img, .world-v10__visual img, .gallery-v10__mosaic img';
+        let ov;
+        const ensure = () => {
+          if (ov) return ov;
+          ov = document.createElement('div');
+          ov.className = 'ea-lightbox';
+          ov.innerHTML = '<img alt=""><div class="ea-lightbox__hint">Click anywhere or press Esc to close</div>';
+          ov.addEventListener('click', close);
+          document.body.appendChild(ov);
+          return ov;
+        };
+        const open = (src, alt) => {
+          ensure();
+          const im = ov.querySelector('img');
+          im.src = src; im.alt = alt || '';
+          ov.classList.add('is-open');
+          document.body.style.overflow = 'hidden';
+        };
+        function close() { if (ov) ov.classList.remove('is-open'); document.body.style.overflow = ''; }
+        document.addEventListener('click', (e) => {
+          const t = e.target;
+          if (!(t instanceof Element)) return;
+          const img = t.closest(sel);
+          if (img && img.tagName === 'IMG') { e.preventDefault(); open(img.currentSrc || img.getAttribute('src'), img.getAttribute('alt')); }
+        });
+        window.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+      })();
+    </script>
+
   </body>
 </html>
 
