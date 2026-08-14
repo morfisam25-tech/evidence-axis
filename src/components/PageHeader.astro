@@ -4,18 +4,28 @@ interface Props {
   title: string;
   lede?: string;
   meta?: string[];
+  image?: string;
+  imageAlt?: string;
 }
-const { eyebrow, title, lede, meta } = Astro.props;
+const { eyebrow, title, lede, meta, image, imageAlt } = Astro.props;
+const split = Boolean(image);
 ---
 <header class="page-header" data-surface="dark">
-  <div class="container-wide page-header__inner axis-frame">
-    <span class="label eyebrow">{eyebrow}</span>
-    <h1 class="page-header__title">{title}</h1>
-    {lede && <p class="page-header__lede">{lede}</p>}
-    {meta && (
-      <ul class="page-header__meta">
-        {meta.map((m) => <li class="mono">{m}</li>)}
-      </ul>
+  <div class:list={["container-wide", "page-header__inner", split && "page-header__inner--split"]}>
+    <div class="page-header__text axis-frame">
+      <span class="label eyebrow">{eyebrow}</span>
+      <h1 class="page-header__title">{title}</h1>
+      {lede && <p class="page-header__lede">{lede}</p>}
+      {meta && (
+        <ul class="page-header__meta">
+          {meta.map((m) => <li class="mono">{m}</li>)}
+        </ul>
+      )}
+    </div>
+    {image && (
+      <figure class="page-header__visual">
+        <img src={image} alt={imageAlt ?? ''} loading="eager" />
+      </figure>
     )}
   </div>
 </header>
@@ -28,6 +38,7 @@ const { eyebrow, title, lede, meta } = Astro.props;
     border-bottom: 1px solid var(--hairline);
   }
   .page-header__inner { max-width: 60rem; }
+  .page-header__inner--split { max-width: none; }
   .page-header__title { font-size: var(--step-5); margin-top: var(--space-2xs); max-width: 20ch; }
   .page-header__lede {
     margin-top: var(--space-m);
@@ -47,5 +58,40 @@ const { eyebrow, title, lede, meta } = Astro.props;
     content: ''; position: absolute; left: 0; top: 0.5em;
     width: 0.5rem; height: 0.5rem; border-radius: 50%;
     background: var(--accent);
+  }
+
+  /* Two-column hero with a real product visual on the right */
+  .page-header__visual {
+    margin: 0;
+    position: relative;
+    border-radius: 1.1rem;
+    overflow: hidden;
+    border: 1px solid rgba(120, 160, 220, 0.26);
+    background: #0c1119;
+    box-shadow: 0 34px 90px rgba(0, 0, 0, 0.45);
+    cursor: zoom-in;
+  }
+  .page-header__visual::after {
+    content: '';
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(6,12,22,0) 62%, rgba(6,12,22,0.34));
+  }
+  .page-header__visual img {
+    display: block; width: 100%; height: 100%;
+    aspect-ratio: 16 / 11;
+    object-fit: cover; object-position: top center;
+  }
+
+  @media (min-width: 64rem) {
+    .page-header__inner--split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+      gap: clamp(2.2rem, 4vw, 4.5rem);
+      align-items: center;
+    }
+    .page-header__inner--split .page-header__text { max-width: 42rem; }
+  }
+  @media (max-width: 63.99rem) {
+    .page-header__visual { margin-top: var(--space-l); }
   }
 </style>
