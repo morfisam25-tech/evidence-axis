@@ -1,0 +1,25 @@
+/* Presenter intro film. Kept in its own file so the section can be iterated on without touching the large existing home stylesheets. */
+.intro-v10{padding:clamp(4.4rem,6vw,6.4rem) 0;background:linear-gradient(135deg,#050d18,#0a1930 62%,#0e2140);color:#fff;border-bottom:1px solid rgba(109,157,226,.14)}
+.intro-v10__grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(2rem,4.5vw,4.4rem);align-items:center}
+.intro-v10 h2{color:#fff;margin:.8rem 0 0}
+.intro-v10 p{color:#adbed4;margin-top:1rem}
+.intro-v10__meta{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.25rem}
+.intro-v10__meta span{padding:.5rem .68rem;border-radius:999px;border:1px solid rgba(129,169,225,.2);background:rgba(4,14,29,.62);font-size:.58rem;letter-spacing:.1em;color:#dce8f8}
+.intro-v10__stage{position:relative}
+.intro-v10__player{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:1.4rem;border:1px solid rgba(109,157,226,.28);box-shadow:0 34px 86px rgba(0,0,0,.42);background:#04080f}
+.intro-v10__video{display:block;width:100%;height:100%;object-fit:contain;background:#04080f}
+/* Click-to-play: this film has narration, so it must never autoplay. */
+.intro-v10__play{position:absolute;inset:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;border:0;cursor:pointer;color:#fff;background:radial-gradient(circle at 50% 50%,rgba(4,12,24,.28),rgba(3,8,17,.72));transition:background .25s ease}
+.intro-v10__play:hover,.intro-v10__play:focus-visible{background:radial-gradient(circle at 50% 50%,rgba(4,12,24,.12),rgba(3,8,17,.62))}
+.intro-v10__play:focus-visible{outline:2px solid #63fff1;outline-offset:-4px}
+.intro-v10__play[hidden]{display:none}
+.intro-v10__play-icon{display:grid;place-items:center;width:4.6rem;height:4.6rem;border-radius:999px;background:rgba(8,20,38,.78);border:1px solid rgba(140,190,255,.42);box-shadow:0 12px 40px rgba(0,0,0,.45);font-size:1.25rem;line-height:1;padding-left:.22rem;transition:transform .25s ease,border-color .25s ease}
+.intro-v10__play:hover .intro-v10__play-icon{transform:scale(1.06);border-color:rgba(99,255,241,.6)}
+.intro-v10__play-label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#dce8f8}
+.intro-v10__frame{position:absolute;z-index:3;bottom:1rem;left:1rem;right:1rem;display:grid;gap:.2rem;background:rgba(2,9,20,.72);border:1px solid rgba(124,168,225,.2);backdrop-filter:blur(12px);padding:.68rem .8rem;border-radius:.7rem;pointer-events:none;transition:opacity .25s ease}
+.intro-v10__frame span{font-family:var(--font-mono);font-size:.55rem;letter-spacing:.16em;color:#8fb4ff}
+.intro-v10__frame b{font-size:.78rem;font-weight:500;color:#dce8f8}
+.intro-v10__player[data-playing='true'] .intro-v10__frame{opacity:0}
+@media(max-width:1180px){.intro-v10__grid{grid-template-columns:1fr}}
+@media(max-width:760px){.intro-v10{padding:3.6rem 0}.intro-v10__play-icon{width:3.6rem;height:3.6rem;font-size:1rem}.intro-v10__frame{bottom:.6rem;left:.6rem;right:.6rem}}
+@media(prefers-reduced-motion:reduce){.intro-v10__play,.intro-v10__play-icon,.intro-v10__frame{transition:none}.intro-v10__play:hover .intro-v10__play-icon{transform:none}}
