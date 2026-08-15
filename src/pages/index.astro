@@ -4,30 +4,68 @@ import Hero from '@components/Hero.astro';
 import { site, offers, contact } from '@config/site';
 import '../styles/home-v10.css';
 import '../styles/home-final.css';
+import '../styles/intro-v10.css';
 ---
 <Base title={site.name} description={site.description} path="/">
   <Hero />
 
   <main class="home-v10">
+    <section class="intro-v10" id="intro-film" data-surface="dark" aria-labelledby="intro-title">
+      <div class="container-wide intro-v10__grid">
+        <div class="intro-v10__copy">
+          <span class="v10-kicker v10-kicker--light">INTRODUCTION</span>
+          <h2 id="intro-title">What Evidence Axis actually does &mdash; in a few minutes.</h2>
+          <p>A short walkthrough of the problem we work on, how a brief is built from public, dated, traceable evidence, and what lands on your desk at the end of it.</p>
+          <div class="intro-v10__meta mono"><span>THE PROBLEM</span><span>THE METHOD</span><span>THE DELIVERABLE</span></div>
+        </div>
+
+        <div class="intro-v10__stage">
+          <div class="intro-v10__player" data-intro-player>
+            <video
+              class="intro-v10__video"
+              controls
+              playsinline
+              preload="none"
+              poster="/assets/evidence-axis/presenter-intro-poster_1.jpg"
+              data-intro-video
+              aria-label="Evidence Axis introduction: what we do, how a brief is built, and what you receive"
+            >
+              <source src="/assets/evidence-axis/presenter-intro_1.mp4" type="video/mp4" />
+            </video>
+            <button type="button" class="intro-v10__play" data-intro-play>
+              <span class="intro-v10__play-icon" aria-hidden="true">&#9654;</span>
+              <span class="intro-v10__play-label">Play the introduction</span>
+            </button>
+            <div class="intro-v10__frame"><span>INTRODUCTION</span><b>What we do &middot; how a brief is built &middot; what you receive</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="film-v10" id="system-film" data-surface="dark" aria-labelledby="film-title">
       <div class="container-wide film-v10__grid">
         <div class="film-v10__copy">
-          <span class="v10-kicker v10-kicker--light">SYSTEM FILM</span>
-          <h2 id="film-title">Watch the evidence move from public source to decision.</h2>
-          <p>The three-dimensional Evidence Axis appears once, in the hero. Here you see real motion: an analyst working with live market data. The surrounding site explains how Evidence Axis turns that kind of public signal into classified, traceable decision evidence.</p>
-          <div class="film-v10__chips mono"><span>PUBLIC SOURCE</span><span>CLASSIFY</span><span>TRACE</span><span>DECIDE</span></div>
+          <span class="v10-kicker v10-kicker--light">PRODUCT TOUR</span>
+          <h2 id="film-title">The working views — see exactly what you receive.</h2>
+          <p>Not a promise, the real deliverables: the evidence matrix, the decision dashboard, the source-to-decision workflow and the strategy room. Every view keeps its sources, its evidence states and its named unknowns.</p>
+          <div class="film-v10__chips mono"><span>EVIDENCE MATRIX</span><span>DECISION DASHBOARD</span><span>WORKFLOW</span><span>STRATEGY ROOM</span></div>
         </div>
 
         <div class="film-v10__stage film-v10__stage--real-video">
-          <div class="film-v10__player film-v10__player--real-video" aria-label="Evidence Axis real motion film">
-            <iframe
-              src="https://player.vimeo.com/video/772467451?background=1&autoplay=1&muted=1&loop=1&autopause=0&title=0&byline=0&portrait=0"
-              title="Business analyst working with live market data"
-              allow="autoplay; fullscreen; picture-in-picture"
-              loading="eager"
-              referrerpolicy="strict-origin-when-cross-origin"
-            ></iframe>
-            <div class="film-v10__frame"><span>REAL MOTION FILM</span><b>Live market analysis · continuous loop</b></div>
+          <div class="film-v10__player film-v10__player--real-video" aria-label="Evidence Axis system film">
+            <video
+              class="film-v10__video"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+              poster="/assets/evidence-axis/product-tour-poster.jpg"
+              aria-label="Evidence Axis product tour — the evidence matrix, decision dashboard, workflow and strategy room views"
+            >
+              <source src="/assets/evidence-axis/product-tour.mp4" type="video/mp4" />
+            </video>
+            <div class="film-v10__frame"><span>PRODUCT TOUR</span><b>Evidence matrix · decision dashboard · workflow · strategy room</b></div>
           </div>
         </div>
       </div>
@@ -51,10 +89,10 @@ import '../styles/home-final.css';
           <div class="gallery-v10__links"><a href="/method/">See how it works →</a><a href="/sample-report/">Open the sourced sample →</a></div>
         </div>
         <div class="gallery-v10__mosaic">
-          <figure><img src="/assets/v10/premium/research-context.webp" alt="Evidence Axis research team connecting public signals, evidence and decision context" loading="eager" /></figure>
-          <figure><img src="/assets/v10/premium/global-signals.webp" alt="Global signals and market intelligence command center" loading="lazy" /></figure>
-          <figure><img src="/assets/v10/premium/strategy-war-room.webp" alt="Evidence Axis strategy war room with traceable decision intelligence" loading="lazy" /></figure>
-          <figure><img src="/assets/v10/premium/workflow-dashboard.webp" alt="Evidence Axis source-to-decision workflow dashboard" loading="lazy" /></figure>
+          <figure><img src="/assets/evidence-axis/approved/research_in_context_command_center.png" alt="Evidence Axis research team connecting public signals, evidence and decision context" loading="eager" /></figure>
+          <figure><img src="/assets/evidence-axis/approved/global_signals_command_center.png" alt="Global signals and market intelligence command center" loading="lazy" /></figure>
+          <figure><img src="/assets/evidence-axis/approved/evidence_axis_workflow_dashboard.png" alt="Evidence Axis strategy war room with traceable decision intelligence" loading="lazy" /></figure>
+          <figure><img src="/assets/evidence-axis/approved/decision_room_evidence_to_strategy.png" alt="Evidence Axis source-to-decision workflow dashboard" loading="lazy" /></figure>
         </div>
       </div>
     </section>
@@ -143,12 +181,12 @@ import '../styles/home-final.css';
       <div class="container-wide">
         <header class="v10-head v10-head--center"><span class="v10-kicker">SAMPLE OUTPUTS THAT DRIVE DECISIONS</span><h2 id="outputs-title">Inspect the evidence. Inspect the reasoning. Then inspect the move.</h2><p>The working format is visible before you buy: evidence matrix, decision brief, dashboard, workflow and strategy-room views.</p></header>
         <div class="outputs-v10__gallery outputs-v10__gallery--three">
-          <figure class="v10-media"><img src="/assets/v10/premium/workflow-dashboard.webp" alt="Evidence Axis evidence matrix and deliverable sample" loading="lazy" /><figcaption><span>EVIDENCE MATRIX</span><b>See what is supported and where certainty ends.</b></figcaption></figure>
-          <figure class="v10-media"><img src="/assets/v10/premium/strategy-war-room.webp" alt="Evidence Axis decision-ready output" loading="lazy" /><figcaption><span>DECISION OUTPUT</span><b>Traceable insight written for a real decision.</b></figcaption></figure>
-          <figure class="v10-media"><img src="/assets/v10/decision-dashboard.webp" alt="Evidence Axis decision dashboard" loading="lazy" /><figcaption><span>DECISION DASHBOARD</span><b>Evidence, state and implication in one view.</b></figcaption></figure>
-          <figure class="v10-media"><img src="/assets/v10/premium/global-signals.webp" alt="Structured global evidence signals" loading="lazy" /><figcaption><span>AI COMPARISON</span><b>Structure and traceability instead of fluent guesswork.</b></figcaption></figure>
-          <figure class="v10-media"><img src="/assets/v10/premium/research-context.webp" alt="Evidence Axis workflow interface" loading="lazy" /><figcaption><span>WORKFLOW</span><b>Public source → classify → trace → decide.</b></figcaption></figure>
-          <figure class="v10-media"><img src="/assets/v10/command-center.webp" alt="Business team reviewing strategic evidence" loading="lazy" /><figcaption><span>STRATEGY ROOM</span><b>Evidence becomes useful when it changes a move.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/evidence-axis/approved/intercom_zendesk_intelligence_dashboard.png" alt="Evidence Axis evidence matrix and deliverable sample" loading="lazy" /><figcaption><span>EVIDENCE MATRIX</span><b>See what is supported and where certainty ends.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/evidence-axis/approved/neon_decision_dashboard_mockup.png" alt="Evidence Axis decision-ready output" loading="lazy" /><figcaption><span>DECISION OUTPUT</span><b>Traceable insight written for a real decision.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/evidence-axis/approved/evidence_axis_workflow_dashboard.png" alt="Evidence Axis decision dashboard" loading="lazy" /><figcaption><span>DECISION DASHBOARD</span><b>Evidence, state and implication in one view.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/evidence-axis/approved/fluent_answers_vs_trusted_evidence.png" alt="Structured global evidence signals" loading="lazy" /><figcaption><span>AI COMPARISON</span><b>Structure and traceability instead of fluent guesswork.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/evidence-axis/approved/neon_workflow_intelligence_dashboard.png" alt="Evidence Axis workflow interface" loading="lazy" /><figcaption><span>WORKFLOW</span><b>Public source → classify → trace → decide.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/evidence-axis/approved/decision_room_evidence_to_strategy.png" alt="Business team reviewing strategic evidence" loading="lazy" /><figcaption><span>STRATEGY ROOM</span><b>Evidence becomes useful when it changes a move.</b></figcaption></figure>
         </div>
         <div class="outputs-v10__actions"><a class="v10-button v10-button--dark" href="/sample-report/">Open live sample report →</a><a class="v10-link" href="/method/">See the research method</a></div>
       </div>
@@ -167,24 +205,52 @@ import '../styles/home-final.css';
             <li>A decision implication can be traced backward to the evidence that produced it.</li>
           </ul>
         </div>
-        <figure class="ai-v10__visual"><img src="/assets/v10/premium/workflow-dashboard.webp" alt="Comparison between generic AI output and structured, source-traceable Evidence Axis research" loading="lazy" /></figure>
+        <figure class="ai-v10__visual"><img src="/assets/evidence-axis/approved/fluent_answers_vs_trusted_evidence.png" alt="Comparison between generic AI output and structured, source-traceable Evidence Axis research" loading="lazy" /></figure>
       </div>
     </section>
 
     <section class="world-v10" data-surface="dark" aria-labelledby="world-title">
       <div class="container-wide world-v10__grid">
         <div class="world-v10__copy"><span class="v10-kicker v10-kicker--light">MARKET INTELLIGENCE</span><h2 id="world-title">See the world. Move with clarity.</h2><p>Competitive signals, public product evidence, market shifts and positioning moves are organized around the decision—not around a giant competitor encyclopedia.</p><a class="v10-button v10-button--light" href="/market-intelligence/">Explore Market Intelligence →</a></div>
-        <figure class="world-v10__visual"><img src="/assets/v10/premium/global-signals.webp" alt="Global market signal map" loading="lazy" /><div class="world-v10__metric world-v10__metric--one"><small>PUBLIC SIGNAL</small><b>Pricing change</b><span>source checked</span></div><div class="world-v10__metric world-v10__metric--two"><small>PRODUCT SIGNAL</small><b>Feature shipped</b><span>date confirmed</span></div><div class="world-v10__metric world-v10__metric--three"><small>OPEN QUESTION</small><b>Private adoption</b><span>unknown</span></div></figure>
+        <figure class="world-v10__visual"><img src="/assets/evidence-axis/approved/global_signals_command_center.png" alt="Global market signal map" loading="lazy" /><div class="world-v10__metric world-v10__metric--one"><small>PUBLIC SIGNAL</small><b>Pricing change</b><span>source checked</span></div><div class="world-v10__metric world-v10__metric--two"><small>PRODUCT SIGNAL</small><b>Feature shipped</b><span>date confirmed</span></div><div class="world-v10__metric world-v10__metric--three"><small>OPEN QUESTION</small><b>Private adoption</b><span>unknown</span></div></figure>
       </div>
     </section>
 
     <section class="sample-v10" aria-labelledby="sample-title">
       <div class="container-wide sample-v10__grid">
-        <figure class="v10-media v10-media--sample"><img src="/assets/v10/premium/strategy-war-room.webp" alt="Evidence Axis sample report preview" loading="lazy" /><figcaption><span>LIVE SAMPLE AVAILABLE</span><b>See the sourced report next</b></figcaption></figure>
+        <figure class="v10-media v10-media--sample"><img src="/assets/evidence-axis/approved/intercom_zendesk_intelligence_dashboard.png" alt="Evidence Axis sample report preview" loading="lazy" /><figcaption><span>LIVE SAMPLE AVAILABLE</span><b>See the sourced report next</b></figcaption></figure>
         <div class="sample-v10__copy"><span class="v10-kicker v10-kicker--light">SEE THE STANDARD BEFORE YOU BUY</span><h2 id="sample-title">Intercom × Zendesk. Eight first-party sources. Visible evidence states.</h2><p>The live sample shows the research standard, source register, Fact / Inference / Unknown separation and the limits of what public evidence can establish.</p><div><a class="v10-button v10-button--light" href="/sample-report/">View Sample Report →</a><a class="v10-link v10-link--light" href="/report/evidence-axis-sample-intercom-vs-zendesk.pdf">Open PDF</a></div></div>
       </div>
     </section>
 
-    <section class="final-v10" aria-labelledby="final-title"><div class="container-wide final-v10__panel"><div><span class="v10-kicker">START SMALL</span><h2 id="final-title">Make the next competitive decision with evidence attached.</h2><p>Send the competitors, the question and the context that changes what “better” means for your team.</p><div class="final-v10__actions"><a href="/contact/">Start a Brief →</a>{contact.email && <a href={`mailto:${contact.email}`}>{contact.email}</a>}</div></div><img src="/assets/v10/premium/strategy-war-room.webp" alt="Evidence Axis decision room interface" loading="lazy" /></div></section>
+    <section class="final-v10" aria-labelledby="final-title"><div class="container-wide final-v10__panel"><div><span class="v10-kicker">START SMALL</span><h2 id="final-title">Make the next competitive decision with evidence attached.</h2><p>Send the competitors, the question and the context that changes what “better” means for your team.</p><div class="final-v10__actions"><a href="/contact/">Start a Brief →</a>{contact.email && <a href={`mailto:${contact.email}`}>{contact.email}</a>}</div></div><img src="/assets/evidence-axis/approved/decision_room_evidence_to_strategy.png" alt="Evidence Axis decision room interface" loading="lazy" /></div></section>
   </main>
 </Base>
+
+<script>
+  // The introduction film has narration, so it must never autoplay. The poster
+  // plus overlay button is the only way it starts; preload="none" means not a
+  // byte of the file is fetched until a visitor actually asks for it.
+  const player = document.querySelector<HTMLElement>('[data-intro-player]');
+  const video = player?.querySelector<HTMLVideoElement>('[data-intro-video]');
+  const play = player?.querySelector<HTMLButtonElement>('[data-intro-play]');
+
+  if (player && video && play) {
+    play.addEventListener('click', () => {
+      play.hidden = true;
+      player.dataset.playing = 'true';
+      video.play().catch(() => {
+        // Playback refused (rare: policy or codec) — restore the poster state
+        // rather than leaving the visitor staring at a dead frame.
+        play.hidden = false;
+        delete player.dataset.playing;
+      });
+    });
+
+    video.addEventListener('ended', () => {
+      play.hidden = false;
+      delete player.dataset.playing;
+      video.currentTime = 0;
+    });
+  }
+</script>
