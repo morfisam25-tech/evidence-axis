@@ -9,7 +9,7 @@ const standards = [
   { t: 'Separate what is known from what is inferred', d: 'Fact, Inference and Unknown remain visibly distinct — in the research process and in the final brief.' },
   { t: 'Name the unknowns', d: 'When public evidence runs out, that boundary is stated plainly rather than filled with a confident-sounding guess.' },
   { t: 'Public evidence, plus your context', d: 'Competitor findings come from lawful, publicly accessible evidence, plus whatever context a client chooses to share. No private competitor data.' },
-  { t: 'Decision usefulness over volume', d: 'A brief is measured by whether it helps a team decide — not by page count, screenshot count or research theatre.' },
+  { t: 'Decision usefulness over volume', d: 'A brief is measured by whether it helps a team decide — bot by page count, screenshot count or research theatre.' },
   { t: 'Verifiable by you', d: 'Sources are listed so a finding can be checked independently. The method is designed to withstand scrutiny.' },
 ];
 ---
@@ -77,6 +77,41 @@ const standards = [
     </div>
   </section>
 
+  <!-- TRACK RECORD -->
+  <section class="section" data-surface="dark">
+    <div class="container">
+      <div class="track-record axis-frame">
+        <SectionIntro
+          eyebrow="Track record"
+          title="What the method has produced."
+          as="h2"
+          lede="One complete anonymised engagement shows the method at full depth — from baseline audit through investor-ready documentation."
+        />
+        <div class="tr-grid">
+          <div class="tr-item" data-reveal>
+            <span class="tr-n">350</span>
+            <span class="tr-l">Market entities mapped in a single competitive intelligence phase</span>
+          </div>
+          <div class="tr-item" data-reveal style="--reveal-delay:60ms;">
+            <span class="tr-n">4</span>
+            <span class="tr-l">Phases from baseline audit to investor-ready capital model</span>
+          </div>
+          <div class="tr-item" data-reveal style="--reveal-delay:120ms;">
+            <span class="tr-n">0</span>
+            <span class="tr-l">Scope surprises — Blueprint agreed before any research began</span>
+          </div>
+          <div class="tr-item" data-reveal style="--reveal-delay:180ms;">
+            <span class="tr-n">10+</span>
+            <span class="tr-l">Deliverables across competitive intelligence, product strategy, and capital planning</span>
+          </div>
+        </div>
+        <a href="/work/" class="link-arrow tr-link">
+          Read the full case study<span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <CTASection title="Put the method to work." />
 </Base>
 
@@ -94,6 +129,12 @@ const standards = [
   .std__t { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); }
   .std__d { color: var(--text-muted); max-width: 60ch; }
   .about-close { margin-top: 0; }
+  .track-record { display: grid; gap: var(--space-l); }
+  .tr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: var(--radius-m); overflow: hidden; }
+  .tr-item { background: var(--bg-raised); padding: var(--space-l) var(--space-m); display: flex; flex-direction: column; gap: 0.5rem; }
+  .tr-n { font-family: var(--font-display); font-size: var(--step-4); font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1; }
+  .tr-l { font-size: var(--step-0); color: var(--text-muted); }
+  .tr-link { margin-top: var(--space-s); }
   @media (min-width: 52rem) {
     .std__row { grid-template-columns: 20rem 1fr; gap: var(--space-l); align-items: baseline; }
   }
