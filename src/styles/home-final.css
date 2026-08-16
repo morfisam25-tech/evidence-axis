@@ -21,7 +21,7 @@
   mask-image:linear-gradient(90deg,transparent,#000 22%,#000 100%);
 }
 .film-v10__grid{position:relative;z-index:1;grid-template-columns:.56fr 1.44fr;gap:clamp(2.4rem,5vw,5.5rem)}
-.film-v10__copy;align-self:center;max-width:34rem}
+.film-v10__copy{align-self:center;max-width:34rem}
 .film-v10__copy h2{font-size:clamp(2.8rem,4.6vw,5.1rem);line-height:.94;letter-spacing:-.055em}
 .film-v10__copy p{font-size:1.05rem;line-height:1.72}
 .film-v10__stage{min-height:clamp(31rem,42vw,43rem);perspective:1600px}
