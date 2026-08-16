@@ -23,28 +23,33 @@ const services = [
 
 const capabilities = [
   { t: 'Turkey, Middle East & GCC — direct operations', d: 'Over a decade of active business operations across Turkey, the Gulf, and Central Asia — covering commodity trading, technology distribution, and food manufacturing. Not desk research. Direct experience.' },
+  { t: 'USA, Europe & Canada — active client work', d: 'Current engagements include AI content strategy for a US-based brand and education/brand consulting for a North American coaching company. The firm brings the same evidence-discipline to Western markets.' },
   { t: 'Multilingual research advantage', d: 'Evidence Axis operates in English, Turkish, Persian, and Azerbaijani — reaching primary sources and on-the-ground intelligence that English-only research firms simply cannot access.' },
   { t: 'Full commercial cycle depth', d: 'From product strategy and national sales management in consumer electronics through founding and scaling industrial operations — the firm brings end-to-end commercial perspective to every brief.' },
-  { t: 'Commodity and industrial markets', d: 'Deep operational knowledge of petroleum, petrochemicals, chemicals, and fertilizer markets across the MENA region and Central Asia — built through years of active trading, not secondary sources.' },
 ];
 ---
 <Base
   title="About"
-  description="Evidence Axis is a competitive intelligence and market strategy firm specialising in Turkey, the Middle East, and the GCC — built on 20 years of direct regional business experience."
+  description="Evidence Axis is a competitive intelligence and market strategy firm serving clients in the USA, Europe, Turkey, the Middle East, and the GCC — built on 20 years of direct international business experience."
   path="/about/"
 >
   <PageHeader
     eyebrow="About Evidence Axis"
-    title="Competitive intelligence built on 20 years of real regional experience."
-    lede="Evidence Axis is a market research and competitive intelligence firm specialising in Turkey, the Middle East, and the GCC. Every engagement draws on two decades of direct business operations across these markets — not generic desk research."
+    title="Competitive intelligence built on 20 years of real international experience."
+    lede="Evidence Axis is a market research and competitive intelligence firm serving clients in the USA, Europe, Turkey, the Middle East, and the GCC. Every engagement draws on two decades of direct business operations across these markets — not generic desk research."
   />
 
-  <section class="about-visual-section">
-    <div class="container-wide">
-      <figure class="about-visual-frame">
-        <img src="/assets/v10/premium/strategy-war-room.webp" alt="Evidence Axis — competitive intelligence and market strategy" loading="eager" />
-        <figcaption><span>THE STANDARD</span><b>Source → evidence state → reasoning → decision</b></figcaption>
-      </figure>
+  <section class="about-banner-section">
+    <div class="container">
+      <div class="about-banner">
+        <div class="ab-item"><span class="ab-n">20+</span><span class="ab-l">Years of direct international business operations</span></div>
+        <div class="ab-div"></div>
+        <div class="ab-item"><span class="ab-n">4</span><span class="ab-l">Languages — English, Turkish, Persian, Azerbaijani</span></div>
+        <div class="ab-div"></div>
+        <div class="ab-item"><span class="ab-n">5+</span><span class="ab-l">Countries and markets served directly</span></div>
+        <div class="ab-div"></div>
+        <div class="ab-item"><span class="ab-label">THE METHOD</span><span class="ab-l">Source → evidence state → reasoning → decision</span></div>
+      </div>
     </div>
   </section>
 
@@ -54,7 +59,7 @@ const capabilities = [
       <SectionIntro eyebrow="The firm" title="What Evidence Axis brings to an engagement." as="h2" />
       <div class="firm-body">
         <p class="about-lead__p">
-          Evidence Axis is a competitive intelligence and market strategy firm with 20 years of direct operational experience across Turkey, the Middle East, the GCC, and Central Asia. The firm has operated across commodity trading, technology distribution, food manufacturing, and consumer electronics — giving it a commercial depth that generalist research firms cannot replicate.
+          Evidence Axis is a competitive intelligence and market strategy firm with 20 years of direct operational experience across Turkey, the Middle East, the GCC, Central Asia, and international markets including the USA, Europe, and Canada. The firm has operated across commodity trading, technology distribution, food manufacturing, consumer electronics, and AI-led content strategy — giving it a commercial depth that generalist research firms cannot replicate.
         </p>
         <p class="about-lead__p">
           Research draws on multilingual access — English, Turkish, Persian, and Azerbaijani — reaching primary sources that most international consulting firms cannot reach. Every engagement is led at senior level, with no junior handoffs and no account management layers between client and analyst.
@@ -128,7 +133,7 @@ const capabilities = [
         <div class="team-copy">
           <SectionIntro eyebrow="Leadership" title="Sai Morfi — Founder & Managing Director." as="h2" />
           <p class="about-lead__p">
-            Sai Morfi founded Evidence Axis after 20 years leading business operations across Turkey, the Gulf, and Central Asia — including Unique Holding A.Ş. (international commodity trading), senior national management at Sony Gulf, and founding and scaling a food manufacturing group to 140+ employees and 35,000 meals per day.
+            Sai Morfi founded Evidence Axis after 20 years leading business operations across four continents — including Unique Holding A.Ş. (international commodity trading across Turkey, Europe, the Middle East, and Central Asia), senior national management at Sony Gulf, founding and scaling a food manufacturing group to 140+ employees, and AI content strategy for US and North American brands.
           </p>
           <p class="about-lead__p" style="color:var(--text-muted);">
             Every engagement at Evidence Axis is led by Sai directly. Engagements are asynchronous and tightly scoped so the research stays close to the decision it is meant to serve. The scope is agreed in writing before work begins. No surprises.
@@ -180,12 +185,13 @@ const capabilities = [
 </Base>
 
 <style>
-  .about-visual-section { padding: 2rem 0 0; background: linear-gradient(180deg,#07111f,#f7f2ea 88%); }
-  .about-visual-frame { position: relative; margin: 0; overflow: hidden; border-radius: 1.4rem; border: 1px solid rgba(105,164,235,.28); box-shadow: 0 34px 80px rgba(11,24,42,.26); background:#06111e; }
-  .about-visual-frame img { display:block; width:100%; height:auto; max-height:38rem; object-fit:cover; }
-  .about-visual-frame figcaption { position:absolute; left:1rem; right:1rem; bottom:1rem; display:flex; gap:.7rem; align-items:center; padding:.75rem .9rem; border-radius:.72rem; background:rgba(2,9,19,.76); backdrop-filter:blur(12px); color:#fff; }
-  .about-visual-frame figcaption span { font:800 .62rem/1 var(--font-mono); letter-spacing:.13em; color:#58ded7; }
-  .about-visual-frame figcaption b { font:700 .82rem/1.2 var(--font-display); }
+  .about-banner-section { padding: var(--space-l) 0; background: var(--bg-raised); border-bottom: 1px solid var(--hairline); }
+  .about-banner { display: flex; flex-wrap: wrap; gap: var(--space-m); align-items: center; justify-content: space-between; }
+  .ab-item { display: flex; flex-direction: column; gap: .25rem; }
+  .ab-n { font-family: var(--font-display); font-size: var(--step-3); font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: -.02em; }
+  .ab-label { font: 800 .6rem/1 var(--font-mono); letter-spacing: .13em; color: var(--accent); text-transform: uppercase; }
+  .ab-l { font-size: var(--step--1); color: var(--text-muted); max-width: 18ch; }
+  .ab-div { width: 1px; height: 2.5rem; background: var(--hairline); flex-shrink: 0; }
   .about-lead__p { font-size: var(--step-1); color: var(--text-muted); margin-bottom: var(--space-m); }
   .about-lead__p:first-child { color: var(--text); }
   .firm-wrap { display: grid; gap: var(--space-xl); }
