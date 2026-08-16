@@ -12,48 +12,103 @@ const standards = [
   { t: 'Decision usefulness over volume', d: 'A brief is measured by whether it helps a team decide — not by page count, screenshot count or research theatre.' },
   { t: 'Verifiable by you', d: 'Sources are listed so a finding can be checked independently. The method is designed to withstand scrutiny.' },
 ];
+
+const services = [
+  { t: 'Competitive Intelligence', d: 'Structured competitor briefs that separate verified facts from inferences — so you know exactly what you actually know about your rivals before making a move.' },
+  { t: 'Market Research', d: 'Market sizing, demand analysis, pricing benchmarks, customer segments, and entry barriers — for companies looking seriously at Turkey, the Middle East, and the GCC.' },
+  { t: 'Go-to-Market Strategy', d: 'Positioning, channel selection, pricing, and a step-by-step launch plan anchored in real market data, not generic templates.' },
+  { t: 'Market-Entry Planning', d: 'Country-specific entry strategies: regulations, local partners, competitive landscape, and a practical 90-day roadmap. Built from direct regional experience.' },
+  { t: 'Business Plans & Investor Documents', d: 'Investor-ready business plans, financial assumptions, and pitch narratives built on actual market research — not theoretical projections.' },
+];
+
+const capabilities = [
+  { t: 'Turkey, Middle East & GCC — direct operations', d: 'Over a decade of active business operations across Turkey, the Gulf, and Central Asia — covering commodity trading, technology distribution, and food manufacturing. Not desk research. Direct experience.' },
+  { t: 'Multilingual research advantage', d: 'Evidence Axis operates in English, Turkish, Persian, and Azerbaijani — reaching primary sources and on-the-ground intelligence that English-only research firms simply cannot access.' },
+  { t: 'Full commercial cycle depth', d: 'From product strategy and national sales management in consumer electronics through founding and scaling industrial operations — the firm brings end-to-end commercial perspective to every brief.' },
+  { t: 'Commodity and industrial markets', d: 'Deep operational knowledge of petroleum, petrochemicals, chemicals, and fertilizer markets across the MENA region and Central Asia — built through years of active trading, not secondary sources.' },
+];
 ---
 <Base
   title="About"
-  description="Evidence Axis is a competitor-intelligence practice for B2B SaaS teams, built on evidence discipline: sourced facts, labeled inferences, and honestly named unknowns."
+  description="Evidence Axis is a competitive intelligence and market strategy firm specialising in Turkey, the Middle East, and the GCC — built on 20 years of direct regional business experience."
   path="/about/"
 >
   <PageHeader
-    eyebrow="About"
-    title="A practice built on evidence discipline."
-    lede="Competitor information is abundant. Decision-grade evidence is not. Evidence Axis turns the public record into a traceable line from source to implication — without hiding uncertainty."
+    eyebrow="About Evidence Axis"
+    title="Competitive intelligence built on 20 years of real regional experience."
+    lede="Evidence Axis is a market research and competitive intelligence firm specialising in Turkey, the Middle East, and the GCC. Every engagement draws on two decades of direct business operations across these markets — not generic desk research."
   />
 
   <section class="about-visual-section">
     <div class="container-wide">
       <figure class="about-visual-frame">
-        <img src="/assets/v10/premium/strategy-war-room.webp" alt="Evidence Axis decision room showing evidence states and source-backed reasoning" loading="eager" />
+        <img src="/assets/v10/premium/strategy-war-room.webp" alt="Evidence Axis — competitive intelligence and market strategy" loading="eager" />
         <figcaption><span>THE STANDARD</span><b>Source → evidence state → reasoning → decision</b></figcaption>
       </figure>
     </div>
   </section>
 
+  <!-- THE FIRM -->
   <section class="section container">
-    <div class="about-lead measure">
-      <p class="about-lead__p">
-        B2B SaaS teams rarely lack competitor information. They lack a defensible line between what is
-        verified, what is a reasonable read, and what simply cannot be known from public sources.
-        Evidence Axis is built to draw that line carefully and make it useful for a real decision.
-      </p>
-      <p class="about-lead__p">
-        Engagements are asynchronous and tightly scoped so the research stays close to the decision.
-        Trust comes from the work itself: identifiable sources, visible evidence states, explicit limitations,
-        and a line of reasoning that can be checked rather than simply accepted.
-      </p>
+    <div class="firm-wrap">
+      <SectionIntro eyebrow="The firm" title="What Evidence Axis brings to an engagement." as="h2" />
+      <div class="firm-body">
+        <p class="about-lead__p">
+          Evidence Axis is a competitive intelligence and market strategy firm with 20 years of direct operational experience across Turkey, the Middle East, the GCC, and Central Asia. The firm has operated across commodity trading, technology distribution, food manufacturing, and consumer electronics — giving it a commercial depth that generalist research firms cannot replicate.
+        </p>
+        <p class="about-lead__p">
+          Research draws on multilingual access — English, Turkish, Persian, and Azerbaijani — reaching primary sources that most international consulting firms cannot reach. Every engagement is led at senior level, with no junior handoffs and no account management layers between client and analyst.
+        </p>
+        <p class="about-lead__p">
+          Evidence Axis exists because most competitor research is built on confident-sounding assertions that fall apart the moment someone asks "how do you know that?" The firm's standard is simple: state what the evidence actually shows, keep facts visibly separate from inferences, and never fill a gap with a guess.
+        </p>
+      </div>
     </div>
   </section>
 
+  <!-- CAPABILITIES -->
+  <section class="section" data-surface="dark">
+    <div class="container">
+      <SectionIntro
+        eyebrow="Firm capabilities"
+        title="What 20 years of regional operations looks like in practice."
+        lede="Evidence Axis's research capabilities are built on direct operational experience — not credentials alone."
+      />
+      <dl class="std axis-frame">
+        {capabilities.map((s) => (
+          <div class="std__row axis-tick" data-reveal>
+            <dt class="std__t">{s.t}</dt>
+            <dd class="std__d">{s.d}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section class="section container">
+    <SectionIntro
+      eyebrow="What we do"
+      title="Five disciplines. No scope creep."
+      lede="Every engagement is scoped to one of these disciplines. No vague 'consulting,' no scope creep, no deliverable that can't be used."
+    />
+    <dl class="std axis-frame">
+      {services.map((s) => (
+        <div class="std__row axis-tick" data-reveal>
+          <dt class="std__t">{s.t}</dt>
+          <dd class="std__d">{s.d}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- WORKING STANDARDS -->
   <section class="section" data-surface="dark">
     <div class="container">
       <SectionIntro
         eyebrow="Working standards"
         title="The standards are the product."
-        lede="These are operating rules for every brief, not marketing language added after the work is done."
+        lede="These operating rules apply to every engagement. They are not marketing language — they are the reason the work holds up when someone checks it."
       />
       <dl class="std axis-frame">
         {standards.map((s) => (
@@ -66,27 +121,21 @@ const standards = [
     </div>
   </section>
 
-  <section class="section container">
-    <div class="about-close measure">
-      <SectionIntro eyebrow="Why it exists" title="Because a good decision deserves honest evidence." as="h2" />
-      <p class="about-lead__p">
-        A competitor decision made on marketing language is a decision made on someone else's terms.
-        Evidence Axis turns the public record into something you can reason from — and marks clearly
-        where reasoning has to stop.
-      </p>
-    </div>
-  </section>
-
-  <!-- TEAM PHOTO -->
-  <section class="section team-section" data-surface="dark">
+  <!-- LEADERSHIP -->
+  <section class="section team-section">
     <div class="container">
       <div class="team-split">
         <div class="team-copy">
-          <SectionIntro eyebrow="The team" title="The people behind the method." as="h2" />
-          <p class="about-lead__p" style="color:var(--text-muted);">Senior strategists with backgrounds in competitive intelligence, product positioning, and capital markets. Every engagement is led directly — no junior staff, no handoffs.</p>
+          <SectionIntro eyebrow="Leadership" title="Sai Morfi — Founder & Managing Director." as="h2" />
+          <p class="about-lead__p">
+            Sai Morfi founded Evidence Axis after 20 years leading business operations across Turkey, the Gulf, and Central Asia — including Unique Holding A.Ş. (international commodity trading), senior national management at Sony Gulf, and founding and scaling a food manufacturing group to 140+ employees and 35,000 meals per day.
+          </p>
+          <p class="about-lead__p" style="color:var(--text-muted);">
+            Every engagement at Evidence Axis is led by Sai directly. Engagements are asynchronous and tightly scoped so the research stays close to the decision it is meant to serve. The scope is agreed in writing before work begins. No surprises.
+          </p>
         </div>
         <figure class="team-photo-frame" data-reveal>
-          <img src="/assets/v10/approved/team-photo.webp" alt="Evidence Axis team in office" loading="lazy" width="600" height="776" />
+          <img src="/assets/v10/approved/team-photo.webp" alt="Sai Morfi, Founder of Evidence Axis" loading="lazy" width="848" height="1098" />
         </figure>
       </div>
     </div>
@@ -104,16 +153,16 @@ const standards = [
         />
         <div class="tr-grid">
           <div class="tr-item" data-reveal>
+            <span class="tr-n">20+</span>
+            <span class="tr-l">Years of direct operational experience across Turkey, the Middle East, and Central Asia</span>
+          </div>
+          <div class="tr-item" data-reveal style="--reveal-delay:60ms;">
             <span class="tr-n">350</span>
             <span class="tr-l">Market entities mapped in a single competitive intelligence phase</span>
           </div>
-          <div class="tr-item" data-reveal style="--reveal-delay:60ms;">
-            <span class="tr-n">4</span>
-            <span class="tr-l">Phases from baseline audit to investor-ready capital model</span>
-          </div>
           <div class="tr-item" data-reveal style="--reveal-delay:120ms;">
-            <span class="tr-n">0</span>
-            <span class="tr-l">Scope surprises — Blueprint agreed before any research began</span>
+            <span class="tr-n">4</span>
+            <span class="tr-l">Phases from baseline audit to investor-ready capital model — zero scope surprises</span>
           </div>
           <div class="tr-item" data-reveal style="--reveal-delay:180ms;">
             <span class="tr-n">10+</span>
@@ -139,18 +188,18 @@ const standards = [
   .about-visual-frame figcaption b { font:700 .82rem/1.2 var(--font-display); }
   .about-lead__p { font-size: var(--step-1); color: var(--text-muted); margin-bottom: var(--space-m); }
   .about-lead__p:first-child { color: var(--text); }
+  .firm-wrap { display: grid; gap: var(--space-xl); }
+  .firm-body { display: grid; gap: 0; max-width: 72ch; }
   .std { margin-top: var(--space-xl); display: grid; gap: 0; }
   .std__row { display: grid; gap: var(--space-2xs); padding: var(--space-m) 0; border-top: 1px solid var(--hairline); }
   .std__t { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); }
   .std__d { color: var(--text-muted); max-width: 60ch; }
-  .about-close { margin-top: 0; }
   .track-record { display: grid; gap: var(--space-l); }
   .tr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: var(--radius-m); overflow: hidden; }
   .tr-item { background: var(--bg-raised); padding: var(--space-l) var(--space-m); display: flex; flex-direction: column; gap: 0.5rem; }
   .tr-n { font-family: var(--font-display); font-size: var(--step-4); font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1; }
   .tr-l { font-size: var(--step-0); color: var(--text-muted); }
   .tr-link { margin-top: var(--space-s); }
-  .team-section { }
   .team-split { display: grid; gap: var(--space-xl); align-items: center; }
   .team-copy { display: grid; gap: var(--space-m); }
   .team-photo-frame { margin: 0; border-radius: var(--radius-m); overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
