@@ -1,0 +1,524 @@
+---
+/**
+ * Work / Portfolio page — Evidence Axis
+ * Shows real, anonymized client work to demonstrate depth and methodology.
+ * Client name and contacts fully anonymized per engagement agreement.
+ */
+import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
+import SectionIntro from '@components/SectionIntro.astro';
+import CTASection from '@components/CTASection.astro';
+
+const phases = [
+  {
+    num: '01',
+    tag: 'Phase 1',
+    title: 'Strategic Baseline & Blueprint',
+    color: 'teal',
+    img: '/assets/v10/approved/two-competitor-decision-brief.webp',
+    imgAlt: 'Phase 1 portfolio cover — 6 CEO decisions, 5-module audit, evidence-graded blueprint',
+    delivery: '3 deliverables',
+    duration: 'Week 1',
+    summary:
+      'Before a single data point was collected, six founder decisions were documented and a signed 16-section Blueprint defined the research architecture, methodology, and deliverable format.',
+    bullets: [
+      '6 CEO decisions locked: platform type, customer segments, AI role, regulatory stance, capital strategy, evidence standard',
+      '5-module product audit: Product & Roadmap, Market & Competition, AI & Tech Stack, Business Model, Evidence Gaps',
+      'Evidence grading applied from day one: Validated · Indicative · Hypothesis',
+      '3 deliverables: Approved Blueprint, Baseline Deck, Excel Inventory',
+    ],
+  },
+  {
+    num: '02',
+    tag: 'Phase 2',
+    title: 'Market & Competitive Intelligence',
+    color: 'teal',
+    img: '/assets/v10/approved/market-intelligence-war-room.webp',
+    imgAlt: 'Phase 2 portfolio cover — 350-entity market map, 14 competitors, 9 benchmarks',
+    delivery: '3 deliverables',
+    duration: 'Weeks 1–2',
+    summary:
+      'A 350-entity market map filtered through a five-layer architecture to produce 14 direct competitors, 9 decision benchmarks, and an 8-domain capability matrix that identified the white space.',
+    bullets: [
+      '350 entities mapped → 29 near-term threats → 9 decision benchmarks → 14 Layer A direct competitors',
+      '8 capability domains scored: Education & Onboarding, Screening & IV Analytics, Portfolio State, Strategy & Backtesting, Broker Connectivity, Automation & AI, Wheel Lifecycle, Data & API',
+      '4 white spaces identified where no competitor leads across education, workflow, lifecycle, and technology',
+      '3 deliverables: 25-slide C-Suite Competitive Deck, Executive Summary, Delivery & Acceptance Note',
+    ],
+  },
+  {
+    num: '03',
+    tag: 'Phases 3–4',
+    title: 'Product Strategy, AI Architecture & Capital Roadmap',
+    color: 'orange',
+    img: '/assets/v10/approved/strategic-blueprint.webp',
+    imgAlt: 'Phase 3-4 portfolio cover — 3-sided platform, AI-native OS, 4-phase roadmap, capital model',
+    delivery: '4 deliverables',
+    duration: 'Weeks 2–3',
+    summary:
+      'A full product system: three platform surfaces, an AI-native operating system with four agents, a 17-step supervised Trader workflow, and a conditional 24-month capital model in three scenarios.',
+    bullets: [
+      '3-sided platform: Student Surface · Trader Surface · Teacher Operating Layer',
+      'AI-native OS: Student AI + Trader AI + Teacher AI + Orchestrator, over 27 canonical data objects and 30 supervised workflows',
+      '4-phase conditional roadmap: P1 Proof → P2 Core Platform → P3 Teacher Proof → P4 Selective Scale',
+      '3-scenario capital model: Lean $1.1M · Base $6.5M · Accelerated $18.8M — tranche-gated, evidence-gated',
+      '4 deliverables: 6-page Investor Summary, 26-slide C-Suite Deck, 44-page Consolidated Report, Excel Capital Model',
+    ],
+  },
+];
+
+const metrics = [
+  { n: '350', label: 'Market entities mapped' },
+  { n: '14', label: 'Direct competitors identified' },
+  { n: '9', label: 'Decision benchmarks scored' },
+  { n: '8', label: 'Capability domains assessed' },
+  { n: '47', label: 'Product capabilities designed' },
+  { n: '3', label: 'Capital scenarios modelled' },
+];
+---
+<Base
+  title="Work — Evidence Axis"
+  description="Anonymized client work demonstrating the Evidence Axis method across a complete 4-phase engagement: market mapping, competitive intelligence, product architecture, AI strategy, and capital roadmap."
+  path="/work/"
+>
+  <PageHeader
+    eyebrow="Work"
+    title="One engagement. Every layer of the method."
+    lede="A complete anonymised case study across four phases — market mapping, competitive intelligence, product architecture, AI-native operating system, and a capital roadmap for a founder raising their first institutional round."
+    meta={['Client anonymised per engagement agreement', '4 phases · ~3 weeks', 'All claims evidence-graded']}
+  />
+
+  <!-- METRICS STRIP -->
+  <section class="section" data-surface="dark">
+    <div class="container-wide">
+      <ul class="metrics" role="list">
+        {metrics.map((m) => (
+          <li class="metric">
+            <span class="metric__n">{m.n}</span>
+            <span class="metric__label">{m.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ENGAGEMENT CONTEXT -->
+  <section class="section container">
+    <div class="context-grid">
+      <div class="context-copy">
+        <SectionIntro
+          eyebrow="Engagement context"
+          title="A FinTech / EdTech platform for retail options traders."
+          lede="The client was building a combined education and trading-workflow tool for retail investors selling options on individual equities. The engagement ran four phases from initial audit through investor-ready product and capital documentation."
+        />
+        <p class="context-p">
+          The founder needed evidence for three audiences simultaneously: a product team about to build,
+          investors who would scrutinize every assumption, and advisors who needed to see the white space
+          before committing time. The method — evidence-graded from the first document to the last — is
+          the same at each phase.
+        </p>
+        <p class="context-p">
+          No finding in any deliverable appears without its evidence grade. Every assumption is declared.
+          Every unknown is named rather than guessed. That discipline is what made the material investor-ready.
+        </p>
+      </div>
+      <div class="context-aside axis-frame">
+        <h3 class="label" style="margin-bottom: var(--space-m);">What the engagement produced</h3>
+        <ul class="produced-list">
+          <li class="produced-item axis-tick" data-reveal>
+            <span class="produced-num mono">P1</span>
+            <div>
+              <strong>Approved Blueprint</strong>
+              <p>16-section research architecture, signed before any data was collected</p>
+            </div>
+          </li>
+          <li class="produced-item axis-tick" data-reveal style="--reveal-delay:80ms;">
+            <span class="produced-num mono">P2</span>
+            <div>
+              <strong>25-Slide C-Suite Competitive Deck</strong>
+              <p>350-entity market map with 8-domain capability matrix and white-space analysis</p>
+            </div>
+          </li>
+          <li class="produced-item axis-tick" data-reveal style="--reveal-delay:160ms;">
+            <span class="produced-num mono">P3</span>
+            <div>
+              <strong>26-Slide Investor & C-Suite Deck</strong>
+              <p>3-sided platform, AI-native OS, and 4-phase conditional roadmap</p>
+            </div>
+          </li>
+          <li class="produced-item axis-tick" data-reveal style="--reveal-delay:240ms;">
+            <span class="produced-num mono">P4</span>
+            <div>
+              <strong>44-Page Consolidated Strategy Report</strong>
+              <p>Full strategic reasoning, product architecture, capital model, risk register</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLUEPRINT CALLOUT -->
+  <section class="section" data-surface="dark">
+    <div class="container">
+      <div class="bp-callout axis-frame">
+        <div class="bp-callout__copy">
+          <SectionIntro
+            eyebrow="Blueprint-first"
+            title="Architecture before analysis. Agreement before evidence."
+            as="h2"
+          />
+          <p class="measure bp-p">
+            Every engagement begins with a signed Blueprint — a 16-section document that defines the
+            research scope, analytical frameworks, evidence standards, and deliverable format before a
+            single data point is collected. This is not onboarding. It is how misalignment is
+            eliminated at the start rather than discovered at the end.
+          </p>
+          <p class="measure bp-p">
+            The Blueprint is also the client's veto right: if scope changes, the Blueprint changes
+            first. Nothing enters the research without being agreed as in-scope.
+          </p>
+          <div class="bp-callout__actions">
+            <a href="/strategic-blueprint/" class="btn btn--lg">
+              Learn about the Blueprint<span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+        <dl class="bp-stats">
+          <div class="bp-stat">
+            <dt class="bp-stat__n">16</dt>
+            <dd class="bp-stat__l">Report sections defined</dd>
+          </div>
+          <div class="bp-stat">
+            <dt class="bp-stat__n">7</dt>
+            <dd class="bp-stat__l">Analytical frameworks</dd>
+          </div>
+          <div class="bp-stat">
+            <dt class="bp-stat__n">6</dt>
+            <dd class="bp-stat__l">CEO decisions locked</dd>
+          </div>
+          <div class="bp-stat">
+            <dt class="bp-stat__n">0</dt>
+            <dd class="bp-stat__l">Scope surprises at delivery</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASES -->
+  <section class="section container" id="phases">
+    <SectionIntro
+      eyebrow="Phase by phase"
+      title="What the method looks like in practice."
+      lede="Each phase builds on the last. The evidence grade from Phase 1 carries forward — nothing is re-graded as 'validated' without new sources."
+    />
+
+    <div class="phases">
+      {phases.map((p, i) => (
+        <article class="phase-card" data-color={p.color} data-reveal style={`--reveal-delay:${i * 80}ms;`}>
+          <div class="phase-card__header">
+            <span class="phase-card__num mono">{p.num}</span>
+            <div>
+              <span class="label phase-card__tag">{p.tag}</span>
+              <h3 class="phase-card__title">{p.title}</h3>
+            </div>
+            <div class="phase-card__meta">
+              <span class="mono">{p.delivery}</span>
+              <span class="mono">{p.duration}</span>
+            </div>
+          </div>
+
+          <div class="phase-card__body">
+            <div class="phase-card__left">
+              <p class="phase-card__summary">{p.summary}</p>
+              <ul class="phase-card__bullets">
+                {p.bullets.map((b) => (
+                  <li class="phase-card__bullet axis-tick">{b}</li>
+                ))}
+              </ul>
+            </div>
+            <div class="phase-card__right">
+              <div class="phase-card__img-wrap">
+                <img
+                  src={p.img}
+                  alt={p.imgAlt}
+                  width="600"
+                  height="400"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- EVIDENCE STANDARD -->
+  <section class="section" data-surface="dark">
+    <div class="container">
+      <div class="evidence-standard">
+        <SectionIntro
+          eyebrow="Evidence standard"
+          title="Every claim labeled. Every assumption declared."
+          as="h2"
+          lede="The grading system runs across every deliverable in this engagement — from the first Blueprint to the final investor deck."
+        />
+        <div class="ev-grades">
+          <div class="ev-grade" data-reveal>
+            <span class="state state--fact">Validated</span>
+            <p>Multiple independent sources, cross-confirmed data — the IV-to-VIX correlation cited in Phase 1 was graded Validated after four independent confirmations.</p>
+          </div>
+          <div class="ev-grade" data-reveal style="--reveal-delay:80ms;">
+            <span class="state state--inference">Indicative</span>
+            <p>Directionally reliable with limited corroboration — used for market size estimates and category positioning claims where public evidence is partial.</p>
+          </div>
+          <div class="ev-grade" data-reveal style="--reveal-delay:160ms;">
+            <span class="state state--unknown">Hypothesis</span>
+            <p>Informed assumption requiring customer validation — Gate 1 in the Phase 4 roadmap defines exactly what must be proved before capital is released.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY FINDING CALL-OUT (the kind of insight that justifies the work) -->
+  <section class="section container">
+    <div class="key-finding axis-frame">
+      <span class="label">Key competitive finding · Phase 2 · Evidence grade: Validated</span>
+      <blockquote class="key-finding__quote">
+        "No single competitor leads across education, workflow, lifecycle, and technology — the
+        central strategic signal for positioning and product investment."
+      </blockquote>
+      <p class="key-finding__context">
+        Drawn from the 8-domain capability matrix scored across 9 decision benchmarks.
+        The full evidence base, source register, and scoring methodology are in the 25-slide
+        competitive deck delivered to the founder. This finding directly shaped the P1 Proof
+        build strategy in the Phase 4 roadmap.
+      </p>
+    </div>
+  </section>
+
+  <CTASection
+    title="Put the method to work on your question."
+    body="The same evidence discipline — Blueprint-first, every claim graded — applied to your competitive landscape. A Two-Competitor Decision Brief is $150 at pilot pricing, delivered in 3 business days."
+  />
+</Base>
+
+<style>
+  /* Metrics strip */
+  .metrics {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+  .metric {
+    padding: var(--space-l) var(--space-m);
+    border-top: 1px solid var(--hairline);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .metric__n {
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .metric__label {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Context */
+  .context-grid { display: grid; gap: var(--space-xl); align-items: start; }
+  .context-p { margin-top: var(--space-m); color: var(--text-muted); max-width: 60ch; }
+
+  .produced-list { list-style: none; padding: 0; margin-top: var(--space-l); display: grid; gap: 0; }
+  .produced-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-m);
+    padding: var(--space-m) 0;
+    border-top: 1px solid var(--hairline);
+    align-items: start;
+  }
+  .produced-item strong { font-family: var(--font-display); font-weight: 500; font-size: var(--step-0); display: block; margin-bottom: 0.25em; }
+  .produced-item p { color: var(--text-muted); font-size: var(--step--1); }
+  .produced-num { color: var(--accent); font-size: var(--step--1); padding-top: 0.1em; }
+
+  /* Blueprint callout */
+  .bp-callout { display: grid; gap: var(--space-xl); align-items: start; }
+  .bp-p { margin-top: var(--space-m); color: var(--text-muted); }
+  .bp-callout__actions { margin-top: var(--space-l); }
+  .bp-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-s);
+    overflow: hidden;
+  }
+  .bp-stat {
+    background: var(--bg-raised);
+    padding: var(--space-l) var(--space-m);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .bp-stat__n {
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .bp-stat__l {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Phases */
+  .phases { margin-top: var(--space-2xl); display: grid; gap: var(--space-2xl); }
+
+  .phase-card {
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-m);
+    overflow: hidden;
+    background: var(--bg-raised);
+  }
+
+  .phase-card__header {
+    display: flex;
+    gap: var(--space-m);
+    align-items: center;
+    padding: var(--space-l) var(--space-xl);
+    border-bottom: 1px solid var(--hairline);
+    flex-wrap: wrap;
+  }
+
+  .phase-card__num {
+    font-size: var(--step-4);
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.25;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    flex: none;
+  }
+
+  .phase-card__tag { display: block; margin-bottom: 0.25em; }
+  .phase-card__title { font-family: var(--font-display); font-size: var(--step-2); font-weight: 500; }
+
+  .phase-card__meta {
+    margin-left: auto;
+    display: flex;
+    gap: var(--space-m);
+    flex-wrap: wrap;
+  }
+  .phase-card__meta .mono {
+    font-size: var(--step--1);
+    color: var(--text-faint);
+    background: var(--bg-sunken);
+    border: 1px solid var(--surface-border);
+    padding: 0.35em 0.75em;
+    border-radius: var(--radius-xs);
+  }
+
+  .phase-card__body {
+    display: grid;
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+  }
+
+  .phase-card__summary {
+    font-size: var(--step-1);
+    color: var(--text-muted);
+    max-width: 56ch;
+    margin-bottom: var(--space-l);
+  }
+
+  .phase-card__bullets {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-s);
+    padding-left: clamp(1rem, 3vw, 2rem);
+  }
+
+  .phase-card__bullet {
+    font-size: var(--step-0);
+    color: var(--text-muted);
+    padding: 0.4rem 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .phase-card__bullet:first-child { border-top: none; }
+
+  .phase-card__img-wrap {
+    border-radius: var(--radius-s);
+    overflow: hidden;
+    border: 1px solid var(--surface-border);
+    aspect-ratio: 3/2;
+  }
+
+  .phase-card__img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Evidence grades */
+  .ev-grades { display: grid; gap: var(--space-l); margin-top: var(--space-xl); }
+  .ev-grade { display: grid; gap: var(--space-s); }
+  .ev-grade p { color: var(--text-muted); max-width: 52ch; }
+
+  /* Key finding */
+  .key-finding {
+    padding: var(--space-xl) var(--space-2xl);
+    background: var(--bg-raised);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-m);
+    display: grid;
+    gap: var(--space-m);
+  }
+  .key-finding .label { color: var(--fact); }
+  .key-finding__quote {
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    color: var(--text);
+    line-height: var(--leading-snug);
+    font-style: italic;
+    max-width: 66ch;
+  }
+  .key-finding__context { color: var(--text-muted); max-width: 60ch; font-size: var(--step-0); }
+
+  @media (min-width: 44rem) {
+    .metrics { grid-template-columns: repeat(3, 1fr); }
+    .ev-grades { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 56rem) {
+    .context-grid { grid-template-columns: 1fr 1fr; }
+    .phase-card__body { grid-template-columns: 1.1fr 0.9fr; align-items: start; }
+    .bp-callout { grid-template-columns: 1.2fr 0.8fr; }
+  }
+
+  @media (min-width: 72rem) {
+    .metrics { grid-template-columns: repeat(6, 1fr); }
+  }
+</style>

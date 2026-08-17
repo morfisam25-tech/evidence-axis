@@ -34,8 +34,17 @@ const disciplines = [
     meta={['Public competitor evidence + your context', 'Fact / Inference / Unknown', 'Source register on every brief']}
   />
 
+  <!-- APPROVED-PAGE-VISUAL -->
+  <section class="approved-page-visual" data-approved-page-visual>
+    <div class="container approved-page-visual__inner">
+      <figure class="approved-page-visual__frame">
+        <img src="/assets/v10/approved/method-from-source-to-decision.webp" alt="Evidence Axis method: from public source through observation, fact, inference and unknown to decision output." loading="eager" />
+      </figure>
+    </div>
+  </section>
+
   <!-- FIU -->
-  <section class="section container">
+  <section class="section container" id="evidence-states">
     <SectionIntro
       eyebrow="The core distinction"
       title="Three states, kept separate on purpose."
@@ -45,7 +54,7 @@ const disciplines = [
   </section>
 
   <!-- EVIDENCE CHAIN -->
-  <section class="section" data-surface="dark">
+  <section class="section" data-surface="dark" id="evidence-chain">
     <div class="container">
       <SectionIntro
         eyebrow="Traceable reasoning"
@@ -57,7 +66,7 @@ const disciplines = [
   </section>
 
   <!-- PROCESS -->
-  <section class="section container">
+  <section class="section container" id="workflow">
     <SectionIntro
       eyebrow="The sequence"
       title="From decision question to decision brief."
@@ -66,7 +75,7 @@ const disciplines = [
   </section>
 
   <!-- DISCIPLINES -->
-  <section class="section" data-surface="dark">
+  <section class="section" data-surface="dark" id="limitations">
     <div class="container">
       <SectionIntro
         eyebrow="What the discipline covers"
@@ -97,6 +106,7 @@ const disciplines = [
   }
   .disc__t { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); }
   .disc__d { color: var(--text-muted); max-width: 60ch; }
+  section[id] { scroll-margin-top: 6.5rem; }
   @media (min-width: 52rem) {
     .disc__row { grid-template-columns: 18rem 1fr; gap: var(--space-l); align-items: baseline; }
   }

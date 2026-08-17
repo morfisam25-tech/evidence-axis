@@ -1,0 +1,98 @@
+name: Apply approved Evidence Axis designs
+
+on:
+  push:
+    branches:
+      - redesign-v10
+    paths:
+      - 'approved-designs.ready'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install approved visuals into pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          pages = {
+              'src/pages/competitor-brief.astro': ('/assets/v10/approved/two-competitor-decision-brief.webp', 'Two-Competitor Decision Brief — what the client receives.'),
+              'src/pages/method.astro': ('/assets/v10/approved/method-from-source-to-decision.webp', 'Evidence Axis method from public source to decision.'),
+              'src/pages/market-intelligence.astro': ('/assets/v10/approved/market-intelligence-war-room.webp', 'Evidence Axis market intelligence research in context.'),
+              'src/pages/strategic-blueprint.astro': ('/assets/v10/approved/strategic-blueprint.webp', 'Strategic Blueprint for higher-stakes decisions.'),
+              'src/pages/sample-report.astro': ('/assets/v10/approved/sample-report-showcase.webp', 'Evidence Axis sample report format.'),
+          }
+
+          def approved_visual(src, alt):
+              return f'''\n\n  <!-- APPROVED-PAGE-VISUAL -->\n  <section class="approved-page-visual" data-approved-page-visual>\n    <div class="container approved-page-visual__inner">\n      <figure class="approved-page-visual__frame">\n        <img src="{src}" alt="{alt}" loading="eager" />\n      </figure>\n    </div>\n  </section>\n'''
+
+          for filename, (src, alt) in pages.items():
+              p = Path(filename)
+              if not p.exists():
+                  print('skip missing', filename)
+                  continue
+              text = p.read_text()
+              if 'APPROVED-PAGE-VISUAL' in text:
+                  continue
+              start = text.find('<PageHeader')
+              if start < 0:
+                  print('skip no PageHeader', filename)
+                  continue
+              end = text.find('/>', start)
+              if end < 0:
+                  print('skip no PageHeader close', filename)
+                  continue
+              end += 2
+              text = text[:end] + approved_visual(src, alt) + text[end:]
+              p.write_text(text)
+
+          index = Path('src/pages/index.astro')
+          if index.exists():
+              text = index.read_text()
+              replacements = {
+                  '/assets/v10/command-center-approved.svg': '/assets/v10/approved/global-trading-command-center.webp',
+                  '/assets/v10/approved-visual-gallery.webp': '/assets/v10/approved/what-you-get.webp',
+                  '/assets/v10/evidence-matrix.svg': '/assets/v10/approved/what-you-get.webp',
+                  '/assets/v10/decision-brief.svg': '/assets/v10/approved/decision-ready-showcase.webp',
+                  '/assets/v10/decision-dashboard.webp': '/assets/v10/approved/decision-ready-showcase.webp',
+                  '/assets/v10/ai-comparison.svg': '/assets/v10/approved/generic-ai-vs-evidence-axis.webp',
+                  '/assets/v10/decision-room.svg': '/assets/v10/approved/global-trading-command-center.webp',
+              }
+              for old, new in replacements.items():
+                  text = text.replace(old, new)
+              if Path('public/assets/v10/approved/system-film.mp4').exists():
+                  text = re.sub(r"const filmUrl = ['\"][^'\"]+['\"];", "const filmUrl = '/assets/v10/approved/system-film.mp4';", text)
+              index.write_text(text)
+
+          css = Path('src/styles/global.css')
+          if css.exists():
+              text = css.read_text()
+              marker = '/* APPROVED-PAGE-VISUAL-STYLES */'
+              if marker not in text:
+                  text += '''\n\n/* APPROVED-PAGE-VISUAL-STYLES */\n.approved-page-visual{padding:clamp(1.5rem,3vw,3rem) 0 clamp(3rem,6vw,5rem);background:#030a16;color:#fff}.approved-page-visual__inner{max-width:92rem}.approved-page-visual__frame{margin:0;overflow:hidden;border-radius:1.35rem;border:1px solid rgba(91,164,255,.28);background:#061224;box-shadow:0 30px 90px rgba(0,0,0,.32)}.approved-page-visual__frame img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}@media(max-width:720px){.approved-page-visual{padding-top:1rem}.approved-page-visual__frame{border-radius:.9rem}.approved-page-visual__frame img{aspect-ratio:4/3}}\n'''
+                  css.write_text(text)
+          PY
+
+          rm -f approved-designs.ready
+
+      - name: Commit approved-page integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Evidence Axis Deploy Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add -A
+          git commit -m 'Apply approved Evidence Axis designs across site' || exit 0
+          git push

@@ -1,135 +1,647 @@
 ---
 import Base from '@layouts/Base.astro';
-import PageHeader from '@components/PageHeader.astro';
 import { contact, offers } from '@config/site';
 
-const services = [offers.twoCompetitor, offers.fiveCompetitor, offers.blueprint];
 const email = contact.email ?? 'hello@evidenceaxis.com';
 const mailto = `mailto:${email}?subject=${encodeURIComponent('Evidence Axis brief request')}`;
+
+const services = [
+  { ...offers.twoCompetitor, icon: '02', tag: 'BEST START' },
+  { ...offers.fiveCompetitor, icon: '05', tag: 'FULL PICTURE' },
+  { ...offers.blueprint, icon: 'SB', tag: 'DEEP DIVE' },
+];
+
+const checklist = [
+  { num: '01', title: 'Decision', desc: 'The question or commercial move you need to make.' },
+  { num: '02', title: 'Competitors', desc: 'The named companies or products the decision depends on.' },
+  { num: '03', title: 'Context', desc: 'Your company/product URL and anything that changes what "better" means.' },
+  { num: '04', title: 'Priority', desc: 'Dimensions you suspect matter: pricing, product, positioning, packaging.' },
+  { num: '05', title: 'Timing', desc: 'Any date by which the evidence needs to be useful.' },
+];
+
+const steps = [
+  { num: '01', title: 'Scope check', desc: 'We read the question, confirm whether public evidence can answer it, and tighten the boundary.' },
+  { num: '02', title: 'Written confirmation', desc: 'You receive scope, deliverables, timing, and price before work begins.' },
+  { num: '03', title: 'Research', desc: 'Evidence is collected, dated, and separated into Fact, Inference, and Unknown.' },
+  { num: '04', title: 'Delivery', desc: 'You receive the decision brief and source register on the agreed timeline.' },
+];
 ---
 <Base
   title="Contact"
-  description="Start an Evidence Axis brief. Send a decision question and the competitors that bear on it — asynchronous, no sales call required."
+  description="Start an Evidence Axis brief. Send a decision question and the competitors that bear on it â asynchronous, no sales call required."
   path="/contact/"
 >
-  <PageHeader
-    eyebrow="Start a brief"
-    title="Send the question. The evidence comes back structured."
-    lede="Tell us the decision you need to make and the competitors involved. A person reads every inquiry and confirms scope before work begins."
-    meta={['Asynchronous · no sales call', 'Public competitor evidence + your context', 'Payment arranged after scope is agreed']}
-  />
-
-  <section class="section container">
-    <div class="contact-grid">
-      <div class="contact-main">
-        <div class="contact-email-card">
-          <span class="label">Launch contact channel</span>
-          <h2>Start your brief by email.</h2>
-          <p>
-            Send the decision or research question, the competitors involved, and any context that changes what should be investigated.
-          </p>
-
-          <a class="btn btn--lg" href={mailto}>
-            Email {email}<span class="btn-arrow" aria-hidden="true">→</span>
+  <!-- âââââââââââââââââââ HERO âââââââââââââââââââ -->
+  <section class="ct-hero" data-surface="dark">
+    <div class="container-wide ct-hero__inner">
+      <div class="ct-hero__content">
+        <span class="label eyebrow">Start a brief</span>
+        <h1 class="ct-hero__h1">Send the decision.<br/>We define the evidence&nbsp;boundary.</h1>
+        <p class="ct-hero__lede">Tell us what you need to decide and which competitors bear on it. Scope is confirmed in writing before research begins â no discovery call&nbsp;required.</p>
+        <div class="ct-hero__actions">
+          <a class="btn btn--lg ct-hero__cta" href={mailto}>
+            Email us directly<span class="btn-arrow" aria-hidden="true">&rarr;</span>
           </a>
-
-          <div class="contact-email-details">
-            <h3 class="label">Useful details to include</h3>
-            <ul>
-              <li>Your name, company and role</li>
-              <li>The service you are considering</li>
-              <li>The decision or research question</li>
-              <li>The competitors to investigate</li>
-              <li>Your desired timing</li>
-              <li>Any internal context we should use when defining scope</li>
-            </ul>
+          <span class="ct-hero__email mono">{email}</span>
+        </div>
+        <ul class="ct-hero__tags">
+          <li><span class="ct-tag-dot"></span>Asynchronous by default</li>
+          <li><span class="ct-tag-dot"></span>Scope confirmed first</li>
+          <li><span class="ct-tag-dot"></span>Public evidence + your context</li>
+        </ul>
+      </div>
+      <div class="ct-hero__visual">
+        <div class="ct-hero__card">
+          <div class="ct-hero__card-header">
+            <span class="ct-hero__card-dot ct-hero__card-dot--green"></span>
+            <span class="ct-hero__card-dot ct-hero__card-dot--amber"></span>
+            <span class="ct-hero__card-dot ct-hero__card-dot--red"></span>
+            <span class="ct-hero__card-title mono">NEW BRIEF REQUEST</span>
           </div>
-
-          <p class="contact-direct mono">
-            Direct email: <a href={`mailto:${email}`}>{email}</a>
-          </p>
+          <div class="ct-hero__card-body">
+            <div class="ct-hero__card-field">
+              <span class="ct-hero__card-label">Decision</span>
+              <span class="ct-hero__card-value">Should we enter the APAC market via reseller or direct?</span>
+            </div>
+            <div class="ct-hero__card-field">
+              <span class="ct-hero__card-label">Competitors</span>
+              <span class="ct-hero__card-value">Acme Corp, Globex, Initech</span>
+            </div>
+            <div class="ct-hero__card-field">
+              <span class="ct-hero__card-label">Service</span>
+              <span class="ct-hero__card-value ct-hero__card-value--accent">Five-Competitor Evidence Brief</span>
+            </div>
+            <div class="ct-hero__card-field">
+              <span class="ct-hero__card-label">Timing</span>
+              <span class="ct-hero__card-value">Board meeting in 3 weeks</span>
+            </div>
+          </div>
+          <div class="ct-hero__card-footer mono">
+            <span class="ct-hero__card-status">SCOPE CHECK IN PROGRESS</span>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <aside class="contact-aside">
-        <h2 class="label contact-aside__h">The three services</h2>
-        <ul class="contact-services">
-          {services.map((s) => (
-            <li class="contact-service">
-              <span class="contact-service__name">{s.name}</span>
-              <span class="contact-service__price mono">{s.priceDisplay}</span>
-              <span class="contact-service__meta mono">{s.delivery}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div class="contact-note">
-          <h3 class="label">How it works</h3>
-          <ol class="contact-steps">
-            <li>You send a decision question and the competitors involved.</li>
-            <li>We confirm scope, boundary and price — no obligation.</li>
-            <li>The brief is delivered on the agreed timeline.</li>
-            <li>Payment is arranged after scope is agreed, outside this site.</li>
-          </ol>
+  <!-- âââââââââââââââââââ WHAT TO SEND âââââââââââââââââââ -->
+  <section class="ct-what section">
+    <div class="container-wide ct-what__inner">
+      <div class="ct-what__head">
+        <span class="label eyebrow">What to include</span>
+        <h2>Five things are enough to&nbsp;start.</h2>
+        <p>You do not need to prepare a research brief. Give us the decision, the competitors, and the context. We turn that into a bounded evidence&nbsp;question.</p>
+      </div>
+      <div class="ct-what__grid">
+        {checklist.map((item) => (
+          <article class="ct-check">
+            <span class="ct-check__num mono">{item.num}</span>
+            <div class="ct-check__body">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </article>
+        ))}
+        <div class="ct-check ct-check--cta">
+          <div class="ct-check__body">
+            <h3>That's it.</h3>
+            <p>If something is missing, we clarify scope in writing before any paid work begins.</p>
+            <a class="btn ct-check__btn" href={mailto}>
+              Start the brief<span class="btn-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <p class="contact-privacy mono">
-          What you share is used only to scope and deliver your brief. See our{' '}
-          <a href="/privacy/">Privacy</a> note.
+  <!-- âââââââââââââââââââ SERVICES âââââââââââââââââââ -->
+  <section class="ct-services" data-surface="dark">
+    <div class="container-wide">
+      <div class="ct-services__head">
+        <span class="label eyebrow">Choose a starting depth</span>
+        <h2>Three levels of evidence.</h2>
+        <p>Not sure? Start with the Two-Competitor Brief. A wider scope only makes sense when the decision genuinely needs&nbsp;it.</p>
+      </div>
+      <div class="ct-services__grid">
+        {services.map((s, i) => (
+          <article class={`ct-svc ${i === 0 ? 'ct-svc--featured' : ''}`}>
+            {i === 0 && <span class="ct-svc__badge mono">RECOMMENDED</span>}
+            <span class="ct-svc__icon mono">{s.icon}</span>
+            <h3 class="ct-svc__name">{s.name}</h3>
+            <span class="ct-svc__price">{s.priceDisplay}</span>
+            <span class="ct-svc__delivery mono">{s.delivery}</span>
+            <p class="ct-svc__scope">{s.scope}</p>
+            <a class="ct-svc__link" href={mailto}>Request this brief &rarr;</a>
+          </article>
+        ))}
+      </div>
+      <p class="ct-services__compare">
+        <a href="/competitor-brief/">Compare all brief options in detail &rarr;</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- âââââââââââââââââââ PROCESS âââââââââââââââââââ -->
+  <section class="ct-process section">
+    <div class="container-wide">
+      <div class="ct-process__head">
+        <span class="label eyebrow">What happens next</span>
+        <h2>No sales theatre. Four written&nbsp;steps.</h2>
+        <p>Scope comes before research, and research comes before a recommendation.</p>
+      </div>
+      <div class="ct-process__grid">
+        {steps.map((step) => (
+          <article class="ct-step">
+            <span class="ct-step__num mono">{step.num}</span>
+            <h3 class="ct-step__title">{step.title}</h3>
+            <p class="ct-step__desc">{step.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- âââââââââââââââââââ FINAL CTA âââââââââââââââââââ -->
+  <section class="ct-final" data-surface="dark">
+    <div class="container-wide ct-final__inner">
+      <div class="ct-final__content">
+        <h2>Ready to start?</h2>
+        <p>Send the question and competitors. That is enough to begin.</p>
+      </div>
+      <div class="ct-final__actions">
+        <a class="btn btn--lg ct-final__btn" href={mailto}>
+          Start a Brief<span class="btn-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <p class="ct-final__email mono">
+          Or email directly: <a href={`mailto:${email}`}>{email}</a>
         </p>
-      </aside>
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .contact-grid { display: grid; gap: var(--space-xl); }
-  .contact-email-card {
-    background: var(--bg-raised);
-    border: 1px solid var(--surface-border);
-    border-radius: var(--radius-l);
-    padding: clamp(var(--space-l), 5vw, var(--space-xl));
-  }
-  .contact-email-card h2 { margin-top: var(--space-s); max-width: 18ch; }
-  .contact-email-card > p { max-width: 62ch; color: var(--text-muted); }
-  .contact-email-card .btn { margin-top: var(--space-m); }
-  .contact-email-details {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-l);
-    border-top: 1px solid var(--hairline);
-  }
-  .contact-email-details ul {
-    margin: var(--space-s) 0 0;
-    padding-left: 1.3em;
-    display: grid;
-    gap: 0.5rem;
-    color: var(--text-muted);
-  }
-  .contact-direct {
-    margin-top: var(--space-l);
-    font-size: var(--step--1);
-    color: var(--text-faint);
-  }
-  .contact-aside__h { display: block; margin-bottom: var(--space-s); }
-  .contact-services { list-style: none; padding: 0; display: grid; gap: var(--space-s); }
-  .contact-service {
-    display: grid; grid-template-columns: 1fr auto; gap: 0.2em var(--space-s); align-items: baseline;
-    padding: var(--space-s) 0; border-top: 1px solid var(--hairline);
-  }
-  .contact-service__name { font-family: var(--font-display); font-weight: 500; font-size: 0.98rem; }
-  .contact-service__price { color: var(--accent); }
-  .contact-service__meta { grid-column: 1 / -1; font-size: var(--step--1); color: var(--text-faint); }
-  .contact-note { margin-top: var(--space-l); }
-  .contact-steps { margin: var(--space-s) 0 0; padding-left: 1.3em; display: grid; gap: 0.5rem; }
-  .contact-steps li { color: var(--text-muted); font-size: 0.95rem; }
-  .contact-privacy { margin-top: var(--space-l); font-size: var(--step--1); color: var(--text-faint); padding-top: var(--space-m); border-top: 1px solid var(--hairline); }
+/* âââââââââââââââââââ HERO âââââââââââââââââââ */
+.ct-hero {
+  padding: clamp(3rem, 5vw, 6rem) 0 clamp(3rem, 5vw, 5rem);
+  background: linear-gradient(170deg, #040b16 0%, #0d1a2f 40%, #111e34 100%);
+  overflow: hidden;
+}
+.ct-hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 5rem);
+  align-items: center;
+}
+.ct-hero__h1 {
+  font-size: clamp(2.2rem, 3.8vw, 4.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin-top: 0.5rem;
+}
+.ct-hero__lede {
+  margin-top: 1.2rem;
+  color: #aebed1;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  max-width: 38rem;
+}
+.ct-hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1.8rem;
+  flex-wrap: wrap;
+}
+.ct-hero__cta {
+  --btn-bg: #3a5691;
+  --btn-fg: #fff;
+  font-size: var(--step-1);
+  padding: 1em 1.6em;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 24px rgba(58,86,145,0.35);
+}
+.ct-hero__cta:hover {
+  --btn-bg: #4a68a8;
+  box-shadow: 0 6px 32px rgba(58,86,145,0.5);
+}
+.ct-hero__email {
+  font-size: var(--step--1);
+  color: #7590c6;
+}
+.ct-hero__tags {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  margin-top: 1.5rem;
+}
+.ct-hero__tags li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #7e94b4;
+  letter-spacing: 0.04em;
+}
+.ct-tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #55ddd6;
+  flex-shrink: 0;
+}
 
-  @media (min-width: 64rem) {
-    .contact-grid { grid-template-columns: 1.6fr 1fr; align-items: start; }
-    .contact-aside {
-      position: sticky; top: 6rem;
-      background: var(--bg-raised); border: 1px solid var(--surface-border);
-      border-radius: var(--radius-l); padding: var(--space-l);
-    }
-  }
+/* --- Hero visual card --- */
+.ct-hero__visual {
+  display: flex;
+  justify-content: center;
+}
+.ct-hero__card {
+  width: 100%;
+  max-width: 28rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(100, 160, 240, 0.2);
+  background: rgba(6, 16, 34, 0.85);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(100,160,240,0.06);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+.ct-hero__card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.75rem 1.1rem;
+  border-bottom: 1px solid rgba(100, 160, 240, 0.12);
+  background: rgba(10, 20, 40, 0.5);
+}
+.ct-hero__card-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.ct-hero__card-dot--green { background: #3dd68c; }
+.ct-hero__card-dot--amber { background: #f0b429; }
+.ct-hero__card-dot--red { background: #e05252; }
+.ct-hero__card-title {
+  margin-left: 0.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  color: #7e94b4;
+}
+.ct-hero__card-body {
+  padding: 1.2rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.ct-hero__card-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.ct-hero__card-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5c7499;
+}
+.ct-hero__card-value {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  color: #d5e1ef;
+  line-height: 1.4;
+}
+.ct-hero__card-value--accent {
+  color: #7ec8c4;
+  font-weight: 600;
+}
+.ct-hero__card-footer {
+  padding: 0.7rem 1.1rem;
+  border-top: 1px solid rgba(100, 160, 240, 0.12);
+  background: rgba(10, 20, 40, 0.5);
+}
+.ct-hero__card-status {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: #55ddd6;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ct-hero__card-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #55ddd6;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* âââââââââââââââââââ WHAT TO SEND âââââââââââââââââââ */
+.ct-what__inner {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+.ct-what__head {
+  max-width: 48rem;
+}
+.ct-what__head h2 {
+  margin-top: 0.4rem;
+  font-size: var(--step-4);
+}
+.ct-what__head p {
+  margin-top: 0.8rem;
+  color: var(--text-muted);
+  max-width: 54ch;
+  font-size: var(--step-1);
+}
+.ct-what__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.ct-check {
+  display: flex;
+  gap: 1rem;
+  padding: 1.3rem;
+  border-radius: var(--radius-l);
+  border: 1px solid var(--surface-border);
+  background: var(--bg-raised);
+  transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+}
+.ct-check:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 30px rgba(46, 66, 114, 0.08);
+}
+.ct-check__num {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--accent);
+  padding-top: 0.15rem;
+  flex-shrink: 0;
+}
+.ct-check__body h3 {
+  font-size: 1.05rem;
+  margin: 0;
+}
+.ct-check__body p {
+  margin: 0.3rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.ct-check--cta {
+  background: linear-gradient(135deg, var(--signal-700), var(--signal-600));
+  border-color: var(--signal-500);
+  color: #fff;
+  flex-direction: column;
+  justify-content: center;
+}
+.ct-check--cta h3 {
+  color: #fff;
+  font-size: 1.3rem;
+}
+.ct-check--cta p {
+  color: #bcc8db;
+}
+.ct-check--cta:hover {
+  border-color: #7590c6;
+}
+.ct-check__btn {
+  --btn-bg: #fff;
+  --btn-fg: var(--signal-700);
+  margin-top: 1rem;
+  font-size: 0.92rem;
+}
+.ct-check__btn:hover {
+  --btn-bg: #e8ecf4;
+}
+
+/* âââââââââââââââââââ SERVICES âââââââââââââââââââ */
+.ct-services {
+  padding: var(--section-y) 0;
+  background: linear-gradient(170deg, #0a1628, #111e34);
+}
+.ct-services__head {
+  max-width: 44rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.ct-services__head h2 {
+  margin-top: 0.4rem;
+  font-size: var(--step-4);
+  color: #fff;
+}
+.ct-services__head p {
+  margin-top: 0.8rem;
+  color: #aebed1;
+  font-size: var(--step-0);
+}
+.ct-services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+.ct-svc {
+  position: relative;
+  padding: 1.8rem 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(100, 160, 240, 0.15);
+  background: rgba(8, 18, 38, 0.7);
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+}
+.ct-svc:hover {
+  border-color: rgba(100, 160, 240, 0.35);
+  transform: translateY(-2px);
+}
+.ct-svc--featured {
+  border-color: rgba(85, 221, 214, 0.3);
+  background: rgba(12, 28, 52, 0.85);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+}
+.ct-svc--featured:hover {
+  border-color: rgba(85, 221, 214, 0.5);
+}
+.ct-svc__badge {
+  position: absolute;
+  top: -0.6rem;
+  left: 1.5rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  background: #55ddd6;
+  color: #040b16;
+  border-radius: 0.3rem;
+  font-weight: 800;
+}
+.ct-svc__icon {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #55ddd6;
+  margin-bottom: 0.8rem;
+}
+.ct-svc__name {
+  font-size: 1.15rem;
+  color: #fff;
+  margin: 0;
+}
+.ct-svc__price {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 0.6rem;
+}
+.ct-svc__delivery {
+  font-size: 0.68rem;
+  color: #7e94b4;
+  letter-spacing: 0.08em;
+  margin-top: 0.3rem;
+}
+.ct-svc__scope {
+  color: #aebed1;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin-top: 0.8rem;
+  flex-grow: 1;
+}
+.ct-svc__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4ch;
+  margin-top: 1.2rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #55ddd6;
+  text-decoration: none;
+  transition: color var(--dur-1) var(--ease-out);
+}
+.ct-svc__link:hover { color: #8aeee8; }
+.ct-services__compare {
+  margin-top: 2rem;
+  text-align: center;
+}
+.ct-services__compare a {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #7590c6;
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+.ct-services__compare a:hover { color: #a3b8de; }
+
+/* âââââââââââââââââââ PROCESS âââââââââââââââââââ */
+.ct-process__head {
+  max-width: 44rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.ct-process__head h2 {
+  margin-top: 0.4rem;
+  font-size: var(--step-4);
+}
+.ct-process__head p {
+  margin-top: 0.8rem;
+  color: var(--text-muted);
+  font-size: var(--step-0);
+}
+.ct-process__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  counter-reset: step;
+}
+.ct-step {
+  position: relative;
+  padding: 1.5rem 1.2rem;
+  border-radius: var(--radius-l);
+  border: 1px solid var(--surface-border);
+  background: var(--bg-raised);
+}
+.ct-step__num {
+  font-size: 0.68rem;
+  font-weight: 900;
+  color: var(--accent);
+}
+.ct-step__title {
+  font-size: 1.1rem;
+  margin: 0.7rem 0 0.4rem;
+}
+.ct-step__desc {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+/* âââââââââââââââââââ FINAL CTA âââââââââââââââââââ */
+.ct-final {
+  padding: clamp(3rem, 5vw, 5rem) 0;
+  background: linear-gradient(170deg, #0a1628, #111e34);
+}
+.ct-final__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.ct-final__content h2 {
+  font-size: var(--step-4);
+  color: #fff;
+}
+.ct-final__content p {
+  margin-top: 0.5rem;
+  color: #aebed1;
+  font-size: var(--step-0);
+  max-width: 40ch;
+}
+.ct-final__actions {
+  text-align: center;
+}
+.ct-final__btn {
+  --btn-bg: #3a5691;
+  --btn-fg: #fff;
+  box-shadow: 0 4px 24px rgba(58,86,145,0.35);
+}
+.ct-final__btn:hover {
+  --btn-bg: #4a68a8;
+  box-shadow: 0 6px 32px rgba(58,86,145,0.5);
+}
+.ct-final__email {
+  margin-top: 0.8rem;
+  font-size: var(--step--1);
+  color: #7e94b4;
+}
+.ct-final__email a {
+  color: #7590c6;
+  text-decoration: none;
+}
+.ct-final__email a:hover { color: #a3b8de; }
+
+/* âââââââââââââââââââ RESPONSIVE âââââââââââââââââââ */
+@media (max-width: 64rem) {
+  .ct-hero__inner { grid-template-columns: 1fr; }
+  .ct-hero__visual { display: none; }
+  .ct-services__grid { grid-template-columns: 1fr 1fr; }
+  .ct-what__grid { grid-template-columns: 1fr 1fr; }
+  .ct-process__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 40rem) {
+  .ct-services__grid { grid-template-columns: 1fr; }
+  .ct-what__grid { grid-template-columns: 1fr; }
+  .ct-process__grid { grid-template-columns: 1fr; }
+  .ct-final__inner { flex-direction: column; text-align: center; }
+  .ct-final__content { text-align: center; }
+}
 </style>

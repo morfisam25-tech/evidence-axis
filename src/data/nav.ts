@@ -10,6 +10,7 @@ export const primaryNav: NavItem[] = [
   { label: 'Strategic Blueprint', href: '/strategic-blueprint/' },
   { label: 'Method', href: '/method/' },
   { label: 'Sample Report', href: '/sample-report/' },
+  { label: 'Work', href: '/work/' },
   { label: 'About', href: '/about/' },
 ];
 
@@ -23,6 +24,7 @@ export const footerServices: NavItem[] = [
 export const footerCompany: NavItem[] = [
   { label: 'Method', href: '/method/' },
   { label: 'Sample Report', href: '/sample-report/' },
+  { label: 'Work', href: '/work/' },
   { label: 'About', href: '/about/' },
   { label: 'Contact', href: '/contact/' },
 ];

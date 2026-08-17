@@ -1,0 +1,127 @@
+/* Evidence Axis — global final polish for secondary pages */
+
+:root{
+  --ea-navy:#06111f;
+  --ea-navy-2:#0b1b30;
+  --ea-cyan:#50ded6;
+  --ea-blue:#7ca6ff;
+  --ea-amber:#efaa49;
+  --ea-violet:#a684ff;
+  --ea-paper:#f7f2ea;
+}
+
+body{background:var(--ea-paper)}
+
+/* Header */
+.site-header{
+  background:rgba(6,17,31,.92)!important;
+  border-bottom-color:rgba(126,163,215,.16)!important;
+  box-shadow:0 10px 36px rgba(0,0,0,.09);
+}
+.site-header .logo,.site-header .logo *{color:#f5f8ff!important}
+.site-header .primary-nav__link{color:#aebdd2!important}
+.site-header .primary-nav__link:hover,.site-header .primary-nav__link.is-active{color:#fff!important}
+.site-header .btn{background:linear-gradient(110deg,#8eb1ff,#52ddd5)!important;color:#06101b!important;border-color:transparent!important;box-shadow:0 12px 32px rgba(74,151,238,.20)}
+.site-header .nav-toggle{border-color:rgba(151,184,228,.23)!important;color:#fff!important}
+
+/* Page headers: product-grade intro instead of plain blog header */
+.page-header{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 78% 30%,rgba(60,137,255,.22),transparent 24%),
+    radial-gradient(circle at 70% 74%,rgba(69,220,209,.10),transparent 31%),
+    #040b16!important;
+  color:#fff!important;
+  border-bottom:1px solid rgba(125,165,223,.14)!important;
+  padding-block:clamp(4.5rem,8vw,7.5rem)!important;
+}
+.page-header::before{content:"";position:absolute;inset:0;opacity:.22;background-image:linear-gradient(rgba(114,155,211,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(114,155,211,.09) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(90deg,transparent,#000 25%,#000)}
+.page-header__inner{position:relative;z-index:1;max-width:76rem!important}
+.page-header__inner.axis-frame{padding-left:clamp(1.5rem,4vw,4rem)}
+.page-header__inner.axis-frame::before{background:linear-gradient(transparent,rgba(83,222,214,.68) 12%,rgba(123,164,255,.52) 78%,transparent)}
+.page-header .eyebrow{color:#83a9ff!important;font-size:.72rem!important;font-weight:700!important;letter-spacing:.17em!important}
+.page-header__title{max-width:15ch!important;color:#fff!important;font-size:clamp(3rem,5.5vw,6rem)!important;line-height:.94!important;letter-spacing:-.055em!important}
+.page-header__lede{max-width:62ch!important;color:#b8c8da!important;font-size:clamp(1.05rem,1.3vw,1.28rem)!important;line-height:1.65!important}
+.page-header__meta{gap:.65rem!important;margin-top:1.7rem!important}
+.page-header__meta li{padding:.62rem .8rem .62rem 1.8rem!important;border:1px solid rgba(132,171,226,.18);border-radius:.65rem;background:rgba(255,255,255,.035);color:#c8d5e5!important}
+.page-header__meta li::before{left:.75rem!important;top:50%!important;transform:translateY(-50%);background:#55ddd6!important;box-shadow:0 0 14px rgba(85,221,214,.5)}
+
+/* Secondary page section rhythm */
+#main>.section{position:relative}
+#main>.section:not([data-surface="dark"]){background:linear-gradient(180deg,#faf7f2,#f4ede4)}
+#main>.section[data-surface="dark"]{background:
+  radial-gradient(circle at 82% 22%,rgba(68,129,234,.08),transparent 23%),
+  #07111f!important;
+  color:#eef5ff!important;
+}
+#main>.section[data-surface="dark"] h2,#main>.section[data-surface="dark"] h3,#main>.section[data-surface="dark"] h4{color:#fff!important}
+#main>.section[data-surface="dark"] p,#main>.section[data-surface="dark"] li{color:#aebed2}
+
+/* Common section intros */
+.section-intro{max-width:62rem}
+.section-intro .eyebrow,.section-intro__eyebrow{color:#5279c6!important;font-weight:700!important}
+.section-intro h2,.section-intro__title{font-size:clamp(2.35rem,4vw,4.5rem)!important;line-height:.98!important;letter-spacing:-.05em!important;max-width:18ch}
+.section-intro p,.section-intro__lede{font-size:1.05rem!important;line-height:1.68!important;color:#5f6d7e}
+[data-surface="dark"] .section-intro .eyebrow,[data-surface="dark"] .section-intro__eyebrow{color:#8fb2ff!important}
+[data-surface="dark"] .section-intro p,[data-surface="dark"] .section-intro__lede{color:#aebdd0!important}
+
+/* Offer cards */
+.offer-grid-2{gap:1.25rem!important}
+.offer-grid-2>*{border-radius:1.3rem!important;box-shadow:0 28px 70px rgba(27,36,49,.13)!important;transition:transform .22s ease,box-shadow .22s ease!important}
+.offer-grid-2>*:hover{transform:translateY(-6px);box-shadow:0 38px 90px rgba(27,36,49,.19)!important}
+
+/* Generic panels/cards used across pages */
+.receive-grid,.question-grid,.card-grid,.evidence-grid{gap:1rem!important}
+.receive,.question-card,.card,.evidence-card{border-radius:1rem!important;box-shadow:0 18px 48px rgba(31,39,52,.08)}
+.receive{padding:1.35rem!important;border:1px solid rgba(56,84,121,.12)!important;background:#fff!important}
+.receive__n{color:#4a76cd!important;font-weight:700!important}
+.receive__t{font-size:1.15rem!important}
+.receive__d{color:#647184!important}
+
+/* Axis list panels */
+.ticked.axis-frame{padding-top:.6rem;padding-bottom:.6rem;border:1px solid rgba(120,160,216,.13);border-radius:1rem;background:rgba(255,255,255,.025)}
+.ticked li{padding:.8rem 1rem .8rem .2rem!important;border-bottom:1px solid rgba(125,164,218,.09)}
+.ticked li:last-child{border-bottom:0}
+
+/* Approved internal-page visuals. Original approved art stays visible, but no small raster is blown up across a huge canvas. A crisp, page-specific interface shares the frame. */
+.approved-page-visual{padding:clamp(1.3rem,2.8vw,2.4rem) 0 clamp(2rem,4vw,3.5rem);background:linear-gradient(180deg,#06111f 0%,#0a1830 58%,#f8f3eb 100%)}
+.approved-page-visual__inner{max-width:82rem}
+.approved-page-visual__frame{position:relative;margin:0;overflow:hidden;border-radius:1.35rem;border:1px solid rgba(102,165,243,.28);background:#06111f;box-shadow:0 36px 86px rgba(7,21,39,.27);display:grid;grid-template-columns:1fr 1fr;min-height:21rem}
+.approved-page-visual__frame img{display:block;width:100%;height:100%;min-height:21rem;max-height:30rem;object-fit:contain;background:#06111f;image-rendering:auto;filter:none;backface-visibility:hidden;border-right:1px solid rgba(111,164,229,.15)}
+.approved-page-visual__frame::after{content:"";display:block;min-height:21rem;background-position:center;background-repeat:no-repeat;background-size:cover;background-color:#06111f}
+
+/* Give dense service pages a stronger card hierarchy. */
+.section .receive,.section .mi-card,.section .ctx{box-shadow:0 22px 52px rgba(26,39,56,.08);transition:transform .18s ease,box-shadow .18s ease}
+.section .receive:hover,.section .mi-card:hover,.section .ctx:hover{transform:translateY(-4px);box-shadow:0 30px 68px rgba(26,39,56,.13)}
+.section[id]{scroll-margin-top:6.5rem}
+
+/* Forms and inquiry surfaces */
+form,input,textarea,select,button{font-family:var(--font-display)}
+input,textarea,select{border-radius:.7rem!important;border-color:rgba(69,88,116,.24)!important;background:#fff!important}
+input:focus,textarea:focus,select:focus{outline:2px solid rgba(84,127,237,.2)!important;border-color:#6188e9!important}
+
+/* CTA sections */
+.cta-section,.final-cta{position:relative;overflow:hidden;border-radius:1.3rem!important;box-shadow:0 32px 85px rgba(25,35,50,.17)}
+
+/* Footer */
+.site-footer{background:#050c16!important;border-top-color:rgba(119,159,214,.14)!important}
+.site-footer,.site-footer a,.site-footer p{color:#aab9cc!important}
+.site-footer h2,.site-footer h3,.site-footer strong{color:#fff!important}
+
+/* Better links and buttons */
+.btn{border-radius:.72rem!important;font-weight:700!important}
+.btn:hover{transform:translateY(-1px)}
+
+/* Responsive */
+@media(max-width:64rem){
+  .mobile-nav{background:#07111f!important;color:#fff!important}
+  .mobile-nav__link{color:#fff!important;border-bottom-color:rgba(126,163,215,.15)!important}
+}
+@media(max-width:48rem){
+  .page-header__title{font-size:clamp(2.75rem,13vw,4.3rem)!important}
+  .page-header__meta{display:grid!important;grid-template-columns:1fr!important}
+  .approved-page-visual__frame{border-radius:1rem;grid-template-columns:1fr;min-height:0}
+  .approved-page-visual__frame img{min-height:0;max-height:25rem;border-right:0;border-bottom:1px solid rgba(111,164,229,.15)}
+  .approved-page-visual__frame::after{min-height:19rem}
+}

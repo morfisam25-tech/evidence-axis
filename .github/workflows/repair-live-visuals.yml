@@ -1,0 +1,149 @@
+name: Repair live visuals
+
+on:
+  push:
+    branches: [agent/visual-repair-live]
+    paths: ['.github/workflows/repair-live-visuals.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Repair visuals and video
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          # Remove the temporary global image injection from Base.astro.
+          base = Path('src/layouts/Base.astro')
+          s = base.read_text()
+          s = re.sub(r"\nconst approvedVisuals: Record\[string, \{ src: string; eyebrow: string; title: string; alt: string \}\] = \{.*?\n\};\nconst approvedVisual = path \? approvedVisuals\[path\] : undefined;", "", s, flags=re.S)
+          s = re.sub(r"\n\s*\{approvedVisual && \(.*?\n\s*\)\}\n", "\n", s, flags=re.S)
+          s = re.sub(r"\n<style is:global>\n\.approved-visual\{.*?</style>\n?", "\n", s, flags=re.S)
+          base.write_text(s)
+
+          # Repair Home page: native local video and only approved visual assets.
+          home = Path('src/pages/index.astro')
+          h = home.read_text()
+          video = '''<video
+              class="film-v10__video"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-label="Evidence Axis system film"
+            >
+              <source src="/assets/v10/approved/system-film.mp4" type="video/mp4" />
+            </video>'''
+          h = re.sub(r'<iframe\s+src="https://player\.vimeo\.com/.*?</iframe>', video, h, count=1, flags=re.S)
+
+          direct = {
+            '/assets/v10/premium/research-context.webp':'/assets/v10/approved/market-intelligence-war-room.webp',
+            '/assets/v10/premium/global-signals.webp':'/assets/v10/approved/global-trading-command-center.webp',
+            '/assets/v10/premium/strategy-war-room.webp':'/assets/v10/approved/two-competitor-decision-brief.webp',
+            '/assets/v10/premium/workflow-dashboard.webp':'/assets/v10/approved/method-from-source-to-decision.webp',
+            '/assets/v10/decision-dashboard.webp':'/assets/v10/approved/decision-ready-showcase.webp',
+            '/assets/v10/command-center.webp':'/assets/v10/approved/strategic-blueprint.webp',
+          }
+          for a,b in direct.items(): h=h.replace(a,b)
+
+          # Make each high-value home visual context-specific.
+          h = re.sub(r'(<figure class="ai-v10__visual"><img src=")[^"]+', r'\1/assets/v10/approved/generic-ai-vs-evidence-axis.webp', h, count=1)
+          h = re.sub(r'(<figure class="world-v10__visual"><img src=")[^"]+', r'\1/assets/v10/approved/global-trading-command-center.webp', h, count=1)
+          h = re.sub(r'(<figure class="v10-media v10-media--sample"><img src=")[^"]+', r'\1/assets/v10/approved/sample-report-showcase.webp', h, count=1)
+          h = re.sub(r'(<section class="final-v10".*?<img src=")[^"]+', r'\1/assets/v10/approved/decision-ready-showcase.webp', h, count=1, flags=re.S)
+
+          # Explicit six-card output gallery using the eight approved images only.
+          outputs = '''<div class="outputs-v10__gallery outputs-v10__gallery--three">
+          <figure class="v10-media"><img src="/assets/v10/approved/method-from-source-to-decision.webp" alt="Evidence Axis source-to-decision workflow" loading="lazy" /><figcaption><span>WORKFLOW</span><b>Public source → classify → trace → decide.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/approved/decision-ready-showcase.webp" alt="Evidence Axis decision-ready output" loading="lazy" /><figcaption><span>DECISION OUTPUT</span><b>Traceable insight written for a real decision.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/approved/sample-report-showcase.webp" alt="Evidence Axis sample report showcase" loading="lazy" /><figcaption><span>SAMPLE REPORT</span><b>See the sourced report format before you buy.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/approved/generic-ai-vs-evidence-axis.webp" alt="Generic AI compared with Evidence Axis research" loading="lazy" /><figcaption><span>AI COMPARISON</span><b>Traceability instead of fluent guesswork.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/approved/two-competitor-decision-brief.webp" alt="Two-competitor evidence decision brief" loading="lazy" /><figcaption><span>EVIDENCE MATRIX</span><b>Compare the evidence behind two competing choices.</b></figcaption></figure>
+          <figure class="v10-media"><img src="/assets/v10/approved/strategic-blueprint.webp" alt="Strategic market blueprint dashboard" loading="lazy" /><figcaption><span>STRATEGIC BLUEPRINT</span><b>Move from evidence to priorities and a roadmap.</b></figcaption></figure>
+        </div>'''
+          h = re.sub(r'<div class="outputs-v10__gallery outputs-v10__gallery--three">.*?</div>\s*<div class="outputs-v10__actions">', outputs+'\n        <div class="outputs-v10__actions">', h, count=1, flags=re.S)
+
+          # Explicit four-image Research in Context mosaic.
+          mosaic = '''<div class="gallery-v10__mosaic">
+          <figure><img src="/assets/v10/approved/market-intelligence-war-room.webp" alt="Evidence Axis research command center" loading="eager" /></figure>
+          <figure><img src="/assets/v10/approved/global-trading-command-center.webp" alt="Global signals intelligence dashboard" loading="lazy" /></figure>
+          <figure><img src="/assets/v10/approved/two-competitor-decision-brief.webp" alt="Two-competitor decision brief dashboard" loading="lazy" /></figure>
+          <figure><img src="/assets/v10/approved/strategic-blueprint.webp" alt="Strategic market blueprint dashboard" loading="lazy" /></figure>
+        </div>'''
+          h = re.sub(r'<div class="gallery-v10__mosaic">.*?</div>', mosaic, h, count=1, flags=re.S)
+          home.write_text(h)
+
+          # Give each internal page its own approved visual, immediately after PageHeader.
+          page_assets = {
+            'src/pages/competitor-brief.astro':('/assets/v10/approved/two-competitor-decision-brief.webp','Two-competitor decision brief dashboard'),
+            'src/pages/market-intelligence.astro':('/assets/v10/approved/global-trading-command-center.webp','Global signals market intelligence dashboard'),
+            'src/pages/method.astro':('/assets/v10/approved/method-from-source-to-decision.webp','Evidence Axis source-to-decision workflow'),
+            'src/pages/strategic-blueprint.astro':('/assets/v10/approved/strategic-blueprint.webp','Strategic market blueprint dashboard'),
+            'src/pages/sample-report.astro':('/assets/v10/approved/sample-report-showcase.webp','Evidence Axis sample report showcase'),
+            'src/pages/about.astro':('/assets/v10/approved/generic-ai-vs-evidence-axis.webp','Generic AI compared with Evidence Axis research'),
+            'src/pages/contact.astro':('/assets/v10/approved/decision-ready-showcase.webp','Evidence Axis decision-ready output'),
+          }
+          for file,(asset,alt) in page_assets.items():
+            p=Path(file)
+            if not p.exists(): continue
+            t=p.read_text()
+            # Remove references to broken experimental asset sets on this page.
+            t=re.sub(r'/assets/v10/(?:premium|final8)/[^\"\']+?\.(?:webp|avif|png|jpg|jpeg)', asset, t)
+            if asset not in t:
+              figure=f'''\n  <section class="page-approved-media container-wide" aria-label="Page visual">\n    <figure><img src="{asset}" alt="{alt}" loading="eager" /></figure>\n  </section>\n'''
+              t,n=re.subn(r'(<PageHeader[\s\S]*?/>)', r'\1'+figure, t, count=1)
+              if n==0:
+                t=t.replace('<Base ', figure+'\n<Base ',1)
+            p.write_text(t)
+
+          # CSS for local video and internal-page visuals.
+          hf=Path('src/styles/home-final.css')
+          css=hf.read_text()
+          marker='/* visual-repair-native-video */'
+          if marker not in css:
+            css += '''\n\n/* visual-repair-native-video */\n.film-v10__player--real-video{position:relative;overflow:hidden}.film-v10__player--real-video .film-v10__video{display:block;width:100%;height:100%;min-height:clamp(24rem,52vw,42rem);object-fit:cover;background:#0b1220}.film-v10__player--real-video .film-v10__frame{position:absolute;left:1rem;right:1rem;bottom:1rem;z-index:2}\n'''
+            hf.write_text(css)
+
+          sf=Path('src/styles/site-final.css')
+          css=sf.read_text()
+          marker='/* page-approved-media */'
+          if marker not in css:
+            css += '''\n\n/* page-approved-media */\n.page-approved-media{padding-top:clamp(1.5rem,3vw,2.5rem);padding-bottom:clamp(2.5rem,6vw,5rem)}.page-approved-media figure{margin:0;border:1px solid var(--surface-border);border-radius:clamp(.8rem,2vw,1.35rem);overflow:hidden;background:#0b1220;box-shadow:0 24px 70px rgba(5,10,20,.18)}.page-approved-media img{display:block;width:100%;height:auto;max-height:46rem;object-fit:cover}\n'''
+            sf.write_text(css)
+
+          # Hard fail if legacy Vimeo or broken visual families remain in content pages.
+          scan='\n'.join(p.read_text() for p in Path('src/pages').glob('*.astro'))
+          bad=[]
+          for needle in ['player.vimeo.com','/assets/v10/premium/','/assets/v10/final8/']:
+            if needle in scan: bad.append(needle)
+          if bad: raise SystemExit('Broken references remain: '+', '.join(bad))
+          PY
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Commit repaired site
+        run: |
+          git config user.name "Evidence Axis Repair Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add src/layouts/Base.astro src/pages src/styles/home-final.css src/styles/site-final.css
+          if git diff --cached --quiet; then
+            echo "No repair changes"
+          else
+            git commit -m "Repair video and approved visuals"
+            git push origin HEAD:agent/visual-repair-live
+          fi

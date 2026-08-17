@@ -34,6 +34,16 @@ const deliverables = [
     meta={['Scoped individually', 'Defined around your decision', 'Public evidence, synthesized']}
   />
 
+  <!-- APPROVED-PAGE-VISUAL -->
+  <section class="approved-page-visual" data-approved-page-visual>
+    <div class="container approved-page-visual__inner">
+      <figure class="approved-page-visual__frame">
+        <img src="/assets/v10/premium/research-context.webp" alt="Strategic Blueprint for higher-stakes decisions." loading="eager" />
+      </figure>
+    </div>
+  </section>
+
+
   <section class="section container">
     <SectionIntro
       eyebrow="Decision contexts"
@@ -72,6 +82,38 @@ const deliverables = [
     </div>
   </section>
 
+  <!-- BLUEPRINT IN ACTION — case study proof -->
+  <section class="section" data-surface="dark">
+    <div class="container cs-band axis-frame">
+      <span class="label eyebrow">Seen in practice</span>
+      <h2 class="cs-band__title">A complete Blueprint engagement — four phases, investor-ready.</h2>
+      <p class="measure cs-band__p">
+        One anonymised engagement shows the Blueprint method end to end: 6 CEO decisions locked
+        before research, a 16-section architecture signed before a single data point was collected,
+        and every deliverable — a 350-entity market map, a 3-sided product architecture, a
+        26-slide investor deck and a formula-driven capital model — traceable back to the evidence
+        agreed in the original Blueprint.
+      </p>
+      <div class="cs-band__stats">
+        <div class="cs-stat">
+          <span class="cs-n">4</span>
+          <span class="cs-l mono">Phases delivered</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-n">10+</span>
+          <span class="cs-l mono">Deliverables</span>
+        </div>
+        <div class="cs-stat">
+          <span class="cs-n">0</span>
+          <span class="cs-l mono">Scope surprises</span>
+        </div>
+      </div>
+      <a href="/work/" class="link-arrow">
+        Read the full case study<span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
   <section class="section container">
     <div class="bp-path">
       <SectionIntro eyebrow="Where to start" title="Most work starts smaller." />
@@ -102,6 +144,13 @@ const deliverables = [
   .bp-list { list-style: none; padding: 0; display: grid; gap: var(--space-s); }
   .bp-list li { color: var(--text-muted); }
   .bp-path p { margin-top: var(--space-s); color: var(--text-muted); }
+  .cs-band { display: grid; gap: var(--space-l); }
+  .cs-band__title { font-size: var(--step-3); max-width: 24ch; }
+  .cs-band__p { color: var(--text-muted); }
+  .cs-band__stats { display: flex; gap: var(--space-2xl); flex-wrap: wrap; padding: var(--space-l) 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+  .cs-stat { display: flex; flex-direction: column; gap: 0.3rem; }
+  .cs-n { font-family: var(--font-display); font-size: var(--step-4); font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1; }
+  .cs-l { font-size: var(--step--1); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
   @media (min-width: 52rem) {
     .ctx-grid { grid-template-columns: repeat(3, 1fr); }
     .bp-two { grid-template-columns: 1.2fr 1fr; }
