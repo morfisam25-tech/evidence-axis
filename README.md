@@ -211,3 +211,4 @@ These are genuine business/config decisions, not unfinished website work:
 - `astro check` passes with 0 errors.
 - The Sample Report page is print-optimized: the "Save as PDF" button opens the browser
   print dialog and the print stylesheet outputs just the brief document.
+
