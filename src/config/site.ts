@@ -18,14 +18,14 @@ export const site = {
 
 /**
  * Contact configuration.
- * The public contact inbox is live. `formEndpoint` remains optional: when
- * it is null, the contact page exposes the live email address directly;
- * when a real POST endpoint is configured later, the form submits directly.
+ * The public contact inbox and website inquiry form are live. FormSubmit
+ * forwards website inquiries to the same inbox without exposing mail-server
+ * credentials in the client bundle.
  */
 export const contact = {
   email: 'hello@evidenceaxis.com' as string | null,
   emailDisplay: 'hello@evidenceaxis.com',
-  formEndpoint: null as string | null,
+  formEndpoint: 'https://formsubmit.co/ajax/hello@evidenceaxis.com' as string | null,
   // No response-time SLA is promised. Do not add a time guarantee that has
   // not been approved.
 } as const;

@@ -1,5 +1,6 @@
 ---
 import Base from '@layouts/Base.astro';
+import ContactForm from '@components/ContactForm.astro';
 import { contact, offers } from '@config/site';
 
 const email = contact.email ?? 'hello@evidenceaxis.com';
@@ -81,6 +82,18 @@ const steps = [
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- =================== INQUIRY FORM =================== -->
+  <section class="section ct-inquiry" id="brief-form">
+    <div class="container">
+      <div class="section-head measure">
+        <span class="label eyebrow">Written inquiry</span>
+        <h2>Start with the decision.</h2>
+        <p>Complete the fields below. We use the details only to assess and respond to your brief request.</p>
+      </div>
+      <ContactForm />
     </div>
   </section>
 
