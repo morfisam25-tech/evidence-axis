@@ -277,9 +277,9 @@ import '../styles/intro-v10.css';
 </Base>
 
 <script>
-  const player = document.querySelector('[data-intro-player]');
-  const video = player?.querySelector('[data-intro-video]');
-  const play = player?.querySelector('[data-intro-play]');
+  const player = document.querySelector<HTMLElement>('[data-intro-player]');
+  const video = player?.querySelector<HTMLVideoElement>('[data-intro-video]');
+  const play = player?.querySelector<HTMLButtonElement>('[data-intro-play]');
 
   if (player && video && play) {
     // Custom overlay button triggers playback

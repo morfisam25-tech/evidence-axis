@@ -5,7 +5,7 @@ import { site, legal } from '@config/site';
 ---
 <Base
   title="Privacy"
-  description="How Evidence Axis handles the limited information you share through the inquiry form and business correspondence."
+  description="How Evidence Axis handles the limited information you share through email inquiries and business correspondence."
   path="/privacy/"
   noindex={false}
 >
@@ -14,17 +14,29 @@ import { site, legal } from '@config/site';
   <section class="section container">
     <div class="legal measure">
       <p class="legal__intro">
-        This note explains, in practical terms, what information {site.name} collects through this
-        website and how it is used. It covers the website only. Any engagement is governed by the
+        This note explains what information {site.name} receives through this website and business
+        correspondence, and how that information is used. Any engagement is also governed by the
         terms agreed for that specific project.
+      </p>
+
+      <h2>Who is responsible</h2>
+      <p>
+        {site.name} is operated publicly by {legal.publicOperator}, whose legal name is
+        {' '}{legal.operatorLegalName}. Privacy questions can be sent to
+        {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>.
+      </p>
+      <p>
+        If an engagement is contracted through {legal.internationalInvoicingEntity}, that company
+        may also receive the client and transaction details needed to contract, invoice, keep
+        business records and deliver the work. The applicable contracting party is identified in
+        writing before paid work begins.
       </p>
 
       <h2>Information you provide</h2>
       <p>
-        If you submit the inquiry form, we receive the details you choose to enter — typically your
-        name, work email, company, role, the decision or research question, the competitors you want
-        investigated, and any context you add. We use this only to understand, scope and respond to
-        your inquiry.
+        If you contact us by email, we receive the details you choose to send. These may include your
+        name, work email, company, role, decision or research question, named competitors and related
+        context. We use this information to understand, scope and respond to the inquiry.
       </p>
 
       <h2>Business correspondence</h2>
@@ -37,44 +49,43 @@ import { site, legal } from '@config/site';
       <h2>Technical information</h2>
       <p>
         Basic technical information (such as standard server request data) may be processed to keep
-        the site available and secure. Where analytics or cookies are introduced, this note will be
-        updated to describe them specifically, and any consent required will be requested at that
-        point. The site does not set advertising cookies.
+        the site available and secure. The current site does not use advertising trackers, advertising
+        cookies or a website inquiry form. If analytics or additional cookies are introduced, this
+        notice will be updated and consent will be requested where required.
       </p>
 
       <h2>Third parties</h2>
       <p>
-        Where we engage third-party providers to operate the site or deliver a brief — for example,
-        website hosting or receiving inquiry submissions — they would process information only on our
-        instructions. No such providers should be assumed to be in place until they have been
-        selected, and this note will name any material processors once they are.
+        Service providers may process limited information where needed for website hosting, email,
+        file storage, invoicing or delivery. They are given only the information needed for that
+        function and remain subject to their own security, privacy and legal obligations.
       </p>
 
       <h2>Retention</h2>
       <p>
         We keep inquiry and engagement information for as long as reasonably necessary for the
         purpose it was provided, and for legitimate business and record-keeping needs, then remove
-        it. If you would like your inquiry information removed, contact us through the inquiry form
-        and we will address it.
+        it. If you would like your inquiry information removed, email
+        {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>.
       </p>
 
       <h2>Your choices</h2>
       <p>
         You can ask what inquiry information we hold about you and request that it be corrected or
         removed. Depending on your location, additional rights may apply; we will honor applicable
-        requirements. Reaching us through the inquiry form is the fastest route.
+        requirements. Requests can be sent to the email address below.
       </p>
 
       <h2>Contact</h2>
       <p>
-        Questions about this note can be sent through the <a href="/contact/">inquiry form</a>. As
-        the practice's contracting entity and formal contact details are finalized ahead of launch,
-        this page will be updated to reflect them.
+        Questions or privacy requests can be sent to
+        {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>. Postal correspondence
+        concerning an engagement should be sent to the contracting address stated in that
+        engagement's written terms or invoice.
       </p>
 
       <p class="legal__foot mono">
-        This is a practical website privacy note, not a substitute for advice on your own
-        obligations. It will be reviewed and expanded before public launch.
+        Last updated {legal.lastUpdated}.
       </p>
     </div>
   </section>

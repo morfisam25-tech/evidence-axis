@@ -1,13 +1,12 @@
 ---
 import { contact, offers } from '@config/site';
 /**
- * Inquiry form — UI + validation architecture.
- * The submission endpoint is provider-agnostic and read from config.
- * PRE-LAUNCH: contact.formEndpoint is null, so the form validates but
- * never claims a submission succeeded. When a real endpoint is set in
- * config, the native POST + JS enhancement submit for real.
+ * Dormant optional inquiry-form component.
+ * The public contact page currently uses direct email. Do not render this
+ * component unless a real endpoint is configured, tested and disclosed in
+ * the Privacy notice.
  */
-const endpoint = contact.formEndpoint; // null until Phase 3
+const endpoint = contact.formEndpoint;
 const hasEndpoint = Boolean(endpoint);
 const roles = [
   'Founder / CEO',
@@ -118,8 +117,7 @@ const services = [
   {!hasEndpoint && (
     <noscript>
       <p class="inquiry__status inquiry__status--static" data-kind="error">
-        The inquiry channel is being finalized ahead of launch. Please check back shortly, or
-        reach out once it is live.
+        This form is not active. Email hello@evidenceaxis.com to start a brief.
       </p>
     </noscript>
   )}
@@ -245,7 +243,7 @@ const services = [
       // let a native submit fall through to a dead route.
       if (!endpoint) {
         e?.preventDefault();
-        setStatus('This inquiry channel is being finalized before launch. Your details were not sent yet — please check back shortly.', 'error');
+        setStatus('This form is not active. Email hello@evidenceaxis.com to start a brief.', 'error');
         return;
       }
 

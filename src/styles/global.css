@@ -344,3 +344,9 @@ time.tag {
 
 /* APPROVED-PAGE-VISUAL-STYLES */
 .approved-page-visual{padding:clamp(1.5rem,3vw,3rem) 0 clamp(3rem,6vw,5rem);background:#030a16;color:#fff}.approved-page-visual__inner{max-width:92rem}.approved-page-visual__frame{margin:0;overflow:hidden;border-radius:1.35rem;border:1px solid rgba(91,164,255,.28);background:#061224;box-shadow:0 30px 90px rgba(0,0,0,.32)}.approved-page-visual__frame img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}@media(max-width:720px){.approved-page-visual{padding-top:1rem}.approved-page-visual__frame{border-radius:.9rem}.approved-page-visual__frame img{aspect-ratio:4/3}}
+
+/* Keep a visible keyboard focus ring even where component hover styles suppress outlines. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid #63fff1 !important;
+  outline-offset: 3px !important;
+}

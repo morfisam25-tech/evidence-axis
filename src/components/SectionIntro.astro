@@ -6,7 +6,7 @@ interface Props {
   align?: 'start' | 'center';
   as?: 'h2' | 'h3';
 }
-const { eyebrow, title, lede, align = 'start', as = 'h2' } = Astro.props;
+const { eyebrow, title, lede, align = 'start', as = 'h2' } = Astro.props as Props;
 const Heading = as;
 ---
 <div class:list={['section-intro', `is-${align}`]} data-reveal>

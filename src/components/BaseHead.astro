@@ -18,7 +18,7 @@ const {
 } = Astro.props;
 
 const canonical = new URL(path, site.url).href;
-const ogImage = new URL('/og-image.svg', site.url).href;
+const ogImage = new URL('/og-image.png', site.url).href;
 const fullTitle = title === site.name ? `${site.name} — ${site.category}` : `${title} · ${site.name}`;
 
 // Organization structured data — only truthfully supportable fields.
@@ -62,4 +62,4 @@ const orgLd = {
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
-<script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(orgLd)} />

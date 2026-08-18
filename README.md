@@ -45,22 +45,22 @@ Almost every business-editable value is centralized in **`src/config/site.ts`**.
 | Domain / canonical URL | `src/config/site.ts` → `site.url` **and** `astro.config.mjs` → `SITE` |
 | Prices, delivery times, offer names | `src/config/site.ts` → `offers` |
 | Primary/secondary CTA labels & links | `src/config/site.ts` → `cta` |
-| Contact email (currently none) | `src/config/site.ts` → `contact.email` |
-| **Form submission endpoint** | `src/config/site.ts` → `contact.formEndpoint` (see below) |
-| Legal entity / jurisdiction | `src/config/site.ts` → `legal` (kept `null` until finalized) |
+| Contact email | `src/config/site.ts` → `contact.email` |
+| Optional future form endpoint | `src/config/site.ts` → `contact.formEndpoint` (see below) |
+| Operator / invoicing entity / jurisdiction | `src/config/site.ts` → `legal` |
 | Navigation items | `src/data/nav.ts` |
 | Method copy / evidence states | `src/data/method.ts` |
 
-### Connecting the inquiry form
+### Optional future inquiry form
 
-The form (`src/components/ContactForm.astro`) is **provider-agnostic**. It POSTs a
-standard `FormData` payload to whatever URL is set in `contact.formEndpoint`.
+The public contact page currently uses the live `hello@evidenceaxis.com` email route and
+does not render a form. A provider-agnostic form component remains available at
+`src/components/ContactForm.astro` if a real submission provider is added later.
 
-- While `formEndpoint` is `null` (the current state), the form validates fully but
-  **does not pretend to submit** — it tells the visitor the channel is being finalized.
-- To go live, set `contact.formEndpoint` to a real POST URL. Any of these work with no
-  code change: Formspree, Web3Forms, Basin, a Cloudflare Pages Function, or a Vercel
-  serverless function. The form also degrades to a native HTML POST if JS is unavailable.
+- Do not render the component while `formEndpoint` is `null`.
+- To introduce it later, set `contact.formEndpoint` to a real POST URL, render the
+  component on the contact page, test delivery, and update the Privacy page with the
+  selected provider.
 - Fields submitted: `name, email, company, website, role, service, question,
   competitors, timing, context` (plus a `fax` honeypot you can ignore/drop server-side).
 
@@ -191,15 +191,19 @@ on any value hard-coded here, as platform requirements change.
 
 ---
 
-## Pre-launch checklist (unresolved real-world items)
+## Pre-launch checklist
 
 These are genuine business/config decisions, not unfinished website work:
 
-- [ ] **Contracting/legal entity** — set in `legal.entity`; review Privacy & Terms wording.
-- [ ] **Invoicing / payment route** — arranged off-site; no change needed in code.
-- [ ] **Real contact email** — set `contact.email`.
-- [ ] **Form endpoint** — set `contact.formEndpoint` (a real POST URL; currently `null`).
+- [x] **Operator and conditional international invoicing entity** — set in `legal`; Privacy & Terms updated.
+- [ ] **Company service-activity and payment route** — accountant confirmation required before the first company-issued Evidence Axis invoice. The supplied tax plate lists industrial chemical wholesale as the main activity.
+- [x] **Real contact email** — `hello@evidenceaxis.com`.
+- [x] **Contact route** — direct email; no public form or endpoint required at launch.
 - [ ] **Analytics choice** (if any) — none is used by default; if you add one, update the Privacy page's technical/cookies section accordingly.
+- [x] **Sample report evidence refresh** — current first-party sources were independently rechecked; the Essential price is consistently $29 across the three cited surfaces.
+- [x] **Independent desktop/mobile browser QA** — passed on the final production build, including navigation, responsive layout, CTAs and console checks.
+- [x] **Social preview metadata** — the raster `og-image.png` is used for broad platform compatibility.
+- [x] **Canonical host policy** — `https://evidenceaxis.com` is canonical; `vercel.json` permanently redirects `www.evidenceaxis.com` to the apex host.
 - [ ] **Cloudflare Pages or Vercel project** created and connected.
 - [ ] **DNS** for `evidenceaxis.com` pointed at the deployment (GoDaddy records).
 - [ ] Regenerate `public/og-image.png` if the OG art changes.
@@ -211,4 +215,3 @@ These are genuine business/config decisions, not unfinished website work:
 - `astro check` passes with 0 errors.
 - The Sample Report page is print-optimized: the "Save as PDF" button opens the browser
   print dialog and the print stylesheet outputs just the brief document.
-

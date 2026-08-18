@@ -2,9 +2,7 @@
  * EVIDENCE AXIS — CENTRAL CONFIGURATION
  * ------------------------------------------------------------------
  * Every globally editable business fact lives here. Update values in
- * this file to change them everywhere across the site. Items marked
- * `PRE-LAUNCH` are intentionally unresolved and must be finalized
- * before the site goes live (see README + pre-launch checklist).
+ * this file to change them everywhere across the site.
  */
 
 export const site = {
@@ -70,14 +68,13 @@ export const cta = {
   secondary: { label: 'View Sample Report', href: '/sample-report/' },
 } as const;
 
-/**
- * PRE-LAUNCH legal/entity values. Left deliberately unresolved.
- * Do not state a jurisdiction, registration, or legal entity that is
- * not finalized. These render as cautious, non-fabricated language.
- */
 export const legal = {
-  entity: null as string | null,
-  jurisdiction: null as string | null,
+  publicOperator: 'Sai Morfi',
+  operatorLegalName: 'Mohammad Saeed Farahmand Silab',
+  internationalInvoicingEntity: 'UNIQE OTOMOTİV KİMYA SANAYİ LİMİTED ŞİRKETİ',
+  internationalInvoicingAddress:
+    'Barış Mah., Belediye Cad. No: 30, İç Kapı No: 138, Beylikdüzü, İstanbul, Türkiye',
+  jurisdiction: 'Türkiye',
   lastUpdated: 'August 2026',
 } as const;
 

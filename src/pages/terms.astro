@@ -20,16 +20,30 @@ import { site, legal } from '@config/site';
 
       <h2>The website</h2>
       <p>
-        This website describes {site.name} services and lets you submit an inquiry. Information on it
-        is provided for general information about the practice. Prices and service descriptions shown
-        here are current at the time of writing and may be updated.
+        This website describes {site.name} services and provides an email route for inquiries.
+        Information on it is provided for general information about the practice. Prices and service
+        descriptions shown here are current at the time of writing and may be updated.
       </p>
 
       <h2>Inquiries are not a contract</h2>
       <p>
-        Submitting the inquiry form starts a conversation. It does not by itself create an engagement
-        or an obligation on either side. An engagement begins only when scope, deliverables, timing
-        and price are agreed in writing for a specific project.
+        Sending an email or brief request starts a conversation. It does not by itself create an
+        engagement or an obligation on either side. An engagement begins only when scope,
+        deliverables, timing, price and the contracting party are agreed in writing for a specific
+        project.
+      </p>
+
+      <h2>Operator and contracting party</h2>
+      <p>
+        {site.name} is operated publicly by {legal.publicOperator}, whose legal name is
+        {' '}{legal.operatorLegalName}. The proposal, written scope confirmation and invoice identify
+        the legal contracting and invoicing party for each engagement.
+      </p>
+      <p>
+        Where an international engagement is contracted and invoiced through
+        {' '}{legal.internationalInvoicingEntity}, its registered address is
+        {' '}{legal.internationalInvoicingAddress}. Its use for a project will be stated expressly in
+        that project's written terms and invoice.
       </p>
 
       <h2>How research is conducted</h2>
@@ -61,16 +75,17 @@ import { site, legal } from '@config/site';
         prepared for a client are governed by the rights set out in that engagement's terms.
       </p>
 
-      <h2>Governing details</h2>
+      <h2>Payment and governing details</h2>
       <p>
-        The contracting entity, invoicing arrangements and governing-law details for engagements are
-        being finalized ahead of launch and are confirmed in each engagement's written terms. This
-        page will be updated to reflect them.
+        Payment instructions are supplied in the written scope confirmation or invoice. Clients
+        should not send funds to a person, account or wallet that is not identified in those
+        documents. Governing law and any dispute process are stated in the terms agreed for the
+        specific engagement.
       </p>
 
       <p class="legal__foot mono">
-        These are practical, preliminary website terms. They will be reviewed and expanded before
-        public launch.
+        Questions about these terms can be sent to
+        {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>.
       </p>
     </div>
   </section>
