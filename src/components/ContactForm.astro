@@ -192,7 +192,7 @@ const services = [
     const isComplimentary = () => service?.value === 'complimentary-brief';
     const updateMode = () => {
       if (complimentaryNote) complimentaryNote.hidden = !isComplimentary();
-      if (submitBtn) submitBtn.firstChild!.textContent = isComplimentary() ? 'Request My Complimentary Brief' : 'Send request';
+      if (submitBtn?.firstChild) submitBtn.firstChild.textContent = isComplimentary() ? 'Request My Complimentary Brief' : 'Send request';
     };
     service?.addEventListener('change', updateMode);
     updateMode();
@@ -263,7 +263,14 @@ const services = [
       if (submitBtn) submitBtn.disabled = true;
       setStatus('Sending…', 'success');
       try {
-        const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+        delete payload.fax;
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+        });
         if (!res.ok) throw new Error('bad status');
         const requestedComplimentary = isComplimentary();
         form.reset();
