@@ -3,27 +3,27 @@ export interface NavItem {
   href: string;
 }
 
-/** Primary navigation. Services grouped conceptually but flat for clarity. */
+/** Primary navigation — v1.3 commercial architecture. */
 export const primaryNav: NavItem[] = [
-  { label: 'Competitor Brief', href: '/competitor-brief/' },
-  { label: 'Market Intelligence', href: '/market-intelligence/' },
-  { label: 'Strategic Blueprint', href: '/strategic-blueprint/' },
+  { label: 'Decision Sprint', href: '/competitor-brief/' },
+  { label: 'Response Sprint', href: '/strategic-blueprint/' },
+  { label: 'Competitive Radar', href: '/market-intelligence/' },
   { label: 'Method', href: '/method/' },
-  { label: 'Sample Report', href: '/sample-report/' },
+  { label: 'Sample', href: '/sample-report/' },
   { label: 'Work', href: '/work/' },
   { label: 'About', href: '/about/' },
 ];
 
 export const footerServices: NavItem[] = [
-  { label: 'Two-Competitor Decision Brief', href: '/competitor-brief/' },
-  { label: 'Five-Competitor Evidence Brief', href: '/competitor-brief/' },
-  { label: 'Market Intelligence', href: '/market-intelligence/' },
-  { label: 'Strategic Blueprint', href: '/strategic-blueprint/' },
+  { label: 'Complimentary Competitive Intelligence Brief', href: '/contact/?intent=complimentary-brief' },
+  { label: 'Competitive Decision Sprint', href: '/competitor-brief/' },
+  { label: 'Competitive Response Sprint', href: '/strategic-blueprint/' },
+  { label: 'Competitive Radar', href: '/market-intelligence/' },
 ];
 
 export const footerCompany: NavItem[] = [
   { label: 'Method', href: '/method/' },
-  { label: 'Sample Report', href: '/sample-report/' },
+  { label: 'Sample Intelligence Brief', href: '/sample-report/' },
   { label: 'Work', href: '/work/' },
   { label: 'About', href: '/about/' },
   { label: 'Contact', href: '/contact/' },

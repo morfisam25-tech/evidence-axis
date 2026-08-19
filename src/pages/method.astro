@@ -9,105 +9,112 @@ import CTASection from '@components/CTASection.astro';
 import { methodSteps } from '@data/method';
 
 const disciplines = [
-  { t: 'Question definition', d: 'The decision sets the boundary. A vague question produces a vague brief; we sharpen it first.' },
-  { t: 'Research boundary', d: 'We agree what is in scope, what is out, and which sources count — before the work begins.' },
-  { t: 'Source discovery and quality', d: 'We prefer first-party and primary public sources, and weigh them by what they can actually support.' },
-  { t: 'Date checking', d: 'Public information changes. Every observation records the date it was checked.' },
-  { t: 'Evidence extraction', d: 'We record what a source plainly shows, quoted or described, before interpreting it.' },
+  { t: 'Competitive discovery', d: 'A supplied competitor list is useful context, not proof that the competitive set is complete. Scan-derived candidates are validated before they enter the final shortlist.' },
+  { t: 'Question definition', d: 'The decision sets the boundary. A vague question produces a vague brief; we sharpen it first when a paid engagement begins.' },
+  { t: 'Research boundary', d: 'We state what is in scope, what is out, and what the public record can realistically support.' },
+  { t: 'Source discovery and quality', d: 'We prefer primary and strong independent public sources, and weigh each source by what it can actually prove.' },
+  { t: 'Source class', d: 'Primary company pages, independent press, aggregators, vendor comparisons and AI-targeted vendor content are not treated as equivalent evidence.' },
+  { t: 'Date checking', d: 'Public information changes. Every material observation records the date it was checked.' },
+  { t: 'Evidence extraction', d: 'We record what a source plainly shows before interpreting it.' },
   { t: 'Conflicting evidence', d: 'When sources disagree, we show the conflict rather than resolving it silently.' },
   { t: 'Missing evidence', d: 'When the record runs out, we mark the Unknown instead of filling it with a plausible guess.' },
   { t: 'Interpretation', d: 'Inferences are labeled as interpretation, with the reasoning visible.' },
   { t: 'Limitations', d: 'We state what the brief cannot support, so its confidence is never overstated.' },
-  { t: 'Decision implications', d: 'We connect the evidence to your decision — the point of the whole exercise.' },
-  { t: 'Source register', d: 'Every source is listed so you can verify any finding yourself.' },
+  { t: 'Decision implications', d: 'We connect the evidence to what deserves attention or a decision next.' },
+  { t: 'Source register', d: 'Every material source is listed so a finding can be checked independently.' },
+];
+
+const sourceClasses = [
+  { t: 'Primary company source', d: 'Useful for what a company publicly states about itself: product, pricing, docs, changelogs and claims.' },
+  { t: 'Independent press / credible third party', d: 'Useful for triangulation, competitive-set validation and context independent of the vendor.' },
+  { t: 'Data aggregator', d: 'Useful as a supporting lead when provenance and freshness are understood; not automatically treated as primary evidence.' },
+  { t: 'Vendor-authored comparison', d: 'A lead and a source for the vendor’s own positioning — not neutral proof about the rival.' },
+  { t: 'AI-targeted vendor content', d: 'Explicitly classified. Material claims require independent corroboration where feasible or remain vendor claim / Unknown.' },
+  { t: 'Discovery-only lead', d: 'Useful for finding where to look next. It does not enter the final evidence trail until verified.' },
 ];
 ---
 <Base
   title="Method"
-  description="How Evidence Axis works: the Fact, Inference and Unknown model, the research boundary, source discipline, and a traceable evidence chain from source to decision."
+  description="How Evidence Axis discovers competitors, verifies public sources, separates Fact, Inference and Unknown, and builds a traceable path from evidence to decision."
   path="/method/"
 >
   <PageHeader
     eyebrow="How it works"
-    title="A method you can audit, not a black box."
-    lede="The value is discipline: sourced facts, labeled inferences, and honestly named unknowns. Here is exactly how a decision question becomes a defensible brief."
-    meta={['Public competitor evidence + your context', 'Fact / Inference / Unknown', 'Source register on every brief']}
+    title="Discovery first. Evidence before assertion."
+    lede="Evidence Axis does not assume the names already on your radar are the whole market. We discover, verify, classify and then interpret — keeping every material conclusion traceable to the evidence behind it."
+    meta={['Competitive Set Scan', 'Human-reviewed sources', 'Fact / Inference / Unknown', 'Source register']}
   />
 
-  <!-- APPROVED-PAGE-VISUAL -->
   <section class="approved-page-visual" data-approved-page-visual>
     <div class="container approved-page-visual__inner">
       <figure class="approved-page-visual__frame">
-        <img src="/assets/v10/approved/method-from-source-to-decision.webp" alt="Evidence Axis method: from public source through observation, fact, inference and unknown to decision output." loading="eager" />
+        <img src="/assets/v10/approved/method-from-source-to-decision.webp" alt="Evidence Axis method: discovery and public source review through fact, inference and unknown to decision output." loading="eager" />
       </figure>
     </div>
   </section>
 
-  <!-- FIU -->
+  <section class="section container" id="discovery">
+    <SectionIntro
+      eyebrow="Discovery before deep dive"
+      title="A competitor list is an input, not the answer."
+      lede="For each Gift or engagement, Evidence Axis scans the competitive set before the final deep dive. A scan-derived competitor must be supported by at least two independent non-vendor sources before it can qualify as a validated shortlist entry."
+    />
+    <div class="discovery-rule axis-frame">
+      <div class="axis-tick"><b>SCAN</b><p>Identify up to five plausible candidates from the public record.</p></div>
+      <div class="axis-tick"><b>VALIDATE</b><p>Require at least two independent non-vendor sources for each scan-derived shortlist competitor.</p></div>
+      <div class="axis-tick"><b>DEEP DIVE</b><p>Only then investigate product, pricing, positioning, claims and recent moves at Evidence Axis depth.</p></div>
+      <div class="axis-tick"><b>DO NOT FORCE IT</b><p>“No additional competitor verified within scan scope” is a valid outcome.</p></div>
+    </div>
+  </section>
+
   <section class="section container" id="evidence-states">
     <SectionIntro
       eyebrow="The core distinction"
       title="Three states, kept separate on purpose."
-      lede="Most competitor work blurs what is proven with what is guessed. Evidence Axis keeps them apart — in the analysis, in the report, and in how this page is built."
+      lede="Most competitor work blurs what is proven with what is guessed. Evidence Axis keeps them apart — in the analysis and in the final deliverable."
     />
     <div class="m-fiu"><FactInferenceUnknown /></div>
   </section>
 
-  <!-- EVIDENCE CHAIN -->
   <section class="section" data-surface="dark" id="evidence-chain">
     <div class="container">
       <SectionIntro
         eyebrow="Traceable reasoning"
         title="Walk any conclusion back to its source."
-        lede="Nothing in a brief arrives as a bare assertion. Trace the path from a public source, through the observation, to the fact, the inference, the unknown, and the decision it informs."
+        lede="Nothing enters a brief as a bare assertion. Trace the path from a public source, through the observation and evidence state, to the implication it supports."
       />
       <div class="m-chain"><EvidenceChain /></div>
     </div>
   </section>
 
-  <!-- PROCESS -->
   <section class="section container" id="workflow">
-    <SectionIntro
-      eyebrow="The sequence"
-      title="From decision question to decision brief."
-    />
+    <SectionIntro eyebrow="The sequence" title="From discovery to executive intelligence." />
     <div class="m-flow"><ProcessFlow steps={methodSteps} /></div>
   </section>
 
-  <!-- DISCIPLINES -->
+  <section class="section container" id="source-classes">
+    <SectionIntro eyebrow="Source classes" title="Not every public page has the same evidentiary weight." />
+    <dl class="disc axis-frame">
+      {sourceClasses.map((d) => (
+        <div class="disc__row axis-tick" data-reveal><dt class="disc__t">{d.t}</dt><dd class="disc__d">{d.d}</dd></div>
+      ))}
+    </dl>
+  </section>
+
   <section class="section" data-surface="dark" id="limitations">
     <div class="container">
-      <SectionIntro
-        eyebrow="What the discipline covers"
-        title="The details that keep a brief honest."
-      />
+      <SectionIntro eyebrow="What the discipline covers" title="The details that keep intelligence honest." />
       <dl class="disc axis-frame">
         {disciplines.map((d) => (
-          <div class="disc__row axis-tick" data-reveal>
-            <dt class="disc__t">{d.t}</dt>
-            <dd class="disc__d">{d.d}</dd>
-          </div>
+          <div class="disc__row axis-tick" data-reveal><dt class="disc__t">{d.t}</dt><dd class="disc__d">{d.d}</dd></div>
         ))}
       </dl>
     </div>
   </section>
 
-  <CTASection title="See the method on your own question." />
+  <CTASection title="See the method on your own company." />
 </Base>
 
 <style>
-  .m-fiu, .m-chain, .m-flow { margin-top: var(--space-xl); }
-  .m-chain { max-width: 52rem; }
-  .m-flow { max-width: 46rem; }
-  .disc { margin-top: var(--space-xl); display: grid; gap: 0; }
-  .disc__row {
-    display: grid; gap: var(--space-2xs);
-    padding: var(--space-m) 0; border-top: 1px solid var(--hairline);
-  }
-  .disc__t { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); }
-  .disc__d { color: var(--text-muted); max-width: 60ch; }
-  section[id] { scroll-margin-top: 6.5rem; }
-  @media (min-width: 52rem) {
-    .disc__row { grid-template-columns: 18rem 1fr; gap: var(--space-l); align-items: baseline; }
-  }
+  .m-fiu,.m-chain,.m-flow{margin-top:var(--space-xl)}.m-chain{max-width:52rem}.m-flow{max-width:46rem}.disc,.discovery-rule{margin-top:var(--space-xl);display:grid;gap:0}.disc__row,.discovery-rule>div{display:grid;gap:var(--space-2xs);padding:var(--space-m) 0;border-top:1px solid var(--hairline)}.disc__t,.discovery-rule b{font-family:var(--font-display);font-weight:500;font-size:var(--step-1)}.disc__d,.discovery-rule p{color:var(--text-muted);max-width:62ch;margin:0}.discovery-rule b{color:var(--accent)}section[id]{scroll-margin-top:6.5rem}@media(min-width:52rem){.disc__row,.discovery-rule>div{grid-template-columns:18rem 1fr;gap:var(--space-l);align-items:baseline}}
 </style>
