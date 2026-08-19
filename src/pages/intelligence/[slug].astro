@@ -1,0 +1,128 @@
+---
+import Base from '@layouts/Base.astro';
+import { intelligenceDeliveries, type IntelligenceDelivery } from '@data/deliveries';
+import { site, cta } from '@config/site';
+
+export function getStaticPaths() {
+  return intelligenceDeliveries.map((delivery) => ({
+    params: { slug: delivery.slug },
+    props: { delivery },
+  }));
+}
+
+interface Props {
+  delivery: IntelligenceDelivery;
+}
+
+const { delivery } = Astro.props;
+const recipientLine = [delivery.recipient, delivery.recipientRole].filter(Boolean).join(' · ');
+---
+<Base
+  title={`Intelligence Brief — ${delivery.company}`}
+  description={`A private-link Evidence Axis competitive intelligence delivery prepared for ${delivery.company}.`}
+  path={`/intelligence/${delivery.slug}/`}
+  noindex={true}
+>
+  <section class="delivery-hero" data-surface="dark">
+    <div class="delivery-hero__grid" aria-hidden="true"></div>
+    <div class="delivery-hero__glow" aria-hidden="true"></div>
+    <div class="container-wide delivery-hero__inner">
+      <div class="delivery-hero__copy">
+        <span class="delivery-kicker mono">PREPARED SPECIFICALLY FOR</span>
+        <h1>{delivery.company}</h1>
+        {recipientLine && <p class="delivery-recipient mono">{recipientLine}</p>}
+        <p class="delivery-lede">{delivery.summary}</p>
+        <div class="delivery-meta">
+          <div><small class="mono">WHY WE LOOKED</small><b>{delivery.trigger}</b></div>
+          <div><small class="mono">PREPARED</small><b>{delivery.preparedDate}</b></div>
+        </div>
+      </div>
+
+      <aside class="delivery-seal">
+        <span class="delivery-seal__label mono">EVIDENCE AXIS</span>
+        <strong>Competitive<br/>Intelligence</strong>
+        <div class="delivery-seal__states mono"><span>FACT</span><span>INFERENCE</span><span>UNKNOWN</span></div>
+        <p>Source-verified · Human-reviewed · Executive-ready</p>
+      </aside>
+    </div>
+  </section>
+
+  <main class="delivery-main">
+    {delivery.headlineFinding && (
+      <section class="delivery-finding">
+        <div class="container delivery-finding__inner">
+          <span class="label">ONE FINDING TO START WITH</span>
+          <blockquote>{delivery.headlineFinding}</blockquote>
+          <p>The full evidence, boundaries and source trail are inside the package below.</p>
+        </div>
+      </section>
+    )}
+
+    <section class="delivery-package" aria-labelledby="delivery-package-title">
+      <div class="container-wide">
+        <header class="delivery-package__head">
+          <div>
+            <span class="label">YOUR INTELLIGENCE PACKAGE</span>
+            <h2 id="delivery-package-title">Two files. One evidence trail.</h2>
+          </div>
+          <p>No signup, form or call is required to receive the work. Open the executive view first, then use the Evidence Appendix to inspect the sources, classifications, limitations and contradictions behind it.</p>
+        </header>
+
+        <div class="delivery-files">
+          <a class="delivery-file delivery-file--deck" href={delivery.deckHref} target="_blank" rel="noopener">
+            <span class="delivery-file__num mono">01</span>
+            <small class="mono">EXECUTIVE VIEW</small>
+            <h3>{delivery.deckLabel ?? 'Executive Intelligence Deck'}</h3>
+            <p>Competitive set, material moves, decision matrix, implications and recommended watch/actions.</p>
+            <div><span>OPEN PDF</span><b aria-hidden="true">↗</b></div>
+          </a>
+
+          <a class="delivery-file delivery-file--appendix" href={delivery.appendixHref} target="_blank" rel="noopener">
+            <span class="delivery-file__num mono">02</span>
+            <small class="mono">EVIDENCE VIEW</small>
+            <h3>{delivery.appendixLabel ?? 'Evidence Appendix'}</h3>
+            <p>Fact / Inference / Unknown, checked sources, review dates, source classes, limitations and unresolved contradictions.</p>
+            <div><span>OPEN PDF</span><b aria-hidden="true">↗</b></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="delivery-standard" data-surface="dark">
+      <div class="container-wide delivery-standard__grid">
+        <div>
+          <span class="label">HOW TO READ THE WORK</span>
+          <h2>Confidence never outruns the evidence.</h2>
+        </div>
+        <div class="delivery-standard__states">
+          <article><b>FACT</b><p>Directly supported by a source that was opened and checked.</p></article>
+          <article><b>INFERENCE</b><p>An analytical conclusion built from disclosed evidence.</p></article>
+          <article><b>UNKNOWN</b><p>Evidence is not strong enough to claim certainty.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="delivery-next">
+      <div class="container delivery-next__inner">
+        <span class="label">IF THIS RAISES A REAL DECISION</span>
+        <h2>The next engagement adds your context.</h2>
+        <p>The Complimentary Brief shows what the public competitive evidence supports. A Competitive Decision Sprint goes further by combining that evidence with the decision, constraints and internal context in front of your team.</p>
+        <a class="btn btn--lg" href={`${cta.secondary.href}&company=${encodeURIComponent(delivery.company)}`}>Discuss a Competitive Decision <span class="btn-arrow" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .delivery-hero{position:relative;overflow:hidden;padding:clamp(5rem,9vw,8.5rem) 0;background:#020713;color:#f5f8ff;border-bottom:1px solid rgba(112,158,220,.18)}
+  .delivery-hero__grid{position:absolute;inset:0;opacity:.2;background-image:linear-gradient(rgba(105,151,220,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(105,151,220,.1) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(90deg,#000,transparent 92%)}
+  .delivery-hero__glow{position:absolute;inset:-20% -10% -20% 38%;background:radial-gradient(circle at 56% 44%,rgba(66,139,255,.29),transparent 26%),radial-gradient(circle at 64% 62%,rgba(65,224,214,.13),transparent 35%);filter:blur(10px)}
+  .delivery-hero__inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(20rem,.55fr);gap:clamp(2rem,7vw,7rem);align-items:center}.delivery-kicker{font-size:.66rem;letter-spacing:.17em;color:#64e2da}.delivery-hero h1{margin:.75rem 0 0;font-size:clamp(4rem,8vw,8rem);line-height:.9;letter-spacing:-.065em}.delivery-recipient{margin:.75rem 0 0;color:#8ea5c4;font-size:.68rem;letter-spacing:.08em}.delivery-lede{max-width:48rem;margin:1.25rem 0 0;color:#c9d6e6;font-size:1.12rem;line-height:1.72}.delivery-meta{display:grid;grid-template-columns:1.3fr .7fr;gap:.75rem;margin-top:1.7rem}.delivery-meta>div{padding:1rem;border:1px solid rgba(124,165,221,.17);border-radius:.75rem;background:rgba(8,20,38,.62);backdrop-filter:blur(12px)}.delivery-meta small{display:block;color:#7089aa;font-size:.56rem;letter-spacing:.1em}.delivery-meta b{display:block;margin-top:.4rem;color:#edf4ff;font-size:.9rem;line-height:1.4}
+  .delivery-seal{position:relative;min-height:25rem;padding:1.5rem;border:1px solid rgba(113,163,231,.3);border-radius:50% / 12%;background:linear-gradient(150deg,rgba(8,28,53,.91),rgba(4,13,27,.95));box-shadow:0 42px 100px rgba(0,0,0,.38),0 0 70px rgba(66,144,255,.09) inset;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.delivery-seal::before,.delivery-seal::after{content:'';position:absolute;left:8%;right:8%;height:2.5rem;border:1px solid rgba(87,224,214,.33);border-radius:50%}.delivery-seal::before{top:-1.25rem}.delivery-seal::after{bottom:-1.25rem}.delivery-seal__label{font-size:.6rem;letter-spacing:.18em;color:#61dfd7}.delivery-seal strong{margin:.8rem 0;font:780 clamp(2rem,3.2vw,3.3rem)/.95 var(--font-display);letter-spacing:-.045em}.delivery-seal__states{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}.delivery-seal__states span{padding:.42rem .55rem;border:1px solid rgba(129,170,225,.2);border-radius:999px;color:#a8bad1;font-size:.52rem;letter-spacing:.08em}.delivery-seal p{max-width:18rem;margin:1rem 0 0;color:#8096b3;font-size:.72rem;line-height:1.5}
+  .delivery-finding{padding:clamp(4rem,7vw,6rem) 0;background:#f4eee5}.delivery-finding__inner{max-width:68rem}.delivery-finding blockquote{margin:1rem 0;font:700 clamp(2.2rem,4.5vw,4.4rem)/1.04 var(--font-display);letter-spacing:-.05em;color:#0b1422}.delivery-finding p{color:#657285}
+  .delivery-package{padding:clamp(5.5rem,8vw,8rem) 0;background:#f9f5ee}.delivery-package__head{display:grid;grid-template-columns:1fr .8fr;gap:clamp(2rem,6vw,5rem);align-items:end}.delivery-package__head h2{margin:.7rem 0 0;font-size:clamp(2.8rem,5vw,5.2rem);line-height:.94;letter-spacing:-.055em}.delivery-package__head>p{margin:0;color:#5b697c;line-height:1.7}.delivery-files{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.6rem}.delivery-file{position:relative;min-height:26rem;padding:1.6rem;border:1px solid rgba(43,67,96,.14);border-radius:1.25rem;background:#fff;color:#0b1422;text-decoration:none;box-shadow:0 28px 70px rgba(29,39,54,.11);overflow:hidden;transition:transform .22s ease,box-shadow .22s ease}.delivery-file:hover{transform:translateY(-7px);box-shadow:0 40px 92px rgba(29,39,54,.16)}.delivery-file::before{content:'';position:absolute;inset:0 0 auto;height:4px;background:#4fded6}.delivery-file--appendix::before{background:#8b6cf0}.delivery-file__num{position:absolute;right:1.4rem;top:1.2rem;color:rgba(28,74,123,.12);font-size:3rem;font-weight:800}.delivery-file small{font-size:.6rem;letter-spacing:.12em;color:#2e7f99}.delivery-file--appendix small{color:#7557cc}.delivery-file h3{max-width:12ch;margin:4.5rem 0 .8rem;font-size:clamp(2rem,3.3vw,3.3rem);line-height:.95;letter-spacing:-.045em}.delivery-file p{max-width:34rem;color:#627084;line-height:1.65}.delivery-file>div{position:absolute;left:1.6rem;right:1.6rem;bottom:1.5rem;display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid rgba(43,67,96,.12);font-family:var(--font-display);font-weight:800;font-size:.78rem}.delivery-file>div b{font-size:1.2rem;color:#2d8da0}
+  .delivery-standard{padding:clamp(5rem,8vw,7rem) 0;background:#040c18;color:#f4f8ff}.delivery-standard__grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(2rem,7vw,6rem);align-items:center}.delivery-standard h2{margin:.7rem 0 0;max-width:9ch;font-size:clamp(2.8rem,4.7vw,4.8rem);line-height:.95;letter-spacing:-.05em}.delivery-standard__states{display:grid;gap:.75rem}.delivery-standard__states article{padding:1.15rem 1.25rem;border:1px solid rgba(119,161,216,.16);border-radius:.8rem;background:rgba(255,255,255,.025)}.delivery-standard__states b{font:850 .68rem/1 var(--font-mono);letter-spacing:.1em;color:#5be1d9}.delivery-standard__states article:nth-child(2) b{color:#f0aa49}.delivery-standard__states article:nth-child(3) b{color:#aa82ff}.delivery-standard__states p{margin:.45rem 0 0;color:#9eb0c7;line-height:1.55}
+  .delivery-next{padding:clamp(5rem,8vw,7.5rem) 0;background:#fff}.delivery-next__inner{max-width:66rem}.delivery-next h2{margin:.7rem 0;font-size:clamp(2.7rem,5vw,5rem);line-height:.95;letter-spacing:-.05em}.delivery-next p{max-width:52rem;color:var(--text-muted);font-size:1.05rem;line-height:1.72}.delivery-next .btn{margin-top:1.2rem}
+  @media(max-width:900px){.delivery-hero__inner,.delivery-package__head,.delivery-files,.delivery-standard__grid{grid-template-columns:1fr}.delivery-seal{min-height:21rem}.delivery-meta{grid-template-columns:1fr}.delivery-standard h2{max-width:13ch}}
+  @media(max-width:560px){.delivery-file{min-height:23rem}.delivery-file h3{margin-top:3.6rem}}
+</style>
