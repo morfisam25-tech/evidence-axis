@@ -33,10 +33,20 @@ const { title, description, path, ogType, noindex } = Astro.props;
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
     <Header />
-    <main id="main">
+    <div id="main">
       <slot />
-    </main>
+    </div>
     <Footer />
+
+    <div class="ea-lightbox" data-lightbox-modal hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Expanded image">
+      <button class="ea-lightbox__backdrop" type="button" data-lightbox-close aria-label="Close expanded image"></button>
+      <div class="ea-lightbox__panel">
+        <button class="ea-lightbox__close" type="button" data-lightbox-close aria-label="Close expanded image">×</button>
+        <img data-lightbox-image alt="" />
+        <p class="ea-lightbox__caption" data-lightbox-caption></p>
+        <span class="ea-lightbox__hint mono">CLICK IMAGE TO ZOOM · ESC TO CLOSE</span>
+      </div>
+    </div>
 
     <script is:inline>
       document.documentElement.classList.remove('no-js');
@@ -85,14 +95,9 @@ const { title, description, path, ogType, noindex } = Astro.props;
           panel.hidden = !open;
           document.body.style.overflow = open ? 'hidden' : '';
           backgrounds.forEach((el) => { el.inert = open; });
-          if (open) {
-            const first = panel.querySelector<HTMLElement>('a, button');
-            first?.focus();
-          }
+          if (open) panel.querySelector<HTMLElement>('a, button')?.focus();
         };
-        toggle.addEventListener('click', () => {
-          setOpen(toggle.getAttribute('aria-expanded') !== 'true');
-        });
+        toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
         panel.querySelectorAll('a').forEach((a) =>
           a.addEventListener('click', () => {
             toggle.setAttribute('aria-expanded', 'false');
@@ -111,42 +116,73 @@ const { title, description, path, ogType, noindex } = Astro.props;
         const mq = window.matchMedia('(min-width: 64rem)');
         mq.addEventListener('change', (e) => { if (e.matches && toggle.getAttribute('aria-expanded') === 'true') setOpen(false); });
       }
-    </script>
 
+      const lightbox = document.querySelector<HTMLElement>('[data-lightbox-modal]');
+      const lightboxImage = lightbox?.querySelector<HTMLImageElement>('[data-lightbox-image]');
+      const lightboxCaption = lightbox?.querySelector<HTMLElement>('[data-lightbox-caption]');
+      let lastTrigger: HTMLElement | null = null;
+
+      const closeLightbox = () => {
+        if (!lightbox || lightbox.hidden) return;
+        lightbox.hidden = true;
+        lightbox.setAttribute('aria-hidden', 'true');
+        lightbox.classList.remove('is-zoomed');
+        document.body.classList.remove('lightbox-open');
+        if (lightboxImage) lightboxImage.src = '';
+        lastTrigger?.focus?.();
+      };
+
+      const openLightbox = (trigger: HTMLElement) => {
+        if (!lightbox || !lightboxImage) return;
+        const img = trigger instanceof HTMLImageElement ? trigger : trigger.querySelector<HTMLImageElement>('img');
+        if (!img?.src) return;
+        lastTrigger = trigger;
+        lightboxImage.src = img.currentSrc || img.src;
+        lightboxImage.alt = img.alt || '';
+        if (lightboxCaption) lightboxCaption.textContent = trigger.dataset.lightboxCaption || img.alt || '';
+        lightbox.hidden = false;
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+        lightbox.querySelector<HTMLButtonElement>('.ea-lightbox__close')?.focus();
+      };
+
+      document.querySelectorAll<HTMLElement>('[data-lightbox]').forEach((trigger) => {
+        if (!trigger.hasAttribute('tabindex')) trigger.tabIndex = 0;
+        trigger.setAttribute('role', 'button');
+        trigger.setAttribute('aria-label', trigger.getAttribute('aria-label') || 'Open image larger');
+        trigger.addEventListener('click', (e) => { e.preventDefault(); openLightbox(trigger); });
+        trigger.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(trigger); }
+        });
+      });
+      lightbox?.querySelectorAll<HTMLElement>('[data-lightbox-close]').forEach((el) => el.addEventListener('click', closeLightbox));
+      lightboxImage?.addEventListener('click', () => lightbox?.classList.toggle('is-zoomed'));
+      window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+    </script>
   </body>
 </html>
 
 <style is:global>
-  .film-v10__player--real-video .film-v10__native-video {
-    display: block;
-    width: 100%;
-    height: 100%;
-    min-height: clamp(25rem, 48vw, 42rem);
-    object-fit: cover;
-    background: #09111f;
-  }
+  html { scroll-padding-top: 4.5rem; }
+  body.lightbox-open { overflow: hidden; }
+  [data-lightbox] { cursor: zoom-in; }
+  [data-lightbox]:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 58%, transparent); outline-offset: 4px; }
+  .ea-lightbox[hidden] { display: none; }
+  .ea-lightbox { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: clamp(.75rem, 2vw, 1.5rem); }
+  .ea-lightbox__backdrop { position: absolute; inset: 0; border: 0; background: rgba(1, 6, 15, .94); backdrop-filter: blur(14px); cursor: zoom-out; }
+  .ea-lightbox__panel { position: relative; z-index: 1; width: min(96vw, 92rem); height: min(92vh, 62rem); display: grid; grid-template-rows: 1fr auto auto; place-items: center; gap: .65rem; }
+  .ea-lightbox__panel img { max-width: 100%; max-height: 80vh; width: auto; height: auto; object-fit: contain; border-radius: .8rem; box-shadow: 0 34px 90px rgba(0,0,0,.46); cursor: zoom-in; transition: transform .18s ease; }
+  .ea-lightbox.is-zoomed .ea-lightbox__panel { overflow: auto; place-items: start center; }
+  .ea-lightbox.is-zoomed .ea-lightbox__panel img { max-width: none; max-height: none; width: min(150rem, 180vw); cursor: zoom-out; }
+  .ea-lightbox__close { position: absolute; top: 0; right: 0; z-index: 3; width: 2.8rem; height: 2.8rem; border-radius: 50%; border: 1px solid rgba(255,255,255,.22); background: rgba(7,17,33,.82); color: #fff; font-size: 1.65rem; line-height: 1; cursor: pointer; }
+  .ea-lightbox__caption { margin: 0; max-width: 70rem; text-align: center; color: #d4deec; font-size: .92rem; }
+  .ea-lightbox__hint { color: #7f96b4; font-size: .58rem; letter-spacing: .11em; }
+
+  .film-v10__player--real-video .film-v10__native-video { display: block; width: 100%; height: 100%; min-height: clamp(25rem, 48vw, 42rem); object-fit: cover; background: #09111f; }
   .film-v10__player--real-video { position: relative; overflow: hidden; }
   .film-v10__player--real-video .film-v10__frame { position: absolute; left: 1rem; right: 1rem; bottom: 1rem; z-index: 3; }
-  .gallery-v10__mosaic img,
-  .outputs-v10__gallery img,
-  .ai-v10__visual img,
-  .world-v10__visual img,
-  .v10-media--sample img,
-  .final-v10 img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: #08111f;
-  }
+  .gallery-v10__mosaic img,.outputs-v10__gallery img,.ai-v10__visual img,.world-v10__visual img,.v10-media--sample img,.final-v10 img { display: block; width: 100%; height: 100%; object-fit: contain; background: #08111f; }
   .runtime-page-visual { padding-block: clamp(1.5rem, 4vw, 4rem); }
-  .runtime-page-visual figure {
-    margin: 0;
-    overflow: hidden;
-    border: 1px solid var(--surface-border);
-    border-radius: 1.25rem;
-    background: #08111f;
-    box-shadow: 0 24px 70px rgba(4, 10, 20, 0.18);
-  }
+  .runtime-page-visual figure { margin: 0; overflow: hidden; border: 1px solid var(--surface-border); border-radius: 1.25rem; background: #08111f; box-shadow: 0 24px 70px rgba(4, 10, 20, 0.18); }
   .runtime-page-visual img { display: block; width: 100%; height: auto; max-height: 44rem; object-fit: contain; }
 </style>
