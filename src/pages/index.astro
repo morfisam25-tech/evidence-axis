@@ -1,230 +1,188 @@
 ---
 import Base from '@layouts/Base.astro';
 import Hero from '@components/Hero.astro';
-import { site, offers, cta } from '@config/site';
-import '../styles/home-v10.css';
-import '../styles/home-final.css';
-import '../styles/intro-v10.css';
+import { site, offers, cta, contact } from '@config/site';
 ---
 <Base title={site.name} description={site.description} path="/">
   <Hero />
 
-  <main class="home-v10">
-    <section class="proofbar-v10" id="proof" aria-label="Evidence Axis operating principles">
-      <div class="container-wide proofbar-v10__grid">
-        <article><span>01</span><b>Discover</b><p>Find the competitors that actually matter.</p></article>
-        <article><span>02</span><b>Verify</b><p>Separate evidence from marketing noise.</p></article>
-        <article><span>03</span><b>Decide</b><p>Turn verified intelligence into a decision.</p></article>
-        <article><span>04</span><b>Respond</b><p>Translate the decision into market action.</p></article>
+  <main class="ea-home">
+    <section class="ea-proof" id="proof" aria-label="Evidence Axis operating principles">
+      <div class="container-wide ea-proof__grid">
+        <article><span>01</span><b>Discover</b><p>Find the competitors the current view may be missing.</p></article>
+        <article><span>02</span><b>Verify</b><p>Open the sources and separate evidence from noise.</p></article>
+        <article><span>03</span><b>Decide</b><p>Turn the verified record into an executive decision.</p></article>
+        <article><span>04</span><b>Respond</b><p>Convert the decision into market action when needed.</p></article>
       </div>
     </section>
 
-    <section class="gallery-v10" aria-labelledby="sample-title">
-      <div class="container-wide gallery-v10__grid">
-        <div class="gallery-v10__copy">
-          <span class="v10-kicker">ILLUSTRATIVE SAMPLE</span>
-          <h2 id="sample-title">Inspect the intelligence before you discuss an engagement.</h2>
-          <p>The public demonstration compares Intercom and Zendesk on a bounded competitive question using checked first-party public sources. It shows the evidence matrix, Fact / Inference / Unknown discipline, decision implications and source register. It is a demonstration, not a client engagement.</p>
-          <div class="gallery-v10__links">
-            <a href="/sample-report/">View the Sample Intelligence Brief →</a>
-            <a href={cta.primary.href}>Discuss a Competitive Decision →</a>
-          </div>
-        </div>
-        <div class="gallery-v10__mosaic">
-          <figure><img src="/assets/v10/approved/market-intelligence-war-room.webp" alt="Evidence Axis competitive intelligence view showing market signals, sources and decisions" loading="eager" /></figure>
-          <figure><img src="/assets/v10/approved/two-competitor-decision-brief.webp" alt="Evidence Axis source-verified competitive intelligence brief" loading="lazy" /></figure>
-          <figure><img src="/assets/v10/approved/what-you-get.webp" alt="Evidence Axis executive intelligence deliverable with fact, inference and unknown separation" loading="lazy" /></figure>
-          <figure><img src="/assets/v10/approved/decision-ready-showcase.webp" alt="Decision-ready competitive intelligence with traceable evidence" loading="lazy" /></figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="offers-v10 gift-v10" id="intelligence-gift" aria-labelledby="gift-title">
+    <section class="ea-section ea-brief" id="complimentary-brief">
       <div class="container-wide">
-        <header class="offers-v10__head">
+        <header class="ea-head ea-head--split">
           <div>
-            <span class="v10-kicker">WE SOMETIMES DO THE WORK FIRST</span>
-            <h2 id="gift-title">Selected companies receive intelligence before they ask for it.</h2>
+            <span class="ea-kicker">SEE THE WORK BEFORE YOU START AN ENGAGEMENT</span>
+            <h2>Two routes. The same evidence standard.</h2>
           </div>
-          <p>Evidence Axis does not use the Intelligence Gift as a lead magnet or public free-service queue. We select a company because a competitive trigger is visible, build the work, and deliver it directly. No signup, form or call is required to receive it.</p>
+          <p>A verified company employee can request a complimentary company-specific brief. Evidence Axis may also initiate the same quality of work proactively when a visible competitive trigger makes the timing useful.</p>
         </header>
 
-        <div class="pricing-v10 gift-v10__grid">
-          <article class="price-card price-card--cyan gift-v10__card">
-            <div class="price-card__flag mono">INVITATION ONLY</div>
-            <span class="price-card__label mono">PROACTIVE COMPETITIVE INTELLIGENCE</span>
-            <h3>{offers.intelligenceGift.name}</h3>
-            <p>{offers.intelligenceGift.scope}</p>
-            <div class="price-card__price"><small>ACCESS</small><strong>Selected companies</strong><em>Built before an engagement is requested.</em></div>
-            <div class="price-card__delivery"><small>DELIVERY</small><b>{offers.intelligenceGift.delivery}</b></div>
+        <div class="ea-brief__grid">
+          <article class="ea-route ea-route--primary">
+            <span class="ea-route__flag mono">INBOUND · COMPLIMENTARY</span>
+            <h3>{offers.complimentaryBrief.name}</h3>
+            <p>{offers.complimentaryBrief.scope}</p>
             <ul>
               <li>Competitive Set Scan</li>
               <li>Executive Intelligence Deck — PDF</li>
               <li>Evidence Appendix — PDF</li>
               <li>Fact / Inference / Unknown separation</li>
               <li>Source Register with review dates</li>
-              <li>Competitive blindspots where evidence supports them</li>
+              <li>Blindspots surfaced where evidence supports them</li>
             </ul>
-            <a href="/sample-report/">See the public demonstration →</a>
+            <div class="ea-route__meta"><span>ELIGIBILITY</span><b>Verified company employee · work email</b></div>
+            <a class="ea-btn ea-btn--dark" href={cta.primary.href}>{cta.primary.label}<span>→</span></a>
           </article>
 
-          <aside class="included-card">
-            <span class="price-card__label mono">WHY THIS MODEL EXISTS</span>
-            <div><b>Quality before persuasion</b><p>The first meaningful interaction can be the work itself, not a sales deck.</p></div>
-            <div><b>Trigger-led selection</b><p>We look for an observable competitive change that makes the intelligence timely.</p></div>
-            <div><b>Discovery first</b><p>We do not assume the competitors already on a team’s radar are the whole market.</p></div>
-            <div><b>Human-reviewed evidence</b><p>Material claims are checked against underlying sources before they enter the deliverable.</p></div>
-            <a href="/method/">See the Evidence Axis method →</a>
-          </aside>
+          <article class="ea-route ea-route--outbound">
+            <span class="ea-route__flag mono">OUTBOUND · PROACTIVE</span>
+            <h3>Evidence Axis may do the work first.</h3>
+            <p>A public competitive trigger can be enough reason for us to investigate before a company asks. The recipient gets a real intelligence package, not a teaser or sales deck.</p>
+            <div class="ea-route__steps">
+              <div><b>01</b><span>Visible trigger</span></div>
+              <div><b>02</b><span>Discovery + verification</span></div>
+              <div><b>03</b><span>Company-specific intelligence</span></div>
+              <div><b>04</b><span>Private delivery</span></div>
+            </div>
+            <div class="ea-route__principle"><strong>FULL QUALITY.</strong><span>Controlled scope. No generic demo.</span></div>
+            <a class="ea-text-link" href="/sample-report/">Inspect the public demonstration →</a>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="insight-v10" aria-labelledby="method-title">
-      <div class="container-wide">
-        <header class="v10-head v10-head--center">
-          <span class="v10-kicker">THE EVIDENCE STANDARD</span>
-          <h2 id="method-title">A conclusion is only as strong as the path behind it.</h2>
-          <p>Fast summaries are easy. Evidence Axis keeps the source, evidence state, decision boundary and unresolved questions visible so confidence does not outrun the record.</p>
-        </header>
-        <div class="insight-v10__grid">
-          <article class="insight-card insight-card--cyan"><span>01</span><h3>Discovery comes before analysis.</h3><p>A supplied competitor list is useful context, not a guarantee that the competitive set is complete.</p><a href="/method/">See the method →</a></article>
-          <article class="insight-card insight-card--blue"><span>02</span><h3>Evidence before interpretation.</h3><p>Material factual claims stay attached to identifiable, checked sources and review dates.</p><a href="/sample-report/">Open the sample →</a></article>
-          <article class="insight-card insight-card--amber"><span>03</span><h3>Fact. Inference. Unknown.</h3><p>Verified observations, analytical judgment and unresolved gaps are never silently blended together.</p><a href="/method/#evidence-states">See the evidence states →</a></article>
-          <article class="insight-card insight-card--violet"><span>04</span><h3>Contradictions stay visible.</h3><p>Conflicting sources are disclosed rather than resolved by picking the cleaner-looking number.</p><a href="/method/#limitations">See the boundaries →</a></article>
+    <section class="ea-section ea-standard" data-surface="dark">
+      <div class="container-wide ea-standard__grid">
+        <div class="ea-standard__copy">
+          <span class="ea-kicker ea-kicker--light">AI-ACCELERATED · EVIDENCE-CONTROLLED</span>
+          <h2>AI accelerates the work. Evidence controls the conclusion.</h2>
+          <p>Evidence Axis uses AI aggressively for discovery, organization, comparison and pattern-finding. It does not treat generated text, search snippets or vendor marketing as proof.</p>
+          <a class="ea-text-link ea-text-link--light" href="/method/">See the Evidence Axis method →</a>
+        </div>
+        <div class="ea-standard__rules">
+          <article><span>01</span><b>Human-opened sources</b><p>Material claims are checked against the underlying source before they enter a deliverable.</p></article>
+          <article><span>02</span><b>Fact · Inference · Unknown</b><p>Verified observation, analytical judgment and unresolved gaps never silently blend together.</p></article>
+          <article><span>03</span><b>Contradictions stay visible</b><p>Conflicting evidence is disclosed instead of cleaned up for a prettier story.</p></article>
+          <article><span>04</span><b>Executive-ready output</b><p>The work is structured around what deserves attention and what decision may follow.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="ai-v10" aria-labelledby="ai-title">
-      <div class="container-wide ai-v10__grid">
-        <div class="ai-v10__copy">
-          <span class="v10-kicker v10-kicker--light">AI-ACCELERATED · EVIDENCE-CONTROLLED</span>
-          <h2 id="ai-title">AI can accelerate the search. It does not get to decide what is true.</h2>
-          <p>Evidence Axis uses AI where it creates leverage — discovery, organization, comparison and pattern-finding. Material claims still have to survive the evidence standard before they reach an executive deliverable.</p>
-          <ul class="ai-v10__points">
-            <li>Underlying sources are opened and checked before material claims are used.</li>
-            <li>Search snippets, generated summaries and vendor comparison pages are not treated as neutral proof.</li>
-            <li>Fact, Inference, Unknown and contradictions stay visibly separate.</li>
-            <li>AI makes the workflow faster; human review controls what enters the decision.</li>
-          </ul>
-          <a class="v10-link v10-link--light" href="/method/">See the evidence workflow →</a>
+    <section class="ea-section ea-sample">
+      <div class="container-wide ea-sample__grid">
+        <div class="ea-sample__copy">
+          <span class="ea-kicker">ILLUSTRATIVE SAMPLE</span>
+          <h2>Inspect the intelligence before you request your own.</h2>
+          <p>The public demonstration compares Intercom and Zendesk on a bounded competitive question using checked first-party sources. It shows the evidence matrix, evidence states, decision implications and the source register.</p>
+          <div class="ea-actions">
+            <a class="ea-btn" href="/sample-report/">View the Sample Intelligence Brief <span>→</span></a>
+            <a class="ea-text-link" href={cta.primary.href}>Request My Complimentary Brief →</a>
+          </div>
         </div>
-        <figure class="ai-v10__visual">
-          <img src="/assets/v10/approved/what-you-get.webp" alt="Evidence Axis evidence-controlled intelligence workflow with source verification and executive outputs" loading="lazy" />
+        <figure class="ea-media" data-lightbox data-lightbox-caption="Evidence Axis public sample intelligence brief — click again inside the viewer to zoom.">
+          <img src="/assets/v10/approved/sample-report-showcase.webp" alt="Evidence Axis sample competitive intelligence report with evidence matrix and decision view" loading="lazy" />
+          <figcaption class="mono">CLICK TO EXPAND · SAMPLE INTELLIGENCE BRIEF</figcaption>
         </figure>
       </div>
     </section>
 
-    <section class="offers-v10" id="services" aria-labelledby="services-title">
+    <section class="ea-section ea-services" id="services">
       <div class="container-wide">
-        <header class="offers-v10__head">
-          <div><span class="v10-kicker">PAID ENGAGEMENTS</span><h2 id="services-title">When the evidence raises a real decision, go deeper.</h2></div>
-          <p>The paid engagement is not simply a longer brief. It combines verified market evidence with your internal context, the decision requirement and the response options available to your team.</p>
+        <header class="ea-head ea-head--split">
+          <div><span class="ea-kicker">PAID ENGAGEMENTS</span><h2>Three different jobs after the evidence is clear.</h2></div>
+          <p>The paid work is not “the complimentary brief with more pages.” Each engagement solves a different problem: make the decision, build the response, or keep the competitive view current.</p>
         </header>
 
-        <div class="pricing-v10">
-          <article class="price-card price-card--cyan">
-            <div class="price-card__flag mono">PAID CORE</div>
-            <span class="price-card__label mono">DECIDE</span>
-            <h3>{offers.decisionSprint.name}</h3>
-            <p>{offers.decisionSprint.scope}</p>
-            <div class="price-card__price"><small>ENGAGEMENT</small><strong>{offers.decisionSprint.priceDisplay}</strong></div>
-            <div class="price-card__delivery"><small>DELIVERY</small><b>{offers.decisionSprint.delivery}</b></div>
-            <ul><li>Decision context and constraints</li><li>Decision-critical competitor deep dive</li><li>Pricing / product / positioning implications</li><li>Prioritized recommendations</li><li>Executive Decision Deck + Evidence Appendix</li></ul>
+        <div class="ea-services__grid">
+          <article class="ea-service ea-service--decision">
+            <span class="mono">01 · DECIDE</span><h3>{offers.decisionSprint.name}</h3><p>{offers.decisionSprint.scope}</p>
+            <div class="ea-service__best"><small>BEST WHEN</small><b>A real decision is live now.</b></div>
+            <ul><li>Company context + constraints</li><li>Decision-critical competitor deep dive</li><li>Pricing / product / positioning implications</li><li>Prioritized recommendations</li><li>Executive Decision Deck + Appendix</li></ul>
             <a href="/competitor-brief/">Explore the Decision Sprint →</a>
           </article>
-
-          <article class="price-card price-card--orange">
-            <div class="price-card__flag mono">ACT</div>
-            <span class="price-card__label mono">RESPOND</span>
-            <h3>{offers.responseSprint.name}</h3>
-            <p>{offers.responseSprint.scope}</p>
-            <div class="price-card__price"><small>ENGAGEMENT</small><strong>{offers.responseSprint.priceDisplay}</strong></div>
-            <div class="price-card__delivery"><small>DELIVERY</small><b>{offers.responseSprint.delivery}</b></div>
-            <ul><li>Competitive battlecards</li><li>Objection handling</li><li>Pricing response</li><li>Positioning and messaging response</li><li>Competitor-specific enablement</li></ul>
+          <article class="ea-service ea-service--response">
+            <span class="mono">02 · RESPOND</span><h3>{offers.responseSprint.name}</h3><p>{offers.responseSprint.scope}</p>
+            <div class="ea-service__best"><small>BEST WHEN</small><b>The team knows the issue and needs assets to act.</b></div>
+            <ul><li>Battlecards</li><li>Objection handling</li><li>Pricing response</li><li>Positioning + messaging</li><li>Competitor-specific enablement</li></ul>
             <a href="/strategic-blueprint/">Explore the Response Sprint →</a>
           </article>
-
-          <article class="price-card price-card--violet">
-            <div class="price-card__flag mono">ONGOING</div>
-            <span class="price-card__label mono">MONITOR</span>
-            <h3>{offers.radar.name}</h3>
-            <p>{offers.radar.scope}</p>
-            <div class="price-card__price"><small>ENGAGEMENT</small><strong>{offers.radar.priceDisplay}</strong></div>
-            <div class="price-card__delivery"><small>CADENCE</small><b>{offers.radar.delivery}</b></div>
-            <ul><li>Pricing and packaging changes</li><li>Launches and feature moves</li><li>Positioning shifts</li><li>Funding, expansion and integrations</li><li>New or emerging competitors</li></ul>
+          <article class="ea-service ea-service--radar">
+            <span class="mono">03 · MONITOR</span><h3>{offers.radar.name}</h3><p>{offers.radar.scope}</p>
+            <div class="ea-service__best"><small>BEST WHEN</small><b>The picture changes faster than a point-in-time brief.</b></div>
+            <ul><li>Pricing + packaging changes</li><li>Launches + feature moves</li><li>Positioning shifts</li><li>Funding + integrations</li><li>Emerging competitors</li></ul>
             <a href="/market-intelligence/">Explore Competitive Radar →</a>
           </article>
-
-          <aside class="included-card">
-            <span class="price-card__label mono">THE BOUNDARY</span>
-            <div><b>The Intelligence Gift proves capability.</b><p>For selected companies, it reveals and verifies the public competitive landscape before an engagement exists.</p></div>
-            <div><b>The Decision Sprint adds your context.</b><p>It answers what the evidence means for the decision actually in front of your team.</p></div>
-            <div><b>The Response Sprint builds the response.</b><p>It converts the decision into the assets needed to act.</p></div>
-            <div><b>Radar keeps it current.</b><p>Monitoring matters when the competitive picture changes faster than a point-in-time brief.</p></div>
-            <a href={cta.primary.href}>Discuss a Competitive Decision →</a>
-          </aside>
         </div>
       </div>
     </section>
 
-    <section class="deliverables-v10" id="what-you-get" aria-labelledby="deliverables-title">
+    <section class="ea-section ea-outputs" id="what-you-get">
       <div class="container-wide">
-        <header class="deliverables-v10__head">
-          <div><span class="v10-kicker">WHAT THE WORK CONTAINS</span><h2 id="deliverables-title">Decision-ready intelligence, with the evidence behind it.</h2></div>
-          <p>Every engagement is bounded to the decision. The competitive set, evidence depth and response work change with the question; the evidence standard does not.</p>
+        <header class="ea-head ea-head--split">
+          <div><span class="ea-kicker">WHAT THE WORK CONTAINS</span><h2>Decision-ready intelligence, with the evidence behind it.</h2></div>
+          <p>The competitive set, evidence depth and response work change with the question. The evidence standard does not.</p>
         </header>
-        <div class="deliverables-v10__grid">
-          <article><span>01</span><small>DISCOVERY</small><h3>Competitive Set Scan.</h3><p>We identify and verify candidates rather than assuming the market begins and ends with the names already known internally.</p></article>
-          <article><span>02</span><small>DEEP DIVE</small><h3>The competitors that matter.</h3><p>Product, pricing, positioning, public claims and recent moves are investigated where they are decision-relevant.</p></article>
-          <article><span>03</span><small>CLASSIFICATION</small><h3>Fact. Inference. Unknown.</h3><p>What is verified stays separate from analytical judgment and unresolved gaps.</p></article>
-          <article><span>04</span><small>EXECUTIVE OUTPUT</small><h3>Executive Decision Deck.</h3><p>A concise PDF built for senior review, with a decision matrix and implications rather than raw research volume.</p></article>
-          <article><span>05</span><small>EVIDENCE OUTPUT</small><h3>Evidence Appendix.</h3><p>The detailed support behind the executive deck: source URLs, source classes, review dates, limitations and contradictions.</p></article>
-          <article><span>06</span><small>THE RESULT</small><h3>A stronger decision.</h3><p>What the evidence supports, what remains uncertain, what may be outside your radar and what deserves action next.</p></article>
-        </div>
-        <div class="deliverables-v10__bottom"><b>Independent competitive intelligence</b><span>Public evidence · client context where applicable · executive-ready output</span><a href={cta.primary.href}>Discuss a Competitive Decision →</a></div>
-      </div>
-    </section>
-
-    <section class="film-v10" id="system-film" data-surface="dark" aria-labelledby="film-title">
-      <div class="container-wide film-v10__grid">
-        <div class="film-v10__copy">
-          <span class="v10-kicker v10-kicker--light">RESEARCH SYSTEM</span>
-          <h2 id="film-title">See the evidence system behind the brief.</h2>
-          <p>This visual tour shows how signals, sources, evidence states and decision views connect. The client-facing deliverables remain the Executive Decision Deck and Evidence Appendix.</p>
-          <div class="film-v10__chips mono"><span>DISCOVERY</span><span>EVIDENCE</span><span>DECISION</span><span>SOURCE TRAIL</span></div>
-        </div>
-        <div class="film-v10__stage film-v10__stage--real-video">
-          <div class="film-v10__player film-v10__player--real-video" aria-label="Evidence Axis research system film">
-            <video class="film-v10__video" autoplay muted loop playsinline preload="metadata" poster="/assets/evidence-axis/product-tour-poster.jpg" aria-label="Evidence Axis research system — evidence matrix, decision view and source workflow">
-              <source src="/assets/evidence-axis/product-tour.mp4" type="video/mp4" />
-            </video>
-            <div class="film-v10__frame"><span>RESEARCH SYSTEM</span><b>Discovery · evidence · decision · source trail</b></div>
-          </div>
+        <div class="ea-outputs__grid">
+          <article><span>01</span><small>DISCOVERY</small><h3>Competitive Set Scan</h3><p>Identify and validate candidates instead of assuming the known list is complete.</p></article>
+          <article><span>02</span><small>DEEP DIVE</small><h3>The competitors that matter</h3><p>Investigate product, pricing, positioning, public claims and recent moves where relevant.</p></article>
+          <article><span>03</span><small>CLASSIFICATION</small><h3>Fact · Inference · Unknown</h3><p>Keep verified findings separate from judgment and unresolved gaps.</p></article>
+          <article><span>04</span><small>EXECUTIVE VIEW</small><h3>Executive Intelligence Deck</h3><p>A concise PDF built for senior review, implications and decisions.</p></article>
+          <article><span>05</span><small>EVIDENCE VIEW</small><h3>Evidence Appendix</h3><p>Sources, source classes, review dates, limitations and contradictions.</p></article>
+          <article><span>06</span><small>RESULT</small><h3>A stronger competitive view</h3><p>What the evidence supports, what it cannot support and what deserves attention next.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="offers-v10 close-v10" aria-labelledby="close-title">
-      <div class="container-wide close-v10__inner">
-        <span class="v10-kicker">A REAL COMPETITIVE DECISION</span>
-        <h2 id="close-title">Bring the question. We will define the evidence boundary.</h2>
-        <p>Send the decision context asynchronously. If Evidence Axis is a fit, scope, delivery and price are confirmed in writing before paid work begins.</p>
-        <div class="close-v10__actions"><a class="btn btn--lg" href={cta.primary.href}>Discuss a Competitive Decision <span class="btn-arrow" aria-hidden="true">→</span></a><a href="/sample-report/">Inspect the sample first →</a></div>
+    <section class="ea-section ea-system" data-surface="dark">
+      <div class="container-wide ea-system__grid">
+        <div>
+          <span class="ea-kicker ea-kicker--light">RESEARCH SYSTEM</span>
+          <h2>From public source to executive decision.</h2>
+          <p>No old sales video. No hidden magic. The method is visible: discover, verify, classify, connect the evidence, and show where certainty ends.</p>
+          <div class="ea-system__chips mono"><span>DISCOVER</span><span>VERIFY</span><span>CLASSIFY</span><span>DECIDE</span></div>
+          <a class="ea-text-link ea-text-link--light" href="/method/">Walk through the full method →</a>
+        </div>
+        <figure class="ea-media ea-media--dark" data-lightbox data-lightbox-caption="Evidence Axis method from source discovery to decision implication.">
+          <img src="/assets/v10/approved/method-from-source-to-decision.webp" alt="Evidence Axis method visual from checked source to decision implication" loading="lazy" />
+          <figcaption class="mono">CLICK TO EXPAND · SOURCE → DECISION</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ea-final">
+      <div class="container ea-final__inner">
+        <span class="ea-kicker">START WITH THE WORK — OR THE DECISION</span>
+        <h2>See the evidence on your company.</h2>
+        <p>Request a complimentary company-specific brief, or send a competitive decision that already needs deeper support.</p>
+        <div class="ea-actions ea-actions--center">
+          <a class="ea-btn ea-btn--dark" href={cta.primary.href}>{cta.primary.label}<span>→</span></a>
+          <a class="ea-btn ea-btn--ghost" href={cta.secondary.href}>{cta.secondary.label}<span>→</span></a>
+        </div>
+        <a class="ea-final__email" href={`mailto:${contact.emailDisplay}`}>{contact.emailDisplay}</a>
       </div>
     </section>
   </main>
-
-  <style>
-    .gift-v10{background:linear-gradient(180deg,#f7f9fc,#eef4f8)}
-    .gift-v10__grid{grid-template-columns:minmax(0,1.1fr) minmax(18rem,.9fr)}
-    .gift-v10__card .price-card__price strong{font-size:clamp(1.9rem,3vw,3rem)}
-    .close-v10{background:#f8f4ed}
-    .close-v10__inner{max-width:72rem}
-    .close-v10 h2{max-width:14ch;margin:.7rem 0 1rem;font-size:clamp(2.8rem,5vw,5rem);line-height:.95;letter-spacing:-.05em}
-    .close-v10 p{max-width:50rem;color:var(--text-muted);font-size:1.08rem;line-height:1.7}
-    .close-v10__actions{display:flex;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}.close-v10__actions>a:not(.btn){font-family:var(--font-display);font-weight:750;text-decoration:none}
-    @media(max-width:920px){.gift-v10__grid{grid-template-columns:1fr}}
-  </style>
 </Base>
+
+<style>
+  .ea-home{background:#f8f5ef}.ea-section{padding:clamp(3.8rem,6vw,6.2rem) 0}.ea-kicker{display:block;font:800 .64rem/1 var(--font-mono);letter-spacing:.14em;color:#277d91}.ea-kicker--light{color:#64e2da}.ea-head{margin-bottom:2rem}.ea-head--split{display:grid;grid-template-columns:1.08fr .72fr;gap:clamp(2rem,6vw,5rem);align-items:end}.ea-head h2,.ea-standard h2,.ea-sample h2,.ea-system h2,.ea-final h2{margin:.65rem 0 0;font-size:clamp(2.65rem,4.6vw,5rem);line-height:.95;letter-spacing:-.052em}.ea-head>p,.ea-standard__copy>p,.ea-sample__copy>p,.ea-system p,.ea-final p{margin:0;color:#627084;line-height:1.7;font-size:1.02rem}.ea-text-link{display:inline-flex;margin-top:1rem;font-family:var(--font-display);font-weight:800;text-decoration:none;color:#1f6e86}.ea-text-link--light{color:#80e6df}.ea-btn{display:inline-flex;align-items:center;justify-content:center;gap:.65rem;min-height:3.05rem;padding:0 1rem;border-radius:.72rem;background:#0b1b2f;color:#fff;font-family:var(--font-display);font-weight:800;text-decoration:none;box-shadow:0 14px 34px rgba(18,33,52,.14)}.ea-btn--dark{background:linear-gradient(115deg,#9abaff,#53ddd6);color:#06111b}.ea-btn--ghost{background:transparent;color:#0d2037;border:1px solid rgba(26,55,86,.2);box-shadow:none}.ea-actions{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-top:1.35rem}.ea-actions--center{justify-content:center}
+  .ea-proof{background:#06101e;color:#eff6ff;border-top:1px solid rgba(115,161,221,.15);border-bottom:1px solid rgba(115,161,221,.15)}.ea-proof__grid{display:grid;grid-template-columns:repeat(4,1fr)}.ea-proof article{padding:1.15rem 1.25rem;border-left:1px solid rgba(120,161,215,.15)}.ea-proof span{font:800 .6rem/1 var(--font-mono);color:#5be1d9}.ea-proof b{display:block;margin:.45rem 0 .25rem;font:800 1.08rem/1 var(--font-display)}.ea-proof p{margin:0;color:#92a7c2;font-size:.78rem;line-height:1.45}
+  .ea-brief{background:#f2ece3}.ea-brief__grid{display:grid;grid-template-columns:1.08fr .92fr;gap:1rem}.ea-route{position:relative;padding:clamp(1.45rem,2.5vw,2.2rem);border-radius:1.15rem;border:1px solid rgba(31,58,87,.13);background:#fff;box-shadow:0 22px 60px rgba(24,34,48,.08)}.ea-route--primary{background:linear-gradient(145deg,#07162a,#0b2740);color:#f3f8ff;border-color:rgba(88,209,207,.27);box-shadow:0 30px 74px rgba(8,23,40,.2)}.ea-route__flag{font-size:.58rem;letter-spacing:.12em;color:#2c8292}.ea-route--primary .ea-route__flag{color:#64e2da}.ea-route h3{margin:.7rem 0 .65rem;font-size:clamp(1.8rem,3vw,2.9rem);line-height:1;letter-spacing:-.035em}.ea-route>p{color:#657286;line-height:1.62}.ea-route--primary>p,.ea-route--primary li{color:#c8d7e8}.ea-route ul{margin:1.1rem 0;padding-left:1.15rem;display:grid;gap:.45rem}.ea-route__meta{display:grid;gap:.25rem;margin:1.1rem 0;padding:1rem;border:1px solid rgba(91,224,214,.2);border-radius:.7rem;background:rgba(255,255,255,.03)}.ea-route__meta span{font:800 .55rem/1 var(--font-mono);letter-spacing:.1em;color:#70a5c5}.ea-route__steps{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:1.2rem}.ea-route__steps div{padding:.85rem;border-radius:.7rem;background:#f5f7fa;border:1px solid rgba(28,57,88,.09)}.ea-route__steps b{display:block;color:#267c91;font:800 .58rem/1 var(--font-mono)}.ea-route__steps span{display:block;margin-top:.35rem;font-family:var(--font-display);font-weight:750}.ea-route__principle{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;padding:1rem 0;border-top:1px solid rgba(28,57,88,.12);border-bottom:1px solid rgba(28,57,88,.12)}.ea-route__principle strong{color:#1d7890}
+  .ea-standard{background:#030914;color:#f3f8ff}.ea-standard__grid{display:grid;grid-template-columns:.86fr 1.14fr;gap:clamp(2rem,7vw,6rem);align-items:center}.ea-standard__copy>p,.ea-system p{color:#aebfd3;margin-top:1rem}.ea-standard__rules{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}.ea-standard__rules article{padding:1.1rem;border:1px solid rgba(121,164,218,.15);border-radius:.8rem;background:rgba(255,255,255,.025)}.ea-standard__rules span{font:800 .56rem/1 var(--font-mono);color:#5be1d9}.ea-standard__rules b{display:block;margin:.55rem 0 .3rem;font-size:1rem}.ea-standard__rules p{margin:0;color:#91a6bf;font-size:.82rem;line-height:1.5}
+  .ea-sample{background:#fff}.ea-sample__grid,.ea-system__grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:clamp(2rem,6vw,5rem);align-items:center}.ea-sample__copy>p{margin-top:1rem}.ea-media{margin:0;padding:.75rem;border-radius:1.1rem;background:#08111f;border:1px solid rgba(91,128,176,.16);box-shadow:0 28px 74px rgba(18,28,42,.15);overflow:hidden}.ea-media img{display:block;width:100%;height:auto;border-radius:.72rem}.ea-media figcaption{margin-top:.6rem;text-align:center;color:#8299b7;font-size:.53rem;letter-spacing:.1em}.ea-media--dark{box-shadow:0 34px 80px rgba(0,0,0,.3)}
+  .ea-services{background:#f5f0e8}.ea-services__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}.ea-service{display:flex;flex-direction:column;min-height:34rem;padding:1.35rem;border:1px solid rgba(31,58,87,.13);border-radius:1rem;background:#fff;box-shadow:0 18px 46px rgba(24,34,48,.07)}.ea-service>span{font-size:.58rem;color:#278098;letter-spacing:.1em}.ea-service h3{margin:.7rem 0;font-size:clamp(1.55rem,2.3vw,2.35rem);line-height:1}.ea-service>p,.ea-service li{color:#657286;line-height:1.55}.ea-service__best{margin:.8rem 0;padding:.8rem;border-radius:.65rem;background:#f4f7fa}.ea-service__best small{display:block;font:800 .52rem/1 var(--font-mono);letter-spacing:.1em;color:#77889d}.ea-service__best b{display:block;margin-top:.35rem}.ea-service ul{padding-left:1.05rem;display:grid;gap:.35rem}.ea-service>a{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(31,58,87,.12);font-family:var(--font-display);font-weight:800;text-decoration:none;color:#1f7188}.ea-service--response>span{color:#b96c2c}.ea-service--radar>span{color:#7257c9}
+  .ea-outputs{background:#fff}.ea-outputs__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}.ea-outputs__grid article{position:relative;padding:1.15rem;border:1px solid rgba(31,58,87,.12);border-radius:.85rem;background:#fbfcfd}.ea-outputs__grid article>span{position:absolute;right:1rem;top:.9rem;font:800 2rem/1 var(--font-display);color:rgba(27,74,111,.1)}.ea-outputs__grid small{font:800 .52rem/1 var(--font-mono);letter-spacing:.1em;color:#278098}.ea-outputs__grid h3{margin:.65rem 0 .4rem;font-size:1.18rem}.ea-outputs__grid p{margin:0;color:#657286;font-size:.88rem;line-height:1.52}
+  .ea-system{background:#040c18;color:#f3f8ff}.ea-system__chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem}.ea-system__chips span{padding:.45rem .58rem;border:1px solid rgba(115,164,219,.18);border-radius:999px;color:#9fb2ca;font-size:.54rem;letter-spacing:.09em}
+  .ea-final{padding:clamp(4.5rem,8vw,7rem) 0;background:radial-gradient(circle at 50% 0,rgba(72,205,201,.12),transparent 40%),#f2ece3}.ea-final__inner{text-align:center;max-width:68rem}.ea-final p{max-width:48rem;margin:1rem auto 0}.ea-final__email{display:inline-block;margin-top:1.2rem;color:#285f78;font-family:var(--font-display);font-weight:800;text-decoration:none;border-bottom:1px solid rgba(40,95,120,.3)}
+  @media(max-width:920px){.ea-head--split,.ea-brief__grid,.ea-standard__grid,.ea-sample__grid,.ea-system__grid{grid-template-columns:1fr}.ea-services__grid,.ea-outputs__grid{grid-template-columns:1fr 1fr}.ea-proof__grid{grid-template-columns:1fr 1fr}.ea-service{min-height:auto}.ea-head>p{margin-top:0}}
+  @media(max-width:600px){.ea-section{padding:3.4rem 0}.ea-proof__grid,.ea-services__grid,.ea-outputs__grid,.ea-standard__rules,.ea-route__steps{grid-template-columns:1fr}.ea-proof article{border-left:0;border-top:1px solid rgba(120,161,215,.15)}.ea-head h2,.ea-standard h2,.ea-sample h2,.ea-system h2,.ea-final h2{font-size:clamp(2.45rem,11vw,3.5rem)}.ea-route,.ea-service{padding:1.15rem}.ea-actions{align-items:stretch}.ea-actions a{width:100%}}
+</style>

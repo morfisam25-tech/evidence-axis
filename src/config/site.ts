@@ -16,12 +16,6 @@ export const site = {
   locale: 'en-US',
 } as const;
 
-/**
- * Contact configuration.
- * The public contact inbox and website inquiry form are live. FormSubmit
- * forwards website inquiries to the same inbox without exposing mail-server
- * credentials in the client bundle.
- */
 export const contact = {
   email: 'hello@evidenceaxis.com' as string | null,
   emailDisplay: 'hello@evidenceaxis.com',
@@ -29,21 +23,33 @@ export const contact = {
 } as const;
 
 /**
- * Public engagement architecture.
- * The Intelligence Gift is invitation-only and is not a public service request.
- * Paid engagements are quoted privately because scope changes with the decision,
- * competitive set, evidence depth and response work required.
+ * Commercial architecture.
+ * The same evidence standard can reach a company in two acquisition routes:
+ * - inbound: a verified company employee requests a Complimentary Brief;
+ * - outbound: Evidence Axis selects a company around a visible trigger and
+ *   prepares the work proactively.
+ * Paid engagements add client context, a live decision, response work or monitoring.
  */
 export const offers = {
+  complimentaryBrief: {
+    id: 'complimentary-brief',
+    name: 'Complimentary Competitive Intelligence Brief',
+    price: 0,
+    priceDisplay: 'Complimentary',
+    priceNote: 'Available to verified company employees using a work email',
+    delivery: 'Research queue and delivery window confirmed by email',
+    scope:
+      'Company-specific competitive intelligence with an Executive Intelligence Deck and Evidence Appendix.',
+  },
   intelligenceGift: {
     id: 'intelligence-gift',
-    name: 'Competitive Intelligence Gift',
+    name: 'Proactive Intelligence Gift',
     price: 0,
-    priceDisplay: 'Invitation only',
-    priceNote: 'Prepared proactively for selected companies',
+    priceDisplay: 'Proactive',
+    priceNote: 'Prepared for selected companies when a relevant competitive trigger is visible',
     delivery: 'Private Evidence Axis delivery link',
     scope:
-      'A company-specific Executive Intelligence Deck and Evidence Appendix prepared before an engagement is requested.',
+      'The same evidence-grade intelligence, initiated by Evidence Axis before an engagement is requested.',
   },
   decisionSprint: {
     id: 'decision-sprint',
@@ -79,10 +85,14 @@ export const offers = {
 
 export const cta = {
   primary: {
+    label: 'Request My Complimentary Brief',
+    href: '/contact/?intent=complimentary-brief',
+  },
+  secondary: {
     label: 'Discuss a Competitive Decision',
     href: '/contact/?intent=decision',
   },
-  secondary: {
+  sample: {
     label: 'See the Sample Intelligence Brief',
     href: '/sample-report/',
   },

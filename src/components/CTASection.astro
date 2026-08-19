@@ -1,20 +1,17 @@
 ---
-import { cta } from '@config/site';
+import { cta, contact } from '@config/site';
 interface Props {
   title?: string;
   body?: string;
   showSecondary?: boolean;
   eyebrow?: string;
 }
-const fallbackTitle = 'Bring the competitive decision. We will define the evidence boundary.';
-const fallbackBody = 'Send the decision context asynchronously. If Evidence Axis is a fit, scope, delivery and price are confirmed in writing before paid work begins.';
-const fallbackEyebrow = 'Start with the decision';
-const props = Astro.props as Props;
-const legacyComplimentaryCopy = /complimentary brief|request (a|your|my) brief/i.test(`${props.title ?? ''} ${props.body ?? ''}`);
-const title = legacyComplimentaryCopy ? fallbackTitle : (props.title ?? fallbackTitle);
-const body = legacyComplimentaryCopy ? fallbackBody : (props.body ?? fallbackBody);
-const eyebrow = legacyComplimentaryCopy ? fallbackEyebrow : (props.eyebrow ?? fallbackEyebrow);
-const showSecondary = props.showSecondary ?? true;
+const {
+  title = 'See the work before you start an engagement.',
+  body = 'Request a complimentary company-specific intelligence brief, or bring a competitive decision that already needs deeper support.',
+  showSecondary = true,
+  eyebrow = 'Start with the work — or the decision',
+} = Astro.props;
 ---
 <section class="cta-band" data-surface="dark">
   <div class="container cta-band__inner axis-frame">
@@ -26,25 +23,22 @@ const showSecondary = props.showSecondary ?? true;
       <div class="cta-band__aside">
         <p class="cta-band__body">{body}</p>
         <div class="cta-band__actions">
-          <a href={cta.primary.href} class="btn btn--lg">
-            {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
-          </a>
-          {showSecondary && (
-            <a href={cta.secondary.href} class="btn btn--ghost btn--lg">{cta.secondary.label}</a>
-          )}
+          <a href={cta.primary.href} class="btn btn--lg">{cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span></a>
+          {showSecondary && <a href={cta.secondary.href} class="btn btn--ghost btn--lg">{cta.secondary.label}</a>}
         </div>
+        <a class="cta-band__email mono" href={`mailto:${contact.emailDisplay}`}>{contact.emailDisplay}</a>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .cta-band { background: var(--bg); color: var(--text); padding-block: var(--section-y); }
-  .cta-band__grid { display: grid; gap: var(--space-l); }
-  .cta-band__title { font-size: var(--step-4); max-width: 18ch; }
-  .cta-band__body { font-size: var(--step-1); color: var(--text-muted); max-width: 46ch; }
-  .cta-band__actions { display: flex; flex-wrap: wrap; gap: var(--space-s); margin-top: var(--space-l); }
-  @media (min-width: 52rem) {
-    .cta-band__grid { grid-template-columns: 1.1fr 1fr; align-items: end; }
-  }
+  .cta-band { background:#030914;color:#f4f8ff;padding-block:clamp(3.5rem,6vw,5.5rem); }
+  .cta-band__grid { display:grid;gap:var(--space-l); }
+  .cta-band__title { font-size:clamp(2.6rem,4.6vw,4.8rem);line-height:.96;letter-spacing:-.05em;max-width:15ch;margin:.55rem 0 0;color:#f7fbff; }
+  .cta-band__body { font-size:1.02rem;line-height:1.65;color:#aebfd3;max-width:48ch;margin:0; }
+  .cta-band__actions { display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.2rem; }
+  .cta-band__email { display:inline-block;margin-top:1rem;color:#79ddd8;text-decoration:none;font-size:.68rem;letter-spacing:.06em;border-bottom:1px solid rgba(121,221,216,.28); }
+  @media(min-width:52rem){.cta-band__grid{grid-template-columns:1.05fr .95fr;align-items:end}}
+  @media(max-width:600px){.cta-band__actions{display:grid}.cta-band__actions a{width:100%}}
 </style>

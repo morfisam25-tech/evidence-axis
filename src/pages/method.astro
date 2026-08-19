@@ -8,113 +8,99 @@ import ProcessFlow from '@components/ProcessFlow.astro';
 import CTASection from '@components/CTASection.astro';
 import { methodSteps } from '@data/method';
 
-const disciplines = [
-  { t: 'Competitive discovery', d: 'A supplied competitor list is useful context, not proof that the competitive set is complete. Scan-derived candidates are validated before they enter the final shortlist.' },
-  { t: 'Question definition', d: 'The decision sets the boundary. A vague question produces a vague brief; we sharpen it first when a paid engagement begins.' },
-  { t: 'Research boundary', d: 'We state what is in scope, what is out, and what the public record can realistically support.' },
-  { t: 'Source discovery and quality', d: 'We prefer primary and strong independent public sources, and weigh each source by what it can actually prove.' },
-  { t: 'Source class', d: 'Primary company pages, independent press, aggregators, vendor comparisons and AI-targeted vendor content are not treated as equivalent evidence.' },
-  { t: 'Date checking', d: 'Public information changes. Every material observation records the date it was checked.' },
-  { t: 'Evidence extraction', d: 'We record what a source plainly shows before interpreting it.' },
-  { t: 'Conflicting evidence', d: 'When sources disagree, we show the conflict rather than resolving it silently.' },
-  { t: 'Missing evidence', d: 'When the record runs out, we mark the Unknown instead of filling it with a plausible guess.' },
-  { t: 'Interpretation', d: 'Inferences are labeled as interpretation, with the reasoning visible.' },
-  { t: 'Limitations', d: 'We state what the brief cannot support, so its confidence is never overstated.' },
-  { t: 'Decision implications', d: 'We connect the evidence to what deserves attention or a decision next.' },
-  { t: 'Source register', d: 'Every material source is listed so a finding can be checked independently.' },
+const sourceClasses = [
+  { t:'Primary company source', d:'Product pages, pricing, documentation, changelogs and the company’s own public claims.' },
+  { t:'Independent press / credible third party', d:'Triangulation, competitive-set validation and context independent of the vendor.' },
+  { t:'Data aggregator', d:'A supporting lead when provenance and freshness are understood; not automatically primary evidence.' },
+  { t:'Vendor-authored comparison', d:'Useful for the vendor’s own positioning — not neutral proof about the rival.' },
+  { t:'AI-targeted vendor content', d:'Explicitly classified; material claims need corroboration where feasible or remain vendor claim / Unknown.' },
+  { t:'Discovery-only lead', d:'Useful for finding where to look next. It does not enter the final evidence trail until verified.' },
 ];
 
-const sourceClasses = [
-  { t: 'Primary company source', d: 'Useful for what a company publicly states about itself: product, pricing, docs, changelogs and claims.' },
-  { t: 'Independent press / credible third party', d: 'Useful for triangulation, competitive-set validation and context independent of the vendor.' },
-  { t: 'Data aggregator', d: 'Useful as a supporting lead when provenance and freshness are understood; not automatically treated as primary evidence.' },
-  { t: 'Vendor-authored comparison', d: 'A lead and a source for the vendor’s own positioning — not neutral proof about the rival.' },
-  { t: 'AI-targeted vendor content', d: 'Explicitly classified. Material claims require independent corroboration where feasible or remain vendor claim / Unknown.' },
-  { t: 'Discovery-only lead', d: 'Useful for finding where to look next. It does not enter the final evidence trail until verified.' },
+const safeguards = [
+  { t:'Boundary first', d:'We state what the research can and cannot support before confidence starts to grow.' },
+  { t:'Open the source', d:'Search snippets and generated summaries can lead us somewhere; they do not count as verification.' },
+  { t:'Record the date', d:'Material observations keep the date they were checked because public information changes.' },
+  { t:'Preserve conflicts', d:'When credible sources disagree, the contradiction remains visible instead of being cleaned up.' },
+  { t:'Unknown stays Unknown', d:'Missing evidence is not replaced with a plausible guess.' },
+  { t:'Trace the conclusion', d:'The final implication can be walked back to the observation, evidence state and source behind it.' },
 ];
 ---
-<Base
-  title="Method"
-  description="How Evidence Axis discovers competitors, verifies public sources, separates Fact, Inference and Unknown, and builds a traceable path from evidence to decision."
-  path="/method/"
->
+<Base title="Method" description="How Evidence Axis discovers competitors, verifies public sources, separates Fact, Inference and Unknown, and builds a traceable path from evidence to decision." path="/method/">
   <PageHeader
     eyebrow="How it works"
     title="Discovery first. Evidence before assertion."
-    lede="Evidence Axis does not assume the names already on your radar are the whole market. We discover, verify, classify and then interpret — keeping every material conclusion traceable to the evidence behind it."
+    lede="Evidence Axis does not assume the names already on your radar are the whole market. We discover, verify, classify and then interpret — keeping material conclusions traceable to the evidence behind them."
     meta={['Competitive Set Scan', 'Human-reviewed sources', 'Fact / Inference / Unknown', 'Source register']}
   />
 
-  <section class="approved-page-visual" data-approved-page-visual>
-    <div class="container approved-page-visual__inner">
-      <figure class="approved-page-visual__frame">
-        <img src="/assets/v10/approved/method-from-source-to-decision.webp" alt="Evidence Axis method: discovery and public source review through fact, inference and unknown to decision output." loading="eager" />
-      </figure>
-    </div>
-  </section>
+  <main class="method-final">
+    <section class="method-final__visual">
+      <div class="container-wide">
+        <figure data-lightbox data-lightbox-caption="Evidence Axis method — from source discovery and verification to decision implication.">
+          <img src="/assets/v10/approved/method-from-source-to-decision.webp" alt="Evidence Axis method from source discovery through fact, inference and unknown to decision output" loading="eager" />
+          <figcaption class="mono">CLICK TO EXPAND · SOURCE → DECISION</figcaption>
+        </figure>
+      </div>
+    </section>
 
-  <section class="section container" id="discovery">
-    <SectionIntro
-      eyebrow="Discovery before deep dive"
-      title="A competitor list is an input, not the answer."
-      lede="For each Gift or engagement, Evidence Axis scans the competitive set before the final deep dive. A scan-derived competitor must be supported by at least two independent non-vendor sources before it can qualify as a validated shortlist entry."
-    />
-    <div class="discovery-rule axis-frame">
-      <div class="axis-tick"><b>SCAN</b><p>Identify up to five plausible candidates from the public record.</p></div>
-      <div class="axis-tick"><b>VALIDATE</b><p>Require at least two independent non-vendor sources for each scan-derived shortlist competitor.</p></div>
-      <div class="axis-tick"><b>DEEP DIVE</b><p>Only then investigate product, pricing, positioning, claims and recent moves at Evidence Axis depth.</p></div>
-      <div class="axis-tick"><b>DO NOT FORCE IT</b><p>“No additional competitor verified within scan scope” is a valid outcome.</p></div>
-    </div>
-  </section>
+    <section class="section method-final__discovery" id="discovery">
+      <div class="container-wide method-final__discovery-grid">
+        <div><span class="label">DISCOVERY BEFORE DEEP DIVE</span><h2>A competitor list is an input, not the answer.</h2><p>Whether the work begins through a complimentary request, a proactive Gift or a paid engagement, discovery comes before the final shortlist. A scan-derived competitor must be validated before it enters the deep dive.</p></div>
+        <div class="method-final__scan">
+          <article><b>01 · SCAN</b><p>Identify up to five plausible candidates from the public record.</p></article>
+          <article><b>02 · VALIDATE</b><p>Require at least two independent non-vendor sources for a scan-derived shortlist competitor.</p></article>
+          <article><b>03 · DEEP DIVE</b><p>Investigate product, pricing, positioning, claims and recent moves only after validation.</p></article>
+          <article><b>04 · DO NOT FORCE IT</b><p>“No additional competitor verified within scan scope” is a valid outcome.</p></article>
+        </div>
+      </div>
+    </section>
 
-  <section class="section container" id="evidence-states">
-    <SectionIntro
-      eyebrow="The core distinction"
-      title="Three states, kept separate on purpose."
-      lede="Most competitor work blurs what is proven with what is guessed. Evidence Axis keeps them apart — in the analysis and in the final deliverable."
-    />
-    <div class="m-fiu"><FactInferenceUnknown /></div>
-  </section>
+    <section class="section method-final__states" id="evidence-states">
+      <div class="container-wide">
+        <SectionIntro eyebrow="The core distinction" title="Three states, kept separate on purpose." lede="Most competitor work blurs what is proven with what is guessed. Evidence Axis keeps them apart — in the analysis and in the final deliverable." />
+        <div class="method-final__fiu"><FactInferenceUnknown /></div>
+      </div>
+    </section>
 
-  <section class="section" data-surface="dark" id="evidence-chain">
-    <div class="container">
-      <SectionIntro
-        eyebrow="Traceable reasoning"
-        title="Walk any conclusion back to its source."
-        lede="Nothing enters a brief as a bare assertion. Trace the path from a public source, through the observation and evidence state, to the implication it supports."
-      />
-      <div class="m-chain"><EvidenceChain /></div>
-    </div>
-  </section>
+    <section class="section method-final__chain" id="evidence-chain" data-surface="dark">
+      <div class="container-wide method-final__chain-grid">
+        <div><span class="label">TRACEABLE REASONING</span><h2>Walk any conclusion back to its source.</h2><p>Nothing should enter a brief as a bare assertion. The path stays visible from public source, to observation, to evidence state, to the implication it supports.</p></div>
+        <div><EvidenceChain /></div>
+      </div>
+    </section>
 
-  <section class="section container" id="workflow">
-    <SectionIntro eyebrow="The sequence" title="From discovery to executive intelligence." />
-    <div class="m-flow"><ProcessFlow steps={methodSteps} /></div>
-  </section>
+    <section class="section method-final__workflow" id="workflow">
+      <div class="container-wide method-final__workflow-grid">
+        <div><span class="label">THE SEQUENCE</span><h2>From discovery to executive intelligence.</h2><p>AI can accelerate discovery and organization. Human review still controls what enters the evidence record and what can responsibly reach a decision-maker.</p></div>
+        <div class="method-final__flow"><ProcessFlow steps={methodSteps} /></div>
+      </div>
+    </section>
 
-  <section class="section container" id="source-classes">
-    <SectionIntro eyebrow="Source classes" title="Not every public page has the same evidentiary weight." />
-    <dl class="disc axis-frame">
-      {sourceClasses.map((d) => (
-        <div class="disc__row axis-tick" data-reveal><dt class="disc__t">{d.t}</dt><dd class="disc__d">{d.d}</dd></div>
-      ))}
-    </dl>
-  </section>
+    <section class="section method-final__classes" id="source-classes" data-surface="dark">
+      <div class="container-wide">
+        <header class="method-final__head"><span class="label">SOURCE CLASSES</span><h2>Not every public page has the same evidentiary weight.</h2></header>
+        <div class="method-final__class-grid">{sourceClasses.map((s)=><article><h3>{s.t}</h3><p>{s.d}</p></article>)}</div>
+      </div>
+    </section>
 
-  <section class="section" data-surface="dark" id="limitations">
-    <div class="container">
-      <SectionIntro eyebrow="What the discipline covers" title="The details that keep intelligence honest." />
-      <dl class="disc axis-frame">
-        {disciplines.map((d) => (
-          <div class="disc__row axis-tick" data-reveal><dt class="disc__t">{d.t}</dt><dd class="disc__d">{d.d}</dd></div>
-        ))}
-      </dl>
-    </div>
-  </section>
+    <section class="section method-final__safeguards" id="limitations">
+      <div class="container-wide method-final__safeguards-grid">
+        <div><span class="label">THE SAFEGUARDS</span><h2>The details that keep intelligence honest.</h2></div>
+        <div class="method-final__safe-list">{safeguards.map((s)=><article><h3>{s.t}</h3><p>{s.d}</p></article>)}</div>
+      </div>
+    </section>
 
-  <CTASection title="See the method on your own company." />
+    <CTASection title="See the method applied to your company." body="Request a complimentary company-specific brief using a verified work email, or bring a competitive decision that already needs deeper support." />
+  </main>
 </Base>
 
 <style>
-  .m-fiu,.m-chain,.m-flow{margin-top:var(--space-xl)}.m-chain{max-width:52rem}.m-flow{max-width:46rem}.disc,.discovery-rule{margin-top:var(--space-xl);display:grid;gap:0}.disc__row,.discovery-rule>div{display:grid;gap:var(--space-2xs);padding:var(--space-m) 0;border-top:1px solid var(--hairline)}.disc__t,.discovery-rule b{font-family:var(--font-display);font-weight:500;font-size:var(--step-1)}.disc__d,.discovery-rule p{color:var(--text-muted);max-width:62ch;margin:0}.discovery-rule b{color:var(--accent)}section[id]{scroll-margin-top:6.5rem}@media(min-width:52rem){.disc__row,.discovery-rule>div{grid-template-columns:18rem 1fr;gap:var(--space-l);align-items:baseline}}
+  .method-final{background:#f8f5ef}.method-final__visual{padding:1.35rem 0 2.3rem;background:#030914}.method-final__visual figure{margin:0 auto;max-width:78rem;padding:.7rem;border:1px solid rgba(121,164,218,.18);border-radius:1rem;background:#08111f;box-shadow:0 28px 72px rgba(0,0,0,.27)}.method-final__visual img{display:block;width:100%;height:auto;border-radius:.65rem}.method-final__visual figcaption{text-align:center;margin-top:.55rem;color:#8298b5;font-size:.53rem;letter-spacing:.1em}
+  .method-final__discovery{background:#fff}.method-final__discovery-grid,.method-final__chain-grid,.method-final__workflow-grid,.method-final__safeguards-grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:clamp(2rem,6vw,5rem);align-items:start}.method-final__discovery h2,.method-final__chain h2,.method-final__workflow h2,.method-final__head h2,.method-final__safeguards h2{margin:.55rem 0 .75rem;font-size:clamp(2.4rem,4.3vw,4.45rem);line-height:.98;letter-spacing:-.048em}.method-final__discovery p,.method-final__workflow p,.method-final__safeguards p{color:var(--text-muted);line-height:1.65}.method-final__scan{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}.method-final__scan article{padding:1rem;border:1px solid rgba(31,58,87,.12);border-radius:.75rem;background:#f7f8fa}.method-final__scan b{font:800 .6rem/1 var(--font-mono);letter-spacing:.08em;color:#267b90}.method-final__scan p{margin:.45rem 0 0;font-size:.86rem;line-height:1.52}
+  .method-final__states{background:#f4efe7}.method-final__fiu{margin-top:1.4rem}.method-final__chain{background:#030914;color:#f4f8ff}.method-final__chain .label,.method-final__classes .label{color:#64e2da}.method-final__chain p{color:#99aec6;line-height:1.65}.method-final__chain-grid>div:last-child{min-width:0}
+  .method-final__workflow{background:#fff}.method-final__flow{min-width:0}.method-final__classes{background:#06101e;color:#f4f8ff}.method-final__head{max-width:62rem}.method-final__class-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-top:1.4rem}.method-final__class-grid article{padding:1rem;border:1px solid rgba(121,164,218,.15);border-radius:.75rem;background:rgba(255,255,255,.025)}.method-final__class-grid h3{margin:0 0 .35rem;font-size:1rem}.method-final__class-grid p{margin:0;color:#91a7c1;font-size:.82rem;line-height:1.5}
+  .method-final__safeguards{background:#f4efe7}.method-final__safe-list{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}.method-final__safe-list article{padding:1rem;border:1px solid rgba(31,58,87,.12);border-radius:.75rem;background:#fff}.method-final__safe-list h3{margin:0 0 .35rem;font-size:1rem}.method-final__safe-list p{margin:0;font-size:.84rem;line-height:1.5}.method-final section[id]{scroll-margin-top:5rem}
+  @media(max-width:900px){.method-final__discovery-grid,.method-final__chain-grid,.method-final__workflow-grid,.method-final__safeguards-grid{grid-template-columns:1fr}.method-final__class-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:580px){.method-final__scan,.method-final__safe-list,.method-final__class-grid{grid-template-columns:1fr}.method-final__discovery h2,.method-final__chain h2,.method-final__workflow h2,.method-final__head h2,.method-final__safeguards h2{font-size:clamp(2.3rem,10vw,3.4rem)}}
 </style>
