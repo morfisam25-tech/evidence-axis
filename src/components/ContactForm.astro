@@ -1,27 +1,25 @@
 ---
 import { contact, offers } from '@config/site';
-/**
- * Dormant optional inquiry-form component.
- * The public contact page currently uses direct email. Do not render this
- * component unless a real endpoint is configured, tested and disclosed in
- * the Privacy notice.
- */
+
 const endpoint = contact.formEndpoint;
 const hasEndpoint = Boolean(endpoint);
 const roles = [
   'Founder / CEO',
-  'Head / VP of Product',
-  'Product Manager',
+  'Executive / C-suite',
+  'Product leader',
   'Product Marketing',
   'Marketing leader',
+  'Sales / Revenue leader',
   'Strategy',
+  'Operations',
   'Other',
 ];
 const services = [
-  { value: offers.twoCompetitor.name, label: `${offers.twoCompetitor.name} — ${offers.twoCompetitor.priceDisplay}` },
-  { value: offers.fiveCompetitor.name, label: `${offers.fiveCompetitor.name} — from ${offers.fiveCompetitor.priceDisplay}` },
-  { value: offers.blueprint.name, label: `${offers.blueprint.name} — scoped` },
-  { value: 'Not sure yet', label: 'Not sure yet — help me choose' },
+  { value: offers.complimentaryBrief.id, label: offers.complimentaryBrief.name },
+  { value: offers.decisionSprint.id, label: offers.decisionSprint.name },
+  { value: offers.responseSprint.id, label: offers.responseSprint.name },
+  { value: offers.radar.id, label: offers.radar.name },
+  { value: 'general', label: 'General inquiry' },
 ];
 ---
 <form
@@ -33,74 +31,83 @@ const services = [
   novalidate
   aria-describedby="inquiry-status"
 >
-  <input type="hidden" name="_subject" value="New Evidence Axis brief request" />
+  <input type="hidden" name="_subject" value="New Evidence Axis inquiry" />
   <input type="hidden" name="_template" value="table" />
+
   <div class="inquiry__grid">
     <div class="field field--half">
-      <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
+      <label for="f-name">Full name <span class="req" aria-hidden="true">*</span></label>
       <input id="f-name" name="name" type="text" autocomplete="name" required aria-required="true" />
-      <p class="field__err" data-err-for="f-name" hidden>Please enter your name.</p>
+      <p class="field__err" data-err-for="f-name" hidden>Please enter your full name.</p>
     </div>
 
     <div class="field field--half">
       <label for="f-email">Work email <span class="req" aria-hidden="true">*</span></label>
       <input id="f-email" name="email" type="email" autocomplete="email" required aria-required="true" />
+      <p class="field__help">A company email is required for a Complimentary Brief.</p>
       <p class="field__err" data-err-for="f-email" hidden>Please enter a valid work email.</p>
     </div>
 
     <div class="field field--half">
-      <label for="f-company">Company</label>
-      <input id="f-company" name="company" type="text" autocomplete="organization" />
+      <label for="f-company">Company <span class="req" aria-hidden="true">*</span></label>
+      <input id="f-company" name="company" type="text" autocomplete="organization" required aria-required="true" />
+      <p class="field__err" data-err-for="f-company" hidden>Please enter your company name.</p>
     </div>
 
     <div class="field field--half">
-      <label for="f-website">Company website</label>
-      <input id="f-website" name="website" type="url" inputmode="url" placeholder="https://" autocomplete="url" />
-      <p class="field__err" data-err-for="f-website" hidden>Please enter a full URL including https://.</p>
+      <label for="f-website">Company website <span class="req" aria-hidden="true">*</span></label>
+      <input id="f-website" name="website" type="url" inputmode="url" placeholder="https://company.com" autocomplete="url" required aria-required="true" />
+      <p class="field__err" data-err-for="f-website" hidden>Please enter a full company URL including https://.</p>
     </div>
 
     <div class="field field--half">
-      <label for="f-role">Your role</label>
-      <select id="f-role" name="role">
+      <label for="f-role">Your role <span class="req" aria-hidden="true">*</span></label>
+      <select id="f-role" name="role" required aria-required="true">
         <option value="">Select…</option>
         {roles.map((r) => <option value={r}>{r}</option>)}
       </select>
+      <p class="field__err" data-err-for="f-role" hidden>Please select your role.</p>
     </div>
 
     <div class="field field--half">
-      <label for="f-service">Service <span class="req" aria-hidden="true">*</span></label>
-      <select id="f-service" name="service" required aria-required="true">
+      <label for="f-service">What would you like to start with? <span class="req" aria-hidden="true">*</span></label>
+      <select id="f-service" name="service" required aria-required="true" data-service-select>
         <option value="">Select…</option>
         {services.map((s) => <option value={s.value}>{s.label}</option>)}
       </select>
-      <p class="field__err" data-err-for="f-service" hidden>Please choose a service, or “Not sure yet.”</p>
+      <p class="field__err" data-err-for="f-service" hidden>Please choose an option.</p>
+    </div>
+
+    <div class="field" data-complimentary-note hidden>
+      <div class="inquiry__notice">
+        <b>Complimentary Competitive Intelligence Brief</b>
+        <p>Real company-specific research at no cost. No generic demo and no sales call required before receiving the work. We verify the company identity, then confirm the research queue and expected delivery window by email.</p>
+      </div>
     </div>
 
     <div class="field">
-      <label for="f-question">Decision or research question <span class="req" aria-hidden="true">*</span></label>
-      <p class="field__help" id="f-question-help">The decision you need to make. This sets the research boundary.</p>
-      <textarea id="f-question" name="question" rows="3" required aria-required="true" aria-describedby="f-question-help"></textarea>
-      <p class="field__err" data-err-for="f-question" hidden>Please describe the decision or question.</p>
+      <label for="f-competitors">Competitors already on your radar <span class="optional">optional</span></label>
+      <p class="field__help" id="f-competitors-help">Leave this blank if you want Evidence Axis to perform discovery from zero.</p>
+      <input id="f-competitors" name="competitors" type="text" aria-describedby="f-competitors-help" placeholder="Optional — up to two names are enough" />
     </div>
 
-    <div class="field">
-      <label for="f-competitors">Competitors to investigate</label>
-      <p class="field__help" id="f-competitors-help">Named competitors, or a client-versus-competitor comparison.</p>
-      <input id="f-competitors" name="competitors" type="text" aria-describedby="f-competitors-help" />
+    <div class="field" data-decision-context>
+      <label for="f-question">Competitive decision or research question <span class="optional">optional for the Complimentary Brief</span></label>
+      <p class="field__help" id="f-question-help">If a real decision is already in front of the team, tell us what it is.</p>
+      <textarea id="f-question" name="question" rows="3" aria-describedby="f-question-help"></textarea>
     </div>
 
     <div class="field field--half">
-      <label for="f-timing">Desired timing</label>
-      <input id="f-timing" name="timing" type="text" placeholder="e.g. this week" />
+      <label for="f-timing">Timing <span class="optional">optional</span></label>
+      <input id="f-timing" name="timing" type="text" placeholder="e.g. before Q4 planning" />
     </div>
 
     <div class="field">
-      <label for="f-context">Additional context</label>
+      <label for="f-context">Additional context <span class="optional">optional</span></label>
       <textarea id="f-context" name="context" rows="3"></textarea>
     </div>
   </div>
 
-  <!-- honeypot: bots fill this; humans never see it -->
   <div class="inquiry__hp" aria-hidden="true">
     <label for="f-fax">Do not fill this field</label>
     <input id="f-fax" name="fax" type="text" tabindex="-1" autocomplete="off" />
@@ -108,18 +115,16 @@ const services = [
 
   <div class="inquiry__foot">
     <button type={hasEndpoint ? 'submit' : 'button'} class="btn btn--lg" data-inquiry-submit>
-      Send the brief request<span class="btn-arrow" aria-hidden="true">→</span>
+      Send request<span class="btn-arrow" aria-hidden="true">→</span>
     </button>
-    <p class="inquiry__micro mono">
-      Asynchronous. A person reads every inquiry. No sales call required.
-    </p>
+    <p class="inquiry__micro mono">Asynchronous. A person reviews every valid request.</p>
   </div>
 
   <p class="inquiry__status" id="inquiry-status" role="status" aria-live="polite" hidden></p>
   {!hasEndpoint && (
     <noscript>
       <p class="inquiry__status inquiry__status--static" data-kind="error">
-        This form is not active. Email hello@evidenceaxis.com to start a brief.
+        This form is not active. Email hello@evidenceaxis.com.
       </p>
     </noscript>
   )}
@@ -131,71 +136,73 @@ const services = [
   .field { display: flex; flex-direction: column; grid-column: 1 / -1; }
   .field label { font-family: var(--font-display); font-weight: 500; font-size: 0.95rem; margin-bottom: 0.4em; }
   .req { color: var(--accent); }
+  .optional { color: var(--text-faint); font-family: var(--font-mono); font-size: .72em; font-weight: 500; margin-left: .35em; }
   .field__help { font-size: var(--step--1); color: var(--text-faint); margin-bottom: 0.5em; }
   .field input, .field select, .field textarea {
-    font-family: var(--font-serif);
-    font-size: var(--step-0);
-    color: var(--text);
-    background: var(--field-bg);
-    border: 1px solid var(--surface-border);
-    border-radius: var(--radius-s);
-    padding: 0.7em 0.85em;
-    width: 100%;
+    font-family: var(--font-serif); font-size: var(--step-0); color: var(--text); background: var(--field-bg);
+    border: 1px solid var(--surface-border); border-radius: var(--radius-s); padding: 0.7em 0.85em; width: 100%;
     transition: border-color var(--dur-1) var(--ease-out), box-shadow var(--dur-1) var(--ease-out);
   }
   .field textarea { resize: vertical; min-height: 3.4em; }
   .field select { font-family: var(--font-display); appearance: none;
     background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%), linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
-    background-position: right 1.05em center, right 0.78em center;
-    background-size: 0.32em 0.32em, 0.32em 0.32em; background-repeat: no-repeat; padding-right: 2.2em; }
+    background-position: right 1.05em center, right 0.78em center; background-size: 0.32em 0.32em, 0.32em 0.32em; background-repeat: no-repeat; padding-right: 2.2em; }
   .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible {
-    outline: none; border-color: var(--accent);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+    outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
   }
   .field [aria-invalid='true'] { border-color: var(--contradiction); }
   .field__err { color: var(--contradiction); font-size: var(--step--1); margin-top: 0.4em; font-family: var(--font-mono); }
-
+  .inquiry__notice { border: 1px solid var(--surface-border); border-left: 3px solid var(--fact); border-radius: var(--radius-s); background: var(--bg-raised); padding: var(--space-m); }
+  .inquiry__notice b { font-family: var(--font-display); }
+  .inquiry__notice p { margin: .45rem 0 0; color: var(--text-muted); }
   .inquiry__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-
   .inquiry__foot { display: flex; align-items: center; gap: var(--space-m); flex-wrap: wrap; margin-top: var(--space-l); }
   .inquiry__micro { font-size: var(--step--1); color: var(--text-faint); max-width: 40ch; }
-
-  .inquiry__status {
-    margin-top: var(--space-m);
-    padding: var(--space-s) var(--space-m);
-    border-radius: var(--radius-s);
-    border-left: 3px solid var(--accent);
-    background: var(--bg-raised);
-    font-size: 0.95rem;
-  }
+  .inquiry__status { margin-top: var(--space-m); padding: var(--space-s) var(--space-m); border-radius: var(--radius-s); border-left: 3px solid var(--accent); background: var(--bg-raised); font-size: 0.95rem; }
   .inquiry__status[data-kind='error'] { border-left-color: var(--contradiction); }
   .inquiry__status[data-kind='success'] { border-left-color: var(--fact); }
-
-  @media (min-width: 40rem) {
-    .field--half { grid-column: span 1; }
-  }
+  @media (min-width: 40rem) { .field--half { grid-column: span 1; } }
 </style>
 
 <script>
   type FormControl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
+  const consumerDomains = new Set([
+    'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','outlook.com','hotmail.com','live.com','icloud.com','me.com','proton.me','protonmail.com','aol.com','gmx.com','mail.com'
+  ]);
+
   document.querySelectorAll<HTMLFormElement>('[data-inquiry]').forEach((form) => {
     const endpoint = form.getAttribute('action');
     const status = form.querySelector<HTMLElement>('#inquiry-status');
-    const fields = Array.from(
-      form.querySelectorAll<FormControl>('input, select, textarea')
-    );
+    const service = form.querySelector<HTMLSelectElement>('[data-service-select]');
+    const complimentaryNote = form.querySelector<HTMLElement>('[data-complimentary-note]');
+    const submitBtn = form.querySelector<HTMLButtonElement>('[data-inquiry-submit]');
+    const fields = Array.from(form.querySelectorAll<FormControl>('input, select, textarea'));
 
-    const showErr = (el: FormControl, show: boolean) => {
+    const params = new URLSearchParams(window.location.search);
+    const intent = params.get('intent');
+    const intentMap: Record<string, string> = {
+      'complimentary-brief': 'complimentary-brief',
+      'decision': 'decision-sprint',
+      'response': 'response-sprint',
+      'radar': 'competitive-radar',
+    };
+    if (service && intent && intentMap[intent]) service.value = intentMap[intent];
+
+    const isComplimentary = () => service?.value === 'complimentary-brief';
+    const updateMode = () => {
+      if (complimentaryNote) complimentaryNote.hidden = !isComplimentary();
+      if (submitBtn) submitBtn.firstChild!.textContent = isComplimentary() ? 'Request My Complimentary Brief' : 'Send request';
+    };
+    service?.addEventListener('change', updateMode);
+    updateMode();
+
+    const showErr = (el: FormControl, show: boolean, message?: string) => {
       const err = form.querySelector<HTMLElement>(`[data-err-for="${el.id}"]`);
       el.setAttribute('aria-invalid', show ? 'true' : 'false');
       if (err) {
+        if (message) err.textContent = message;
         err.hidden = !show;
-        if (show) {
-          if (!err.id) err.id = el.id + '-err';
-          const described = [el.getAttribute('aria-describedby'), err.id].filter(Boolean).join(' ');
-          el.setAttribute('aria-describedby', described);
-        }
       }
     };
 
@@ -205,6 +212,13 @@ const services = [
       if (!isRequired && value === '') { showErr(el, false); return true; }
       if (el instanceof HTMLInputElement && el.type === 'url' && value && !/^https?:\/\/.+/i.test(value)) {
         showErr(el, true); return false;
+      }
+      if (el instanceof HTMLInputElement && el.type === 'email' && value && isComplimentary()) {
+        const domain = value.toLowerCase().split('@')[1] || '';
+        if (consumerDomains.has(domain)) {
+          showErr(el, true, 'Please use your company work email for a Complimentary Brief.');
+          return false;
+        }
       }
       const valid = isRequired ? (value !== '' && el.checkValidity()) : el.checkValidity();
       showErr(el, !valid);
@@ -223,16 +237,14 @@ const services = [
       status.setAttribute('data-kind', kind);
     };
 
-    const submitBtn = form.querySelector<HTMLButtonElement>('[data-inquiry-submit]');
-
     const attempt = async (e?: Event) => {
       const hp = form.querySelector<HTMLInputElement>('[name="fax"]');
-      if (hp && hp.value) { e?.preventDefault(); return; } // bot
+      if (hp && hp.value) { e?.preventDefault(); return; }
 
       let valid = true;
       fields.forEach((el) => {
-        const isUrl = el instanceof HTMLInputElement && el.type === 'url';
-        if (el.hasAttribute('required') || isUrl) { if (!validate(el)) valid = false; }
+        const needsCheck = el.hasAttribute('required') || (el instanceof HTMLInputElement && (el.type === 'url' || el.type === 'email'));
+        if (needsCheck && !validate(el)) valid = false;
       });
       if (!valid) {
         e?.preventDefault();
@@ -241,36 +253,34 @@ const services = [
         return;
       }
 
-      // No endpoint configured yet → never fake a successful send, and never
-      // let a native submit fall through to a dead route.
       if (!endpoint) {
         e?.preventDefault();
-        setStatus('This form is not active. Email hello@evidenceaxis.com to start a brief.', 'error');
+        setStatus('This form is not active. Email hello@evidenceaxis.com.', 'error');
         return;
       }
 
-      // Endpoint present → submit via fetch, honestly report success/failure.
       e?.preventDefault();
       if (submitBtn) submitBtn.disabled = true;
       setStatus('Sending…', 'success');
       try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' },
-        });
+        const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
         if (!res.ok) throw new Error('bad status');
+        const requestedComplimentary = isComplimentary();
         form.reset();
-        setStatus('Thank you — your brief request has been received. A person will reply once it has been read.', 'success');
+        updateMode();
+        setStatus(
+          requestedComplimentary
+            ? 'Request received. We’ll verify the company details and confirm your research queue and expected delivery window by email.'
+            : 'Thank you — your message has been received. Evidence Axis will reply by email.',
+          'success'
+        );
       } catch {
         setStatus('Something went wrong sending your request. Please try again in a moment.', 'error');
+      } finally {
         if (submitBtn) submitBtn.disabled = false;
       }
     };
 
-    // With an endpoint the button is type=submit (native POST also works with
-    // no JS); without one it is type=button, so we handle the click directly
-    // and never submit into a dead route.
     form.addEventListener('submit', attempt);
     if (!endpoint) submitBtn?.addEventListener('click', attempt);
   });
