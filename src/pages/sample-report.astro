@@ -1,6 +1,5 @@
 ---
 import Base from '@layouts/Base.astro';
-import SectionIntro from '@components/SectionIntro.astro';
 import EvidenceRecord from '@components/EvidenceRecord.astro';
 import ComparisonMatrix from '@components/ComparisonMatrix.astro';
 import CTASection from '@components/CTASection.astro';
@@ -10,231 +9,83 @@ import {
   sampleSummary, sampleDecisionImplications, sampleLimitations, sampleMethodology,
 } from '@data/sample-report';
 
-/**
- * Sample Report — real, first-party-sourced DEMONSTRATION case:
- * Intercom vs Zendesk, checked 9 August 2026. Not a client engagement.
- * Content derives entirely from src/data/sample-report.ts. Print-optimized;
- * a dedicated PDF lives at /report/evidence-axis-sample-intercom-vs-zendesk.pdf.
- */
 const pdfHref = '/report/evidence-axis-sample-intercom-vs-zendesk.pdf';
 const srcById = Object.fromEntries(sampleSources.map((s) => [s.id, s]));
 const domain = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
-const recordSource = (ids: string[]) =>
-  ids.map((id) => domain(srcById[id].url)).join(' · ') + ' (public)';
-
-const matrixRows = sampleMatrix.map((r) => ({
-  dimension: r.dimension,
-  cells: [
-    { state: r.intercom.state, note: r.intercom.note },
-    { state: r.zendesk.state, note: r.zendesk.note },
-  ],
-}));
-
-const sections = [
-  'Research question', 'Research boundary', 'Competitor set', 'Executive decision summary',
-  'Evidence matrix', 'Evidence profiles', 'Source-backed observations', 'Decision implications',
-  'Limitations', 'Methodology', 'Source register',
-];
+const recordSource = (ids: string[]) => ids.map((id) => domain(srcById[id].url)).join(' · ') + ' (public)';
+const matrixRows = sampleMatrix.map((r) => ({ dimension: r.dimension, cells: [{ state: r.intercom.state, note: r.intercom.note }, { state: r.zendesk.state, note: r.zendesk.note }] }));
+const nav = [
+  ['summary','Executive summary'],['matrix','Evidence matrix'],['profiles','Profiles'],['observations','Observations'],['implications','Decision implications'],['limitations','Limitations'],['sources','Source register'],
+] as const;
 ---
-<Base
-  title="Sample Intelligence Brief"
-  description="Inspect a source-backed Evidence Axis competitive intelligence sample comparing Intercom and Zendesk — with Fact, Inference, Unknown, decision implications and a complete source register."
-  path="/sample-report/"
->
-  <section class="sr-intro" data-surface="dark">
-    <div class="sr-intro__grid" aria-hidden="true"></div>
-    <div class="sr-intro__glow" aria-hidden="true"></div>
-    <div class="container-wide sr-intro__inner">
-      <div class="sr-head axis-frame">
-        <span class="sr-badge mono">ILLUSTRATIVE INTELLIGENCE SAMPLE</span>
-        <h1 class="sr-title">Intercom vs Zendesk,<br/><em>read as evidence.</em></h1>
-        <p class="sr-lede">
-          Inspect how Evidence Axis turns a bounded competitor question into a traceable intelligence package —
-          with checked first-party sources, evidence states, decision implications and a complete source register.
-        </p>
-        <div class="sr-actions">
-          <a href={pdfHref} class="btn btn--lg" download>
-            Download the report (PDF)<span class="btn-arrow" aria-hidden="true">↓</span>
-          </a>
-          <a href="#brief" class="btn btn--ghost btn--lg">Read it here</a>
-          <a href={cta.primary.href} class="sr-request">Discuss a competitive decision →</a>
+<Base title="Sample Intelligence Brief" description="Inspect a source-backed Evidence Axis competitive intelligence sample comparing Intercom and Zendesk — with Fact, Inference, Unknown, decision implications and a complete source register." path="/sample-report/">
+  <section class="sample-final__hero" data-surface="dark">
+    <div class="sample-final__grid" aria-hidden="true"></div>
+    <div class="container-wide sample-final__hero-grid">
+      <div class="sample-final__hero-copy">
+        <span class="sample-final__badge mono">ILLUSTRATIVE INTELLIGENCE SAMPLE</span>
+        <h1>Intercom vs Zendesk,<br/><em>read as evidence.</em></h1>
+        <p>Inspect how Evidence Axis turns a bounded competitor question into a traceable intelligence package — with checked first-party sources, evidence states, decision implications and a complete source register.</p>
+        <div class="sample-final__actions">
+          <a href="#brief" class="btn btn--lg">Read the intelligence <span>↓</span></a>
+          <a href={pdfHref} class="btn btn--ghost btn--lg" download>Download PDF <span>↓</span></a>
+          <a href={cta.primary.href} class="sample-final__request">{cta.primary.label} →</a>
         </div>
-        <p class="sr-meta mono">
-          {sampleMeta.competitors.join(' vs ')} · first-party public evidence · checked {sampleMeta.checked}
-        </p>
+        <p class="sample-final__meta mono">{sampleMeta.competitors.join(' vs ')} · first-party public evidence · checked {sampleMeta.checked}</p>
       </div>
 
-      <aside class="sr-proof" aria-label="What this sample contains">
-        <div class="sr-proof__axis" aria-hidden="true"></div>
-        <span class="sr-proof__eyebrow mono">EVIDENCE PACKAGE</span>
-        <div class="sr-proof__states">
-          <div><span class="state-dot state-dot--fact"></span><b>FACT</b><small>checked source</small></div>
-          <div><span class="state-dot state-dot--infer"></span><b>INFERENCE</b><small>reasoning shown</small></div>
-          <div><span class="state-dot state-dot--unknown"></span><b>UNKNOWN</b><small>certainty stops here</small></div>
-        </div>
-        <div class="sr-proof__metrics">
-          <div><strong>{sampleSources.length}</strong><span>checked sources</span></div>
-          <div><strong>{sampleRecords.length}</strong><span>evidence records</span></div>
-          <div><strong>{sampleMatrix.length}</strong><span>decision dimensions</span></div>
-        </div>
-        <div class="sr-proof__flow mono">
-          <span>SOURCE</span><i>→</i><span>OBSERVATION</span><i>→</i><span>DECISION</span>
-        </div>
+      <aside class="sample-final__proof" aria-label="What this sample contains">
+        <span class="mono">EVIDENCE PACKAGE</span>
+        <div class="sample-final__states"><div><b>FACT</b><small>checked source</small></div><div><b>INFERENCE</b><small>reasoning shown</small></div><div><b>UNKNOWN</b><small>certainty stops here</small></div></div>
+        <div class="sample-final__metrics"><div><strong>{sampleSources.length}</strong><span>checked sources</span></div><div><strong>{sampleRecords.length}</strong><span>evidence records</span></div><div><strong>{sampleMatrix.length}</strong><span>decision dimensions</span></div></div>
+        <div class="sample-final__flow mono"><span>SOURCE</span><i>→</i><span>OBSERVATION</span><i>→</i><span>DECISION</span></div>
         <p>Demonstration sample — not a client engagement. No universal winner is declared.</p>
       </aside>
     </div>
   </section>
 
-  <section class="section container">
-    <div class="sr-about">
-      <div>
-        <SectionIntro eyebrow="What this demonstrates" title="Method, not marketing." as="h2" />
-        <p class="measure sr-p">
-          A real brief answers one decision question with public evidence. It separates verified fact
-          from reasoned inference, names what cannot be known, and lists every source with the date it
-          was checked. This sample shows that shape end to end — with the vendors named and their own
-          pages cited.
-        </p>
+  <main class="sample-final" id="brief">
+    <section class="sample-final__orientation">
+      <div class="container-wide sample-final__orientation-grid">
+        <div><span class="label">WHAT THIS DEMONSTRATES</span><h2>Method, not marketing.</h2><p>A real brief answers one decision question with public evidence. It separates verified fact from reasoned inference, names what cannot be known, and lets the reader inspect the source trail.</p></div>
+        <nav class="sample-final__nav" aria-label="Sample brief sections">{nav.map(([id,label])=><a href={`#${id}`}>{label}<span>→</span></a>)}</nav>
       </div>
-      <div class="sr-sections-panel">
-        <h3 class="label sr-sec-h">Inside the brief</h3>
-        <ol class="sr-sections">
-          {sections.map((s) => <li class="mono">{s}</li>)}
-        </ol>
+    </section>
+
+    <article class="sample-final__paper">
+      <div class="container sample-final__paper-inner">
+        <header class="sample-final__cover">
+          <div class="sample-final__cover-top"><span class="mono">{site.name} · Intelligence Brief</span><span class="sample-final__mini mono">DEMONSTRATION SAMPLE</span></div>
+          <span class="label">RESEARCH QUESTION</span><h2>{sampleMeta.question}</h2>
+          <dl><div><dt>Boundary</dt><dd>{sampleMeta.boundary}</dd></div><div><dt>Competitor set</dt><dd>{sampleMeta.competitors.join(' and ')} — named.</dd></div><div><dt>Checked</dt><dd class="mono">{sampleMeta.checked}</dd></div></dl>
+          <p class="sample-final__notice">This is a demonstration sample, not a client engagement. Public evidence changes. Claims below are classified Fact, Inference or Unknown and tied to the source register.</p>
+        </header>
+
+        <section class="sample-final__block sample-final__summary" id="summary"><span class="sample-final__section-num mono">01</span><h2>Executive decision summary</h2><p>{sampleSummary}</p></section>
+
+        <section class="sample-final__block" id="matrix"><span class="sample-final__section-num mono">02</span><h2>Evidence matrix</h2><ComparisonMatrix competitors={[...sampleMeta.competitors]} rows={matrixRows} caption={`Intercom vs Zendesk · first-party public sources · checked ${sampleMeta.checked}`} /></section>
+
+        <section class="sample-final__block" id="profiles"><span class="sample-final__section-num mono">03</span><h2>Evidence profiles</h2><div class="sample-final__profiles"><article><h3>Intercom</h3><p>{sampleProfiles.intercom}</p></article><article><h3>Zendesk</h3><p>{sampleProfiles.zendesk}</p></article></div></section>
+
+        <section class="sample-final__block" id="observations"><span class="sample-final__section-num mono">04</span><h2>Source-backed observations</h2><p class="sample-final__intro">Nine records show the distinction between what the public evidence directly supports, what can reasonably be inferred and where certainty stops.</p><div class="sample-final__records">{sampleRecords.map((r)=><EvidenceRecord id={r.id} status={r.status} claim={r.claim} observation={r.observation} source={recordSource(r.sources)} dateChecked={sampleMeta.checked} limitation={r.limitation} implication={r.implication} />)}</div></section>
+
+        <section class="sample-final__block" id="implications"><span class="sample-final__section-num mono">05</span><h2>Decision implications</h2><ol class="sample-final__implications">{sampleDecisionImplications.map((d)=><li>{d}</li>)}</ol></section>
+
+        <section class="sample-final__block sample-final__two" id="limitations"><div><span class="sample-final__section-num mono">06</span><h2>Limitations</h2><p>{sampleLimitations}</p></div><div><span class="sample-final__section-num mono">07</span><h2>Methodology</h2><p>{sampleMethodology}</p></div></section>
+
+        <section class="sample-final__block" id="sources"><span class="sample-final__section-num mono">08</span><h2>Source register</h2><ol class="sample-final__sources">{sampleSources.map((s)=><li><div class="sample-final__source-top"><span class="mono">{s.id}</span><b>{s.org} — {s.title}</b><small class="mono">{s.party}</small></div><a href={s.url} target="_blank" rel="noopener">{domain(s.url)}</a><p>{s.supports}{s.limitation && <em> Limitation: {s.limitation}</em>}</p><span class="mono sample-final__checked">checked {sampleMeta.checked}</span></li>)}</ol></section>
       </div>
-    </div>
-  </section>
+    </article>
 
-  <article class="section brief" id="brief" aria-label="Demonstration decision brief: Intercom vs Zendesk">
-    <div class="container brief__inner">
-      <header class="brief__cover">
-        <div class="brief__cover-top">
-          <span class="mono">{site.name} · Decision Brief</span>
-          <span class="sr-badge sr-badge--sm mono">Demonstration sample</span>
-        </div>
-        <h2 class="brief__q-label label">Research question</h2>
-        <p class="brief__q">{sampleMeta.question}</p>
-        <dl class="brief__meta">
-          <div><dt class="label">Boundary</dt><dd>{sampleMeta.boundary}</dd></div>
-          <div><dt class="label">Competitor set</dt><dd>{sampleMeta.competitors.join(' and ')} (named).</dd></div>
-          <div><dt class="label">Checked</dt><dd class="mono">{sampleMeta.checked}</dd></div>
-        </dl>
-        <p class="brief__illus-note mono">
-          This is a demonstration sample, not a client engagement. Every claim below is drawn from the
-          first-party sources in the register and classified Fact, Inference or Unknown. Public pages
-          change; figures are annual-billing list prices at the check date.
-        </p>
-      </header>
-
-      <hr class="rule brief__rule" />
-
-      <section class="brief__block">
-        <h2 class="brief__h">Executive decision summary</h2>
-        <p class="brief__body">{sampleSummary}</p>
-      </section>
-
-      <section class="brief__block">
-        <h2 class="brief__h">Evidence matrix</h2>
-        <ComparisonMatrix competitors={[...sampleMeta.competitors]} rows={matrixRows}
-          caption={`Intercom vs Zendesk · first-party public sources · checked ${sampleMeta.checked}`} />
-      </section>
-
-      <section class="brief__block">
-        <h2 class="brief__h">Evidence profiles</h2>
-        <div class="brief__profiles">
-          <div class="brief__profile">
-            <h3 class="brief__profile-name">Intercom</h3>
-            <p>{sampleProfiles.intercom}</p>
-          </div>
-          <div class="brief__profile">
-            <h3 class="brief__profile-name">Zendesk</h3>
-            <p>{sampleProfiles.zendesk}</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="brief__block">
-        <h2 class="brief__h">Source-backed observations</h2>
-        <div class="brief__records">
-          {sampleRecords.map((r) => (
-            <EvidenceRecord
-              id={r.id}
-              status={r.status}
-              claim={r.claim}
-              observation={r.observation}
-              source={recordSource(r.sources)}
-              dateChecked={sampleMeta.checked}
-              limitation={r.limitation}
-              implication={r.implication}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section class="brief__block">
-        <h2 class="brief__h">Decision implications</h2>
-        <ul class="brief__impl">
-          {sampleDecisionImplications.map((d) => <li>{d}</li>)}
-        </ul>
-      </section>
-
-      <section class="brief__block">
-        <h2 class="brief__h">Limitations</h2>
-        <p class="brief__body">{sampleLimitations}</p>
-      </section>
-
-      <section class="brief__block">
-        <h2 class="brief__h">Methodology</h2>
-        <p class="brief__body">{sampleMethodology}</p>
-      </section>
-
-      <section class="brief__block">
-        <h2 class="brief__h">Source register</h2>
-        <ol class="brief__sources">
-          {sampleSources.map((s) => (
-            <li class="brief__source">
-              <div class="brief__source-top">
-                <span class="brief__source-id mono">{s.id}</span>
-                <span class="brief__source-org">{s.org} — {s.title}</span>
-                <span class="brief__source-party mono">{s.party}</span>
-              </div>
-              <a class="brief__source-url mono" href={s.url} target="_blank" rel="noopener">{domain(s.url)}</a>
-              <p class="brief__source-supports">{s.supports}{s.limitation && <span class="brief__source-limit"> · Limitation: {s.limitation}</span>}</p>
-              <span class="brief__source-checked mono">checked {sampleMeta.checked}</span>
-            </li>
-          ))}
-        </ol>
-      </section>
-    </div>
-  </article>
-
-  <CTASection
-    eyebrow="Start with the decision"
-    title="Bring your competitive question into focus."
-    body="Evidence Axis combines verified competitive evidence with your company context to support a real strategic, product, pricing, positioning or sales decision."
-  />
+    <CTASection eyebrow="See the work on your company" title="Request a company-specific Complimentary Intelligence Brief." body="No generic demo. Evidence Axis performs the discovery, verifies the evidence and prepares an executive-ready intelligence package around your company." />
+  </main>
 </Base>
 
 <style>
-  .sr-intro{position:relative;overflow:hidden;background:#020713;color:#f5f8ff;padding:clamp(5rem,9vw,8rem) 0;border-bottom:1px solid rgba(115,159,218,.18)}
-  .sr-intro__grid{position:absolute;inset:0;opacity:.2;background-image:linear-gradient(rgba(100,151,226,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(100,151,226,.1) 1px,transparent 1px);background-size:68px 68px;mask-image:linear-gradient(90deg,#000 0,#000 74%,transparent)}
-  .sr-intro__glow{position:absolute;inset:-25% -12% -20% 38%;background:radial-gradient(circle at 54% 45%,rgba(68,139,255,.28),transparent 26%),radial-gradient(circle at 62% 58%,rgba(61,224,213,.14),transparent 36%);filter:blur(12px)}
-  .sr-intro__inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(22rem,.72fr);gap:clamp(2rem,6vw,6rem);align-items:center}
-  .sr-head{max-width:60rem}.sr-badge{display:inline-block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#65e2d9;border:1px solid rgba(101,226,217,.42);padding:.42em .76em;border-radius:999px;background:rgba(41,182,178,.06)}.sr-badge--sm{font-size:.6rem;color:var(--infer);border-style:dashed;border-color:var(--infer);background:transparent}
-  .sr-title{font-size:clamp(3.5rem,6.6vw,7rem);line-height:.92;letter-spacing:-.065em;margin:1rem 0 0;max-width:12ch}.sr-title em{font-style:normal;background:linear-gradient(100deg,#a8c5ff 0%,#76a7ff 48%,#5ce4db 100%);-webkit-background-clip:text;background-clip:text;color:transparent}.sr-lede{margin-top:1.35rem;font-size:1.12rem;line-height:1.75;color:#cad7e8;max-width:55ch}.sr-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;margin-top:1.7rem}.sr-request{font-family:var(--font-display);font-weight:750;color:#8fc5ff;text-decoration:none;padding:.7rem .25rem}.sr-request:hover{color:#64e2d9}.sr-meta{margin-top:1.35rem;font-size:.65rem;color:#8095b2;letter-spacing:.08em}
-  .sr-proof{position:relative;min-height:29rem;padding:1.55rem;border-radius:1.35rem;border:1px solid rgba(112,162,231,.28);background:linear-gradient(155deg,rgba(10,27,50,.94),rgba(4,13,28,.96));box-shadow:0 42px 100px rgba(0,0,0,.38),0 0 60px rgba(46,127,229,.08) inset;overflow:hidden}.sr-proof::before{content:'';position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#62e2da,#709eff,#a37aff)}.sr-proof__axis{position:absolute;right:17%;top:2.5rem;bottom:2.5rem;width:1px;background:linear-gradient(transparent,rgba(91,224,214,.55),rgba(112,158,255,.5),transparent);box-shadow:0 0 18px rgba(85,225,215,.24)}.sr-proof__eyebrow{font-size:.6rem;letter-spacing:.14em;color:#7894ba}.sr-proof__states{display:grid;gap:.7rem;margin-top:1.35rem}.sr-proof__states>div{position:relative;z-index:1;display:grid;grid-template-columns:auto auto 1fr;gap:.65rem;align-items:center;padding:.85rem .95rem;border:1px solid rgba(125,164,216,.14);border-radius:.75rem;background:rgba(255,255,255,.025)}.sr-proof__states b{font:850 .72rem/1 var(--font-mono);letter-spacing:.08em}.sr-proof__states small{justify-self:end;color:#8196b2;font-size:.69rem}.state-dot{width:.65rem;height:.65rem;border-radius:50%;box-shadow:0 0 16px currentColor}.state-dot--fact{background:#57dfd7;color:#57dfd7}.state-dot--infer{background:#f0aa49;color:#f0aa49}.state-dot--unknown{background:#aa82ff;color:#aa82ff}.sr-proof__metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-top:1rem}.sr-proof__metrics div{padding:.9rem .7rem;border-radius:.75rem;background:rgba(255,255,255,.035);border:1px solid rgba(124,164,220,.12)}.sr-proof__metrics strong{display:block;font:800 1.7rem/1 var(--font-display);color:#fff}.sr-proof__metrics span{display:block;margin-top:.3rem;font-size:.62rem;color:#8298b5}.sr-proof__flow{display:flex;align-items:center;justify-content:space-between;gap:.45rem;margin-top:1rem;padding:.8rem;border:1px solid rgba(92,222,214,.18);border-radius:.75rem;color:#a9bdd7;font-size:.55rem;letter-spacing:.08em}.sr-proof__flow i{color:#59dfd7;font-style:normal}.sr-proof>p{margin:1rem 0 0;color:#7f94ae;font-size:.72rem;line-height:1.55}
-
-  .sr-about{display:grid;gap:var(--space-xl)}.sr-p{margin-top:var(--space-s);color:var(--text-muted)}.sr-sections-panel{padding:1.4rem;border:1px solid var(--surface-border);border-radius:1rem;background:var(--bg-raised);box-shadow:0 22px 60px rgba(25,34,48,.07)}.sr-sec-h{display:block;margin-bottom:var(--space-s)}.sr-sections{margin:0;padding-left:1.4em;columns:2;column-gap:var(--space-l)}.sr-sections li{font-size:var(--step--1);color:var(--text-muted);margin-bottom:.5em}
-
-  .brief{background:linear-gradient(180deg,var(--bg-sunken),color-mix(in srgb,var(--bg-sunken) 88%,#dbe5f1));scroll-margin-top:5rem}.brief__inner{background:var(--paper-0);color:var(--ink-900);border:1px solid var(--paper-200);border-radius:1.15rem;box-shadow:0 35px 100px rgba(21,31,46,.14);padding:clamp(1.5rem,4vw,4rem);max-width:62rem}.brief__cover-top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-s);flex-wrap:wrap;color:var(--ink-500)}.brief__q-label{margin-top:var(--space-l);color:var(--ink-500)}.brief__q{font-family:var(--font-serif);font-size:var(--step-2);line-height:var(--leading-snug);color:var(--ink-900);margin-top:.3em;text-wrap:pretty}.brief__meta{display:grid;gap:var(--space-s);margin-top:var(--space-l)}.brief__meta dt{color:var(--ink-500)}.brief__meta dd{color:var(--ink-800);font-size:.98rem;margin-top:.1em;max-width:70ch}.brief__illus-note{margin-top:var(--space-l);font-size:var(--step--1);color:var(--ink-500);background:var(--paper-50);border-left:3px dashed var(--infer);padding:var(--space-s) var(--space-m);border-radius:var(--radius-xs)}.brief__rule{border-top-color:var(--paper-200);margin-block:var(--space-l)}.brief__block{margin-top:var(--space-xl)}.brief__block:first-of-type{margin-top:0}.brief__h{font-size:var(--step-1);color:var(--ink-900);padding-bottom:var(--space-2xs);border-bottom:2px solid var(--ink-900);display:inline-block;margin-bottom:var(--space-m)}.brief__body{color:var(--ink-700);max-width:68ch;line-height:var(--leading-body)}.brief__profiles{display:grid;gap:var(--space-m)}.brief__profile{background:var(--paper-50);border:1px solid var(--paper-200);border-radius:var(--radius-s);padding:var(--space-m)}.brief__profile-name{font-size:var(--step-1);color:var(--ink-900);margin-bottom:var(--space-2xs)}.brief__profile p{color:var(--ink-700);font-size:.95rem;line-height:var(--leading-body)}.brief__records{display:grid;gap:var(--space-m)}.brief__impl{margin:0;padding-left:1.3em;display:grid;gap:.6rem}.brief__impl li{color:var(--ink-700)}
-  .brief__sources{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-m);counter-reset:none}.brief__source{padding:var(--space-s) 0;border-top:1px solid var(--paper-200)}.brief__source-top{display:flex;align-items:baseline;gap:.8ch;flex-wrap:wrap}.brief__source-id{color:var(--ink-400);font-size:var(--step--1)}.brief__source-org{font-family:var(--font-display);font-weight:500;color:var(--ink-900)}.brief__source-party{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fact);border:1px solid color-mix(in srgb,var(--fact) 40%,transparent);padding:.1em .45em;border-radius:var(--radius-xs)}.brief__source-url{display:inline-block;margin-top:.2em;color:var(--signal-600);font-size:.85rem;word-break:break-all}.brief__source-supports{color:var(--ink-700);font-size:.9rem;margin-top:.2em}.brief__source-limit{color:var(--ink-500)}.brief__source-checked{display:block;margin-top:.2em;color:var(--ink-400);font-size:var(--step--1)}
-  .brief__inner :global(.record){background:var(--paper-50);border-color:var(--paper-200)}.brief__inner :global(.matrix__scroll){border-color:var(--paper-200)}.brief__inner :global(.matrix__table){background:var(--paper-0)}.brief__inner :global(.matrix__dim-head),.brief__inner :global(.matrix__comp-head){background:var(--paper-100)}
-
-  @media(min-width:52rem){.sr-about{grid-template-columns:1.25fr .75fr}.brief__profiles{grid-template-columns:1fr 1fr}}
-  @media(max-width:900px){.sr-intro__inner{grid-template-columns:1fr}.sr-proof{min-height:auto}.sr-title{font-size:clamp(3.35rem,11vw,5.8rem)}.sr-proof__axis{display:none}}
-  @media(max-width:560px){.sr-proof__metrics{grid-template-columns:1fr}.sr-sections{columns:1}.sr-actions{align-items:stretch}.sr-actions .btn{width:100%;justify-content:center}.sr-request{width:100%}}
-
-  @media print{
-    :global(.site-header),:global(.site-footer),:global(.skip-link),.sr-intro,:global(.cta-band){display:none!important}.brief{background:#fff;padding:0}.brief__inner{box-shadow:none;border:none;background:#fff;padding:0;max-width:100%}.brief__block{break-inside:avoid}
-  }
+  .sample-final__hero{position:relative;overflow:hidden;background:#020713;color:#f5f8ff;padding:clamp(2.8rem,5vw,4.7rem) 0}.sample-final__grid{position:absolute;inset:0;opacity:.18;background-image:linear-gradient(rgba(100,151,226,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(100,151,226,.1) 1px,transparent 1px);background-size:68px 68px;mask-image:linear-gradient(90deg,#000 0,#000 76%,transparent)}.sample-final__hero-grid{position:relative;display:grid;grid-template-columns:1.08fr .72fr;gap:clamp(2rem,6vw,5rem);align-items:center}.sample-final__badge{display:inline-block;font-size:.6rem;letter-spacing:.13em;color:#65e2d9;border:1px solid rgba(101,226,217,.37);padding:.42rem .7rem;border-radius:999px}.sample-final__hero h1{margin:.8rem 0 0;font-size:clamp(3.1rem,5.6vw,5.9rem);line-height:.92;letter-spacing:-.06em;max-width:12ch}.sample-final__hero h1 em{font-style:normal;background:linear-gradient(100deg,#a8c5ff,#76a7ff 48%,#5ce4db);-webkit-background-clip:text;background-clip:text;color:transparent}.sample-final__hero-copy>p{max-width:52rem;margin:.95rem 0 0;color:#c5d3e4;line-height:1.62;font-size:1.02rem}.sample-final__actions{display:flex;flex-wrap:wrap;gap:.65rem;align-items:center;margin-top:1.25rem}.sample-final__request{font-family:var(--font-display);font-weight:800;color:#7fe2dc;text-decoration:none}.sample-final__meta{margin-top:1rem;color:#7f94b0;font-size:.58rem;letter-spacing:.08em}.sample-final__proof{padding:1.2rem;border:1px solid rgba(112,162,231,.25);border-radius:1rem;background:linear-gradient(155deg,rgba(10,27,50,.94),rgba(4,13,28,.96));box-shadow:0 30px 74px rgba(0,0,0,.32)}.sample-final__proof>span{font-size:.56rem;letter-spacing:.12em;color:#7895ba}.sample-final__states{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.85rem}.sample-final__states div{padding:.7rem;border:1px solid rgba(125,164,216,.13);border-radius:.65rem}.sample-final__states b{display:block;font:800 .6rem/1 var(--font-mono);color:#60e0d8}.sample-final__states div:nth-child(2) b{color:#efab4c}.sample-final__states div:nth-child(3) b{color:#aa82ff}.sample-final__states small{display:block;margin-top:.3rem;color:#8195b0;font-size:.62rem}.sample-final__metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.65rem}.sample-final__metrics div{padding:.65rem;background:rgba(255,255,255,.025);border-radius:.6rem}.sample-final__metrics strong{display:block;font-size:1.45rem}.sample-final__metrics span{font-size:.58rem;color:#8498b3}.sample-final__flow{display:flex;justify-content:space-between;align-items:center;gap:.35rem;margin-top:.65rem;padding:.65rem;border:1px solid rgba(92,222,214,.16);border-radius:.6rem;color:#9db1ca;font-size:.5rem}.sample-final__flow i{font-style:normal;color:#5be1d9}.sample-final__proof>p{margin:.7rem 0 0;color:#7f94ae;font-size:.7rem;line-height:1.5}
+  .sample-final{background:#f4efe7}.sample-final__orientation{padding:2.6rem 0;background:#fff}.sample-final__orientation-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,6vw,5rem);align-items:center}.sample-final__orientation h2{margin:.5rem 0 .6rem;font-size:clamp(2.3rem,4vw,4rem);letter-spacing:-.045em}.sample-final__orientation p{color:var(--text-muted);line-height:1.65}.sample-final__nav{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}.sample-final__nav a{display:flex;justify-content:space-between;gap:1rem;padding:.72rem .8rem;border:1px solid rgba(31,58,87,.11);border-radius:.6rem;background:#f7f8fa;color:#18304b;text-decoration:none;font:750 .82rem/1.3 var(--font-display)}.sample-final__nav a span{color:#2b8395}
+  .sample-final__paper{padding:clamp(2.5rem,5vw,5rem) 0;background:linear-gradient(180deg,#e7e2d9,#eef1f4)}.sample-final__paper-inner{max-width:68rem;background:#fffdf9;border:1px solid #ddd8cd;border-radius:1.15rem;box-shadow:0 35px 100px rgba(21,31,46,.13);padding:clamp(1.4rem,4vw,3.5rem);color:#172438}.sample-final__cover-top{display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap;color:#758196}.sample-final__mini{padding:.32rem .5rem;border:1px dashed #bd9553;border-radius:999px;color:#8b6b35;font-size:.55rem;letter-spacing:.08em}.sample-final__cover>.label{display:block;margin-top:1.5rem;color:#687689}.sample-final__cover h2{margin:.45rem 0 1rem;font:500 clamp(1.65rem,3vw,2.55rem)/1.15 var(--font-serif);max-width:42ch}.sample-final__cover dl{display:grid;gap:.65rem}.sample-final__cover dl div{display:grid;grid-template-columns:9rem 1fr;gap:1rem}.sample-final__cover dt{font:800 .58rem/1.4 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:#738096}.sample-final__cover dd{margin:0;color:#435268;line-height:1.5}.sample-final__notice{margin-top:1.2rem;padding:.8rem 1rem;border-left:3px solid #bc904c;background:#f7f2e9;color:#6a5b46;font-size:.78rem;line-height:1.55}.sample-final__block{position:relative;padding-top:2.2rem;margin-top:2.2rem;border-top:1px solid #ded9cf;scroll-margin-top:5rem}.sample-final__block h2{margin:0 0 .8rem;font-size:1.55rem}.sample-final__section-num{position:absolute;right:0;top:2.2rem;color:#a6a092;font-size:.58rem}.sample-final__block>p{color:#435268;line-height:1.68}.sample-final__summary>p{font-size:1rem}.sample-final__profiles{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.sample-final__profiles article{padding:1rem;background:#f8f6f1;border:1px solid #e2ddd3;border-radius:.7rem}.sample-final__profiles h3{margin:0 0 .4rem}.sample-final__profiles p{margin:0;color:#4c5b70;line-height:1.58;font-size:.9rem}.sample-final__intro{max-width:54rem}.sample-final__records{display:grid;gap:.8rem}.sample-final__implications{display:grid;gap:.65rem;padding-left:1.25rem}.sample-final__implications li{color:#405067;line-height:1.6}.sample-final__two{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}.sample-final__two>div{position:relative}.sample-final__sources{list-style:none;margin:0;padding:0;display:grid;gap:.9rem}.sample-final__sources li{padding-top:.85rem;border-top:1px solid #e0dbd1}.sample-final__source-top{display:flex;gap:.55rem;align-items:baseline;flex-wrap:wrap}.sample-final__source-top>span{color:#8b94a0;font-size:.62rem}.sample-final__source-top small{color:#268d84;font-size:.52rem;letter-spacing:.08em;text-transform:uppercase}.sample-final__sources a{display:inline-block;margin-top:.25rem;color:#276b91;font:600 .75rem/1.3 var(--font-mono);word-break:break-all}.sample-final__sources p{margin:.35rem 0;color:#4c5a6c;font-size:.83rem;line-height:1.55}.sample-final__sources em{color:#7f6b4f;font-style:normal}.sample-final__checked{color:#9299a3;font-size:.55rem}.sample-final__paper-inner :global(.record){background:#f8f6f1;border-color:#e0dbd1}.sample-final__paper-inner :global(.matrix__scroll){border-color:#ddd8cf}.sample-final__paper-inner :global(.matrix__table){background:#fffdf9}.sample-final__paper-inner :global(.matrix__dim-head),.sample-final__paper-inner :global(.matrix__comp-head){background:#f3f0e9}
+  @media(max-width:900px){.sample-final__hero-grid,.sample-final__orientation-grid{grid-template-columns:1fr}.sample-final__proof{max-width:44rem}.sample-final__two{grid-template-columns:1fr}}
+  @media(max-width:600px){.sample-final__actions{display:grid}.sample-final__actions a{width:100%}.sample-final__states,.sample-final__metrics,.sample-final__nav,.sample-final__profiles{grid-template-columns:1fr}.sample-final__cover dl div{grid-template-columns:1fr;gap:.2rem}.sample-final__hero h1{font-size:clamp(3rem,12vw,4.2rem)}}
+  @media print{ :global(.site-header),:global(.site-footer),:global(.skip-link),.sample-final__hero,.sample-final__orientation,:global(.cta-band){display:none!important}.sample-final__paper{background:#fff;padding:0}.sample-final__paper-inner{box-shadow:none;border:none;border-radius:0;padding:0;max-width:100%}.sample-final__block{break-inside:avoid} }
 </style>
