@@ -13,7 +13,6 @@ export const primaryNav: NavItem[] = [
 ];
 
 export const footerServices: NavItem[] = [
-  { label: 'Complimentary Competitive Intelligence Brief', href: '/contact/?intent=complimentary-brief' },
   { label: 'Competitive Decision Sprint', href: '/competitor-brief/' },
   { label: 'Competitive Response Sprint', href: '/strategic-blueprint/' },
   { label: 'Competitive Radar', href: '/market-intelligence/' },
