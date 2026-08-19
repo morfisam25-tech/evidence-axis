@@ -2,88 +2,48 @@
 import Base from '@layouts/Base.astro';
 import ContactForm from '@components/ContactForm.astro';
 import { contact } from '@config/site';
-
 const email = contact.email ?? 'hello@evidenceaxis.com';
 ---
-<Base
-  title="Contact"
-  description="Discuss a competitive decision, response sprint or ongoing competitive intelligence engagement with Evidence Axis."
-  path="/contact/"
->
-  <section class="ct13-hero" data-surface="dark">
-    <div class="container ct13-hero__inner">
-      <span class="label">START WITH THE DECISION</span>
-      <h1>Put Evidence Axis on your competitive question.</h1>
-      <p>Send the decision context, competitive pressure or monitoring requirement. We review the question asynchronously and confirm fit, scope, delivery and price in writing.</p>
-      <div class="ct13-hero__proof mono">
-        <span>ASYNC BY DEFAULT</span><span>HUMAN REVIEW</span><span>NO SALES CALL REQUIRED</span>
-      </div>
+<Base title="Contact" description="Request a complimentary competitive intelligence brief or discuss a competitive decision, response sprint or ongoing monitoring engagement with Evidence Axis." path="/contact/">
+  <section class="contact-final__hero" data-surface="dark">
+    <div class="container-wide contact-final__hero-grid">
+      <div><span class="label">START WITH THE WORK OR THE DECISION</span><h1>Put Evidence Axis on your competitive question.</h1><p>Request a company-specific Complimentary Competitive Intelligence Brief, or send the decision context for a paid engagement. Both paths are asynchronous by default.</p></div>
+      <aside class="contact-final__direct"><small class="mono">DIRECT EMAIL</small><a href={`mailto:${email}`}>{email}</a><p>Prefer email? Send the company, question and timing directly. No sales call is required to start.</p></aside>
     </div>
+    <div class="container-wide contact-final__proof mono"><span>WORK EMAIL VERIFIED FOR COMPLIMENTARY</span><span>HUMAN REVIEW</span><span>ASYNC BY DEFAULT</span></div>
   </section>
 
-  <main class="ct13-main">
-    <section class="section">
-      <div class="container">
-        <div class="ct13-paths">
-          <article class="ct13-path ct13-path--accent">
-            <span class="label">DECIDE</span>
-            <h2>Competitive Decision Sprint</h2>
-            <p>For a real strategic, product, pricing, positioning or sales decision that needs verified competitive evidence plus your company context.</p>
-            <ul>
-              <li>Decision-critical competitor deep dive</li>
-              <li>Pricing / product / positioning implications</li>
-              <li>Prioritized recommendations</li>
-              <li>Executive Decision Deck</li>
-              <li>Evidence Appendix</li>
-            </ul>
-            <p class="ct13-note"><strong>Pricing:</strong> private quote after the decision boundary and evidence depth are defined.</p>
-          </article>
-
-          <article class="ct13-path">
-            <span class="label">RESPOND / MONITOR</span>
-            <h2>Response Sprint or Competitive Radar</h2>
-            <p>Use a Response Sprint when the decision needs market-facing assets. Use Radar when the competitive picture needs to stay current over time.</p>
-            <ul>
-              <li>Battlecards and objection handling</li>
-              <li>Pricing, positioning and messaging response</li>
-              <li>Ongoing competitor monitoring</li>
-              <li>New competitor and market-move detection</li>
-            </ul>
-            <p class="ct13-note">Scope, cadence, delivery and price are confirmed in writing before paid work begins.</p>
-          </article>
-        </div>
+  <main class="contact-final">
+    <section class="section contact-final__paths">
+      <div class="container-wide contact-final__path-grid">
+        <article class="contact-final__path contact-final__path--accent">
+          <span class="label">PATH A · COMPLIMENTARY</span><h2>Request a real company-specific brief.</h2><p>No generic demo. Evidence Axis performs the discovery, verifies the evidence and prepares an executive-ready intelligence package around your company.</p>
+          <ul><li>Competitive Set Scan</li><li>Executive Intelligence Deck — PDF</li><li>Evidence Appendix — PDF</li><li>Fact / Inference / Unknown</li><li>Source Register with review dates</li></ul>
+          <div class="contact-final__eligibility"><small class="mono">ELIGIBILITY</small><b>Real company · verified employee · work email · company website</b></div>
+        </article>
+        <article class="contact-final__path">
+          <span class="label">PATH B · PAID ENGAGEMENT</span><h2>Bring the decision that needs deeper support.</h2><p>When a real decision, response or monitoring requirement is already live, send the context. We will determine the evidence boundary and scope the right engagement.</p>
+          <ul><li><b>Decision Sprint</b> — evidence + company context</li><li><b>Response Sprint</b> — battlecards, pricing, positioning and messaging response</li><li><b>Competitive Radar</b> — ongoing monitoring</li></ul>
+          <div class="contact-final__eligibility"><small class="mono">COMMERCIAL TERMS</small><b>Scope, delivery and price confirmed in writing before paid work begins.</b></div>
+        </article>
       </div>
     </section>
 
-    <section class="section ct13-form" id="request">
-      <div class="container ct13-form__grid">
-        <div>
-          <span class="label">ENGAGEMENT INQUIRY</span>
-          <h2>Tell us what decision is live.</h2>
-          <p>Known competitors are useful context, but they are not required to define the whole competitive set. Discovery remains part of the Evidence Axis method.</p>
-          <div class="ct13-email">
-            <small class="mono">DIRECT EMAIL</small>
-            <a href={`mailto:${email}`}>{email}</a>
-          </div>
-          <div class="ct13-gift-note">
-            <small class="mono">ABOUT THE INTELLIGENCE GIFT</small>
-            <p>The Competitive Intelligence Gift is invitation-only. Evidence Axis selects companies proactively when a relevant competitive trigger is visible; it is not a public free-service request.</p>
-          </div>
-        </div>
-        <div class="ct13-form__panel">
-          <ContactForm />
-        </div>
+    <section class="section contact-final__form" id="request">
+      <div class="container-wide contact-final__form-grid">
+        <div class="contact-final__form-copy"><span class="label">REQUEST / ENGAGEMENT INQUIRY</span><h2>Tell us who you are and where to look.</h2><p>For a Complimentary Brief, use your work email and company website. Known competitors are optional — discovery is part of the method.</p><div class="contact-final__gift-note"><b>Outbound works differently.</b><span>Evidence Axis may also select a company around a visible trigger and deliver the same quality of intelligence proactively.</span></div></div>
+        <div class="contact-final__panel"><ContactForm /></div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container ct13-bottom">
-        <span class="label">WHAT HAPPENS NEXT</span>
-        <div class="ct13-steps">
-          <article><b>01</b><h3>Review</h3><p>We review the company, decision context and requested engagement.</p></article>
-          <article><b>02</b><h3>Boundary</h3><p>We define the competitive question, evidence boundary and expected outputs.</p></article>
-          <article><b>03</b><h3>Scope</h3><p>Delivery, price and the contracting party are confirmed in writing.</p></article>
-          <article><b>04</b><h3>Research</h3><p>Discovery, sourcing, verification, analysis and production follow the Evidence Axis evidence standard.</p></article>
+    <section class="section contact-final__next">
+      <div class="container-wide">
+        <header><span class="label">WHAT HAPPENS NEXT</span><h2>Clear next steps, without a forced sales call.</h2></header>
+        <div class="contact-final__steps">
+          <article><b>01</b><h3>Review</h3><p>We review the company identity, request and context.</p></article>
+          <article><b>02</b><h3>Confirm</h3><p>For a Complimentary Brief we confirm the research queue and delivery window. For paid work we define the evidence boundary.</p></article>
+          <article><b>03</b><h3>Research</h3><p>Discovery, sourcing, verification, classification and analysis follow the Evidence Axis standard.</p></article>
+          <article><b>04</b><h3>Deliver</h3><p>You receive the intelligence package, or a written paid scope before the engagement begins.</p></article>
         </div>
       </div>
     </section>
@@ -91,10 +51,10 @@ const email = contact.email ?? 'hello@evidenceaxis.com';
 </Base>
 
 <style>
-  .ct13-hero{padding:clamp(5rem,10vw,8rem) 0;background:#030914;color:#f5f8ff;border-bottom:1px solid rgba(130,170,220,.2)}
-  .ct13-hero__inner{max-width:64rem}.ct13-hero h1{max-width:13ch;margin:.9rem 0 1rem;font-size:clamp(3rem,7vw,6rem);line-height:.95;letter-spacing:-.055em}.ct13-hero p{max-width:48rem;font-size:1.18rem;line-height:1.7;color:#cbd8e8}.ct13-hero__proof{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.5rem}.ct13-hero__proof span{padding:.55rem .75rem;border:1px solid rgba(122,161,211,.25);border-radius:.55rem;color:#a9bdd6;font-size:.68rem;letter-spacing:.08em}
-  .ct13-main .section{padding:clamp(4rem,8vw,7rem) 0}.ct13-paths{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}.ct13-path{padding:clamp(1.5rem,3vw,2.5rem);border:1px solid var(--surface-border);border-radius:1.1rem;background:var(--bg-raised)}.ct13-path--accent{border-color:color-mix(in srgb,var(--accent) 45%,var(--surface-border));box-shadow:0 22px 60px rgba(40,120,180,.08)}.ct13-path h2{margin:.6rem 0 .8rem;font-size:clamp(1.7rem,3vw,2.6rem)}.ct13-path p,.ct13-path li{color:var(--text-muted);line-height:1.65}.ct13-path ul{padding-left:1.2rem}.ct13-note{margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--surface-border)}
-  .ct13-form{background:var(--bg-raised)}.ct13-form__grid{display:grid;grid-template-columns:minmax(15rem,.7fr) minmax(0,1.3fr);gap:clamp(2rem,6vw,5rem);align-items:start}.ct13-form h2{margin:.6rem 0 .8rem;font-size:clamp(2rem,4vw,3.4rem);line-height:1}.ct13-form__panel{padding:clamp(1.2rem,2vw,2rem);border:1px solid var(--surface-border);border-radius:1rem;background:var(--bg)}.ct13-email{margin-top:2rem;display:grid;gap:.35rem}.ct13-email small{color:var(--text-faint)}.ct13-email a{font-family:var(--font-display);font-weight:700}.ct13-gift-note{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--surface-border)}.ct13-gift-note small{color:var(--text-faint)}.ct13-gift-note p{color:var(--text-muted);font-size:.92rem;line-height:1.6}
-  .ct13-bottom>.label{display:block;margin-bottom:1.3rem}.ct13-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}.ct13-steps article{border-top:1px solid var(--surface-border);padding-top:1rem}.ct13-steps b{font-family:var(--font-mono);color:var(--accent);font-size:.75rem}.ct13-steps h3{margin:.65rem 0 .35rem}.ct13-steps p{margin:0;color:var(--text-muted);line-height:1.55}
-  @media(max-width:800px){.ct13-paths,.ct13-form__grid,.ct13-steps{grid-template-columns:1fr}.ct13-hero{padding-top:4rem}.ct13-form__panel{padding:1rem}}
+  .contact-final__hero{background:#030914;color:#f4f8ff;padding:clamp(2.8rem,5vw,4.8rem) 0 1.6rem}.contact-final__hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(2rem,6vw,5rem);align-items:end}.contact-final__hero h1{margin:.55rem 0 .8rem;font-size:clamp(3rem,5.8vw,5.8rem);line-height:.94;letter-spacing:-.055em;max-width:12ch}.contact-final__hero p{max-width:52rem;color:#b8c7da;line-height:1.65;font-size:1.04rem}.contact-final__direct{padding:1.1rem;border:1px solid rgba(113,161,219,.18);border-radius:.8rem;background:rgba(255,255,255,.025)}.contact-final__direct small{color:#64e2da;font-size:.58rem;letter-spacing:.1em}.contact-final__direct a{display:block;margin:.55rem 0;color:#f3f8ff;font:800 clamp(1.15rem,2vw,1.65rem)/1 var(--font-display);text-decoration:none}.contact-final__direct p{margin:0;color:#8298b4;font-size:.82rem}.contact-final__proof{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.25rem}.contact-final__proof span{padding:.45rem .6rem;border:1px solid rgba(122,164,216,.17);border-radius:.5rem;color:#8fa5c0;font-size:.55rem;letter-spacing:.08em}
+  .contact-final{background:#f8f5ef}.contact-final__paths{background:#fff}.contact-final__path-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}.contact-final__path{padding:1.35rem;border:1px solid rgba(31,58,87,.12);border-radius:.95rem;background:#f9fafb}.contact-final__path--accent{background:linear-gradient(145deg,#07182b,#0a2d45);color:#f4f8ff;border-color:rgba(88,219,210,.24)}.contact-final__path h2,.contact-final__form h2,.contact-final__next h2{margin:.55rem 0 .7rem;font-size:clamp(2.1rem,3.8vw,3.75rem);line-height:1;letter-spacing:-.045em}.contact-final__path p,.contact-final__path li{color:var(--text-muted);line-height:1.58}.contact-final__path--accent p,.contact-final__path--accent li{color:#b7c7da}.contact-final__path ul{padding-left:1.1rem;display:grid;gap:.35rem}.contact-final__eligibility{display:grid;gap:.28rem;margin-top:1rem;padding-top:.9rem;border-top:1px solid rgba(39,65,94,.12)}.contact-final__path--accent .contact-final__eligibility{border-color:rgba(119,161,213,.17)}.contact-final__eligibility small{font-size:.54rem;letter-spacing:.1em;color:#2a8296}.contact-final__path--accent .contact-final__eligibility small{color:#64e2da}.contact-final__eligibility b{font-size:.86rem}
+  .contact-final__form{background:#f3eee6}.contact-final__form-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(2rem,6vw,5rem);align-items:start}.contact-final__form-copy>p{color:var(--text-muted);line-height:1.65}.contact-final__gift-note{display:grid;gap:.25rem;margin-top:1.3rem;padding:1rem;border-left:3px solid #2b8c99;background:#fff;border-radius:0 .7rem .7rem 0}.contact-final__gift-note span{color:var(--text-muted);font-size:.86rem;line-height:1.5}.contact-final__panel{padding:clamp(1rem,2vw,1.5rem);border:1px solid rgba(31,58,87,.12);border-radius:1rem;background:#fff;box-shadow:0 22px 60px rgba(22,33,47,.08)}
+  .contact-final__next{background:#fff}.contact-final__next header{max-width:60rem}.contact-final__steps{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-top:1.4rem}.contact-final__steps article{padding:1rem;border-top:2px solid #2b8498;background:#f8fafb}.contact-final__steps b{font:800 .58rem/1 var(--font-mono);color:#2b8498}.contact-final__steps h3{margin:.5rem 0 .3rem}.contact-final__steps p{margin:0;color:var(--text-muted);font-size:.84rem;line-height:1.5}
+  @media(max-width:900px){.contact-final__hero-grid,.contact-final__path-grid,.contact-final__form-grid{grid-template-columns:1fr}.contact-final__steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:580px){.contact-final__steps{grid-template-columns:1fr}.contact-final__hero h1{font-size:clamp(2.8rem,12vw,4rem)}}
 </style>
