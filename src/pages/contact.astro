@@ -7,16 +7,16 @@ const email = contact.email ?? 'hello@evidenceaxis.com';
 ---
 <Base
   title="Contact"
-  description="Request a complimentary competitive intelligence brief or discuss a competitive decision with Evidence Axis."
+  description="Discuss a competitive decision, response sprint or ongoing competitive intelligence engagement with Evidence Axis."
   path="/contact/"
 >
   <section class="ct13-hero" data-surface="dark">
     <div class="container ct13-hero__inner">
-      <span class="label">START WITH THE WORK OR START WITH THE DECISION</span>
+      <span class="label">START WITH THE DECISION</span>
       <h1>Put Evidence Axis on your competitive question.</h1>
-      <p>Request a company-specific Complimentary Competitive Intelligence Brief, or send the decision context for a paid engagement. Both paths are asynchronous by default.</p>
+      <p>Send the decision context, competitive pressure or monitoring requirement. We review the question asynchronously and confirm fit, scope, delivery and price in writing.</p>
       <div class="ct13-hero__proof mono">
-        <span>VERIFIED WORK EMAIL</span><span>HUMAN REVIEW</span><span>NO SALES CALL REQUIRED</span>
+        <span>ASYNC BY DEFAULT</span><span>HUMAN REVIEW</span><span>NO SALES CALL REQUIRED</span>
       </div>
     </div>
   </section>
@@ -26,30 +26,30 @@ const email = contact.email ?? 'hello@evidenceaxis.com';
       <div class="container">
         <div class="ct13-paths">
           <article class="ct13-path ct13-path--accent">
-            <span class="label">PATH A · COMPLIMENTARY</span>
-            <h2>Request My Complimentary Brief</h2>
-            <p>Request real company-specific competitive intelligence at no cost. Evidence Axis performs the discovery, verifies the evidence, and prepares an executive-ready brief for your company.</p>
+            <span class="label">DECIDE</span>
+            <h2>Competitive Decision Sprint</h2>
+            <p>For a real strategic, product, pricing, positioning or sales decision that needs verified competitive evidence plus your company context.</p>
             <ul>
-              <li>Executive Intelligence Deck — PDF</li>
-              <li>Evidence Appendix — PDF</li>
-              <li>Competitive Set Scan</li>
-              <li>Fact / Inference / Unknown separation</li>
-              <li>Source Register with review dates</li>
+              <li>Decision-critical competitor deep dive</li>
+              <li>Pricing / product / positioning implications</li>
+              <li>Prioritized recommendations</li>
+              <li>Executive Decision Deck</li>
+              <li>Evidence Appendix</li>
             </ul>
-            <p class="ct13-note"><strong>Eligibility:</strong> verified company employee using a work email. A competitor list is optional.</p>
+            <p class="ct13-note"><strong>Pricing:</strong> private quote after the decision boundary and evidence depth are defined.</p>
           </article>
 
           <article class="ct13-path">
-            <span class="label">PATH B · PAID ENGAGEMENT</span>
-            <h2>Discuss a Competitive Decision</h2>
-            <p>If a real decision is already in front of your team, send the context. We will determine whether a Decision Sprint, Response Sprint, or ongoing Radar engagement fits the question.</p>
+            <span class="label">RESPOND / MONITOR</span>
+            <h2>Response Sprint or Competitive Radar</h2>
+            <p>Use a Response Sprint when the decision needs market-facing assets. Use Radar when the competitive picture needs to stay current over time.</p>
             <ul>
-              <li>Decision Sprint — market evidence + company context</li>
-              <li>Response Sprint — battlecards, pricing, positioning and messaging response</li>
-              <li>Competitive Radar — ongoing monitoring</li>
-              <li>Scope and delivery confirmed in writing</li>
+              <li>Battlecards and objection handling</li>
+              <li>Pricing, positioning and messaging response</li>
+              <li>Ongoing competitor monitoring</li>
+              <li>New competitor and market-move detection</li>
             </ul>
-            <p class="ct13-note">Paid engagement pricing is scoped privately. No fixed paid price is published on the site while the model is being validated.</p>
+            <p class="ct13-note">Scope, cadence, delivery and price are confirmed in writing before paid work begins.</p>
           </article>
         </div>
       </div>
@@ -58,12 +58,16 @@ const email = contact.email ?? 'hello@evidenceaxis.com';
     <section class="section ct13-form" id="request">
       <div class="container ct13-form__grid">
         <div>
-          <span class="label">REQUEST / ENGAGEMENT INQUIRY</span>
-          <h2>Tell us who you are and where to look.</h2>
-          <p>For a Complimentary Brief, the five required fields are your name, work email, company, company website and role. Competitors are optional — discovery is part of the work.</p>
+          <span class="label">ENGAGEMENT INQUIRY</span>
+          <h2>Tell us what decision is live.</h2>
+          <p>Known competitors are useful context, but they are not required to define the whole competitive set. Discovery remains part of the Evidence Axis method.</p>
           <div class="ct13-email">
             <small class="mono">DIRECT EMAIL</small>
             <a href={`mailto:${email}`}>{email}</a>
+          </div>
+          <div class="ct13-gift-note">
+            <small class="mono">ABOUT THE INTELLIGENCE GIFT</small>
+            <p>The Competitive Intelligence Gift is invitation-only. Evidence Axis selects companies proactively when a relevant competitive trigger is visible; it is not a public free-service request.</p>
           </div>
         </div>
         <div class="ct13-form__panel">
@@ -76,10 +80,10 @@ const email = contact.email ?? 'hello@evidenceaxis.com';
       <div class="container ct13-bottom">
         <span class="label">WHAT HAPPENS NEXT</span>
         <div class="ct13-steps">
-          <article><b>01</b><h3>Verify</h3><p>We verify the company identity and work email.</p></article>
-          <article><b>02</b><h3>Queue</h3><p>For a Complimentary Brief, we confirm the research queue and expected delivery window by email.</p></article>
-          <article><b>03</b><h3>Research</h3><p>Discovery, sourcing, verification, analysis and production follow the Evidence Axis evidence standard.</p></article>
-          <article><b>04</b><h3>Deliver</h3><p>You receive the client-facing PDFs or, for a paid inquiry, written scope for the engagement.</p></article>
+          <article><b>01</b><h3>Review</h3><p>We review the company, decision context and requested engagement.</p></article>
+          <article><b>02</b><h3>Boundary</h3><p>We define the competitive question, evidence boundary and expected outputs.</p></article>
+          <article><b>03</b><h3>Scope</h3><p>Delivery, price and the contracting party are confirmed in writing.</p></article>
+          <article><b>04</b><h3>Research</h3><p>Discovery, sourcing, verification, analysis and production follow the Evidence Axis evidence standard.</p></article>
         </div>
       </div>
     </section>
@@ -90,7 +94,7 @@ const email = contact.email ?? 'hello@evidenceaxis.com';
   .ct13-hero{padding:clamp(5rem,10vw,8rem) 0;background:#030914;color:#f5f8ff;border-bottom:1px solid rgba(130,170,220,.2)}
   .ct13-hero__inner{max-width:64rem}.ct13-hero h1{max-width:13ch;margin:.9rem 0 1rem;font-size:clamp(3rem,7vw,6rem);line-height:.95;letter-spacing:-.055em}.ct13-hero p{max-width:48rem;font-size:1.18rem;line-height:1.7;color:#cbd8e8}.ct13-hero__proof{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.5rem}.ct13-hero__proof span{padding:.55rem .75rem;border:1px solid rgba(122,161,211,.25);border-radius:.55rem;color:#a9bdd6;font-size:.68rem;letter-spacing:.08em}
   .ct13-main .section{padding:clamp(4rem,8vw,7rem) 0}.ct13-paths{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}.ct13-path{padding:clamp(1.5rem,3vw,2.5rem);border:1px solid var(--surface-border);border-radius:1.1rem;background:var(--bg-raised)}.ct13-path--accent{border-color:color-mix(in srgb,var(--accent) 45%,var(--surface-border));box-shadow:0 22px 60px rgba(40,120,180,.08)}.ct13-path h2{margin:.6rem 0 .8rem;font-size:clamp(1.7rem,3vw,2.6rem)}.ct13-path p,.ct13-path li{color:var(--text-muted);line-height:1.65}.ct13-path ul{padding-left:1.2rem}.ct13-note{margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--surface-border)}
-  .ct13-form{background:var(--bg-raised)}.ct13-form__grid{display:grid;grid-template-columns:minmax(15rem,.7fr) minmax(0,1.3fr);gap:clamp(2rem,6vw,5rem);align-items:start}.ct13-form h2{margin:.6rem 0 .8rem;font-size:clamp(2rem,4vw,3.4rem);line-height:1}.ct13-form__panel{padding:clamp(1.2rem,2vw,2rem);border:1px solid var(--surface-border);border-radius:1rem;background:var(--bg)}.ct13-email{margin-top:2rem;display:grid;gap:.35rem}.ct13-email small{color:var(--text-faint)}.ct13-email a{font-family:var(--font-display);font-weight:700}
+  .ct13-form{background:var(--bg-raised)}.ct13-form__grid{display:grid;grid-template-columns:minmax(15rem,.7fr) minmax(0,1.3fr);gap:clamp(2rem,6vw,5rem);align-items:start}.ct13-form h2{margin:.6rem 0 .8rem;font-size:clamp(2rem,4vw,3.4rem);line-height:1}.ct13-form__panel{padding:clamp(1.2rem,2vw,2rem);border:1px solid var(--surface-border);border-radius:1rem;background:var(--bg)}.ct13-email{margin-top:2rem;display:grid;gap:.35rem}.ct13-email small{color:var(--text-faint)}.ct13-email a{font-family:var(--font-display);font-weight:700}.ct13-gift-note{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--surface-border)}.ct13-gift-note small{color:var(--text-faint)}.ct13-gift-note p{color:var(--text-muted);font-size:.92rem;line-height:1.6}
   .ct13-bottom>.label{display:block;margin-bottom:1.3rem}.ct13-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}.ct13-steps article{border-top:1px solid var(--surface-border);padding-top:1rem}.ct13-steps b{font-family:var(--font-mono);color:var(--accent);font-size:.75rem}.ct13-steps h3{margin:.65rem 0 .35rem}.ct13-steps p{margin:0;color:var(--text-muted);line-height:1.55}
   @media(max-width:800px){.ct13-paths,.ct13-form__grid,.ct13-steps{grid-template-columns:1fr}.ct13-hero{padding-top:4rem}.ct13-form__panel{padding:1rem}}
 </style>
