@@ -15,7 +15,6 @@ const roles = [
   'Other',
 ];
 const services = [
-  { value: offers.complimentaryBrief.id, label: offers.complimentaryBrief.name },
   { value: offers.decisionSprint.id, label: offers.decisionSprint.name },
   { value: offers.responseSprint.id, label: offers.responseSprint.name },
   { value: offers.radar.id, label: offers.radar.name },
@@ -44,8 +43,7 @@ const services = [
     <div class="field field--half">
       <label for="f-email">Work email <span class="req" aria-hidden="true">*</span></label>
       <input id="f-email" name="email" type="email" autocomplete="email" required aria-required="true" />
-      <p class="field__help">A company email is required for a Complimentary Brief.</p>
-      <p class="field__err" data-err-for="f-email" hidden>Please enter a valid work email.</p>
+      <p class="field__err" data-err-for="f-email" hidden>Please enter a valid email.</p>
     </div>
 
     <div class="field field--half">
@@ -55,9 +53,9 @@ const services = [
     </div>
 
     <div class="field field--half">
-      <label for="f-website">Company website <span class="req" aria-hidden="true">*</span></label>
-      <input id="f-website" name="website" type="url" inputmode="url" placeholder="https://company.com" autocomplete="url" required aria-required="true" />
-      <p class="field__err" data-err-for="f-website" hidden>Please enter a full company URL including https://.</p>
+      <label for="f-website">Company website <span class="optional">optional</span></label>
+      <input id="f-website" name="website" type="url" inputmode="url" placeholder="https://company.com" autocomplete="url" />
+      <p class="field__err" data-err-for="f-website" hidden>Please enter a full URL including https://.</p>
     </div>
 
     <div class="field field--half">
@@ -70,7 +68,7 @@ const services = [
     </div>
 
     <div class="field field--half">
-      <label for="f-service">What would you like to start with? <span class="req" aria-hidden="true">*</span></label>
+      <label for="f-service">What would you like to discuss? <span class="req" aria-hidden="true">*</span></label>
       <select id="f-service" name="service" required aria-required="true" data-service-select>
         <option value="">Select…</option>
         {services.map((s) => <option value={s.value}>{s.label}</option>)}
@@ -78,23 +76,17 @@ const services = [
       <p class="field__err" data-err-for="f-service" hidden>Please choose an option.</p>
     </div>
 
-    <div class="field" data-complimentary-note hidden>
-      <div class="inquiry__notice">
-        <b>Complimentary Competitive Intelligence Brief</b>
-        <p>Real company-specific research at no cost. No generic demo and no sales call required before receiving the work. We verify the company identity, then confirm the research queue and expected delivery window by email.</p>
-      </div>
+    <div class="field">
+      <label for="f-question">Competitive decision or research question <span class="req" aria-hidden="true">*</span></label>
+      <p class="field__help" id="f-question-help">Tell us the decision, pressure or competitive question that makes this work useful now.</p>
+      <textarea id="f-question" name="question" rows="4" aria-describedby="f-question-help" required aria-required="true"></textarea>
+      <p class="field__err" data-err-for="f-question" hidden>Please give us the question or decision context.</p>
     </div>
 
     <div class="field">
       <label for="f-competitors">Competitors already on your radar <span class="optional">optional</span></label>
-      <p class="field__help" id="f-competitors-help">Leave this blank if you want Evidence Axis to perform discovery from zero.</p>
-      <input id="f-competitors" name="competitors" type="text" aria-describedby="f-competitors-help" placeholder="Optional — up to two names are enough" />
-    </div>
-
-    <div class="field" data-decision-context>
-      <label for="f-question">Competitive decision or research question <span class="optional">optional for the Complimentary Brief</span></label>
-      <p class="field__help" id="f-question-help">If a real decision is already in front of the team, tell us what it is.</p>
-      <textarea id="f-question" name="question" rows="3" aria-describedby="f-question-help"></textarea>
+      <p class="field__help" id="f-competitors-help">Known names are useful context, but Evidence Axis does not assume the supplied list is complete.</p>
+      <input id="f-competitors" name="competitors" type="text" aria-describedby="f-competitors-help" placeholder="Optional — a few names are enough" />
     </div>
 
     <div class="field field--half">
@@ -115,9 +107,9 @@ const services = [
 
   <div class="inquiry__foot">
     <button type={hasEndpoint ? 'submit' : 'button'} class="btn btn--lg" data-inquiry-submit>
-      Send request<span class="btn-arrow" aria-hidden="true">→</span>
+      Send inquiry<span class="btn-arrow" aria-hidden="true">→</span>
     </button>
-    <p class="inquiry__micro mono">Asynchronous. A person reviews every valid request.</p>
+    <p class="inquiry__micro mono">Asynchronous by default. A person reviews every valid inquiry.</p>
   </div>
 
   <p class="inquiry__status" id="inquiry-status" role="status" aria-live="polite" hidden></p>
@@ -152,9 +144,6 @@ const services = [
   }
   .field [aria-invalid='true'] { border-color: var(--contradiction); }
   .field__err { color: var(--contradiction); font-size: var(--step--1); margin-top: 0.4em; font-family: var(--font-mono); }
-  .inquiry__notice { border: 1px solid var(--surface-border); border-left: 3px solid var(--fact); border-radius: var(--radius-s); background: var(--bg-raised); padding: var(--space-m); }
-  .inquiry__notice b { font-family: var(--font-display); }
-  .inquiry__notice p { margin: .45rem 0 0; color: var(--text-muted); }
   .inquiry__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .inquiry__foot { display: flex; align-items: center; gap: var(--space-m); flex-wrap: wrap; margin-top: var(--space-l); }
   .inquiry__micro { font-size: var(--step--1); color: var(--text-faint); max-width: 40ch; }
@@ -167,43 +156,26 @@ const services = [
 <script>
   type FormControl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
-  const consumerDomains = new Set([
-    'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','outlook.com','hotmail.com','live.com','icloud.com','me.com','proton.me','protonmail.com','aol.com','gmx.com','mail.com'
-  ]);
-
   document.querySelectorAll<HTMLFormElement>('[data-inquiry]').forEach((form) => {
     const endpoint = form.getAttribute('action');
     const status = form.querySelector<HTMLElement>('#inquiry-status');
     const service = form.querySelector<HTMLSelectElement>('[data-service-select]');
-    const complimentaryNote = form.querySelector<HTMLElement>('[data-complimentary-note]');
     const submitBtn = form.querySelector<HTMLButtonElement>('[data-inquiry-submit]');
     const fields = Array.from(form.querySelectorAll<FormControl>('input, select, textarea'));
 
     const params = new URLSearchParams(window.location.search);
     const intent = params.get('intent');
     const intentMap: Record<string, string> = {
-      'complimentary-brief': 'complimentary-brief',
       'decision': 'decision-sprint',
       'response': 'response-sprint',
       'radar': 'competitive-radar',
     };
     if (service && intent && intentMap[intent]) service.value = intentMap[intent];
 
-    const isComplimentary = () => service?.value === 'complimentary-brief';
-    const updateMode = () => {
-      if (complimentaryNote) complimentaryNote.hidden = !isComplimentary();
-      if (submitBtn?.firstChild) submitBtn.firstChild.textContent = isComplimentary() ? 'Request My Complimentary Brief' : 'Send request';
-    };
-    service?.addEventListener('change', updateMode);
-    updateMode();
-
-    const showErr = (el: FormControl, show: boolean, message?: string) => {
+    const showErr = (el: FormControl, show: boolean) => {
       const err = form.querySelector<HTMLElement>(`[data-err-for="${el.id}"]`);
       el.setAttribute('aria-invalid', show ? 'true' : 'false');
-      if (err) {
-        if (message) err.textContent = message;
-        err.hidden = !show;
-      }
+      if (err) err.hidden = !show;
     };
 
     const validate = (el: FormControl) => {
@@ -212,13 +184,6 @@ const services = [
       if (!isRequired && value === '') { showErr(el, false); return true; }
       if (el instanceof HTMLInputElement && el.type === 'url' && value && !/^https?:\/\/.+/i.test(value)) {
         showErr(el, true); return false;
-      }
-      if (el instanceof HTMLInputElement && el.type === 'email' && value && isComplimentary()) {
-        const domain = value.toLowerCase().split('@')[1] || '';
-        if (consumerDomains.has(domain)) {
-          showErr(el, true, 'Please use your company work email for a Complimentary Brief.');
-          return false;
-        }
       }
       const valid = isRequired ? (value !== '' && el.checkValidity()) : el.checkValidity();
       showErr(el, !valid);
@@ -272,23 +237,15 @@ const services = [
           body: JSON.stringify(payload),
         });
         if (!res.ok) throw new Error('bad status');
-        const requestedComplimentary = isComplimentary();
         form.reset();
-        updateMode();
-        setStatus(
-          requestedComplimentary
-            ? 'Request received. We’ll verify the company details and confirm your research queue and expected delivery window by email.'
-            : 'Thank you — your message has been received. Evidence Axis will reply by email.',
-          'success'
-        );
+        setStatus('Thank you — your inquiry was received. We’ll reply by email after reviewing the decision context.', 'success');
       } catch {
-        setStatus('Something went wrong sending your request. Please try again in a moment.', 'error');
+        setStatus('The form could not send. Please email hello@evidenceaxis.com directly.', 'error');
       } finally {
         if (submitBtn) submitBtn.disabled = false;
       }
     };
 
     form.addEventListener('submit', attempt);
-    if (!endpoint) submitBtn?.addEventListener('click', attempt);
   });
 </script>
