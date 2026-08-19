@@ -10,24 +10,53 @@ import '../styles/intro-v10.css';
   <Hero />
 
   <main class="home-v10">
-    <section class="offers-v10" id="complimentary-brief" aria-labelledby="complimentary-title">
+    <section class="proofbar-v10" id="proof" aria-label="Evidence Axis operating principles">
+      <div class="container-wide proofbar-v10__grid">
+        <article><span>01</span><b>Discover</b><p>Find the competitors that actually matter.</p></article>
+        <article><span>02</span><b>Verify</b><p>Separate evidence from marketing noise.</p></article>
+        <article><span>03</span><b>Decide</b><p>Turn verified intelligence into a decision.</p></article>
+        <article><span>04</span><b>Respond</b><p>Translate the decision into market action.</p></article>
+      </div>
+    </section>
+
+    <section class="gallery-v10" aria-labelledby="sample-title">
+      <div class="container-wide gallery-v10__grid">
+        <div class="gallery-v10__copy">
+          <span class="v10-kicker">ILLUSTRATIVE SAMPLE</span>
+          <h2 id="sample-title">Inspect the intelligence before you discuss an engagement.</h2>
+          <p>The public demonstration compares Intercom and Zendesk on a bounded competitive question using checked first-party public sources. It shows the evidence matrix, Fact / Inference / Unknown discipline, decision implications and source register. It is a demonstration, not a client engagement.</p>
+          <div class="gallery-v10__links">
+            <a href="/sample-report/">View the Sample Intelligence Brief →</a>
+            <a href={cta.primary.href}>Discuss a Competitive Decision →</a>
+          </div>
+        </div>
+        <div class="gallery-v10__mosaic">
+          <figure><img src="/assets/v10/approved/market-intelligence-war-room.webp" alt="Evidence Axis competitive intelligence view showing market signals, sources and decisions" loading="eager" /></figure>
+          <figure><img src="/assets/v10/approved/two-competitor-decision-brief.webp" alt="Evidence Axis source-verified competitive intelligence brief" loading="lazy" /></figure>
+          <figure><img src="/assets/v10/approved/what-you-get.webp" alt="Evidence Axis executive intelligence deliverable with fact, inference and unknown separation" loading="lazy" /></figure>
+          <figure><img src="/assets/v10/approved/decision-ready-showcase.webp" alt="Decision-ready competitive intelligence with traceable evidence" loading="lazy" /></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="offers-v10 gift-v10" id="intelligence-gift" aria-labelledby="gift-title">
       <div class="container-wide">
         <header class="offers-v10__head">
           <div>
-            <span class="v10-kicker">SEE THE WORK FIRST</span>
-            <h2 id="complimentary-title">We prove the work before asking for an engagement.</h2>
+            <span class="v10-kicker">WE SOMETIMES DO THE WORK FIRST</span>
+            <h2 id="gift-title">Selected companies receive intelligence before they ask for it.</h2>
           </div>
-          <p>For selected companies, Evidence Axis may build and send intelligence before anyone asks for it. If you find us first, you can request the same company-specific work using a verified work email.</p>
+          <p>Evidence Axis does not use the Intelligence Gift as a lead magnet or public free-service queue. We select a company because a competitive trigger is visible, build the work, and deliver it directly. No signup, form or call is required to receive it.</p>
         </header>
 
-        <div class="pricing-v10">
-          <article class="price-card price-card--cyan">
-            <div class="price-card__flag mono">COMPLIMENTARY</div>
-            <span class="price-card__label mono">COMPANY-SPECIFIC INTELLIGENCE</span>
-            <h3>{offers.complimentaryBrief.name}</h3>
-            <p>{offers.complimentaryBrief.scope}</p>
-            <div class="price-card__price"><small>COST</small><strong>$0</strong><em>Real research. Not a generic demo.</em></div>
-            <div class="price-card__delivery"><small>ELIGIBILITY</small><b>Verified company employee · work email</b></div>
+        <div class="pricing-v10 gift-v10__grid">
+          <article class="price-card price-card--cyan gift-v10__card">
+            <div class="price-card__flag mono">INVITATION ONLY</div>
+            <span class="price-card__label mono">PROACTIVE COMPETITIVE INTELLIGENCE</span>
+            <h3>{offers.intelligenceGift.name}</h3>
+            <p>{offers.intelligenceGift.scope}</p>
+            <div class="price-card__price"><small>ACCESS</small><strong>Selected companies</strong><em>Built before an engagement is requested.</em></div>
+            <div class="price-card__delivery"><small>DELIVERY</small><b>{offers.intelligenceGift.delivery}</b></div>
             <ul>
               <li>Competitive Set Scan</li>
               <li>Executive Intelligence Deck — PDF</li>
@@ -36,27 +65,18 @@ import '../styles/intro-v10.css';
               <li>Source Register with review dates</li>
               <li>Competitive blindspots where evidence supports them</li>
             </ul>
-            <a href={cta.primary.href}>Request My Complimentary Brief →</a>
+            <a href="/sample-report/">See the public demonstration →</a>
           </article>
 
           <aside class="included-card">
-            <span class="price-card__label mono">WHAT MAKES IT DIFFERENT</span>
-            <div><b>Discovery first</b><p>We do not assume the competitors already on your radar are the whole market.</p></div>
-            <div><b>Human-reviewed evidence</b><p>Material claims are checked against the underlying sources before they enter the brief.</p></div>
-            <div><b>Executive-ready</b><p>The work is structured for a decision-maker, not delivered as a pile of links.</p></div>
-            <div><b>Unknown stays Unknown</b><p>Missing or contradictory evidence is disclosed instead of guessed away.</p></div>
-            <a href="/sample-report/">See the Sample Intelligence Brief →</a>
+            <span class="price-card__label mono">WHY THIS MODEL EXISTS</span>
+            <div><b>Quality before persuasion</b><p>The first meaningful interaction can be the work itself, not a sales deck.</p></div>
+            <div><b>Trigger-led selection</b><p>We look for an observable competitive change that makes the intelligence timely.</p></div>
+            <div><b>Discovery first</b><p>We do not assume the competitors already on a team’s radar are the whole market.</p></div>
+            <div><b>Human-reviewed evidence</b><p>Material claims are checked against underlying sources before they enter the deliverable.</p></div>
+            <a href="/method/">See the Evidence Axis method →</a>
           </aside>
         </div>
-      </div>
-    </section>
-
-    <section class="proofbar-v10" aria-label="Evidence Axis operating principles">
-      <div class="container-wide proofbar-v10__grid">
-        <article><span>01</span><b>Discover</b><p>Find the competitors that actually matter.</p></article>
-        <article><span>02</span><b>Verify</b><p>Separate evidence from marketing noise.</p></article>
-        <article><span>03</span><b>Decide</b><p>Turn verified intelligence into a decision.</p></article>
-        <article><span>04</span><b>Respond</b><p>Translate the decision into market action.</p></article>
       </div>
     </section>
 
@@ -96,57 +116,11 @@ import '../styles/intro-v10.css';
       </div>
     </section>
 
-    <section class="gallery-v10" aria-labelledby="sample-title">
-      <div class="container-wide gallery-v10__grid">
-        <div class="gallery-v10__copy">
-          <span class="v10-kicker">ILLUSTRATIVE SAMPLE</span>
-          <h2 id="sample-title">Inspect the intelligence before you request your own.</h2>
-          <p>The current public demonstration compares Intercom and Zendesk on a bounded competitive question using checked first-party public sources. It shows the evidence matrix, Fact / Inference / Unknown discipline, decision implications and source register. It is a demonstration, not a client engagement.</p>
-          <div class="gallery-v10__links"><a href="/sample-report/">View the Sample Intelligence Brief →</a><a href={cta.primary.href}>Request yours →</a></div>
-        </div>
-        <div class="gallery-v10__mosaic">
-          <figure><img src="/assets/v10/approved/market-intelligence-war-room.webp" alt="Evidence Axis competitive intelligence view showing market signals, sources and decisions" loading="eager" /></figure>
-          <figure><img src="/assets/v10/approved/two-competitor-decision-brief.webp" alt="Evidence Axis source-verified competitive intelligence brief" loading="lazy" /></figure>
-          <figure><img src="/assets/v10/approved/what-you-get.webp" alt="Evidence Axis executive intelligence deliverable with fact, inference and unknown separation" loading="lazy" /></figure>
-          <figure><img src="/assets/v10/approved/decision-ready-showcase.webp" alt="Decision-ready competitive intelligence with traceable evidence" loading="lazy" /></figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="film-v10" id="system-film" data-surface="dark" aria-labelledby="film-title">
-      <div class="container-wide film-v10__grid">
-        <div class="film-v10__copy">
-          <span class="v10-kicker v10-kicker--light">RESEARCH SYSTEM</span>
-          <h2 id="film-title">See the evidence system behind the brief.</h2>
-          <p>This visual tour shows how signals, sources, evidence states and decision views connect. The client-facing deliverables remain the Executive Intelligence Deck and Evidence Appendix.</p>
-          <div class="film-v10__chips mono"><span>DISCOVERY</span><span>EVIDENCE</span><span>DECISION</span><span>SOURCE TRAIL</span></div>
-        </div>
-
-        <div class="film-v10__stage film-v10__stage--real-video">
-          <div class="film-v10__player film-v10__player--real-video" aria-label="Evidence Axis research system film">
-            <video
-              class="film-v10__video"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              poster="/assets/evidence-axis/product-tour-poster.jpg"
-              aria-label="Evidence Axis research system — evidence matrix, decision view and source workflow"
-            >
-              <source src="/assets/evidence-axis/product-tour.mp4" type="video/mp4" />
-            </video>
-            <div class="film-v10__frame"><span>RESEARCH SYSTEM</span><b>Discovery · evidence · decision · source trail</b></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="offers-v10" id="services" aria-labelledby="services-title">
       <div class="container-wide">
         <header class="offers-v10__head">
           <div><span class="v10-kicker">PAID ENGAGEMENTS</span><h2 id="services-title">When the evidence raises a real decision, go deeper.</h2></div>
-          <p>The paid engagement is not simply a longer complimentary brief. It combines verified market evidence with your internal context, decision requirement and response options.</p>
+          <p>The paid engagement is not simply a longer brief. It combines verified market evidence with your internal context, the decision requirement and the response options available to your team.</p>
         </header>
 
         <div class="pricing-v10">
@@ -157,8 +131,8 @@ import '../styles/intro-v10.css';
             <p>{offers.decisionSprint.scope}</p>
             <div class="price-card__price"><small>ENGAGEMENT</small><strong>{offers.decisionSprint.priceDisplay}</strong></div>
             <div class="price-card__delivery"><small>DELIVERY</small><b>{offers.decisionSprint.delivery}</b></div>
-            <ul><li>Real client intake and decision context</li><li>Decision-critical competitor deep dive</li><li>Pricing / product / positioning implications</li><li>Prioritized recommendations</li><li>Executive Decision Deck + Evidence Appendix</li></ul>
-            <a href="/competitor-brief/">Discuss a Competitive Decision →</a>
+            <ul><li>Decision context and constraints</li><li>Decision-critical competitor deep dive</li><li>Pricing / product / positioning implications</li><li>Prioritized recommendations</li><li>Executive Decision Deck + Evidence Appendix</li></ul>
+            <a href="/competitor-brief/">Explore the Decision Sprint →</a>
           </article>
 
           <article class="price-card price-card--orange">
@@ -169,7 +143,7 @@ import '../styles/intro-v10.css';
             <div class="price-card__price"><small>ENGAGEMENT</small><strong>{offers.responseSprint.priceDisplay}</strong></div>
             <div class="price-card__delivery"><small>DELIVERY</small><b>{offers.responseSprint.delivery}</b></div>
             <ul><li>Competitive battlecards</li><li>Objection handling</li><li>Pricing response</li><li>Positioning and messaging response</li><li>Competitor-specific enablement</li></ul>
-            <a href="/strategic-blueprint/">Discuss a Response Sprint →</a>
+            <a href="/strategic-blueprint/">Explore the Response Sprint →</a>
           </article>
 
           <article class="price-card price-card--violet">
@@ -180,16 +154,16 @@ import '../styles/intro-v10.css';
             <div class="price-card__price"><small>ENGAGEMENT</small><strong>{offers.radar.priceDisplay}</strong></div>
             <div class="price-card__delivery"><small>CADENCE</small><b>{offers.radar.delivery}</b></div>
             <ul><li>Pricing and packaging changes</li><li>Launches and feature moves</li><li>Positioning shifts</li><li>Funding, expansion and integrations</li><li>New or emerging competitors</li></ul>
-            <a href="/market-intelligence/">Ask About Ongoing Intelligence →</a>
+            <a href="/market-intelligence/">Explore Competitive Radar →</a>
           </article>
 
           <aside class="included-card">
             <span class="price-card__label mono">THE BOUNDARY</span>
-            <div><b>The Complimentary Brief proves capability.</b><p>It reveals and verifies the public competitive landscape.</p></div>
+            <div><b>The Intelligence Gift proves capability.</b><p>For selected companies, it reveals and verifies the public competitive landscape before an engagement exists.</p></div>
             <div><b>The Decision Sprint adds your context.</b><p>It answers what the evidence means for the decision actually in front of your team.</p></div>
             <div><b>The Response Sprint builds the response.</b><p>It converts the decision into the assets needed to act.</p></div>
             <div><b>Radar keeps it current.</b><p>Monitoring matters when the competitive picture changes faster than a point-in-time brief.</p></div>
-            <a href={cta.secondary.href}>Discuss a Competitive Decision →</a>
+            <a href={cta.primary.href}>Discuss a Competitive Decision →</a>
           </aside>
         </div>
       </div>
@@ -198,78 +172,59 @@ import '../styles/intro-v10.css';
     <section class="deliverables-v10" id="what-you-get" aria-labelledby="deliverables-title">
       <div class="container-wide">
         <header class="deliverables-v10__head">
-          <div><span class="v10-kicker">WHAT THE COMPLIMENTARY BRIEF CONTAINS</span><h2 id="deliverables-title">A professional intelligence package, not a teaser.</h2></div>
-          <p>We do the discovery and public-source work ourselves. A competitor list is optional. Where the evidence supports it, the brief surfaces credible competitors that may sit outside your current radar.</p>
+          <div><span class="v10-kicker">WHAT THE WORK CONTAINS</span><h2 id="deliverables-title">Decision-ready intelligence, with the evidence behind it.</h2></div>
+          <p>Every engagement is bounded to the decision. The competitive set, evidence depth and response work change with the question; the evidence standard does not.</p>
         </header>
         <div class="deliverables-v10__grid">
           <article><span>01</span><small>DISCOVERY</small><h3>Competitive Set Scan.</h3><p>We identify and verify candidates rather than assuming the market begins and ends with the names already known internally.</p></article>
           <article><span>02</span><small>DEEP DIVE</small><h3>The competitors that matter.</h3><p>Product, pricing, positioning, public claims and recent moves are investigated where they are decision-relevant.</p></article>
           <article><span>03</span><small>CLASSIFICATION</small><h3>Fact. Inference. Unknown.</h3><p>What is verified stays separate from analytical judgment and unresolved gaps.</p></article>
-          <article><span>04</span><small>EXECUTIVE OUTPUT</small><h3>Executive Intelligence Deck.</h3><p>A concise PDF built for senior review, with a decision matrix and implications rather than raw research volume.</p></article>
+          <article><span>04</span><small>EXECUTIVE OUTPUT</small><h3>Executive Decision Deck.</h3><p>A concise PDF built for senior review, with a decision matrix and implications rather than raw research volume.</p></article>
           <article><span>05</span><small>EVIDENCE OUTPUT</small><h3>Evidence Appendix.</h3><p>The detailed support behind the executive deck: source URLs, source classes, review dates, limitations and contradictions.</p></article>
-          <article><span>06</span><small>THE RESULT</small><h3>A stronger competitive view.</h3><p>What the evidence supports, what it does not support, what may be outside your radar and what deserves attention next.</p></article>
+          <article><span>06</span><small>THE RESULT</small><h3>A stronger decision.</h3><p>What the evidence supports, what remains uncertain, what may be outside your radar and what deserves action next.</p></article>
         </div>
-        <div class="deliverables-v10__bottom"><b>Complimentary Competitive Intelligence Brief</b><span>Verified company employees · work email required</span><a href={cta.primary.href}>Request My Complimentary Brief →</a></div>
+        <div class="deliverables-v10__bottom"><b>Independent competitive intelligence</b><span>Public evidence · client context where applicable · executive-ready output</span><a href={cta.primary.href}>Discuss a Competitive Decision →</a></div>
       </div>
     </section>
 
-    <section class="offers-v10" aria-labelledby="final-cta-title">
-      <div class="container-wide">
-        <header class="v10-head v10-head--center">
-          <span class="v10-kicker">SEE THE INTELLIGENCE FIRST</span>
-          <h2 id="final-cta-title">Start with real work on your company.</h2>
-          <p>Request a complimentary competitive intelligence brief using a verified work email, or start a conversation around a competitive decision already in front of your team.</p>
-        </header>
-        <div class="gallery-v10__links" style="justify-content:center; margin-top:1.5rem;">
-          <a href={cta.primary.href}>{cta.primary.label} →</a>
-          <a href={cta.secondary.href}>{cta.secondary.label} →</a>
+    <section class="film-v10" id="system-film" data-surface="dark" aria-labelledby="film-title">
+      <div class="container-wide film-v10__grid">
+        <div class="film-v10__copy">
+          <span class="v10-kicker v10-kicker--light">RESEARCH SYSTEM</span>
+          <h2 id="film-title">See the evidence system behind the brief.</h2>
+          <p>This visual tour shows how signals, sources, evidence states and decision views connect. The client-facing deliverables remain the Executive Decision Deck and Evidence Appendix.</p>
+          <div class="film-v10__chips mono"><span>DISCOVERY</span><span>EVIDENCE</span><span>DECISION</span><span>SOURCE TRAIL</span></div>
         </div>
+        <div class="film-v10__stage film-v10__stage--real-video">
+          <div class="film-v10__player film-v10__player--real-video" aria-label="Evidence Axis research system film">
+            <video class="film-v10__video" autoplay muted loop playsinline preload="metadata" poster="/assets/evidence-axis/product-tour-poster.jpg" aria-label="Evidence Axis research system — evidence matrix, decision view and source workflow">
+              <source src="/assets/evidence-axis/product-tour.mp4" type="video/mp4" />
+            </video>
+            <div class="film-v10__frame"><span>RESEARCH SYSTEM</span><b>Discovery · evidence · decision · source trail</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="offers-v10 close-v10" aria-labelledby="close-title">
+      <div class="container-wide close-v10__inner">
+        <span class="v10-kicker">A REAL COMPETITIVE DECISION</span>
+        <h2 id="close-title">Bring the question. We will define the evidence boundary.</h2>
+        <p>Send the decision context asynchronously. If Evidence Axis is a fit, scope, delivery and price are confirmed in writing before paid work begins.</p>
+        <div class="close-v10__actions"><a class="btn btn--lg" href={cta.primary.href}>Discuss a Competitive Decision <span class="btn-arrow" aria-hidden="true">→</span></a><a href="/sample-report/">Inspect the sample first →</a></div>
       </div>
     </section>
   </main>
 
   <style>
-    #complimentary-brief .pricing-v10 {
-      grid-template-columns: minmax(0, 1.08fr) minmax(22rem, .92fr);
-      align-items: stretch;
-    }
-    #complimentary-brief .price-card {
-      min-height: 37rem;
-    }
-    #complimentary-brief .included-card {
-      grid-column: auto;
-      min-height: 37rem;
-      display: grid;
-      grid-template-columns: 1fr;
-      align-content: start;
-      gap: .9rem;
-      padding: 1.5rem;
-      background:
-        radial-gradient(circle at 82% 8%, rgba(84, 224, 216, .09), transparent 28%),
-        linear-gradient(155deg, #0a1a2e, #07111e);
-    }
-    #complimentary-brief .included-card > .price-card__label {
-      align-self: auto;
-    }
-    #complimentary-brief .included-card > div {
-      min-height: auto;
-      padding: 1.05rem;
-    }
-    #complimentary-brief .included-card > a {
-      align-self: end;
-      justify-self: stretch;
-      margin-top: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 3.2rem;
-      padding: 0 .95rem;
-    }
-    .ai-v10__copy .v10-link { margin-top: 1.4rem; }
-    @media (max-width: 920px) {
-      #complimentary-brief .pricing-v10 { grid-template-columns: 1fr; }
-      #complimentary-brief .price-card,
-      #complimentary-brief .included-card { min-height: auto; }
-    }
+    .gift-v10{background:linear-gradient(180deg,#f7f9fc,#eef4f8)}
+    .gift-v10__grid{grid-template-columns:minmax(0,1.1fr) minmax(18rem,.9fr)}
+    .gift-v10__card .price-card__price strong{font-size:clamp(1.9rem,3vw,3rem)}
+    .close-v10{background:#f8f4ed}
+    .close-v10__inner{max-width:72rem}
+    .close-v10 h2{max-width:14ch;margin:.7rem 0 1rem;font-size:clamp(2.8rem,5vw,5rem);line-height:.95;letter-spacing:-.05em}
+    .close-v10 p{max-width:50rem;color:var(--text-muted);font-size:1.08rem;line-height:1.7}
+    .close-v10__actions{display:flex;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}.close-v10__actions>a:not(.btn){font-family:var(--font-display);font-weight:750;text-decoration:none}
+    @media(max-width:920px){.gift-v10__grid{grid-template-columns:1fr}}
   </style>
 </Base>
