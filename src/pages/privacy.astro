@@ -3,125 +3,48 @@ import Base from '@layouts/Base.astro';
 import PageHeader from '@components/PageHeader.astro';
 import { site, legal } from '@config/site';
 ---
-<Base
-  title="Privacy"
-  description="How Evidence Axis handles information from website inquiries, invitation-only intelligence delivery pages, email and business correspondence."
-  path="/privacy/"
-  noindex={false}
->
+<Base title="Privacy" description="How Evidence Axis handles information from complimentary brief requests, paid inquiries, private intelligence deliveries, email and business correspondence." path="/privacy/" noindex={false}>
   <PageHeader eyebrow="Legal" title="Privacy" meta={[`Last updated ${legal.lastUpdated}`]} />
+  <section class="section container"><div class="legal measure">
+    <p class="legal__intro">This note explains what information {site.name} receives through this website, company-specific intelligence deliveries and business correspondence, and how that information is used. Paid engagements are also governed by the terms agreed for that specific project.</p>
 
-  <section class="section container">
-    <div class="legal measure">
-      <p class="legal__intro">
-        This note explains what information {site.name} receives through this website, invitation-only
-        intelligence deliveries and business correspondence, and how that information is used. Any paid
-        engagement is also governed by the terms agreed for that specific project.
-      </p>
+    <h2>Who is responsible</h2>
+    <p>{site.name} is operated publicly by {legal.publicOperator}, whose legal name is {' '}{legal.operatorLegalName}. Privacy questions can be sent to {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>.</p>
+    <p>If an engagement is contracted through {legal.internationalInvoicingEntity}, that company may also receive the client and transaction details needed to contract, invoice, keep business records and deliver the work. The applicable contracting party is identified in writing before paid work begins.</p>
 
-      <h2>Who is responsible</h2>
-      <p>
-        {site.name} is operated publicly by {legal.publicOperator}, whose legal name is
-        {' '}{legal.operatorLegalName}. Privacy questions can be sent to
-        {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>.
-      </p>
-      <p>
-        If an engagement is contracted through {legal.internationalInvoicingEntity}, that company
-        may also receive the client and transaction details needed to contract, invoice, keep
-        business records and deliver the work. The applicable contracting party is identified in
-        writing before paid work begins.
-      </p>
+    <h2>Information you provide</h2>
+    <p>If you request a Complimentary Competitive Intelligence Brief, use the paid-engagement inquiry form or contact us by email, we receive the details you choose to send. These may include your name, work email, company, company website, role, competitive decision or research question, named competitors and related context. We use this information to verify or understand the request, respond and, where applicable, prepare the relevant work.</p>
 
-      <h2>Information you provide</h2>
-      <p>
-        If you use the website inquiry form or contact us by email, we receive the details you choose
-        to send. These may include your name, work email, company, company website, role, competitive
-        decision or research question, named competitors and related context. We use this information
-        to understand the inquiry, assess fit, respond and, where agreed, prepare the relevant work.
-      </p>
+    <h2>Company and work-email verification</h2>
+    <p>A Complimentary Brief is available to legitimate employees of identifiable companies using a work email. We may compare the email domain, company name and company website, and may manually review a mismatch, to reduce impersonation, spam and other abuse. This verification is used to validate the request; it is not a commercial fit gate and is not used for advertising.</p>
 
-      <h2>Invitation-only intelligence deliveries</h2>
-      <p>
-        Evidence Axis may prepare a company-specific Competitive Intelligence Gift without a prior
-        request when a relevant public competitive trigger is visible. The work is built from lawful,
-        publicly accessible information. The private delivery link may identify the intended company
-        so the correct package can be delivered and operational engagement can be measured.
-      </p>
+    <h2>Proactive intelligence deliveries</h2>
+    <p>Evidence Axis may also prepare company-specific intelligence without a prior request when a relevant public competitive trigger is visible. The work is built from lawful, publicly accessible information. A private delivery link may identify the intended company so the correct package can be delivered.</p>
 
-      <h2>Intelligence-delivery tracking</h2>
-      <p>
-        A company-specific intelligence delivery page may record limited operational events so we can
-        confirm whether the work was successfully received and used. For the current delivery system,
-        these events can include the delivery page being viewed, the Executive Intelligence Deck being
-        opened, the Evidence Appendix being opened, or the recipient clicking the decision-conversation
-        route. The event payload sent to our business inbox identifies the company, the unique delivery
-        slug, the event type and the event timestamp. This is delivery confirmation and product-learning
-        data, not advertising tracking.
-      </p>
-      <p>
-        The current first-sprint implementation uses session storage only to avoid sending the same
-        operational event repeatedly during one browser session. It does not use an advertising cookie
-        or build an advertising profile.
-      </p>
+    <h2>Intelligence-delivery tracking</h2>
+    <p>A company-specific delivery page may record limited operational events so we can confirm whether the work was received and used. These events can include the delivery page being viewed, the Executive Intelligence Deck being opened, the Evidence Appendix being opened, or a recipient clicking an engagement route. The event payload sent to our business inbox identifies the company, unique delivery slug, event type and timestamp. This is delivery-confirmation and product-learning data, not advertising tracking.</p>
+    <p>The current first-sprint implementation uses session storage only to avoid sending the same operational event repeatedly during one browser session. It does not use an advertising cookie or build an advertising profile.</p>
 
-      <h2>Business correspondence</h2>
-      <p>
-        If we correspond about a possible or active engagement, we keep the information reasonably
-        needed to carry out and account for that work. We do not sell it, and we do not use it for
-        advertising.
-      </p>
+    <h2>Business correspondence</h2>
+    <p>If we correspond about a possible or active engagement, we keep the information reasonably needed to carry out and account for that work. We do not sell it, and we do not use it for advertising.</p>
 
-      <h2>Technical information</h2>
-      <p>
-        Basic technical information, such as standard server request data, may be processed to keep
-        the site available and secure. The current site does not use advertising trackers or advertising
-        cookies. Website inquiry submissions and the operational delivery events described above are
-        transmitted through FormSubmit for delivery to our business inbox. If additional analytics or
-        cookies are introduced, this notice will be updated and consent will be requested where required.
-      </p>
+    <h2>Technical information</h2>
+    <p>Basic technical information, such as standard server request data, may be processed to keep the site available and secure. The current site does not use advertising trackers or advertising cookies. Website form submissions and the operational delivery events described above are transmitted through FormSubmit for delivery to our business inbox. If additional analytics or cookies are introduced, this notice will be updated and consent will be requested where required.</p>
 
-      <h2>Third parties</h2>
-      <p>
-        Service providers may process limited information where needed for website hosting, email,
-        form delivery, file storage, invoicing or delivery. They are given only the information needed
-        for that function and remain subject to their own security, privacy and legal obligations.
-      </p>
+    <h2>Third parties</h2>
+    <p>Service providers may process limited information where needed for website hosting, email, form delivery, file storage, invoicing or delivery. They are given only the information needed for that function and remain subject to their own security, privacy and legal obligations.</p>
 
-      <h2>Retention</h2>
-      <p>
-        We keep inquiry, delivery and engagement information for as long as reasonably necessary for
-        the purpose it was provided or collected, and for legitimate business and record-keeping needs,
-        then remove it. If you would like relevant information removed, email
-        {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>.
-      </p>
+    <h2>Retention</h2>
+    <p>We keep inquiry, delivery and engagement information for as long as reasonably necessary for the purpose it was provided or collected, and for legitimate business and record-keeping needs, then remove it. If you would like relevant information removed, email {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>.</p>
 
-      <h2>Your choices</h2>
-      <p>
-        You can ask what inquiry or delivery information we hold about you and request that it be
-        corrected or removed. Depending on your location, additional rights may apply; we will honor
-        applicable requirements. Requests can be sent to the email address below.
-      </p>
+    <h2>Your choices</h2>
+    <p>You can ask what inquiry or delivery information we hold about you and request that it be corrected or removed. Depending on your location, additional rights may apply; we will honor applicable requirements.</p>
 
-      <h2>Contact</h2>
-      <p>
-        Questions or privacy requests can be sent to
-        {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>. Postal correspondence
-        concerning an engagement should be sent to the contracting address stated in that
-        engagement's written terms or invoice.
-      </p>
-
-      <p class="legal__foot mono">Last updated {legal.lastUpdated}.</p>
-    </div>
-  </section>
+    <h2>Contact</h2>
+    <p>Questions or privacy requests can be sent to {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>. Postal correspondence concerning an engagement should be sent to the contracting address stated in that engagement's written terms or invoice.</p>
+    <p class="legal__foot mono">Last updated {legal.lastUpdated}.</p>
+  </div></section>
 </Base>
-
 <style>
-  .legal__intro { font-size: var(--step-1); color: var(--text); }
-  .legal h2 {
-    font-size: var(--step-1); margin-top: var(--space-xl); margin-bottom: var(--space-2xs);
-    padding-top: var(--space-s); border-top: 1px solid var(--hairline);
-  }
-  .legal p { color: var(--text-muted); margin-bottom: var(--space-s); }
-  .legal a { color: var(--accent); }
-  .legal__foot { margin-top: var(--space-xl); font-size: var(--step--1); color: var(--text-faint); }
+.legal__intro{font-size:var(--step-1);color:var(--text)}.legal h2{font-size:var(--step-1);margin-top:var(--space-xl);margin-bottom:var(--space-2xs);padding-top:var(--space-s);border-top:1px solid var(--hairline)}.legal p{color:var(--text-muted);margin-bottom:var(--space-s);line-height:1.68}.legal a{color:var(--accent)}.legal__foot{margin-top:var(--space-xl);font-size:var(--step--1);color:var(--text-faint)}
 </style>
