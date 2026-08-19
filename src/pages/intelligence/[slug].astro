@@ -1,7 +1,7 @@
 ---
 import Base from '@layouts/Base.astro';
 import { intelligenceDeliveries, type IntelligenceDelivery } from '@data/deliveries';
-import { site, cta } from '@config/site';
+import { cta, contact } from '@config/site';
 
 export function getStaticPaths() {
   return intelligenceDeliveries.map((delivery) => ({
@@ -47,7 +47,13 @@ const recipientLine = [delivery.recipient, delivery.recipientRole].filter(Boolea
     </div>
   </section>
 
-  <main class="delivery-main">
+  <main
+    class="delivery-main"
+    data-delivery-tracking
+    data-tracking-endpoint={contact.formEndpoint ?? ''}
+    data-delivery-company={delivery.company}
+    data-delivery-slug={delivery.slug}
+  >
     {delivery.headlineFinding && (
       <section class="delivery-finding">
         <div class="container delivery-finding__inner">
@@ -69,7 +75,7 @@ const recipientLine = [delivery.recipient, delivery.recipientRole].filter(Boolea
         </header>
 
         <div class="delivery-files">
-          <a class="delivery-file delivery-file--deck" href={delivery.deckHref} target="_blank" rel="noopener">
+          <a class="delivery-file delivery-file--deck" href={delivery.deckHref} target="_blank" rel="noopener" data-delivery-event="executive-deck-opened">
             <span class="delivery-file__num mono">01</span>
             <small class="mono">EXECUTIVE VIEW</small>
             <h3>{delivery.deckLabel ?? 'Executive Intelligence Deck'}</h3>
@@ -77,7 +83,7 @@ const recipientLine = [delivery.recipient, delivery.recipientRole].filter(Boolea
             <div><span>OPEN PDF</span><b aria-hidden="true">↗</b></div>
           </a>
 
-          <a class="delivery-file delivery-file--appendix" href={delivery.appendixHref} target="_blank" rel="noopener">
+          <a class="delivery-file delivery-file--appendix" href={delivery.appendixHref} target="_blank" rel="noopener" data-delivery-event="evidence-appendix-opened">
             <span class="delivery-file__num mono">02</span>
             <small class="mono">EVIDENCE VIEW</small>
             <h3>{delivery.appendixLabel ?? 'Evidence Appendix'}</h3>
@@ -107,10 +113,56 @@ const recipientLine = [delivery.recipient, delivery.recipientRole].filter(Boolea
         <span class="label">IF THIS RAISES A REAL DECISION</span>
         <h2>The next engagement adds your context.</h2>
         <p>The Complimentary Brief shows what the public competitive evidence supports. A Competitive Decision Sprint goes further by combining that evidence with the decision, constraints and internal context in front of your team.</p>
-        <a class="btn btn--lg" href={`${cta.secondary.href}&company=${encodeURIComponent(delivery.company)}`}>Discuss a Competitive Decision <span class="btn-arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn--lg" href={`${cta.secondary.href}&company=${encodeURIComponent(delivery.company)}`} data-delivery-event="decision-conversation-clicked">Discuss a Competitive Decision <span class="btn-arrow" aria-hidden="true">→</span></a>
       </div>
     </section>
   </main>
+
+  <script>
+    document.querySelectorAll<HTMLElement>('[data-delivery-tracking]').forEach((root) => {
+      const endpoint = root.dataset.trackingEndpoint;
+      const company = root.dataset.deliveryCompany || 'Unknown company';
+      const slug = root.dataset.deliverySlug || 'unknown';
+      if (!endpoint) return;
+
+      const emit = (eventName: string) => {
+        const storageKey = `evidence-axis:${slug}:${eventName}`;
+        try {
+          if (sessionStorage.getItem(storageKey)) return;
+          sessionStorage.setItem(storageKey, '1');
+        } catch {
+          // Tracking should never block access to the intelligence package.
+        }
+
+        const payload = {
+          _subject: `Evidence Axis delivery event — ${company}`,
+          _template: 'table',
+          source: 'intelligence-delivery-tracking',
+          event: eventName,
+          company,
+          delivery_slug: slug,
+          timestamp_utc: new Date().toISOString(),
+        };
+
+        fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        }).catch(() => {
+          // Tracking failure must never interfere with recipient access.
+        });
+      };
+
+      emit('delivery-page-viewed');
+      root.querySelectorAll<HTMLElement>('[data-delivery-event]').forEach((el) => {
+        el.addEventListener('click', () => {
+          const eventName = el.dataset.deliveryEvent;
+          if (eventName) emit(eventName);
+        });
+      });
+    });
+  </script>
 </Base>
 
 <style>
