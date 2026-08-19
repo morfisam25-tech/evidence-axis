@@ -1,7 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { footerServices, footerCompany, footerLegal } from '@data/nav';
-import { site, cta } from '@config/site';
+import { site, cta, contact } from '@config/site';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer" data-surface="dark">
@@ -10,29 +10,27 @@ const year = new Date().getFullYear();
       <div class="site-footer__brand">
         <Logo />
         <p class="site-footer__tag">{site.tagline}</p>
-        <a href={cta.primary.href} class="btn">
-          {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
+        <div class="site-footer__actions">
+          <a href={cta.primary.href} class="btn">
+            {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="site-footer__email" href={`mailto:${contact.emailDisplay}`}>{contact.emailDisplay}</a>
+        </div>
+        <p class="site-footer__contact-note mono">QUESTIONS / PROJECT INQUIRIES · EMAIL DIRECTLY</p>
       </div>
 
       <nav class="site-footer__cols" aria-label="Footer">
         <div>
           <h2 class="label">Services</h2>
-          <ul>
-            {footerServices.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
-          </ul>
+          <ul>{footerServices.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
         </div>
         <div>
           <h2 class="label">Practice</h2>
-          <ul>
-            {footerCompany.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
-          </ul>
+          <ul>{footerCompany.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
         </div>
         <div>
           <h2 class="label">Legal</h2>
-          <ul>
-            {footerLegal.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
-          </ul>
+          <ul>{footerLegal.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
         </div>
       </nav>
     </div>
@@ -41,58 +39,26 @@ const year = new Date().getFullYear();
 
     <div class="site-footer__bottom">
       <p class="mono">© {year} {site.name}. {site.domain}</p>
-      <p class="mono site-footer__note">
-        Competitor findings use lawful public evidence, plus context you share. Analysis distinguishes fact, inference and unknown.
-      </p>
+      <p class="mono site-footer__note">Lawful public evidence · human-reviewed claims · Fact / Inference / Unknown kept separate.</p>
     </div>
   </div>
 </footer>
 
 <style>
-  .site-footer {
-    background: var(--bg);
-    color: var(--text);
-    padding-block: var(--space-2xl) var(--space-l);
-    border-top: 1px solid var(--hairline);
-  }
-  .site-footer__top {
-    display: grid;
-    gap: var(--space-xl);
-    grid-template-columns: 1fr;
-  }
-  .site-footer__tag {
-    font-family: var(--font-serif);
-    color: var(--text-muted);
-    max-width: 32ch;
-    margin-block: var(--space-s) var(--space-m);
-  }
-  .site-footer__cols {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-l);
-  }
+  .site-footer { background: var(--bg); color: var(--text); padding-block: clamp(3.2rem,6vw,5.5rem) var(--space-l); border-top: 1px solid var(--hairline); }
+  .site-footer__top { display: grid; gap: var(--space-xl); grid-template-columns: 1fr; }
+  .site-footer__tag { font-family: var(--font-serif); color: var(--text-muted); max-width: 34ch; margin-block: var(--space-s) var(--space-m); font-size: 1.03rem; line-height: 1.55; }
+  .site-footer__actions { display: flex; flex-wrap: wrap; gap: .85rem; align-items: center; }
+  .site-footer__email { color: #f0f6ff; font-family: var(--font-display); font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(95,225,216,.45); padding-bottom: .14rem; }
+  .site-footer__email:hover { color: #64e2da; }
+  .site-footer__contact-note { margin-top: .75rem; color: #7188a8; font-size: .56rem; letter-spacing: .1em; }
+  .site-footer__cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-l); }
   .site-footer__cols h2 { margin-bottom: var(--space-s); }
   .site-footer__cols ul { list-style: none; padding: 0; display: grid; gap: 0.6rem; }
-  .site-footer__cols a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: color var(--dur-1) var(--ease-out);
-  }
+  .site-footer__cols a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color var(--dur-1) var(--ease-out); }
   .site-footer__cols a:hover { color: var(--text); }
-  .site-footer__bottom {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: var(--space-s);
-    margin-top: var(--space-l);
-    color: var(--text-faint);
-    font-size: var(--step--1);
-  }
-  .site-footer__note { max-width: 44ch; }
-
-  @media (min-width: 52rem) {
-    .site-footer__top { grid-template-columns: 1.2fr 2fr; }
-    .site-footer__cols { grid-template-columns: repeat(3, 1fr); }
-  }
+  .site-footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-s); margin-top: var(--space-l); color: var(--text-faint); font-size: var(--step--1); }
+  .site-footer__note { max-width: 54ch; }
+  @media (min-width: 52rem) { .site-footer__top { grid-template-columns: 1.05fr 1.95fr; } .site-footer__cols { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .site-footer__cols { grid-template-columns: 1fr; } .site-footer__actions { align-items: flex-start; flex-direction: column; } }
 </style>
