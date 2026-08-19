@@ -9,10 +9,10 @@ export const site = {
   name: 'Evidence Axis',
   domain: 'evidenceaxis.com',
   url: 'https://evidenceaxis.com',
-  tagline: 'Competitor intelligence for B2B SaaS decisions.',
+  tagline: 'Independent competitive intelligence for decisions under competitive pressure.',
   description:
-    'Evidence Axis turns scattered competitor information into decision-ready evidence for B2B SaaS teams. Asynchronous research briefs with a disciplined Fact, Inference and Unknown method.',
-  category: 'Competitor intelligence for B2B SaaS decisions',
+    'Evidence Axis discovers overlooked competitors, verifies what is actually happening, and turns the evidence into executive-ready decisions.',
+  category: 'Independent competitive intelligence and decision support',
   locale: 'en-US',
 } as const;
 
@@ -26,46 +26,65 @@ export const contact = {
   email: 'hello@evidenceaxis.com' as string | null,
   emailDisplay: 'hello@evidenceaxis.com',
   formEndpoint: 'https://formsubmit.co/ajax/hello@evidenceaxis.com' as string | null,
-  // No response-time SLA is promised. Do not add a time guarantee that has
-  // not been approved.
+  // No response-time SLA is promised. Research-queue timing is confirmed by email.
 } as const;
 
 /**
- * Locked commercial offers. Do not raise launch prices or hide them.
+ * v1.3 public engagement architecture.
+ * Paid prices remain deliberately unpublished while quote strategy is validated.
  */
 export const offers = {
-  twoCompetitor: {
-    id: 'two-competitor',
-    name: 'Two-Competitor Decision Brief',
-    price: 150,
-    priceDisplay: '$150',
-    priceNote: 'Launch / pilot price',
-    delivery: '3 business days',
-    scope: 'Two named competitors, or a client-versus-competitor comparison.',
+  complimentaryBrief: {
+    id: 'complimentary-brief',
+    name: 'Complimentary Competitive Intelligence Brief',
+    price: 0,
+    priceDisplay: 'Complimentary',
+    priceNote: 'For verified company employees using a work email',
+    delivery: 'Research queue confirmed by email',
+    scope:
+      'Company-specific competitive intelligence with an Executive Intelligence Deck and Evidence Appendix.',
   },
-  fiveCompetitor: {
-    id: 'five-competitor',
-    name: 'Five-Competitor Evidence Brief',
-    price: 350,
-    priceDisplay: '$350',
-    priceNote: 'Starting price',
-    delivery: '5 business days',
-    scope: 'Five named competitors against a defined research question.',
-  },
-  blueprint: {
-    id: 'strategic-blueprint',
-    name: 'Strategic Market Blueprint',
+  decisionSprint: {
+    id: 'decision-sprint',
+    name: 'Competitive Decision Sprint',
     price: null,
-    priceDisplay: 'Scoped individually',
-    priceNote: 'Scoped after the decision question and research boundary are defined',
+    priceDisplay: 'Scoped engagement',
+    priceNote: 'Quoted after the decision context and required depth are defined',
     delivery: 'Agreed during scoping',
-    scope: 'A deeper investigation defined around the decision to be made.',
+    scope:
+      'Verified competitive evidence combined with your company context to support a real strategic, product, pricing, positioning or sales decision.',
+  },
+  responseSprint: {
+    id: 'response-sprint',
+    name: 'Competitive Response Sprint',
+    price: null,
+    priceDisplay: 'Custom scope',
+    priceNote: 'Scoped around the market response required',
+    delivery: 'Agreed during scoping',
+    scope:
+      'Turn a competitive decision into battlecards, objection handling, pricing response, positioning, messaging and enablement assets.',
+  },
+  radar: {
+    id: 'competitive-radar',
+    name: 'Competitive Radar',
+    price: null,
+    priceDisplay: 'Custom',
+    priceNote: 'Ongoing intelligence engagements are scoped individually',
+    delivery: 'Monitoring cadence agreed during scoping',
+    scope:
+      'Ongoing monitoring of decision-relevant competitor moves, pricing, launches, positioning, funding, integrations and emerging rivals.',
   },
 } as const;
 
 export const cta = {
-  primary: { label: 'Start a Brief', href: '/contact/' },
-  secondary: { label: 'View Sample Report', href: '/sample-report/' },
+  primary: {
+    label: 'Request My Complimentary Brief',
+    href: '/contact/?intent=complimentary-brief',
+  },
+  secondary: {
+    label: 'Discuss a Competitive Decision',
+    href: '/contact/?intent=decision',
+  },
 } as const;
 
 export const legal = {
