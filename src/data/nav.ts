@@ -3,11 +3,9 @@ export interface NavItem {
   href: string;
 }
 
-/** Primary navigation — v1.3 commercial architecture. */
+/** Primary navigation — deliberately compact for a premium executive-facing header. */
 export const primaryNav: NavItem[] = [
-  { label: 'Decision Sprint', href: '/competitor-brief/' },
-  { label: 'Response Sprint', href: '/strategic-blueprint/' },
-  { label: 'Competitive Radar', href: '/market-intelligence/' },
+  { label: 'Services', href: '/#services' },
   { label: 'Method', href: '/method/' },
   { label: 'Sample', href: '/sample-report/' },
   { label: 'Work', href: '/work/' },
