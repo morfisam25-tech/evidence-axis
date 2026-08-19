@@ -26,30 +26,31 @@ export const contact = {
   email: 'hello@evidenceaxis.com' as string | null,
   emailDisplay: 'hello@evidenceaxis.com',
   formEndpoint: 'https://formsubmit.co/ajax/hello@evidenceaxis.com' as string | null,
-  // No response-time SLA is promised. Research-queue timing is confirmed by email.
 } as const;
 
 /**
- * v1.3 public engagement architecture.
- * Paid prices remain deliberately unpublished while quote strategy is validated.
+ * Public engagement architecture.
+ * The Intelligence Gift is invitation-only and is not a public service request.
+ * Paid engagements are quoted privately because scope changes with the decision,
+ * competitive set, evidence depth and response work required.
  */
 export const offers = {
-  complimentaryBrief: {
-    id: 'complimentary-brief',
-    name: 'Complimentary Competitive Intelligence Brief',
+  intelligenceGift: {
+    id: 'intelligence-gift',
+    name: 'Competitive Intelligence Gift',
     price: 0,
-    priceDisplay: 'Complimentary',
-    priceNote: 'For verified company employees using a work email',
-    delivery: 'Research queue confirmed by email',
+    priceDisplay: 'Invitation only',
+    priceNote: 'Prepared proactively for selected companies',
+    delivery: 'Private Evidence Axis delivery link',
     scope:
-      'Company-specific competitive intelligence with an Executive Intelligence Deck and Evidence Appendix.',
+      'A company-specific Executive Intelligence Deck and Evidence Appendix prepared before an engagement is requested.',
   },
   decisionSprint: {
     id: 'decision-sprint',
     name: 'Competitive Decision Sprint',
     price: null,
-    priceDisplay: 'Scoped engagement',
-    priceNote: 'Quoted after the decision context and required depth are defined',
+    priceDisplay: 'Private quote',
+    priceNote: 'Quoted after the decision context and required evidence depth are defined',
     delivery: 'Agreed during scoping',
     scope:
       'Verified competitive evidence combined with your company context to support a real strategic, product, pricing, positioning or sales decision.',
@@ -58,7 +59,7 @@ export const offers = {
     id: 'response-sprint',
     name: 'Competitive Response Sprint',
     price: null,
-    priceDisplay: 'Custom scope',
+    priceDisplay: 'Private quote',
     priceNote: 'Scoped around the market response required',
     delivery: 'Agreed during scoping',
     scope:
@@ -68,7 +69,7 @@ export const offers = {
     id: 'competitive-radar',
     name: 'Competitive Radar',
     price: null,
-    priceDisplay: 'Custom',
+    priceDisplay: 'Private quote',
     priceNote: 'Ongoing intelligence engagements are scoped individually',
     delivery: 'Monitoring cadence agreed during scoping',
     scope:
@@ -78,12 +79,12 @@ export const offers = {
 
 export const cta = {
   primary: {
-    label: 'Request My Complimentary Brief',
-    href: '/contact/?intent=complimentary-brief',
-  },
-  secondary: {
     label: 'Discuss a Competitive Decision',
     href: '/contact/?intent=decision',
+  },
+  secondary: {
+    label: 'See the Sample Intelligence Brief',
+    href: '/sample-report/',
   },
 } as const;
 
