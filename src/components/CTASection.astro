@@ -1,21 +1,23 @@
 ---
-import { cta, offers } from '@config/site';
+import { cta } from '@config/site';
 interface Props {
   title?: string;
   body?: string;
   showSecondary?: boolean;
+  eyebrow?: string;
 }
 const {
-  title = 'Start with one decision question.',
-  body = `A Two-Competitor Decision Brief is ${offers.twoCompetitor.priceDisplay} at pilot pricing and delivered in ${offers.twoCompetitor.delivery}. Send the question — no call required.`,
+  title = 'See the intelligence before you start an engagement.',
+  body = 'Request a company-specific Complimentary Competitive Intelligence Brief using a verified work email, or discuss a competitive decision already in front of your team.',
   showSecondary = true,
+  eyebrow = 'See the work first',
 } = Astro.props;
 ---
 <section class="cta-band" data-surface="dark">
   <div class="container cta-band__inner axis-frame">
     <div class="cta-band__grid">
       <div>
-        <span class="label eyebrow">Start a brief</span>
+        <span class="label eyebrow">{eyebrow}</span>
         <h2 class="cta-band__title">{title}</h2>
       </div>
       <div class="cta-band__aside">
