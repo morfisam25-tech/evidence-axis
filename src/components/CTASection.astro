@@ -6,12 +6,15 @@ interface Props {
   showSecondary?: boolean;
   eyebrow?: string;
 }
-const {
-  title = 'Bring the competitive decision. We will define the evidence boundary.',
-  body = 'Send the decision context asynchronously. If Evidence Axis is a fit, scope, delivery and price are confirmed in writing before paid work begins.',
-  showSecondary = true,
-  eyebrow = 'Start with the decision',
-} = Astro.props;
+const fallbackTitle = 'Bring the competitive decision. We will define the evidence boundary.';
+const fallbackBody = 'Send the decision context asynchronously. If Evidence Axis is a fit, scope, delivery and price are confirmed in writing before paid work begins.';
+const fallbackEyebrow = 'Start with the decision';
+const props = Astro.props as Props;
+const legacyComplimentaryCopy = /complimentary brief|request (a|your|my) brief/i.test(`${props.title ?? ''} ${props.body ?? ''}`);
+const title = legacyComplimentaryCopy ? fallbackTitle : (props.title ?? fallbackTitle);
+const body = legacyComplimentaryCopy ? fallbackBody : (props.body ?? fallbackBody);
+const eyebrow = legacyComplimentaryCopy ? fallbackEyebrow : (props.eyebrow ?? fallbackEyebrow);
+const showSecondary = props.showSecondary ?? true;
 ---
 <section class="cta-band" data-surface="dark">
   <div class="container cta-band__inner axis-frame">
