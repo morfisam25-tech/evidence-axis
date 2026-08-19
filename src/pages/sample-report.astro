@@ -9,7 +9,7 @@ import {
   sampleSummary, sampleDecisionImplications, sampleLimitations, sampleMethodology,
 } from '@data/sample-report';
 
-const pdfHref = '/report/evidence-axis-sample-intercom-vs-zendesk.pdf';
+const printHref = '/report-print/';
 const srcById = Object.fromEntries(sampleSources.map((s) => [s.id, s]));
 const domain = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 const recordSource = (ids: string[]) => ids.map((id) => domain(srcById[id].url)).join(' · ') + ' (public)';
@@ -28,7 +28,7 @@ const nav = [
         <p>Inspect how Evidence Axis turns a bounded competitor question into a traceable intelligence package — with checked first-party sources, evidence states, decision implications and a complete source register.</p>
         <div class="sample-final__actions">
           <a href="#brief" class="btn btn--lg">Read the intelligence <span>↓</span></a>
-          <a href={pdfHref} class="btn btn--ghost btn--lg" download>Download PDF <span>↓</span></a>
+          <a href={printHref} class="btn btn--ghost btn--lg">Open print-ready report <span>↗</span></a>
           <a href={cta.primary.href} class="sample-final__request">{cta.primary.label} →</a>
         </div>
         <p class="sample-final__meta mono">{sampleMeta.competitors.join(' vs ')} · first-party public evidence · checked {sampleMeta.checked}</p>
