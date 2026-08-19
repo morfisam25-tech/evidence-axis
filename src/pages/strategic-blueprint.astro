@@ -1,158 +1,65 @@
 ---
 import Base from '@layouts/Base.astro';
-import PageHeader from '@components/PageHeader.astro';
-import SectionIntro from '@components/SectionIntro.astro';
-import CTASection from '@components/CTASection.astro';
 import { offers } from '@config/site';
-
-const contexts = [
-  { t: 'Positioning', d: 'How to stake a claim the evidence can defend, against competitors who are already making theirs.' },
-  { t: 'Category entry', d: 'Whether a category is real, contested or manufactured — and what entering it actually requires.' },
-  { t: 'Offer architecture', d: 'How to structure packaging and tiers relative to what competitors publicly do.' },
-  { t: 'Product direction', d: 'Where public evidence suggests a gap worth building into, and where it does not.' },
-  { t: 'Differentiation', d: 'The claims only you can make truthfully, separated from the ones everyone makes.' },
-  { t: 'Competitor response', d: 'How the field is likely to read and respond to a move, based on observable behavior.' },
-  { t: 'Market prioritization', d: 'Which segment or wedge the evidence supports going after first.' },
-];
-const deliverables = [
-  'A defined decision and the boundary set around it',
-  'A deeper evidence base than a single brief, synthesized rather than listed',
-  'Positioning and offer options, each with the evidence for and against',
-  'Explicit unknowns and the assumptions any recommendation rests on',
-  'A source register you can audit',
-];
 ---
 <Base
-  title="Strategic Blueprint"
-  description="The Strategic Market Blueprint is the deepest Evidence Axis engagement — scoped individually around the decision to be made. Positioning, category, offer architecture and differentiation, built on public evidence."
+  title="Competitive Response Sprint"
+  description="Turn verified competitive intelligence into battlecards, pricing responses, positioning, messaging and market action."
   path="/strategic-blueprint/"
 >
-  <PageHeader
-    eyebrow="Service"
-    title="The deepest engagement, scoped to the decision."
-    lede="When the question is larger than a comparison — how to position, whether to enter, what to build toward — the Strategic Market Blueprint builds a wider evidence base and connects it to the call you have to make."
-    meta={['Scoped individually', 'Defined around your decision', 'Public evidence, synthesized']}
-  />
-
-  <!-- APPROVED-PAGE-VISUAL -->
-  <section class="approved-page-visual" data-approved-page-visual>
-    <div class="container approved-page-visual__inner">
-      <figure class="approved-page-visual__frame">
-        <img src="/assets/v10/premium/research-context.webp" alt="Strategic Blueprint for higher-stakes decisions." loading="eager" />
-      </figure>
+  <section class="rsp13-hero" data-surface="dark">
+    <div class="container rsp13-hero__inner">
+      <span class="label">COMPETITIVE RESPONSE SPRINT</span>
+      <h1>Turn the decision into a competitive response.</h1>
+      <p>When the intelligence is clear but the response is not, Evidence Axis converts the findings into the sales, pricing, positioning and messaging assets needed to act.</p>
+      <div class="rsp13-actions"><a class="btn btn--lg" href="/contact/?intent=response">Discuss a Response Sprint <span aria-hidden="true">→</span></a><a href="/competitor-brief/">Start from the Decision Sprint →</a></div>
     </div>
   </section>
 
-
-  <section class="section container">
-    <SectionIntro
-      eyebrow="Decision contexts"
-      title="Built for the choices that don't fit a single brief."
-      lede={'A Blueprint starts where a competitor brief ends: not “what do they do,” but “what should we do about it.”'}
-    />
-    <div class="ctx-grid">
-      {contexts.map((c, i) => (
-        <article class="ctx" data-reveal style={`--reveal-delay:${i * 50}ms;`}>
-          <span class="ctx__mark axis-tick" aria-hidden="true"></span>
-          <h3 class="ctx__t">{c.t}</h3>
-          <p class="ctx__d">{c.d}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="section" data-surface="dark">
-    <div class="container bp-two">
-      <div>
-        <SectionIntro eyebrow="How it is scoped" title="The boundary comes before the price." as="h2" />
-        <p class="measure bp-copy">
-          A Blueprint is scoped after the decision question, the research boundary, the depth
-          and the deliverables are defined together. That conversation is where the work is made
-          useful — and where the price is set. We do not publish a fixed number for it, because a
-          number set before the boundary would be a guess.
-        </p>
-        <p class="bp-price mono">{offers.blueprint.priceDisplay} — {offers.blueprint.priceNote}.</p>
-      </div>
-      <div>
-        <h3 class="bp-h label">What a Blueprint includes</h3>
-        <ul class="bp-list axis-frame">
-          {deliverables.map((d) => <li class="axis-tick" data-reveal>{d}</li>)}
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- BLUEPRINT IN ACTION — case study proof -->
-  <section class="section" data-surface="dark">
-    <div class="container cs-band axis-frame">
-      <span class="label eyebrow">Seen in practice</span>
-      <h2 class="cs-band__title">A complete Blueprint engagement — four phases, investor-ready.</h2>
-      <p class="measure cs-band__p">
-        One anonymised engagement shows the Blueprint method end to end: 6 CEO decisions locked
-        before research, a 16-section architecture signed before a single data point was collected,
-        and every deliverable — a 350-entity market map, a 3-sided product architecture, a
-        26-slide investor deck and a formula-driven capital model — traceable back to the evidence
-        agreed in the original Blueprint.
-      </p>
-      <div class="cs-band__stats">
-        <div class="cs-stat">
-          <span class="cs-n">4</span>
-          <span class="cs-l mono">Phases delivered</span>
+  <main>
+    <section class="section">
+      <div class="container rsp13-grid">
+        <div>
+          <span class="label">WHEN THIS ENGAGEMENT FITS</span>
+          <h2>You know what the market is doing. Now the team needs to respond.</h2>
+          <p class="rsp13-lede">The Response Sprint starts from a defined competitive problem. It is for teams that need usable market-facing assets, not another research document.</p>
         </div>
-        <div class="cs-stat">
-          <span class="cs-n">10+</span>
-          <span class="cs-l mono">Deliverables</span>
-        </div>
-        <div class="cs-stat">
-          <span class="cs-n">0</span>
-          <span class="cs-l mono">Scope surprises</span>
+        <aside class="rsp13-panel"><small class="mono">ENGAGEMENT</small><strong>{offers.responseSprint.priceDisplay}</strong><p>{offers.responseSprint.priceNote}.</p><small class="mono">DELIVERY</small><b>{offers.responseSprint.delivery}</b></aside>
+      </div>
+    </section>
+
+    <section class="section rsp13-muted">
+      <div class="container">
+        <span class="label">POSSIBLE SCOPE</span>
+        <div class="rsp13-cards">
+          <article><b>01</b><h3>Battlecards</h3><p>Competitor-specific sales guidance grounded in verified differences and bounded claims.</p></article>
+          <article><b>02</b><h3>Objection handling</h3><p>Response language for the objections and comparisons most likely to appear in live deals.</p></article>
+          <article><b>03</b><h3>Pricing response</h3><p>Options for packaging, pricing story and value justification where competitive pressure is visible.</p></article>
+          <article><b>04</b><h3>Positioning response</h3><p>Sharper differentiation around the evidence-supported areas that matter to the target buyer.</p></article>
+          <article><b>05</b><h3>Messaging architecture</h3><p>Claims, proof points and boundaries that can travel across sales and marketing without outrunning evidence.</p></article>
+          <article><b>06</b><h3>Enablement</h3><p>Competitor-specific assets and an executive review of what changed, why it matters and how to use the response.</p></article>
         </div>
       </div>
-      <a href="/work/" class="link-arrow">
-        Read the full case study<span class="btn-arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
-  </section>
+    </section>
 
-  <section class="section container">
-    <div class="bp-path">
-      <SectionIntro eyebrow="Where to start" title="Most work starts smaller." />
-      <p class="measure">
-        If you are not sure a Blueprint is the right depth, start with a
-        <a href="/competitor-brief/">Two-Competitor Decision Brief</a> at
-        {offers.twoCompetitor.priceDisplay}. It is the fastest way to see how the evidence method
-        reads against your own question — and it scopes a larger engagement well.
-      </p>
-    </div>
-  </section>
+    <section class="section">
+      <div class="container rsp13-grid">
+        <div>
+          <span class="label">DEPENDENCY</span>
+          <h2>The response inherits the evidence standard.</h2>
+          <p class="rsp13-lede">A strong response can be decisive without pretending every claim is certain. Facts remain sourced, strategic interpretation remains labeled, and unsupported assertions do not become sales copy simply because they sound useful.</p>
+          <a class="rsp13-link" href="/method/">See the Evidence Axis method →</a>
+        </div>
+        <div class="rsp13-rule"><b>PUBLIC EVIDENCE</b><span>+</span><b>CLIENT CONTEXT</b><span>→</span><strong>COMPETITIVE RESPONSE</strong></div>
+      </div>
+    </section>
 
-  <CTASection title="Describe the decision. We'll scope the work." showSecondary={false} />
+    <section class="section rsp13-final" data-surface="dark">
+      <div class="container"><span class="label">RESPOND</span><h2>Bring the decision. We’ll scope the response.</h2><p>Tell us what the team needs to change in market, sales, pricing, positioning or messaging.</p><a class="btn btn--lg" href="/contact/?intent=response">Discuss a Response Sprint <span aria-hidden="true">→</span></a></div>
+    </section>
+  </main>
 </Base>
 
 <style>
-  .ctx-grid { display: grid; gap: var(--space-m); margin-top: var(--space-xl); grid-template-columns: 1fr; }
-  .ctx {
-    background: var(--bg-raised); border: 1px solid var(--surface-border);
-    border-radius: var(--radius-m); padding: var(--space-l); position: relative;
-  }
-  .ctx__t { font-size: var(--step-1); }
-  .ctx__d { margin-top: var(--space-2xs); color: var(--text-muted); }
-  .bp-two { display: grid; gap: var(--space-xl); }
-  .bp-copy { margin-top: var(--space-s); color: var(--text-muted); }
-  .bp-price { margin-top: var(--space-m); color: var(--accent); font-size: var(--step-0); }
-  .bp-h { display: block; margin-bottom: var(--space-s); }
-  .bp-list { list-style: none; padding: 0; display: grid; gap: var(--space-s); }
-  .bp-list li { color: var(--text-muted); }
-  .bp-path p { margin-top: var(--space-s); color: var(--text-muted); }
-  .cs-band { display: grid; gap: var(--space-l); }
-  .cs-band__title { font-size: var(--step-3); max-width: 24ch; }
-  .cs-band__p { color: var(--text-muted); }
-  .cs-band__stats { display: flex; gap: var(--space-2xl); flex-wrap: wrap; padding: var(--space-l) 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
-  .cs-stat { display: flex; flex-direction: column; gap: 0.3rem; }
-  .cs-n { font-family: var(--font-display); font-size: var(--step-4); font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1; }
-  .cs-l { font-size: var(--step--1); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
-  @media (min-width: 52rem) {
-    .ctx-grid { grid-template-columns: repeat(3, 1fr); }
-    .bp-two { grid-template-columns: 1.2fr 1fr; }
-  }
+  .rsp13-hero{padding:clamp(5rem,10vw,8rem) 0;background:#030914;color:#f4f8ff}.rsp13-hero__inner{max-width:70rem}.rsp13-hero h1{max-width:13ch;margin:.8rem 0 1rem;font-size:clamp(3rem,7vw,6.2rem);line-height:.94;letter-spacing:-.055em}.rsp13-hero p{max-width:53rem;color:#cbd8e8;font-size:1.18rem;line-height:1.7}.rsp13-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;margin-top:1.7rem}.rsp13-actions>a:not(.btn),.rsp13-link{font-family:var(--font-display);font-weight:750;text-decoration:none}.rsp13-actions>a:not(.btn){color:#dbe8ff}.rsp13-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(16rem,.75fr);gap:clamp(2rem,7vw,6rem);align-items:start}.rsp13-grid h2,.rsp13-final h2{font-size:clamp(2.2rem,4.5vw,4.2rem);line-height:1;letter-spacing:-.04em;margin:.6rem 0 1rem}.rsp13-lede{font-size:1.08rem;line-height:1.75;color:var(--text-muted)}.rsp13-panel{padding:1.5rem;border:1px solid var(--surface-border);border-radius:1rem;background:var(--bg-raised);display:grid;gap:.45rem}.rsp13-panel strong{font:800 2rem/1 var(--font-display)}.rsp13-panel small{color:var(--text-faint);letter-spacing:.08em;margin-top:.65rem}.rsp13-panel p{margin:0;color:var(--text-muted)}.rsp13-muted{background:var(--bg-raised)}.rsp13-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.4rem}.rsp13-cards article{padding:1.35rem;border:1px solid var(--surface-border);border-radius:.85rem;background:var(--bg)}.rsp13-cards b{font-family:var(--font-mono);color:var(--accent);font-size:.72rem}.rsp13-cards h3{margin:.6rem 0 .45rem}.rsp13-cards p{margin:0;color:var(--text-muted);line-height:1.6}.rsp13-rule{display:grid;gap:.75rem;padding:1.5rem;border:1px solid var(--surface-border);border-radius:1rem;background:var(--bg-raised);font-family:var(--font-mono)}.rsp13-rule span{color:var(--text-faint)}.rsp13-rule strong{color:var(--accent)}.rsp13-final{background:#030914;color:#f4f8ff}.rsp13-final p{color:#cbd8e8;max-width:42rem;margin-bottom:1.4rem}@media(max-width:820px){.rsp13-grid,.rsp13-cards{grid-template-columns:1fr}}
 </style>
