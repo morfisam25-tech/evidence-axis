@@ -3,114 +3,46 @@ import Base from '@layouts/Base.astro';
 import PageHeader from '@components/PageHeader.astro';
 import { site, legal } from '@config/site';
 ---
-<Base
-  title="Terms"
-  description="The terms that apply to use of the Evidence Axis website, invitation-only intelligence deliveries, and separate paid research engagements."
-  path="/terms/"
->
+<Base title="Terms" description="The terms that apply to the Evidence Axis website, complimentary intelligence requests, proactive intelligence deliveries and separate paid research engagements." path="/terms/">
   <PageHeader eyebrow="Legal" title="Terms" meta={[`Last updated ${legal.lastUpdated}`]} />
+  <section class="section container"><div class="legal measure">
+    <p class="legal__intro">These terms apply to your use of the {site.name} website, public sample material, Complimentary Competitive Intelligence Brief requests and company-specific intelligence deliveries. They are separate from the terms that govern a paid research engagement, which are agreed in writing before paid work begins.</p>
 
-  <section class="section container">
-    <div class="legal measure">
-      <p class="legal__intro">
-        These terms apply to your use of the {site.name} website, public sample material and any
-        invitation-only intelligence delivery you receive from us. They are separate from the terms
-        that govern a paid research engagement, which are agreed in writing before paid work begins.
-      </p>
+    <h2>The website</h2>
+    <p>This website describes {site.name} services, provides a route for verified company employees to request a Complimentary Competitive Intelligence Brief, shows public demonstration material and provides contact routes for paid engagements. Fixed paid pricing is not published because scope changes with the decision, competitive set, evidence depth and response work required.</p>
 
-      <h2>The website</h2>
-      <p>
-        This website describes {site.name} services, shows public demonstration material and provides
-        contact routes for paid engagement inquiries. Service descriptions may be updated as the
-        practice develops. Fixed paid pricing is not published because scope changes with the decision,
-        competitive set, evidence depth and response work required.
-      </p>
+    <h2>Complimentary Competitive Intelligence Brief</h2>
+    <p>A Complimentary Brief is available at no cost to legitimate employees of identifiable companies using a work email and company website. Evidence Axis may verify the requester, company and company-domain relationship before beginning the research. A valid request enters the research queue, and the expected delivery window is confirmed by email. The website does not promise a fixed public turnaround.</p>
+    <p>Requesting or receiving a Complimentary Brief does not create a paid engagement, require a sales call or obligate the requester to purchase another service. The brief remains subject to the public-evidence limitations described below.</p>
 
-      <h2>Invitation-only Competitive Intelligence Gifts</h2>
-      <p>
-        Evidence Axis may prepare and send company-specific competitive intelligence to selected
-        companies without a prior request. The Competitive Intelligence Gift is not a public free-service
-        queue and is not available on demand through the website.
-      </p>
-      <p>
-        Receiving an Intelligence Gift does not create a paid engagement, require a sales call or
-        obligate the recipient to purchase another service. The work remains subject to the same
-        public-evidence limitations described below.
-      </p>
+    <h2>Proactive intelligence</h2>
+    <p>Evidence Axis may also prepare and deliver company-specific competitive intelligence without a prior request when a relevant public competitive trigger is visible. This outbound route does not change the evidence standard or create a paid engagement by itself.</p>
 
-      <h2>Paid inquiries are not a contract</h2>
-      <p>
-        Sending an inquiry about a Decision Sprint, Response Sprint, Competitive Radar or another paid
-        project does not by itself create an engagement. A paid engagement begins only when scope,
-        deliverables, timing, price and the contracting party are agreed in writing for a specific project.
-      </p>
+    <h2>Paid inquiries are not a contract</h2>
+    <p>Sending an inquiry about a Decision Sprint, Response Sprint, Competitive Radar or another paid project does not by itself create an engagement. A paid engagement begins only when scope, deliverables, timing, price and the contracting party are agreed in writing for a specific project.</p>
 
-      <h2>Operator and contracting party</h2>
-      <p>
-        {site.name} is operated publicly by {legal.publicOperator}, whose legal name is
-        {' '}{legal.operatorLegalName}. The proposal, written scope confirmation and invoice identify
-        the legal contracting and invoicing party for each paid engagement.
-      </p>
-      <p>
-        Where an international engagement is contracted and invoiced through
-        {' '}{legal.internationalInvoicingEntity}, its registered address is
-        {' '}{legal.internationalInvoicingAddress}. Its use for a project will be stated expressly in
-        that project's written terms and invoice.
-      </p>
+    <h2>Operator and contracting party</h2>
+    <p>{site.name} is operated publicly by {legal.publicOperator}, whose legal name is {' '}{legal.operatorLegalName}. The proposal, written scope confirmation and invoice identify the legal contracting and invoicing party for each paid engagement.</p>
+    <p>Where an international engagement is contracted and invoiced through {' '}{legal.internationalInvoicingEntity}, its registered address is {' '}{legal.internationalInvoicingAddress}. Its use for a project will be stated expressly in that project's written terms and invoice.</p>
 
-      <h2>How research is conducted</h2>
-      <p>
-        Research draws on lawful, publicly accessible sources and any information a client chooses to
-        share. Findings are based on the sources and research boundary defined for the work, as of the
-        dates checked. Public information changes over time, and a brief reflects the record at the
-        time of research.
-      </p>
+    <h2>How research is conducted</h2>
+    <p>Research draws on lawful, publicly accessible sources and any information a client chooses to share. Findings are based on the sources and research boundary defined for the work, as of the dates checked. Public information changes over time, and a brief reflects the record at the time of research.</p>
 
-      <h2>What a brief is — and is not</h2>
-      <p>
-        A brief distinguishes verified fact from reasoned inference and clearly names what cannot be
-        established from public evidence. It is decision support, not a guarantee of any business
-        outcome. It does not claim access to confidential, private or non-public competitor information,
-        and it should not be read as legal, financial or investment advice.
-      </p>
+    <h2>What a brief is — and is not</h2>
+    <p>A brief distinguishes verified fact from reasoned inference and clearly names what cannot be established from available evidence. It is decision support, not a guarantee of any business outcome. It does not claim access to confidential, private or non-public competitor information, and it should not be read as legal, financial or investment advice.</p>
 
-      <h2>Paid project terms govern paid work</h2>
-      <p>
-        Where these website terms and the terms agreed for a specific paid engagement differ, the
-        engagement terms govern that work. This page does not replace tailored contractual terms for
-        a paid project.
-      </p>
+    <h2>Paid project terms govern paid work</h2>
+    <p>Where these website terms and the terms agreed for a specific paid engagement differ, the engagement terms govern that work. This page does not replace tailored contractual terms for a paid project.</p>
 
-      <h2>Intellectual property</h2>
-      <p>
-        The content, design and visual system of this website belong to {site.name}. Rights in an
-        invitation-only Intelligence Gift or paid deliverable are governed by the applicable delivery
-        or engagement terms supplied with that work.
-      </p>
+    <h2>Intellectual property</h2>
+    <p>The content, design and visual system of this website belong to {site.name}. Rights in a Complimentary Brief, proactive intelligence delivery or paid deliverable are governed by the applicable delivery or engagement terms supplied with that work.</p>
 
-      <h2>Payment and governing details</h2>
-      <p>
-        Payment instructions for paid engagements are supplied in the written scope confirmation or
-        invoice. Clients should not send funds to a person, account or wallet that is not identified in
-        those documents. Governing law and any dispute process are stated in the terms agreed for the
-        specific paid engagement.
-      </p>
+    <h2>Payment and governing details</h2>
+    <p>Payment instructions for paid engagements are supplied in the written scope confirmation or invoice. Clients should not send funds to a person, account or wallet that is not identified in those documents. Governing law and any dispute process are stated in the terms agreed for the specific paid engagement.</p>
 
-      <p class="legal__foot mono">
-        Questions about these terms can be sent to
-        {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>.
-      </p>
-    </div>
-  </section>
+    <p class="legal__foot mono">Questions about these terms can be sent to {' '}<a href="mailto:hello@evidenceaxis.com">hello@evidenceaxis.com</a>.</p>
+  </div></section>
 </Base>
-
 <style>
-  .legal__intro { font-size: var(--step-1); color: var(--text); }
-  .legal h2 {
-    font-size: var(--step-1); margin-top: var(--space-xl); margin-bottom: var(--space-2xs);
-    padding-top: var(--space-s); border-top: 1px solid var(--hairline);
-  }
-  .legal p { color: var(--text-muted); margin-bottom: var(--space-s); }
-  .legal a { color: var(--accent); }
-  .legal__foot { margin-top: var(--space-xl); font-size: var(--step--1); color: var(--text-faint); }
+.legal__intro{font-size:var(--step-1);color:var(--text)}.legal h2{font-size:var(--step-1);margin-top:var(--space-xl);margin-bottom:var(--space-2xs);padding-top:var(--space-s);border-top:1px solid var(--hairline)}.legal p{color:var(--text-muted);margin-bottom:var(--space-s);line-height:1.68}.legal a{color:var(--accent)}.legal__foot{margin-top:var(--space-xl);font-size:var(--step--1);color:var(--text-faint)}
 </style>
