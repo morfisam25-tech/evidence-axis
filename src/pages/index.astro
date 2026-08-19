@@ -76,6 +76,26 @@ import '../styles/intro-v10.css';
       </div>
     </section>
 
+    <section class="ai-v10" aria-labelledby="ai-title">
+      <div class="container-wide ai-v10__grid">
+        <div class="ai-v10__copy">
+          <span class="v10-kicker v10-kicker--light">AI-ACCELERATED · EVIDENCE-CONTROLLED</span>
+          <h2 id="ai-title">AI can accelerate the search. It does not get to decide what is true.</h2>
+          <p>Evidence Axis uses AI where it creates leverage — discovery, organization, comparison and pattern-finding. Material claims still have to survive the evidence standard before they reach an executive deliverable.</p>
+          <ul class="ai-v10__points">
+            <li>Underlying sources are opened and checked before material claims are used.</li>
+            <li>Search snippets, generated summaries and vendor comparison pages are not treated as neutral proof.</li>
+            <li>Fact, Inference, Unknown and contradictions stay visibly separate.</li>
+            <li>AI makes the workflow faster; human review controls what enters the decision.</li>
+          </ul>
+          <a class="v10-link v10-link--light" href="/method/">See the evidence workflow →</a>
+        </div>
+        <figure class="ai-v10__visual">
+          <img src="/assets/v10/approved/what-you-get.webp" alt="Evidence Axis evidence-controlled intelligence workflow with source verification and executive outputs" loading="lazy" />
+        </figure>
+      </div>
+    </section>
+
     <section class="gallery-v10" aria-labelledby="sample-title">
       <div class="container-wide gallery-v10__grid">
         <div class="gallery-v10__copy">
@@ -126,7 +146,7 @@ import '../styles/intro-v10.css';
       <div class="container-wide">
         <header class="offers-v10__head">
           <div><span class="v10-kicker">PAID ENGAGEMENTS</span><h2 id="services-title">When the evidence raises a real decision, go deeper.</h2></div>
-          <p>The paid engagement is not the same Gift with more pages. It combines the verified market evidence with your internal context, decision requirement and response options.</p>
+          <p>The paid engagement is not simply a longer complimentary brief. It combines verified market evidence with your internal context, decision requirement and response options.</p>
         </header>
 
         <div class="pricing-v10">
@@ -165,7 +185,7 @@ import '../styles/intro-v10.css';
 
           <aside class="included-card">
             <span class="price-card__label mono">THE BOUNDARY</span>
-            <div><b>The Gift proves capability.</b><p>It reveals and verifies the public competitive landscape.</p></div>
+            <div><b>The Complimentary Brief proves capability.</b><p>It reveals and verifies the public competitive landscape.</p></div>
             <div><b>The Decision Sprint adds your context.</b><p>It answers what the evidence means for the decision actually in front of your team.</p></div>
             <div><b>The Response Sprint builds the response.</b><p>It converts the decision into the assets needed to act.</p></div>
             <div><b>Radar keeps it current.</b><p>Monitoring matters when the competitive picture changes faster than a point-in-time brief.</p></div>
@@ -207,4 +227,49 @@ import '../styles/intro-v10.css';
       </div>
     </section>
   </main>
+
+  <style>
+    #complimentary-brief .pricing-v10 {
+      grid-template-columns: minmax(0, 1.08fr) minmax(22rem, .92fr);
+      align-items: stretch;
+    }
+    #complimentary-brief .price-card {
+      min-height: 37rem;
+    }
+    #complimentary-brief .included-card {
+      grid-column: auto;
+      min-height: 37rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-content: start;
+      gap: .9rem;
+      padding: 1.5rem;
+      background:
+        radial-gradient(circle at 82% 8%, rgba(84, 224, 216, .09), transparent 28%),
+        linear-gradient(155deg, #0a1a2e, #07111e);
+    }
+    #complimentary-brief .included-card > .price-card__label {
+      align-self: auto;
+    }
+    #complimentary-brief .included-card > div {
+      min-height: auto;
+      padding: 1.05rem;
+    }
+    #complimentary-brief .included-card > a {
+      align-self: end;
+      justify-self: stretch;
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 3.2rem;
+      padding: 0 .95rem;
+    }
+    .ai-v10__copy .v10-link { margin-top: 1.4rem; }
+    @media (max-width: 920px) {
+      #complimentary-brief .pricing-v10 { grid-template-columns: 1fr; }
+      #complimentary-brief .price-card,
+      #complimentary-brief .included-card { min-height: auto; }
+    }
+  </style>
 </Base>
