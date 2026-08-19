@@ -5,7 +5,7 @@ import { site, legal } from '@config/site';
 ---
 <Base
   title="Privacy"
-  description="How Evidence Axis handles the limited information you share through website inquiries, complimentary brief requests, email and business correspondence."
+  description="How Evidence Axis handles the limited information you share through website inquiries, complimentary brief requests, intelligence delivery pages, email and business correspondence."
   path="/privacy/"
   noindex={false}
 >
@@ -49,6 +49,22 @@ import { site, legal } from '@config/site';
         it is not sold or used for advertising.
       </p>
 
+      <h2>Intelligence-delivery tracking</h2>
+      <p>
+        A company-specific intelligence delivery page may record limited operational events so we can
+        confirm whether the work was successfully received and used. For the current delivery system,
+        these events can include the delivery page being viewed, the Executive Intelligence Deck being
+        opened, the Evidence Appendix being opened, or the recipient clicking the decision-conversation
+        route. The event payload sent to our business inbox identifies the company, the unique delivery
+        slug, the event type and the event timestamp. This is delivery confirmation and product-learning
+        data, not advertising tracking.
+      </p>
+      <p>
+        The current first-sprint implementation uses session storage only to avoid sending the same
+        operational event repeatedly during one browser session. It does not use an advertising cookie
+        or build an advertising profile.
+      </p>
+
       <h2>Business correspondence</h2>
       <p>
         If we correspond about a possible or active engagement, we keep the information reasonably
@@ -60,9 +76,9 @@ import { site, legal } from '@config/site';
       <p>
         Basic technical information (such as standard server request data) may be processed to keep
         the site available and secure. The current site does not use advertising trackers or advertising
-        cookies. Website inquiry submissions are transmitted through FormSubmit for delivery to our
-        business inbox. If analytics, Gift-view tracking or additional cookies are introduced, this
-        notice will be updated and consent will be requested where required.
+        cookies. Website inquiry submissions and the operational delivery events described above are
+        transmitted through FormSubmit for delivery to our business inbox. If additional analytics or
+        cookies are introduced, this notice will be updated and consent will be requested where required.
       </p>
 
       <h2>Third parties</h2>
