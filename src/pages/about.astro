@@ -1,31 +1,19 @@
 ---
 import Base from '@layouts/Base.astro';
 import PageHeader from '@components/PageHeader.astro';
-import SectionIntro from '@components/SectionIntro.astro';
 import CTASection from '@components/CTASection.astro';
 import { legal } from '@config/site';
 
 const standards = [
-  { t: 'Discovery before assumption', d: 'The competitive set is scanned before the deep dive so the names already known internally do not automatically define the whole market.' },
+  { t: 'Discovery before assumption', d: 'The competitive set is scanned before the deep dive so the names already known internally do not automatically define the market.' },
   { t: 'Evidence before assertion', d: 'Every material factual finding stays attached to a source that was opened and checked.' },
   { t: 'Fact / Inference / Unknown', d: 'Verified fact, analytical interpretation and unresolved gaps remain visibly separate.' },
-  { t: 'Contradictions stay visible', d: 'When credible sources disagree, Evidence Axis reports the conflict instead of picking the cleaner-looking answer.' },
-  { t: 'Executive usefulness', d: 'Research is structured around what deserves attention and what decision or response may follow — not around page count.' },
+  { t: 'Contradictions stay visible', d: 'Credible conflicts are reported rather than silently resolved for a cleaner story.' },
+  { t: 'Executive usefulness', d: 'Research is structured around what deserves attention and what decision or response may follow.' },
   { t: 'Traceable by the client', d: 'The Evidence Appendix preserves source URLs, source classes, review dates, limitations and the path behind material conclusions.' },
 ];
-
-const work = [
-  { t: 'Competitive Intelligence Gift', d: 'Invitation-only company-specific intelligence prepared proactively for selected companies when a relevant competitive trigger is visible.' },
-  { t: 'Competitive Decision Sprint', d: 'A paid engagement combining verified market evidence with the client’s actual decision context, constraints and priorities.' },
-  { t: 'Competitive Response Sprint', d: 'Turns a defined competitive decision into battlecards, objection handling, pricing response, positioning, messaging and enablement.' },
-  { t: 'Competitive Radar', d: 'Ongoing monitoring of decision-relevant competitor moves when the competitive picture needs to stay current.' },
-];
 ---
-<Base
-  title="About"
-  description="Evidence Axis is an independent competitive intelligence and decision-support firm that discovers overlooked competitors, verifies public evidence and turns it into executive-ready intelligence."
-  path="/about/"
->
+<Base title="About" description="Evidence Axis is an independent competitive intelligence and decision-support firm that discovers overlooked competitors, verifies public evidence and turns it into executive-ready intelligence." path="/about/">
   <PageHeader
     eyebrow="About Evidence Axis"
     title="Independent competitive intelligence built for decisions, not information volume."
@@ -33,43 +21,68 @@ const work = [
     meta={['Independent firm', 'Human-reviewed evidence', 'Executive-ready output']}
   />
 
-  <section class="section container">
-    <div class="ab13-lead">
-      <SectionIntro eyebrow="The firm" title="What Evidence Axis is built to do." as="h2" />
-      <div>
-        <p>Competitive research becomes dangerous when fluent summaries make uncertain claims look settled. Evidence Axis is built around the opposite operating principle: discover broadly, verify directly, disclose the source class, preserve contradictions and name what cannot be established.</p>
-        <p>The result is not a generic dashboard or a library of AI-generated competitor profiles. Each brief is assembled around a real company and a bounded competitive question, with the evidence trail kept visible behind the executive output.</p>
-        <p>The public professional identity of the firm is <strong>{legal.publicOperator}</strong>. Evidence Axis works with clients through project engagements as an independent firm.</p>
+  <main class="ab-final">
+    <section class="section ab-final__intro">
+      <div class="container-wide ab-final__intro-grid">
+        <div class="ab-final__copy">
+          <span class="label">THE FIRM</span>
+          <h2>Built to make competitive research defensible.</h2>
+          <p>Fluent summaries can make uncertain claims look settled. Evidence Axis is built around the opposite discipline: discover broadly, verify directly, classify the source, preserve contradictions and name what cannot be established.</p>
+          <p>The result is not a generic dashboard or a library of AI-generated competitor profiles. Each assignment is bounded around a real company, a real competitive question and an evidence trail that can be inspected.</p>
+          <div class="ab-final__founder">
+            <small class="mono">INDEPENDENT FIRM · PRINCIPAL</small>
+            <b>{legal.publicOperator}</b>
+            <span>Competitive intelligence, decision support and research architecture.</span>
+          </div>
+        </div>
+
+        <figure class="ab-final__photo" data-lightbox data-lightbox-caption="Evidence Axis — independent competitive intelligence and decision-support practice.">
+          <img src="/assets/v10/approved/team-photo.webp" alt="Evidence Axis professional research team visual" loading="eager" />
+          <figcaption class="mono">CLICK TO EXPAND</figcaption>
+        </figure>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" data-surface="dark">
-    <div class="container">
-      <SectionIntro eyebrow="What we do" title="One intelligence engine, four ways it reaches a company." />
-      <div class="ab13-grid">
-        {work.map((item, i) => <article><span class="mono">0{i+1}</span><h3>{item.t}</h3><p>{item.d}</p></article>)}
+    <section class="section ab-final__paths" data-surface="dark">
+      <div class="container-wide">
+        <header class="ab-final__head">
+          <span class="label">HOW THE WORK STARTS</span>
+          <h2>Two ways to see the work. Three ways to go deeper.</h2>
+          <p>Inbound and outbound acquisition lead to the same evidence standard. Paid engagements begin when the company needs a live decision answered, a response built or a changing market monitored.</p>
+        </header>
+        <div class="ab-final__path-grid">
+          <article class="ab-final__path ab-final__path--accent"><span class="mono">01 · INBOUND</span><h3>Complimentary Intelligence Brief</h3><p>Verified company employees can request company-specific competitive intelligence using a work email.</p></article>
+          <article class="ab-final__path ab-final__path--accent"><span class="mono">02 · OUTBOUND</span><h3>Proactive Intelligence Gift</h3><p>Evidence Axis may initiate the same quality of work when a visible competitive trigger makes the timing useful.</p></article>
+          <article class="ab-final__path"><span class="mono">03 · DECIDE</span><h3>Competitive Decision Sprint</h3><p>Verified market evidence plus client context for a live strategic, product, pricing, positioning or sales decision.</p></article>
+          <article class="ab-final__path"><span class="mono">04 · RESPOND</span><h3>Competitive Response Sprint</h3><p>Battlecards, objection handling, pricing response, positioning, messaging and enablement built from the decision.</p></article>
+          <article class="ab-final__path"><span class="mono">05 · MONITOR</span><h3>Competitive Radar</h3><p>Ongoing monitoring when decision-relevant competitor moves need to stay current.</p></article>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section container">
-    <SectionIntro eyebrow="Operating standard" title="The work should survive scrutiny." as="h2" />
-    <div class="ab13-standards axis-frame">
-      {standards.map((s) => <div class="axis-tick"><h3>{s.t}</h3><p>{s.d}</p></div>)}
-    </div>
-  </section>
+    <section class="section ab-final__standard">
+      <div class="container-wide ab-final__standard-grid">
+        <div class="ab-final__standard-title"><span class="label">OPERATING STANDARD</span><h2>The work should survive scrutiny.</h2><p>The quality test is simple: can a decision-maker see what is proven, what is inferred, what remains unknown and where the evidence came from?</p></div>
+        <div class="ab-final__rules">{standards.map((s) => <article><h3>{s.t}</h3><p>{s.d}</p></article>)}</div>
+      </div>
+    </section>
 
-  <section class="section ab13-boundary">
-    <div class="container ab13-boundary__grid">
-      <div><span class="label">RESEARCH BOUNDARY</span><h2>Public competitive evidence. Client context when provided.</h2></div>
-      <div><p>Evidence Axis uses lawful, publicly accessible competitor information. A paid client may add its own internal context about the decision, sales process or priorities. Evidence Axis does not imply access to confidential or unauthorized competitor information.</p><a href="/method/">See the full method →</a></div>
-    </div>
-  </section>
+    <section class="section ab-final__boundary">
+      <div class="container ab-final__boundary-grid">
+        <div><span class="label">RESEARCH BOUNDARY</span><h2>Public competitive evidence. Client context when provided.</h2></div>
+        <div><p>Evidence Axis uses lawful, publicly accessible competitor information. Paid clients may add internal context about the decision, sales process or priorities. Evidence Axis does not imply access to confidential or unauthorized competitor information.</p><a href="/method/">See the full method →</a></div>
+      </div>
+    </section>
 
-  <CTASection />
+    <CTASection />
+  </main>
 </Base>
 
 <style>
-  .ab13-lead{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:clamp(2rem,7vw,6rem);align-items:start}.ab13-lead p{font-size:1.05rem;line-height:1.75;color:var(--text-muted);margin:0 0 1rem}.ab13-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:var(--space-xl)}.ab13-grid article{padding:1.5rem;border:1px solid var(--hairline);border-radius:.8rem;background:color-mix(in srgb,var(--bg-raised) 78%,transparent)}.ab13-grid span{color:var(--accent);font-size:.72rem}.ab13-grid h3{margin:.7rem 0 .45rem}.ab13-grid p{margin:0;color:var(--text-muted);line-height:1.6}.ab13-standards{margin-top:var(--space-xl)}.ab13-standards>div{display:grid;grid-template-columns:minmax(13rem,.7fr) 1.3fr;gap:2rem;padding:1.1rem 0;border-top:1px solid var(--hairline);align-items:baseline}.ab13-standards h3,.ab13-standards p{margin:0}.ab13-standards p{color:var(--text-muted)}.ab13-boundary{background:var(--bg-raised)}.ab13-boundary__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,7vw,6rem)}.ab13-boundary h2{font-size:clamp(2rem,4vw,3.7rem);line-height:1;letter-spacing:-.04em;margin:.6rem 0}.ab13-boundary p{color:var(--text-muted);line-height:1.7}.ab13-boundary a{font-family:var(--font-display);font-weight:750;text-decoration:none}@media(max-width:780px){.ab13-lead,.ab13-grid,.ab13-standards>div,.ab13-boundary__grid{grid-template-columns:1fr}}
+  .ab-final{background:#f8f5ef}.ab-final__intro{background:#fff}.ab-final__intro-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(2rem,6vw,5rem);align-items:center}.ab-final__copy h2,.ab-final__head h2,.ab-final__standard-title h2,.ab-final__boundary h2{margin:.6rem 0 .9rem;font-size:clamp(2.45rem,4.5vw,4.6rem);line-height:.97;letter-spacing:-.05em}.ab-final__copy>p,.ab-final__head>p,.ab-final__standard-title>p,.ab-final__boundary p{color:var(--text-muted);line-height:1.68;font-size:1.02rem}.ab-final__founder{display:grid;gap:.22rem;margin-top:1.35rem;padding:1rem 0;border-top:1px solid var(--surface-border)}.ab-final__founder small{color:#6f829a;font-size:.58rem;letter-spacing:.1em}.ab-final__founder b{font-size:1.15rem}.ab-final__founder span{color:var(--text-muted);font-size:.9rem}.ab-final__photo{margin:0;padding:.75rem;background:#07111f;border-radius:1.1rem;box-shadow:0 28px 72px rgba(15,27,43,.16);border:1px solid rgba(93,131,178,.16);overflow:hidden}.ab-final__photo img{display:block;width:100%;height:auto;border-radius:.72rem}.ab-final__photo figcaption{text-align:center;margin-top:.6rem;color:#8196b2;font-size:.54rem;letter-spacing:.1em}
+  .ab-final__paths{background:#030914;color:#f3f8ff}.ab-final__head{max-width:66rem}.ab-final__head>p{color:#9fb2c8;max-width:55rem}.ab-final__path-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem;margin-top:1.7rem}.ab-final__path{grid-column:span 2;min-height:14.5rem;padding:1.1rem;border:1px solid rgba(120,163,218,.15);border-radius:.8rem;background:rgba(255,255,255,.025)}.ab-final__path:nth-child(4){grid-column:2/span 2}.ab-final__path:nth-child(5){grid-column:4/span 2}.ab-final__path--accent{border-color:rgba(84,224,215,.3);background:linear-gradient(145deg,rgba(18,54,74,.55),rgba(7,20,38,.75))}.ab-final__path span{font-size:.55rem;color:#61e0d8;letter-spacing:.1em}.ab-final__path h3{margin:.6rem 0 .4rem;font-size:1.18rem}.ab-final__path p{margin:0;color:#94a9c2;line-height:1.55;font-size:.86rem}
+  .ab-final__standard{background:#f5f0e8}.ab-final__standard-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(2rem,6vw,5rem);align-items:start}.ab-final__rules{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.ab-final__rules article{padding:1rem;border:1px solid rgba(31,58,87,.12);border-radius:.75rem;background:#fff}.ab-final__rules h3{margin:0 0 .35rem;font-size:1rem}.ab-final__rules p{margin:0;color:var(--text-muted);line-height:1.5;font-size:.83rem}
+  .ab-final__boundary{background:#fff}.ab-final__boundary-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:start}.ab-final__boundary a{font-family:var(--font-display);font-weight:800;text-decoration:none;color:#236f85}
+  @media(max-width:900px){.ab-final__intro-grid,.ab-final__standard-grid,.ab-final__boundary-grid{grid-template-columns:1fr}.ab-final__path-grid{grid-template-columns:1fr 1fr}.ab-final__path,.ab-final__path:nth-child(4),.ab-final__path:nth-child(5){grid-column:auto;min-height:auto}}
+  @media(max-width:580px){.ab-final__path-grid,.ab-final__rules{grid-template-columns:1fr}.ab-final__copy h2,.ab-final__head h2,.ab-final__standard-title h2,.ab-final__boundary h2{font-size:clamp(2.35rem,10vw,3.4rem)}}
 </style>
