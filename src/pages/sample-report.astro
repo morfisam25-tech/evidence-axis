@@ -4,7 +4,7 @@ import SectionIntro from '@components/SectionIntro.astro';
 import EvidenceRecord from '@components/EvidenceRecord.astro';
 import ComparisonMatrix from '@components/ComparisonMatrix.astro';
 import CTASection from '@components/CTASection.astro';
-import { site } from '@config/site';
+import { site, cta } from '@config/site';
 import {
   sampleMeta, sampleSources, sampleRecords, sampleMatrix, sampleProfiles,
   sampleSummary, sampleDecisionImplications, sampleLimitations, sampleMethodology,
@@ -37,29 +37,51 @@ const sections = [
 ];
 ---
 <Base
-  title="Sample Report"
-  description="A demonstration Evidence Axis decision brief comparing Intercom and Zendesk on public evidence, checked August 2026. See how a competitor question becomes structured, source-backed evidence — Fact, Inference and Unknown."
+  title="Sample Intelligence Brief"
+  description="Inspect a source-backed Evidence Axis competitive intelligence sample comparing Intercom and Zendesk — with Fact, Inference, Unknown, decision implications and a complete source register."
   path="/sample-report/"
 >
-  <!-- Landing -->
-  <section class="section sr-intro" data-surface="dark">
-    <div class="container-wide sr-head axis-frame">
-      <span class="sr-badge mono">Demonstration sample</span>
-      <h1 class="sr-title">Intercom vs Zendesk, read as evidence.</h1>
-      <p class="sr-lede">
-        A demonstration of the Evidence Axis method on a real, bounded question — built entirely from
-        first-party public sources, checked {sampleMeta.checked}. It is a demonstration, not a client
-        engagement, and it declares no universal winner.
-      </p>
-      <div class="sr-actions">
-        <a href={pdfHref} class="btn btn--lg" download>
-          Download the report (PDF)<span class="btn-arrow" aria-hidden="true">↓</span>
-        </a>
-        <a href="#brief" class="btn btn--ghost btn--lg">Read it here</a>
+  <section class="sr-intro" data-surface="dark">
+    <div class="sr-intro__grid" aria-hidden="true"></div>
+    <div class="sr-intro__glow" aria-hidden="true"></div>
+    <div class="container-wide sr-intro__inner">
+      <div class="sr-head axis-frame">
+        <span class="sr-badge mono">ILLUSTRATIVE INTELLIGENCE SAMPLE</span>
+        <h1 class="sr-title">Intercom vs Zendesk,<br/><em>read as evidence.</em></h1>
+        <p class="sr-lede">
+          Inspect how Evidence Axis turns a bounded competitor question into a traceable intelligence package —
+          with checked first-party sources, evidence states, decision implications and a complete source register.
+        </p>
+        <div class="sr-actions">
+          <a href={pdfHref} class="btn btn--lg" download>
+            Download the report (PDF)<span class="btn-arrow" aria-hidden="true">↓</span>
+          </a>
+          <a href="#brief" class="btn btn--ghost btn--lg">Read it here</a>
+          <a href={cta.primary.href} class="sr-request">Request your own brief →</a>
+        </div>
+        <p class="sr-meta mono">
+          {sampleMeta.competitors.join(' vs ')} · first-party public evidence · checked {sampleMeta.checked}
+        </p>
       </div>
-      <p class="sr-meta mono">
-        {sampleMeta.competitors.join(' vs ')} · public first-party sources · checked {sampleMeta.checked}
-      </p>
+
+      <aside class="sr-proof" aria-label="What this sample contains">
+        <div class="sr-proof__axis" aria-hidden="true"></div>
+        <span class="sr-proof__eyebrow mono">EVIDENCE PACKAGE</span>
+        <div class="sr-proof__states">
+          <div><span class="state-dot state-dot--fact"></span><b>FACT</b><small>checked source</small></div>
+          <div><span class="state-dot state-dot--infer"></span><b>INFERENCE</b><small>reasoning shown</small></div>
+          <div><span class="state-dot state-dot--unknown"></span><b>UNKNOWN</b><small>certainty stops here</small></div>
+        </div>
+        <div class="sr-proof__metrics">
+          <div><strong>{sampleSources.length}</strong><span>checked sources</span></div>
+          <div><strong>{sampleRecords.length}</strong><span>evidence records</span></div>
+          <div><strong>{sampleMatrix.length}</strong><span>decision dimensions</span></div>
+        </div>
+        <div class="sr-proof__flow mono">
+          <span>SOURCE</span><i>→</i><span>OBSERVATION</span><i>→</i><span>DECISION</span>
+        </div>
+        <p>Demonstration sample — not a client engagement. No universal winner is declared.</p>
+      </aside>
     </div>
   </section>
 
@@ -74,8 +96,8 @@ const sections = [
           pages cited.
         </p>
       </div>
-      <div>
-        <h3 class="label sr-sec-h">Sections included</h3>
+      <div class="sr-sections-panel">
+        <h3 class="label sr-sec-h">Inside the brief</h3>
         <ol class="sr-sections">
           {sections.map((s) => <li class="mono">{s}</li>)}
         </ol>
@@ -83,7 +105,6 @@ const sections = [
     </div>
   </section>
 
-  <!-- The brief -->
   <article class="section brief" id="brief" aria-label="Demonstration decision brief: Intercom vs Zendesk">
     <div class="container brief__inner">
       <header class="brief__cover">
@@ -187,88 +208,33 @@ const sections = [
     </div>
   </article>
 
-  <CTASection title="Commission a brief on your own question." />
+  <CTASection
+    eyebrow="See the work on your company"
+    title="Request a Complimentary Brief for Your Company."
+    body="Evidence Axis will research your competitive landscape, verify the evidence and prepare a company-specific intelligence package using the same evidence discipline shown above."
+  />
 </Base>
 
 <style>
-  .sr-head { max-width: 58rem; }
-  .sr-badge {
-    display: inline-block; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--infer); border: 1px dashed var(--infer); padding: 0.3em 0.7em; border-radius: var(--radius-xs);
-  }
-  .sr-badge--sm { font-size: 0.6rem; }
-  .sr-title { font-size: var(--step-5); margin-top: var(--space-m); max-width: 18ch; }
-  .sr-lede { margin-top: var(--space-m); font-size: var(--step-1); color: var(--text-muted); max-width: 56ch; }
-  .sr-actions { display: flex; flex-wrap: wrap; gap: var(--space-s); margin-top: var(--space-l); }
-  .sr-meta { margin-top: var(--space-m); font-size: var(--step--1); color: var(--text-faint); }
+  .sr-intro{position:relative;overflow:hidden;background:#020713;color:#f5f8ff;padding:clamp(5rem,9vw,8rem) 0;border-bottom:1px solid rgba(115,159,218,.18)}
+  .sr-intro__grid{position:absolute;inset:0;opacity:.2;background-image:linear-gradient(rgba(100,151,226,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(100,151,226,.1) 1px,transparent 1px);background-size:68px 68px;mask-image:linear-gradient(90deg,#000 0,#000 74%,transparent)}
+  .sr-intro__glow{position:absolute;inset:-25% -12% -20% 38%;background:radial-gradient(circle at 54% 45%,rgba(68,139,255,.28),transparent 26%),radial-gradient(circle at 62% 58%,rgba(61,224,213,.14),transparent 36%);filter:blur(12px)}
+  .sr-intro__inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(22rem,.72fr);gap:clamp(2rem,6vw,6rem);align-items:center}
+  .sr-head{max-width:60rem}.sr-badge{display:inline-block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#65e2d9;border:1px solid rgba(101,226,217,.42);padding:.42em .76em;border-radius:999px;background:rgba(41,182,178,.06)}.sr-badge--sm{font-size:.6rem;color:var(--infer);border-style:dashed;border-color:var(--infer);background:transparent}
+  .sr-title{font-size:clamp(3.5rem,6.6vw,7rem);line-height:.92;letter-spacing:-.065em;margin:1rem 0 0;max-width:12ch}.sr-title em{font-style:normal;background:linear-gradient(100deg,#a8c5ff 0%,#76a7ff 48%,#5ce4db 100%);-webkit-background-clip:text;background-clip:text;color:transparent}.sr-lede{margin-top:1.35rem;font-size:1.12rem;line-height:1.75;color:#cad7e8;max-width:55ch}.sr-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;margin-top:1.7rem}.sr-request{font-family:var(--font-display);font-weight:750;color:#8fc5ff;text-decoration:none;padding:.7rem .25rem}.sr-request:hover{color:#64e2d9}.sr-meta{margin-top:1.35rem;font-size:.65rem;color:#8095b2;letter-spacing:.08em}
+  .sr-proof{position:relative;min-height:29rem;padding:1.55rem;border-radius:1.35rem;border:1px solid rgba(112,162,231,.28);background:linear-gradient(155deg,rgba(10,27,50,.94),rgba(4,13,28,.96));box-shadow:0 42px 100px rgba(0,0,0,.38),0 0 60px rgba(46,127,229,.08) inset;overflow:hidden}.sr-proof::before{content:'';position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#62e2da,#709eff,#a37aff)}.sr-proof__axis{position:absolute;right:17%;top:2.5rem;bottom:2.5rem;width:1px;background:linear-gradient(transparent,rgba(91,224,214,.55),rgba(112,158,255,.5),transparent);box-shadow:0 0 18px rgba(85,225,215,.24)}.sr-proof__eyebrow{font-size:.6rem;letter-spacing:.14em;color:#7894ba}.sr-proof__states{display:grid;gap:.7rem;margin-top:1.35rem}.sr-proof__states>div{position:relative;z-index:1;display:grid;grid-template-columns:auto auto 1fr;gap:.65rem;align-items:center;padding:.85rem .95rem;border:1px solid rgba(125,164,216,.14);border-radius:.75rem;background:rgba(255,255,255,.025)}.sr-proof__states b{font:850 .72rem/1 var(--font-mono);letter-spacing:.08em}.sr-proof__states small{justify-self:end;color:#8196b2;font-size:.69rem}.state-dot{width:.65rem;height:.65rem;border-radius:50%;box-shadow:0 0 16px currentColor}.state-dot--fact{background:#57dfd7;color:#57dfd7}.state-dot--infer{background:#f0aa49;color:#f0aa49}.state-dot--unknown{background:#aa82ff;color:#aa82ff}.sr-proof__metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-top:1rem}.sr-proof__metrics div{padding:.9rem .7rem;border-radius:.75rem;background:rgba(255,255,255,.035);border:1px solid rgba(124,164,220,.12)}.sr-proof__metrics strong{display:block;font:800 1.7rem/1 var(--font-display);color:#fff}.sr-proof__metrics span{display:block;margin-top:.3rem;font-size:.62rem;color:#8298b5}.sr-proof__flow{display:flex;align-items:center;justify-content:space-between;gap:.45rem;margin-top:1rem;padding:.8rem;border:1px solid rgba(92,222,214,.18);border-radius:.75rem;color:#a9bdd7;font-size:.55rem;letter-spacing:.08em}.sr-proof__flow i{color:#59dfd7;font-style:normal}.sr-proof>p{margin:1rem 0 0;color:#7f94ae;font-size:.72rem;line-height:1.55}
 
-  .sr-about { display: grid; gap: var(--space-xl); }
-  .sr-p { margin-top: var(--space-s); color: var(--text-muted); }
-  .sr-sec-h { display: block; margin-bottom: var(--space-s); }
-  .sr-sections { margin: 0; padding-left: 1.4em; columns: 2; column-gap: var(--space-l); }
-  .sr-sections li { font-size: var(--step--1); color: var(--text-muted); margin-bottom: 0.4em; }
+  .sr-about{display:grid;gap:var(--space-xl)}.sr-p{margin-top:var(--space-s);color:var(--text-muted)}.sr-sections-panel{padding:1.4rem;border:1px solid var(--surface-border);border-radius:1rem;background:var(--bg-raised);box-shadow:0 22px 60px rgba(25,34,48,.07)}.sr-sec-h{display:block;margin-bottom:var(--space-s)}.sr-sections{margin:0;padding-left:1.4em;columns:2;column-gap:var(--space-l)}.sr-sections li{font-size:var(--step--1);color:var(--text-muted);margin-bottom:.5em}
 
-  .brief { background: var(--bg-sunken); scroll-margin-top: 5rem; }
-  .brief__inner {
-    background: var(--paper-0); color: var(--ink-900);
-    border: 1px solid var(--paper-200); border-radius: var(--radius-m);
-    box-shadow: var(--shadow-3); padding: clamp(1.5rem, 4vw, 4rem); max-width: 62rem;
-  }
-  .brief__cover-top { display: flex; justify-content: space-between; align-items: center; gap: var(--space-s); flex-wrap: wrap; color: var(--ink-500); }
-  .brief__q-label { margin-top: var(--space-l); color: var(--ink-500); }
-  .brief__q { font-family: var(--font-serif); font-size: var(--step-2); line-height: var(--leading-snug); color: var(--ink-900); margin-top: 0.3em; text-wrap: pretty; }
-  .brief__meta { display: grid; gap: var(--space-s); margin-top: var(--space-l); }
-  .brief__meta dt { color: var(--ink-500); }
-  .brief__meta dd { color: var(--ink-800); font-size: 0.98rem; margin-top: 0.1em; max-width: 70ch; }
-  .brief__illus-note {
-    margin-top: var(--space-l); font-size: var(--step--1); color: var(--ink-500);
-    background: var(--paper-50); border-left: 3px dashed var(--infer);
-    padding: var(--space-s) var(--space-m); border-radius: var(--radius-xs);
-  }
-  .brief__rule { border-top-color: var(--paper-200); margin-block: var(--space-l); }
-  .brief__block { margin-top: var(--space-xl); }
-  .brief__block:first-of-type { margin-top: 0; }
-  .brief__h {
-    font-size: var(--step-1); color: var(--ink-900);
-    padding-bottom: var(--space-2xs); border-bottom: 2px solid var(--ink-900);
-    display: inline-block; margin-bottom: var(--space-m);
-  }
-  .brief__body { color: var(--ink-700); max-width: 68ch; line-height: var(--leading-body); }
-  .brief__profiles { display: grid; gap: var(--space-m); }
-  .brief__profile { background: var(--paper-50); border: 1px solid var(--paper-200); border-radius: var(--radius-s); padding: var(--space-m); }
-  .brief__profile-name { font-size: var(--step-1); color: var(--ink-900); margin-bottom: var(--space-2xs); }
-  .brief__profile p { color: var(--ink-700); font-size: 0.95rem; line-height: var(--leading-body); }
-  .brief__records { display: grid; gap: var(--space-m); }
-  .brief__impl { margin: 0; padding-left: 1.3em; display: grid; gap: 0.6rem; }
-  .brief__impl li { color: var(--ink-700); }
+  .brief{background:linear-gradient(180deg,var(--bg-sunken),color-mix(in srgb,var(--bg-sunken) 88%,#dbe5f1));scroll-margin-top:5rem}.brief__inner{background:var(--paper-0);color:var(--ink-900);border:1px solid var(--paper-200);border-radius:1.15rem;box-shadow:0 35px 100px rgba(21,31,46,.14);padding:clamp(1.5rem,4vw,4rem);max-width:62rem}.brief__cover-top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-s);flex-wrap:wrap;color:var(--ink-500)}.brief__q-label{margin-top:var(--space-l);color:var(--ink-500)}.brief__q{font-family:var(--font-serif);font-size:var(--step-2);line-height:var(--leading-snug);color:var(--ink-900);margin-top:.3em;text-wrap:pretty}.brief__meta{display:grid;gap:var(--space-s);margin-top:var(--space-l)}.brief__meta dt{color:var(--ink-500)}.brief__meta dd{color:var(--ink-800);font-size:.98rem;margin-top:.1em;max-width:70ch}.brief__illus-note{margin-top:var(--space-l);font-size:var(--step--1);color:var(--ink-500);background:var(--paper-50);border-left:3px dashed var(--infer);padding:var(--space-s) var(--space-m);border-radius:var(--radius-xs)}.brief__rule{border-top-color:var(--paper-200);margin-block:var(--space-l)}.brief__block{margin-top:var(--space-xl)}.brief__block:first-of-type{margin-top:0}.brief__h{font-size:var(--step-1);color:var(--ink-900);padding-bottom:var(--space-2xs);border-bottom:2px solid var(--ink-900);display:inline-block;margin-bottom:var(--space-m)}.brief__body{color:var(--ink-700);max-width:68ch;line-height:var(--leading-body)}.brief__profiles{display:grid;gap:var(--space-m)}.brief__profile{background:var(--paper-50);border:1px solid var(--paper-200);border-radius:var(--radius-s);padding:var(--space-m)}.brief__profile-name{font-size:var(--step-1);color:var(--ink-900);margin-bottom:var(--space-2xs)}.brief__profile p{color:var(--ink-700);font-size:.95rem;line-height:var(--leading-body)}.brief__records{display:grid;gap:var(--space-m)}.brief__impl{margin:0;padding-left:1.3em;display:grid;gap:.6rem}.brief__impl li{color:var(--ink-700)}
+  .brief__sources{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-m);counter-reset:none}.brief__source{padding:var(--space-s) 0;border-top:1px solid var(--paper-200)}.brief__source-top{display:flex;align-items:baseline;gap:.8ch;flex-wrap:wrap}.brief__source-id{color:var(--ink-400);font-size:var(--step--1)}.brief__source-org{font-family:var(--font-display);font-weight:500;color:var(--ink-900)}.brief__source-party{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fact);border:1px solid color-mix(in srgb,var(--fact) 40%,transparent);padding:.1em .45em;border-radius:var(--radius-xs)}.brief__source-url{display:inline-block;margin-top:.2em;color:var(--signal-600);font-size:.85rem;word-break:break-all}.brief__source-supports{color:var(--ink-700);font-size:.9rem;margin-top:.2em}.brief__source-limit{color:var(--ink-500)}.brief__source-checked{display:block;margin-top:.2em;color:var(--ink-400);font-size:var(--step--1)}
+  .brief__inner :global(.record){background:var(--paper-50);border-color:var(--paper-200)}.brief__inner :global(.matrix__scroll){border-color:var(--paper-200)}.brief__inner :global(.matrix__table){background:var(--paper-0)}.brief__inner :global(.matrix__dim-head),.brief__inner :global(.matrix__comp-head){background:var(--paper-100)}
 
-  .brief__sources { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-m); counter-reset: none; }
-  .brief__source { padding: var(--space-s) 0; border-top: 1px solid var(--paper-200); }
-  .brief__source-top { display: flex; align-items: baseline; gap: 0.8ch; flex-wrap: wrap; }
-  .brief__source-id { color: var(--ink-400); font-size: var(--step--1); }
-  .brief__source-org { font-family: var(--font-display); font-weight: 500; color: var(--ink-900); }
-  .brief__source-party { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fact); border: 1px solid color-mix(in srgb, var(--fact) 40%, transparent); padding: 0.1em 0.45em; border-radius: var(--radius-xs); }
-  .brief__source-url { display: inline-block; margin-top: 0.2em; color: var(--signal-600); font-size: 0.85rem; word-break: break-all; }
-  .brief__source-supports { color: var(--ink-700); font-size: 0.9rem; margin-top: 0.2em; }
-  .brief__source-limit { color: var(--ink-500); }
-  .brief__source-checked { display: block; margin-top: 0.2em; color: var(--ink-400); font-size: var(--step--1); }
+  @media(min-width:52rem){.sr-about{grid-template-columns:1.25fr .75fr}.brief__profiles{grid-template-columns:1fr 1fr}}
+  @media(max-width:900px){.sr-intro__inner{grid-template-columns:1fr}.sr-proof{min-height:auto}.sr-title{font-size:clamp(3.35rem,11vw,5.8rem)}.sr-proof__axis{display:none}}
+  @media(max-width:560px){.sr-proof__metrics{grid-template-columns:1fr}.sr-sections{columns:1}.sr-actions{align-items:stretch}.sr-actions .btn{width:100%;justify-content:center}.sr-request{width:100%}}
 
-  .brief__inner :global(.record) { background: var(--paper-50); border-color: var(--paper-200); }
-  .brief__inner :global(.matrix__scroll) { border-color: var(--paper-200); }
-  .brief__inner :global(.matrix__table) { background: var(--paper-0); }
-  .brief__inner :global(.matrix__dim-head),
-  .brief__inner :global(.matrix__comp-head) { background: var(--paper-100); }
-
-  @media (min-width: 52rem) {
-    .sr-about { grid-template-columns: 1.4fr 1fr; }
-    .brief__profiles { grid-template-columns: 1fr 1fr; }
-  }
-
-  @media print {
-    :global(.site-header), :global(.site-footer), :global(.skip-link),
-    .sr-intro, :global(.cta-band) { display: none !important; }
-    .brief { background: #fff; padding: 0; }
-    .brief__inner { box-shadow: none; border: none; background: #fff; padding: 0; max-width: 100%; }
-    .brief__block { break-inside: avoid; }
+  @media print{
+    :global(.site-header),:global(.site-footer),:global(.skip-link),.sr-intro,:global(.cta-band){display:none!important}.brief{background:#fff;padding:0}.brief__inner{box-shadow:none;border:none;background:#fff;padding:0;max-width:100%}.brief__block{break-inside:avoid}
   }
 </style>
