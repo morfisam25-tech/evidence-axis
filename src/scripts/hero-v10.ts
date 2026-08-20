@@ -4,6 +4,12 @@ const stage = document.querySelector<HTMLElement>('[data-axis-stage]');
 const canvas = stage?.querySelector<HTMLCanvasElement>('[data-axis-canvas]');
 
 if (stage && canvas) {
+  const probe = document.createElement('canvas');
+  const supportsWebGL = Boolean(probe.getContext('webgl2') || probe.getContext('webgl'));
+
+  if (!supportsWebGL) {
+    stage.classList.add('axis-stage--fallback');
+  } else {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   let disposed = false;
   let visible = true;
@@ -225,5 +231,6 @@ if (stage && canvas) {
     stage.classList.add('axis-stage--webgl');
   } catch {
     stage.classList.add('axis-stage--fallback');
+  }
   }
 }
