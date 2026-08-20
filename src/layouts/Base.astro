@@ -146,6 +146,13 @@ const { title, description, path, ogType, noindex } = Astro.props;
         lightbox.querySelector<HTMLButtonElement>('.ea-lightbox__close')?.focus();
       };
 
+      document.querySelectorAll<HTMLImageElement>('#main img').forEach((img) => {
+        if (!img.closest('[data-lightbox]')) {
+          img.setAttribute('data-lightbox', '');
+          img.dataset.lightboxCaption = img.alt || 'Evidence Axis visual';
+        }
+      });
+
       document.querySelectorAll<HTMLElement>('[data-lightbox]').forEach((trigger) => {
         if (!trigger.hasAttribute('tabindex')) trigger.tabIndex = 0;
         trigger.setAttribute('role', 'button');
