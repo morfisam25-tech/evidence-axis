@@ -42,7 +42,7 @@ const phases = [
           <p class="work-final__note">The public case summary is intentionally bounded. It demonstrates the type of work delivered without publishing private client material.</p>
         </div>
         <figure class="work-final__sq-media" data-lightbox data-lightbox-caption="SQILLED engagement visual — options education, market research and strategy architecture.">
-          <img src="/assets/v10/approved/global-trading-command-center.webp" alt="SQILLED options education and competitive research project visual" loading="eager" />
+          <img src="/assets/v10/approved/global-trading-command-center.webp" alt="SQILLED options education and competitive research project visual" width="640" height="800" loading="eager" />
           <figcaption class="mono">CLICK TO EXPAND · SQILLED</figcaption>
         </figure>
       </div>
@@ -72,7 +72,7 @@ const phases = [
         <div class="work-final__phase-list">
           {phases.map((p)=><article class="work-final__phase">
             <div class="work-final__phase-copy"><span class="mono">{p.num}</span><h3>{p.title}</h3><p>{p.summary}</p><ul>{p.bullets.map((b)=><li>{b}</li>)}</ul></div>
-            <figure data-lightbox data-lightbox-caption={`${p.title} — Evidence Axis project visual`}><img src={p.img} alt={`${p.title} — Evidence Axis project visual`} loading="lazy" /><figcaption class="mono">CLICK TO EXPAND</figcaption></figure>
+            <figure data-lightbox data-lightbox-caption={`${p.title} — Evidence Axis project visual`}><img src={p.img} alt={`${p.title} — Evidence Axis project visual`} width="960" height="540" loading="lazy" /><figcaption class="mono">CLICK TO EXPAND</figcaption></figure>
           </article>)}
         </div>
       </div>

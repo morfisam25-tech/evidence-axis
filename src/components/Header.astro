@@ -59,8 +59,8 @@ const isActive = (href: string) => {
   .primary-nav__link::after { content:'';position:absolute;left:0;right:0;bottom:.2em;height:1.5px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform var(--dur-2) var(--ease-out); }
   .primary-nav__link:hover,.primary-nav__link.is-active { color:var(--text); }.primary-nav__link:hover::after,.primary-nav__link.is-active::after { transform:scaleX(1); }
   .site-header__cta { display:none; }
-  .header-brief { display:inline-flex;align-items:center;gap:.58rem;min-height:2.55rem;padding:0 .82rem 0 .68rem;border:1px solid color-mix(in srgb,var(--accent) 42%,var(--surface-border));border-radius:.68rem;background:color-mix(in srgb,var(--accent) 10%,transparent);color:var(--text);text-decoration:none;font:750 .78rem/1 var(--font-display);white-space:nowrap;transition:transform .18s ease,border-color .18s ease,background .18s ease; }
-  .header-brief:hover { transform:translateY(-1px);border-color:var(--accent);background:color-mix(in srgb,var(--accent) 16%,transparent); }
+  .header-brief { display:inline-flex;align-items:center;gap:.58rem;min-height:2.55rem;padding:0 .82rem 0 .68rem;border:1px solid transparent;border-radius:.68rem;background:linear-gradient(110deg,#8eb1ff,#52ddd5);color:#06101b;text-decoration:none;font:750 .78rem/1 var(--font-display);white-space:nowrap;transition:transform .18s ease,filter .18s ease; }
+  .header-brief:hover { transform:translateY(-1px);filter:brightness(1.06); }
   .header-brief__dot { width:.44rem;height:.44rem;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 14%,transparent); }
   .nav-toggle { margin-left:auto;background:transparent;border:1px solid var(--surface-border);border-radius:.68rem;width:2.6rem;height:2.6rem;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text); }
   .nav-toggle__bars { display:grid;gap:5px;width:18px; }.nav-toggle__bars i { display:block;height:1.6px;background:currentColor;border-radius:2px;transition:transform var(--dur-2) var(--ease-out),opacity var(--dur-1); }
