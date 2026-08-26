@@ -16,6 +16,22 @@ import { site, offers, cta, contact } from '@config/site';
       </div>
     </section>
 
+    <section class="ea-section ea-founder-video" id="founder-video" aria-labelledby="founder-video-title">
+      <div class="container-wide ea-founder-video__grid">
+        <div class="ea-founder-video__copy">
+          <span class="ea-kicker">FOUNDER OVERVIEW · 1:47</span>
+          <h2 id="founder-video-title">How Evidence Axis turns public sources into decision-ready intelligence.</h2>
+          <p>A short walkthrough of the research standard, the evidence controls and the work a team receives.</p>
+        </div>
+        <div class="ea-founder-video__frame">
+          <video controls playsinline preload="metadata" poster="/assets/founder/evidence-axis-founder-explainer-poster.jpg" aria-label="Evidence Axis founder explainer video">
+            <source src="/assets/founder/evidence-axis-founder-explainer-720p.mp4" type="video/mp4" />
+            Your browser does not support the video element.
+          </video>
+        </div>
+      </div>
+    </section>
+
     <section class="ea-section ea-brief" id="complimentary-brief">
       <div class="container-wide">
         <header class="ea-offer-head">
@@ -206,4 +222,12 @@ import { site, offers, cta, contact } from '@config/site';
   @media(max-width:920px){.ea-head--split,.ea-offer-head,.ea-standard__grid,.ea-sample__grid,.ea-system__grid,.ea-start-card{grid-template-columns:1fr}.ea-brief{min-height:auto}.ea-services__grid,.ea-outputs__grid,.ea-package-map{grid-template-columns:1fr 1fr}.ea-proof__grid{grid-template-columns:1fr 1fr}.ea-service,.ea-package{min-height:auto}.ea-head>p{margin-top:0}.ea-start-card__action{min-width:0}.ea-start-card__action small{text-align:left}}
   @media(min-width:921px) and (max-height:820px){.ea-brief,.ea-services{padding:2.8rem 0}.ea-brief .ea-head,.ea-services .ea-head{margin-bottom:1.25rem}.ea-route{padding:1.2rem}.ea-route h3{margin:.5rem 0}.ea-route ul{margin:.75rem 0;gap:.25rem}.ea-route__meta{margin:.75rem 0;padding:.7rem}.ea-route__steps{margin-top:.75rem;gap:.45rem}.ea-route__steps div{padding:.6rem}.ea-route__principle{margin-top:.7rem;padding:.7rem 0}.ea-service{min-height:28rem;padding:1.05rem}.ea-service h3{margin:.5rem 0}.ea-service__best{margin:.55rem 0;padding:.65rem}.ea-service ul{gap:.2rem}.ea-service>a{padding-top:.7rem}}
   @media(max-width:600px){.ea-sample-preview__top,.ea-sample-preview__foot{align-items:flex-start;flex-direction:column}.ea-sample-preview__states{grid-template-columns:1fr}.ea-section{padding:3.4rem 0}.ea-proof__grid,.ea-services__grid,.ea-outputs__grid,.ea-standard__rules,.ea-package-map,.ea-start-card__deliverables{grid-template-columns:1fr}.ea-proof article{border-left:0;border-top:1px solid rgba(120,161,215,.15)}.ea-head h2,.ea-standard h2,.ea-sample h2,.ea-system h2,.ea-final h2{font-size:clamp(2.45rem,11vw,3.5rem)}.ea-start-card,.ea-service,.ea-package{padding:1.15rem}.ea-paid-label{display:block}.ea-paid-label p{margin-top:.45rem}.ea-actions{align-items:stretch}.ea-actions a{width:100%}}
+
+  .ea-founder-video{background:#fff;border-top:1px solid rgba(31,58,87,.08);border-bottom:1px solid rgba(31,58,87,.08)}
+  .ea-founder-video__grid{display:grid;grid-template-columns:.58fr 1.42fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+  .ea-founder-video__copy h2{margin:.65rem 0 1rem;font-size:clamp(2.15rem,3.5vw,4rem);line-height:.98;letter-spacing:-.045em;color:#0b1b2f}
+  .ea-founder-video__copy p{margin:0;max-width:34rem;color:#627084;line-height:1.7;font-size:1rem}
+  .ea-founder-video__frame{position:relative;overflow:hidden;border-radius:1.15rem;background:#030914;border:1px solid rgba(31,58,87,.15);box-shadow:0 30px 78px rgba(18,28,42,.16)}
+  .ea-founder-video__frame video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#030914;object-fit:cover}
+  @media (max-width:900px){.ea-founder-video__grid{grid-template-columns:1fr;gap:1.5rem}.ea-founder-video__copy{max-width:44rem}.ea-founder-video__copy h2{font-size:clamp(2rem,8vw,3.3rem)}}
 </style>
