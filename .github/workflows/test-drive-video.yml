@@ -1,0 +1,25 @@
+name: Test Drive captioned video
+
+on:
+  push:
+    branches:
+      - fix/captioned-founder-video
+    paths:
+      - '.github/workflows/test-drive-video.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Try direct Drive download
+        run: |
+          set -euxo pipefail
+          curl -L --fail --retry 2 'https://drive.google.com/uc?export=download&id=1dT6-aOchQ4xW6nEM4XLzpdP4X6amFUu1' -o /tmp/video.mp4
+          ls -lh /tmp/video.mp4
+          file /tmp/video.mp4
+          head -c 32 /tmp/video.mp4 | xxd
+          python - <<'PY'
+          import os
+          print(os.path.getsize('/tmp/video.mp4'))
+          PY
