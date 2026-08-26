@@ -21,15 +21,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg
 
-      - name: Download approved HeyGen render
+      - name: Download approved captioned HeyGen render
         env:
-          VIDEO_URL: "https://files2.heygen.ai/aws_pacific/avatar_tmp/3a961eba60894085851c5cbb0acf59a7/v6b40509c201746ec8d7bdb13cc437899/bb73cfa2fbfd4d5bb56738f16f69d93f.mp4?Expires=1788308157&Signature=QCY9BlxdbYV7Gd6Aj3jrcAeespePXgGu079ujsoEPsXY252f-7vA03ef86KPf7emY~hRqw22GbW0w97SvMcrsvNz94IKQN1ybVWQ5ovV0vCbHT7x~K6yTMLNOa7Em~yZ93KJFP6mw~F9kMW-QFTNWPCQq-vKQnbiG8NU7RrKhC00FR--pndx0ml9eK7AXkQOaqSb4pJwPfHEpRatipZEygN1XDV22fbe7UooyRGD1VPzA7zwLvZFwzuMwOEojCTSuxmNveqYcAxp8mmaOGHZIlSv6nrtqCxyKFpyYYCymX~U4r~~DZmsKCATvT5YMEElap9XSRuqYOBfRPHVGzKDkg__&Key-Pair-Id=K38HBHX5LX3X2H"
+          VIDEO_URL: "https://files2.heygen.ai/aws_pacific/avatar_tmp/3a961eba60894085851c5cbb0acf59a7/ve4abfea523b143dc98b66cadce5c8420/3bb0b3e487694adab9c06e0b2172134b.mp4?Expires=1788320560&Signature=iMN7f8WpjBIhgdSouYGDa0p-4O~IszIQ5Com73Q7O5Yb1nqZVL1FfvPj3ROg~R3~h2I0r~T~v8~K3vgRAjyZCleSGTCGA-IrB5NobaKtfXxRhfNJJtzwvMi0y~638PlxIbpFQyt-8bRvEFjSbRDt8fof5Hs3~gm9t~lHqBfhtRfYivLTKnkjHtbqOXip6LP1x2B2A8up1CfFbkyyh5bdOH1HuHQSO26qmH0bqTmv2EKeRtN8fa3OOZnJTSm3lvty~yEo95cbPmTJnQ2P9k2g2bu2cig6iUmZAfv1ckjX3JZd-897-EF3vgjoXjszG6Jlu6kUVkVKkZWXTI01FuadnQ__&Key-Pair-Id=K38HBHX5LX3X2H"
+          POSTER_URL: "https://files2.heygen.ai/aws_pacific/avatar_tmp/3a961eba60894085851c5cbb0acf59a7/ve4abfea523b143dc98b66cadce5c8420/3bb0b3e487694adab9c06e0b2172134b.jpeg?Expires=1788321975&Signature=SycBf70CKxseX-Urfwo94z6sr~k~YSiHqnA1wHYDXqE0t91a8jvkrbPHIm2Zyv7OjWxpPatoYQvpWjEAxIbF6yNwX5dUK6hTZZyFk2pb53wKsOpsGVbwGwLQSItlK1ffu1RE92agGjosViVimWU7b6jBKHn4Nahe-3gPq6xUeShvz0rGBGuIPesZ1vdVligeW3rtwgoJPxGqc~08Ob8Kei6wBWxREw8CH15eRozWpIaRBs6qfx7UROZauCsI87z4~FmPdIyhClSV19dDK3ISe10i-dvOx2K-aj10Mf2VFhlGMzM36r5zxh-5In8b9VhT3LYq4ELwE3DdkZzaRRKhVA__&Key-Pair-Id=K38HBHX5LX3X2H"
         run: |
           set -euo pipefail
           mkdir -p public/assets/founder
           curl -L --fail --retry 3 "$VIDEO_URL" -o /tmp/founder-original.mp4
+          curl -L --fail --retry 3 "$POSTER_URL" -o public/assets/founder/evidence-axis-founder-explainer-poster.jpg
           ffmpeg -y -i /tmp/founder-original.mp4 -vf "scale=-2:720" -c:v libx264 -preset medium -crf 26 -movflags +faststart -c:a aac -b:a 128k public/assets/founder/evidence-axis-founder-explainer-720p.mp4
-          ffmpeg -y -ss 0.55 -i /tmp/founder-original.mp4 -frames:v 1 -q:v 2 public/assets/founder/evidence-axis-founder-explainer-poster.jpg
 
       - name: Add founder video section to homepage
         run: |
@@ -60,5 +61,5 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "Add founder explainer video to homepage"
+          git commit -m "Update homepage founder video to final captioned render"
           git push
