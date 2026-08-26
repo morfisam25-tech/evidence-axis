@@ -1,0 +1,59 @@
+name: Install founder explainer video
+
+on:
+  push:
+    paths:
+      - '.github/workflows/install-founder-video.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download approved HeyGen render
+        env:
+          VIDEO_URL: "https://files2.heygen.ai/aws_pacific/avatar_tmp/3a961eba60894085851c5cbb0acf59a7/v6b40509c201746ec8d7bdb13cc437899/bb73cfa2fbfd4d5bb56738f16f69d93f.mp4?Expires=1788308157&Signature=QCY9BlxdbYV7Gd6Aj3jrcAeespePXgGu079ujsoEPsXY252f-7vA03ef86KPf7emY~hRqw22GbW0w97SvMcrsvNz94IKQN1ybVWQ5ovV0vCbHT7x~K6yTMLNOa7Em~yZ93KJFP6mw~F9kMW-QFTNWPCQq-vKQnbiG8NU7RrKhC00FR--pndx0ml9eK7AXkQOaqSb4pJwPfHEpRatipZEygN1XDV22fbe7UooyRGD1VPzA7zwLvZFwzuMwOEojCTSuxmNveqYcAxp8mmaOGHZIlSv6nrtqCxyKFpyYYCymX~U4r~~DZmsKCATvT5YMEElap9XSRuqYOBfRPHVGzKDkg__&Key-Pair-Id=K38HBHX5LX3X2H"
+        run: |
+          set -euo pipefail
+          mkdir -p public/assets/founder
+          curl -L --fail --retry 3 "$VIDEO_URL" -o /tmp/founder-original.mp4
+          ffmpeg -y -i /tmp/founder-original.mp4 -vf "scale=-2:720" -c:v libx264 -preset medium -crf 26 -movflags +faststart -c:a aac -b:a 128k public/assets/founder/evidence-axis-founder-explainer-720p.mp4
+          ffmpeg -y -ss 0.55 -i /tmp/founder-original.mp4 -frames:v 1 -q:v 2 public/assets/founder/evidence-axis-founder-explainer-poster.jpg
+
+      - name: Add founder video section to homepage
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('src/pages/index.astro')
+          s = p.read_text()
+          if 'id="founder-video"' not in s:
+              marker = '    </section>\n\n    <section class="ea-section ea-brief" id="complimentary-brief">'
+              section = '''    </section>\n\n    <section class="ea-section ea-founder-video" id="founder-video" aria-labelledby="founder-video-title">\n      <div class="container-wide ea-founder-video__grid">\n        <div class="ea-founder-video__copy">\n          <span class="ea-kicker">FOUNDER OVERVIEW · 1:47</span>\n          <h2 id="founder-video-title">How Evidence Axis turns public sources into decision-ready intelligence.</h2>\n          <p>A short walkthrough of the research standard, the evidence controls and the work a team receives.</p>\n        </div>\n        <div class="ea-founder-video__frame">\n          <video controls playsinline preload="metadata" poster="/assets/founder/evidence-axis-founder-explainer-poster.jpg" aria-label="Evidence Axis founder explainer video">\n            <source src="/assets/founder/evidence-axis-founder-explainer-720p.mp4" type="video/mp4" />\n            Your browser does not support the video element.\n          </video>\n        </div>\n      </div>\n    </section>\n\n    <section class="ea-section ea-brief" id="complimentary-brief">'''
+              if marker not in s:
+                  raise SystemExit('Homepage insertion marker not found')
+              s = s.replace(marker, section, 1)
+
+              css = '''\n  .ea-founder-video{background:#fff;border-top:1px solid rgba(31,58,87,.08);border-bottom:1px solid rgba(31,58,87,.08)}\n  .ea-founder-video__grid{display:grid;grid-template-columns:.58fr 1.42fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}\n  .ea-founder-video__copy h2{margin:.65rem 0 1rem;font-size:clamp(2.15rem,3.5vw,4rem);line-height:.98;letter-spacing:-.045em;color:#0b1b2f}\n  .ea-founder-video__copy p{margin:0;max-width:34rem;color:#627084;line-height:1.7;font-size:1rem}\n  .ea-founder-video__frame{position:relative;overflow:hidden;border-radius:1.15rem;background:#030914;border:1px solid rgba(31,58,87,.15);box-shadow:0 30px 78px rgba(18,28,42,.16)}\n  .ea-founder-video__frame video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#030914;object-fit:cover}\n  @media (max-width:900px){.ea-founder-video__grid{grid-template-columns:1fr;gap:1.5rem}.ea-founder-video__copy{max-width:44rem}.ea-founder-video__copy h2{font-size:clamp(2rem,8vw,3.3rem)}}\n'''
+              if '</style>' not in s:
+                  raise SystemExit('Style close marker not found')
+              s = s.replace('</style>', css + '</style>', 1)
+              p.write_text(s)
+          PY
+
+      - name: Commit homepage video
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/assets/founder src/pages/index.astro
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Add founder explainer video to homepage"
+          git push
