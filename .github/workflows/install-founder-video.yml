@@ -16,6 +16,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
       - name: Download approved HeyGen render
         env:
           VIDEO_URL: "https://files2.heygen.ai/aws_pacific/avatar_tmp/3a961eba60894085851c5cbb0acf59a7/v6b40509c201746ec8d7bdb13cc437899/bb73cfa2fbfd4d5bb56738f16f69d93f.mp4?Expires=1788308157&Signature=QCY9BlxdbYV7Gd6Aj3jrcAeespePXgGu079ujsoEPsXY252f-7vA03ef86KPf7emY~hRqw22GbW0w97SvMcrsvNz94IKQN1ybVWQ5ovV0vCbHT7x~K6yTMLNOa7Em~yZ93KJFP6mw~F9kMW-QFTNWPCQq-vKQnbiG8NU7RrKhC00FR--pndx0ml9eK7AXkQOaqSb4pJwPfHEpRatipZEygN1XDV22fbe7UooyRGD1VPzA7zwLvZFwzuMwOEojCTSuxmNveqYcAxp8mmaOGHZIlSv6nrtqCxyKFpyYYCymX~U4r~~DZmsKCATvT5YMEElap9XSRuqYOBfRPHVGzKDkg__&Key-Pair-Id=K38HBHX5LX3X2H"
