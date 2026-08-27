@@ -6,8 +6,8 @@ export interface NavItem {
 /** Primary navigation — deliberately compact for a premium executive-facing header. */
 export const primaryNav: NavItem[] = [
   { label: 'Services', href: '/#services' },
+  { label: 'Research', href: '/research/' },
   { label: 'Method', href: '/method/' },
-  { label: 'Sample', href: '/sample-report/' },
   { label: 'Work', href: '/work/' },
   { label: 'About', href: '/about/' },
 ];
@@ -22,6 +22,7 @@ export const footerServices: NavItem[] = [
 ];
 
 export const footerCompany: NavItem[] = [
+  { label: 'Research', href: '/research/' },
   { label: 'Method', href: '/method/' },
   { label: 'Sample Intelligence Brief', href: '/sample-report/' },
   { label: 'Work', href: '/work/' },
