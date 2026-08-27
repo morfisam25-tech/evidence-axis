@@ -1,0 +1,71 @@
+---
+import Base from '@layouts/Base.astro';
+import { site, legal } from '@config/site';
+import { sampleMeta } from '@data/sample-report';
+
+const authorPath = '/author/sai-morfi/';
+const authorUrl = new URL(authorPath, site.url).href;
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: legal.publicOperator,
+  url: authorUrl,
+  jobTitle: 'Founder and Principal',
+  worksFor: {
+    '@type': 'Organization',
+    name: site.name,
+    url: site.url,
+  },
+  knowsAbout: ['competitive intelligence', 'competitor analysis', 'decision support', 'research methodology'],
+};
+---
+<Base title={`${legal.publicOperator} — Founder`} description={`${legal.publicOperator} is Founder and Principal at Evidence Axis, responsible for competitive intelligence, decision support and research architecture.`} path={authorPath}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
+
+  <main class="author-page">
+    <section class="author-page__hero" data-surface="dark">
+      <div class="container author-page__hero-inner">
+        <span class="label">AUTHOR · EVIDENCE AXIS</span>
+        <h1>{legal.publicOperator}</h1>
+        <p>Founder and Principal at Evidence Axis.</p>
+      </div>
+    </section>
+
+    <section class="section author-page__bio">
+      <div class="container author-page__grid">
+        <div>
+          <span class="label">ROLE</span>
+          <h2>Competitive intelligence, decision support and research architecture.</h2>
+        </div>
+        <div>
+          <p>{legal.publicOperator} leads Evidence Axis research and the evidence standard used across its public and company-specific work. The method separates verified facts from analytical inference, keeps unresolved questions visible, and preserves the source trail behind material conclusions.</p>
+          <p>This page intentionally limits the biography to information relevant to the published Evidence Axis work. It does not use unsupported credentials or third-party claims.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section author-page__research">
+      <div class="container">
+        <span class="label">PUBLISHED RESEARCH</span>
+        <h2>Research by {legal.publicOperator}</h2>
+        <article class="author-page__card">
+          <div class="mono">INTERCOM · ZENDESK · CHECKED {sampleMeta.checked.toUpperCase()}</div>
+          <h3>Intercom vs Zendesk: what the public evidence actually establishes.</h3>
+          <p>A source-backed comparison of pricing, AI billing mechanics and positioning using first-party public evidence.</p>
+          <a href="/research/intercom-vs-zendesk/">Read the research →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section author-page__method" data-surface="dark">
+      <div class="container author-page__grid">
+        <div><span class="label">RESEARCH STANDARD</span><h2>Claims should remain traceable after publication.</h2></div>
+        <div><p>Evidence Axis records the research boundary, source type, check date, limitations and evidence state for material findings. Public research is updated when the underlying evidence is rechecked.</p><a href="/method/">Read the method →</a></div>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+.author-page{background:#f8f5ef}.author-page__hero{background:#030914;color:#f4f8ff;padding:clamp(3.5rem,7vw,7rem) 0}.author-page__hero-inner{max-width:850px}.author-page__hero h1{margin:.6rem 0 .5rem;font-size:clamp(3.5rem,8vw,7rem);line-height:.92;letter-spacing:-.06em}.author-page__hero p{color:#b7c8da;font-size:1.18rem}.author-page__grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(2rem,6vw,5rem);align-items:start}.author-page__bio{background:#fff}.author-page h2{margin:.55rem 0;font-size:clamp(2.2rem,4.5vw,4rem);line-height:.98;letter-spacing:-.045em}.author-page__bio p,.author-page__method p,.author-page__card p{color:var(--text-muted);line-height:1.68}.author-page__research{background:#f3eee6}.author-page__card{margin-top:1.2rem;padding:1.2rem;border:1px solid rgba(31,58,87,.13);border-radius:.8rem;background:#fff}.author-page__card .mono{font-size:.6rem;color:#718096;letter-spacing:.07em}.author-page__card h3{margin:.7rem 0 .4rem;font-size:1.4rem}.author-page a{font-weight:800;text-decoration:none;color:#245f82}.author-page__method{background:#030914;color:#f4f8ff}.author-page__method p{color:#9fb2c8}.author-page__method a{color:#80d8d2}@media(max-width:780px){.author-page__grid{grid-template-columns:1fr}}
+</style>
