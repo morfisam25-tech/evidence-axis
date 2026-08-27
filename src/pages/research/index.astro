@@ -1,0 +1,38 @@
+---
+import Base from '@layouts/Base.astro';
+import { sampleMeta } from '@data/sample-report';
+---
+<Base title="Research" description="Public Evidence Axis competitive research built from opened sources with Fact, Inference and Unknown kept separate." path="/research/">
+  <section class="research-index__hero" data-surface="dark">
+    <div class="container-wide">
+      <span class="label">PUBLIC RESEARCH</span>
+      <h1>Research built to be checked.</h1>
+      <p>Evidence Axis publishes selected competitive research as open HTML pages. Material claims stay attached to sources, analytical interpretation is labeled, and unresolved questions remain unresolved.</p>
+    </div>
+  </section>
+
+  <main class="research-index">
+    <section class="section">
+      <div class="container-wide research-index__grid">
+        <article class="research-index__card">
+          <div class="research-index__meta mono"><span>INTERCOM · ZENDESK</span><span>CHECKED {sampleMeta.checked.toUpperCase()}</span></div>
+          <h2>Intercom vs Zendesk: what the public evidence actually establishes.</h2>
+          <p>A source-backed comparison of public pricing, AI billing mechanics and positioning — including the questions public evidence cannot settle for a specific SaaS support team.</p>
+          <div class="research-index__states"><span>FACT</span><span>INFERENCE</span><span>UNKNOWN</span></div>
+          <a href="/research/intercom-vs-zendesk/">Read the research →</a>
+        </article>
+
+        <aside class="research-index__method">
+          <span class="label">PUBLICATION STANDARD</span>
+          <h2>Open the source before making the claim.</h2>
+          <p>Search can locate a source. It does not verify the source. Published Evidence Axis research records the evidence boundary, check date, limitations and source register so the reader can inspect the chain behind a conclusion.</p>
+          <a href="/method/">See the Evidence Axis method →</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+.research-index{background:#f8f5ef}.research-index__hero{background:#030914;color:#f4f8ff;padding:clamp(3.5rem,7vw,7rem) 0}.research-index__hero h1{margin:.7rem 0 .9rem;font-size:clamp(3.2rem,7vw,6.5rem);line-height:.92;letter-spacing:-.06em;max-width:850px}.research-index__hero p{max-width:720px;color:#b6c7da;line-height:1.7;font-size:1.08rem}.research-index__grid{display:grid;grid-template-columns:1.25fr .75fr;gap:1rem;align-items:start}.research-index__card,.research-index__method{padding:clamp(1.4rem,3vw,2rem);border:1px solid rgba(31,58,87,.13);border-radius:.9rem;background:#fff}.research-index__card h2,.research-index__method h2{font-size:clamp(2rem,4vw,3.5rem);line-height:1;letter-spacing:-.045em;margin:.75rem 0}.research-index__card p,.research-index__method p{color:var(--text-muted);line-height:1.65}.research-index__meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;color:#718096;font-size:.6rem;letter-spacing:.08em}.research-index__states{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0}.research-index__states span{padding:.35rem .5rem;border:1px solid rgba(31,58,87,.14);border-radius:.3rem;font:700 .56rem/1 var(--font-mono);letter-spacing:.06em}.research-index a{font-weight:800;text-decoration:none;color:#245f82}@media(max-width:820px){.research-index__grid{grid-template-columns:1fr}}
+</style>
