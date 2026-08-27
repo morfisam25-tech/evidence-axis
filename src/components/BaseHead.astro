@@ -1,5 +1,5 @@
 ---
-import { site } from '@config/site';
+import { site, legal } from '@config/site';
 
 interface Props {
   title: string;
@@ -20,6 +20,7 @@ const {
 const canonical = new URL(path, site.url).href;
 const ogImage = new URL('/og-image.png', site.url).href;
 const fullTitle = title === site.name ? `${site.name} — ${site.category}` : `${title} · ${site.name}`;
+const founderUrl = new URL('/author/sai-morfi/', site.url).href;
 
 // Organization structured data — only truthfully supportable fields.
 // No ratings, no reviews, no employee counts, no unverified claims.
@@ -31,7 +32,42 @@ const orgLd = {
   description: site.description,
   logo: new URL('/favicon.svg', site.url).href,
   slogan: site.tagline,
+  founder: {
+    '@type': 'Person',
+    name: legal.publicOperator,
+    url: founderUrl,
+  },
 };
+
+const serviceTypes: Record<string, string> = {
+  '/competitive-intelligence/': 'Competitive intelligence for B2B SaaS',
+  '/competitor-analysis/': 'Competitor analysis for B2B SaaS',
+  '/decision-brief/': 'Competitive decision brief',
+  '/competitor-brief/': 'Competitive decision sprint',
+  '/strategic-blueprint/': 'Competitive response sprint',
+  '/market-intelligence/': 'Competitive monitoring and intelligence',
+};
+
+const serviceLd = serviceTypes[path]
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: title,
+      serviceType: serviceTypes[path],
+      description,
+      url: canonical,
+      provider: {
+        '@type': 'Organization',
+        name: site.name,
+        url: site.url,
+      },
+      areaServed: 'Worldwide',
+      audience: {
+        '@type': 'BusinessAudience',
+        audienceType: 'B2B SaaS teams and decision-makers',
+      },
+    }
+  : null;
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -63,3 +99,4 @@ const orgLd = {
 <meta name="twitter:image" content={ogImage} />
 
 <script is:inline type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+{serviceLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceLd)} />}
