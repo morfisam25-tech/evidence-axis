@@ -26,20 +26,21 @@ export interface IntelligenceDelivery {
 }
 
 /**
- * Keep empty until Gift #1 is ready.
- *
- * Example shape — DO NOT uncomment as a real delivery:
- * {
- *   slug: 'acme-7f3c9d1a',
- *   company: 'Acme',
- *   recipient: 'Jane Smith',
- *   recipientRole: 'CEO',
- *   trigger: 'Recent pricing and positioning change',
- *   preparedDate: '2026-08-19',
- *   summary: 'A source-verified competitive intelligence package prepared specifically for Acme.',
- *   headlineFinding: 'One decision-relevant finding can be surfaced here.',
- *   deckHref: '/deliveries/acme-7f3c9d1a/executive-intelligence-deck.pdf',
- *   appendixHref: '/deliveries/acme-7f3c9d1a/evidence-appendix.pdf',
- * }
+ * Temporary G-00 verification record.
+ * Uses the existing public sample PDF for both click targets solely to verify
+ * delivery-page and click-event plumbing end to end. Remove after verification.
  */
-export const intelligenceDeliveries: IntelligenceDelivery[] = [];
+export const intelligenceDeliveries: IntelligenceDelivery[] = [
+  {
+    slug: 'g00-check-7d3f8a91',
+    company: 'Evidence Axis Tracking Test',
+    trigger: 'Operational verification of the Sprint-1 delivery tracking path',
+    preparedDate: '2026-08-26',
+    summary: 'A temporary noindex delivery used only to verify page-view and click-event tracking before the next outbound Gift is sent.',
+    headlineFinding: 'Tracking must be verified end to end before a Gift can be counted as Viewed.',
+    deckHref: '/report/evidence-axis-sample-intercom-vs-zendesk.pdf',
+    appendixHref: '/report/evidence-axis-sample-intercom-vs-zendesk.pdf',
+    deckLabel: 'Tracking Test — Executive Link',
+    appendixLabel: 'Tracking Test — Appendix Link',
+  },
+];
