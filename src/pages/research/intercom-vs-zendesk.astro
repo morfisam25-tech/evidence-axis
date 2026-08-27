@@ -1,0 +1,171 @@
+---
+import Base from '@layouts/Base.astro';
+import { site, legal, cta } from '@config/site';
+import {
+  sampleMeta,
+  sampleSources,
+  sampleRecords,
+  sampleSummary,
+  sampleDecisionImplications,
+  sampleLimitations,
+  sampleMethodology,
+} from '@data/sample-report';
+
+const articlePath = '/research/intercom-vs-zendesk/';
+const articleUrl = new URL(articlePath, site.url).href;
+const srcById = Object.fromEntries(sampleSources.map((s) => [s.id, s]));
+const domain = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Intercom vs Zendesk: an evidence-based comparison of AI support pricing and positioning',
+  description: 'A source-backed Evidence Axis comparison of Intercom and Zendesk based on first-party public evidence checked 19 August 2026.',
+  datePublished: sampleMeta.checkedISO,
+  dateModified: sampleMeta.checkedISO,
+  mainEntityOfPage: articleUrl,
+  author: {
+    '@type': 'Person',
+    name: legal.publicOperator,
+    url: new URL('/about/', site.url).href,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: site.name,
+    url: site.url,
+  },
+  about: ['Intercom', 'Zendesk', 'competitive intelligence', 'customer support software'],
+};
+---
+<Base
+  title="Intercom vs Zendesk: Evidence-Based Comparison"
+  description="Intercom vs Zendesk based on first-party public evidence: pricing, AI billing mechanics, positioning, limitations and what cannot be established from public sources alone."
+  path={articlePath}
+  ogType="article"
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+
+  <article class="research-article">
+    <header class="research-article__hero" data-surface="dark">
+      <div class="container research-article__hero-inner">
+        <a href="/research/" class="research-article__back">← Research</a>
+        <span class="label">PUBLIC RESEARCH · EVIDENCE AXIS</span>
+        <h1>Intercom vs Zendesk: what the public evidence actually establishes.</h1>
+        <p class="research-article__lede">A bounded comparison of current public pricing, AI billing mechanics and positioning. The aim is not to declare a universal winner; it is to separate what is verified from what still depends on workload and account context.</p>
+        <div class="research-article__meta mono">
+          <span>Checked {sampleMeta.checked}</span>
+          <span>{sampleSources.length} first-party sources</span>
+          <span>By {legal.publicOperator}</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="container research-article__body">
+      <section>
+        <span class="label">RESEARCH QUESTION</span>
+        <h2>{sampleMeta.question}</h2>
+        <p class="research-article__boundary"><b>Boundary:</b> {sampleMeta.boundary}</p>
+      </section>
+
+      <section>
+        <span class="label">ANSWER IN BRIEF</span>
+        <h2>The public economics are not directly comparable from seat price alone.</h2>
+        <p>{sampleSummary}</p>
+      </section>
+
+      <section>
+        <span class="label">WHAT IS VERIFIED</span>
+        <h2>Five facts that materially shape the comparison.</h2>
+        <div class="research-article__records">
+          {sampleRecords.filter((r) => r.status === 'fact').slice(0, 5).map((r) => (
+            <article class="research-article__record research-article__record--fact">
+              <div class="research-article__record-head"><span>FACT</span><b>{r.id}</b></div>
+              <h3>{r.claim}</h3>
+              {r.limitation && <p><b>Limitation:</b> {r.limitation}</p>}
+              <p class="mono research-article__refs">Sources: {r.sources.join(', ')}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <span class="label">INTERPRETATION</span>
+        <h2>What can reasonably be inferred from those facts.</h2>
+        <div class="research-article__records">
+          {sampleRecords.filter((r) => r.status === 'inference').map((r) => (
+            <article class="research-article__record research-article__record--inference">
+              <div class="research-article__record-head"><span>INFERENCE</span><b>{r.id}</b></div>
+              <h3>{r.claim}</h3>
+              {r.observation && <p>{r.observation}</p>}
+              {r.limitation && <p><b>Limitation:</b> {r.limitation}</p>}
+              <p class="mono research-article__refs">Sources: {r.sources.join(', ')}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <span class="label">WHAT REMAINS UNKNOWN</span>
+        <h2>Public evidence cannot answer every buying question.</h2>
+        <div class="research-article__records">
+          {sampleRecords.filter((r) => r.status === 'unknown').map((r) => (
+            <article class="research-article__record research-article__record--unknown">
+              <div class="research-article__record-head"><span>UNKNOWN</span><b>{r.id}</b></div>
+              <h3>{r.claim}</h3>
+              {r.observation && <p>{r.observation}</p>}
+              <p class="mono research-article__refs">Sources: {r.sources.join(', ')}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <span class="label">DECISION IMPLICATIONS</span>
+        <h2>What a buyer should establish before ranking the two vendors.</h2>
+        <ol class="research-article__implications">
+          {sampleDecisionImplications.map((item) => <li>{item}</li>)}
+        </ol>
+      </section>
+
+      <section>
+        <span class="label">METHOD</span>
+        <h2>How this comparison was built.</h2>
+        <p>{sampleMethodology}</p>
+        <p><b>Limitations:</b> {sampleLimitations}</p>
+      </section>
+
+      <section id="sources">
+        <span class="label">SOURCE REGISTER</span>
+        <h2>Every material claim can be traced back to an opened source.</h2>
+        <ol class="research-article__sources">
+          {sampleSources.map((s) => (
+            <li id={s.id.toLowerCase()}>
+              <div><span class="mono">{s.id}</span><b>{s.org} — {s.title}</b></div>
+              <a href={s.url} target="_blank" rel="noopener noreferrer">{domain(s.url)}</a>
+              <p>{s.supports}</p>
+              {s.limitation && <p><em>Limitation: {s.limitation}</em></p>}
+              <small class="mono">First-party public source · checked {sampleMeta.checked}</small>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <aside class="research-article__author">
+        <span class="label">AUTHOR</span>
+        <h2>{legal.publicOperator}</h2>
+        <p>Founder and principal at Evidence Axis. Research is published with explicit source boundaries and Fact / Inference / Unknown classification.</p>
+        <a href="/about/">About Evidence Axis →</a>
+      </aside>
+
+      <section class="research-article__cta">
+        <span class="label">COMPANY-SPECIFIC WORK</span>
+        <h2>Need the same evidence standard applied to your competitive set?</h2>
+        <p>This public research uses only public first-party evidence. Company-specific briefs add a defined competitive question and decision context.</p>
+        <a class="btn btn--lg" href={cta.primary.href}>{cta.primary.label} <span>→</span></a>
+      </section>
+    </main>
+  </article>
+</Base>
+
+<style>
+.research-article{background:#f8f5ef}.research-article__hero{background:#030914;color:#f4f8ff;padding:clamp(3rem,7vw,6.5rem) 0}.research-article__hero-inner{max-width:900px}.research-article__back{display:inline-block;margin-bottom:2rem;color:#a9bdd6;text-decoration:none;font-weight:700}.research-article__hero h1{margin:.7rem 0 1rem;font-size:clamp(3rem,7vw,6.3rem);line-height:.93;letter-spacing:-.055em}.research-article__lede{font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.65;color:#b9c9dc;max-width:760px}.research-article__meta{display:flex;flex-wrap:wrap;gap:.75rem 1.25rem;margin-top:1.5rem;color:#8398b2;font-size:.68rem;letter-spacing:.05em}.research-article__body{max-width:900px;padding-top:4rem;padding-bottom:5rem}.research-article__body>section,.research-article__author{padding:2.2rem 0;border-bottom:1px solid rgba(31,58,87,.13)}.research-article__body h2{margin:.55rem 0 1rem;font-size:clamp(2rem,4vw,3.6rem);line-height:1;letter-spacing:-.04em}.research-article__body p,.research-article__body li{line-height:1.72;color:#4d5d6e}.research-article__boundary{padding:1rem;border-left:3px solid #5a76ad;background:#fff}.research-article__records{display:grid;gap:.8rem}.research-article__record{padding:1.1rem;border:1px solid rgba(31,58,87,.13);border-radius:.75rem;background:#fff}.research-article__record h3{font-size:1.08rem;line-height:1.45;margin:.55rem 0}.research-article__record p{margin:.45rem 0;font-size:.9rem}.research-article__record-head{display:flex;justify-content:space-between;gap:1rem;font:700 .62rem/1 var(--font-mono);letter-spacing:.08em}.research-article__record--fact .research-article__record-head span{color:#23735f}.research-article__record--inference .research-article__record-head span{color:#9b5d24}.research-article__record--unknown .research-article__record-head span{color:#67707a}.research-article__refs{font-size:.68rem!important;color:#718096!important}.research-article__implications{padding-left:1.25rem}.research-article__implications li{padding:.65rem 0}.research-article__sources{padding:0;list-style:none;display:grid;gap:.75rem}.research-article__sources li{padding:1rem;border:1px solid rgba(31,58,87,.12);background:#fff;border-radius:.7rem}.research-article__sources li>div{display:flex;gap:.7rem;align-items:baseline}.research-article__sources a{display:inline-block;margin:.3rem 0;color:#245f82;font-weight:700;text-decoration:none}.research-article__sources p{margin:.25rem 0;font-size:.84rem}.research-article__sources small{color:#718096}.research-article__author a{font-weight:800;text-decoration:none;color:#245f82}.research-article__cta{text-align:center!important;border-bottom:0!important;padding-top:3.5rem!important}.research-article__cta p{max-width:650px;margin:0 auto 1.2rem}@media(max-width:620px){.research-article__hero h1{font-size:clamp(2.7rem,13vw,4.6rem)}.research-article__meta{display:grid}.research-article__body{padding-inline:1.1rem}}
+</style>
