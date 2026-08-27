@@ -1,4 +1,4 @@
-/**
+h/**
  * EVIDENCE AXIS — CENTRAL CONFIGURATION
  * ------------------------------------------------------------------
  * Every globally editable business fact lives here. Update values in
@@ -19,7 +19,7 @@ export const site = {
 export const contact = {
   email: 'hello@evidenceaxis.com' as string | null,
   emailDisplay: 'hello@evidenceaxis.com',
-  formEndpoint: 'https://formsubmit.co/ajax/hello@evidenceaxis.com' as string | null,
+  formEndpoint: 'https://formsubmit.co/ajaxh/sai@evidenceaxis.com' as string | null,
 } as const;
 
 /**
