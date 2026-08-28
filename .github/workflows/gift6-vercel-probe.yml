@@ -1,0 +1,51 @@
+name: Gift 6 Vercel Access Probe
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+    steps:
+      - name: Report secret availability only
+        shell: bash
+        run: |
+          set -euo pipefail
+          for key in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID VERCEL_DEPLOY_HOOK; do
+            if [ -n "${!key:-}" ]; then
+              echo "$key=PRESENT"
+            else
+              echo "$key=MISSING"
+            fi
+          done
+
+      - name: Probe Vercel account without exposing credentials
+        if: ${{ env.VERCEL_TOKEN != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          auth=(-H "Authorization: Bearer $VERCEL_TOKEN")
+          echo 'TOKEN_API_ACCESS:'
+          code=$(curl -sS -o /tmp/user.json -w '%{http_code}' "${auth[@]}" https://api.vercel.com/v2/user)
+          echo "HTTP=$code"
+          test "$code" = '200'
+
+          echo 'VISIBLE_TEAMS:'
+          curl -sS "${auth[@]}" 'https://api.vercel.com/v2/teams?limit=100' \
+            | jq -r '.teams[]? | [.id,.slug,.name] | @tsv' \
+            | sed -E 's/\t/ | /g'
+
+          echo 'PERSONAL_PROJECT_MATCH:'
+          curl -sS "${auth[@]}" 'https://api.vercel.com/v9/projects?limit=100' \
+            | jq -r '.projects[]? | select(.name=="evidence-axis-rvyr") | [.id,.name] | @tsv' \
+            | sed -E 's/\t/ | /g'
