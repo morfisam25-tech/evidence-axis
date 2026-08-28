@@ -9,9 +9,9 @@ export const site = {
   name: 'Evidence Axis',
   domain: 'evidenceaxis.com',
   url: 'https://evidenceaxis.com',
-  tagline: 'Independent competitive intelligence and decision support.',
+  tagline: 'Competitor intelligence for B2B SaaS decisions.',
   description:
-    'Evidence Axis discovers overlooked competitors, verifies what is actually happening, and turns the evidence into executive-ready competitive decisions.',
+    'Evidence Axis provides competitor intelligence for B2B SaaS decisions by discovering overlooked competitors, verifying public evidence, and separating fact from inference and unknowns.',
   category: 'competitive intelligence and decision support',
   locale: 'en-US',
 } as const;
