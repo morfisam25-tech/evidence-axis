@@ -5,12 +5,13 @@ import { cta, contact } from '@config/site';
 
 const current = Astro.url.pathname;
 const isHome = current === '/';
+const isPrivateDelivery = current.startsWith('/intelligence/');
 const isActive = (href: string) => {
   if (href.startsWith('/#')) return false;
   return href === '/' ? current === '/' : current.startsWith(href);
 };
 ---
-<header class="site-header" data-header data-home={isHome ? '' : undefined}>
+<header class="site-header" data-header data-home={isHome ? '' : undefined} data-private-delivery={isPrivateDelivery ? '' : undefined}>
   <div class="container-wide site-header__inner">
     <Logo />
 
@@ -22,12 +23,14 @@ const isActive = (href: string) => {
       </ul>
     </nav>
 
-    <div class="site-header__cta">
-      <a href={cta.primary.href} class="header-brief">
-        <span class="header-brief__dot" aria-hidden="true"></span>
-        {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
+    {!isPrivateDelivery && (
+      <div class="site-header__cta">
+        <a href={cta.primary.href} class="header-brief">
+          <span class="header-brief__dot" aria-hidden="true"></span>
+          {cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    )}
 
     <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" data-nav-toggle>
       <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i></span>
@@ -41,7 +44,9 @@ const isActive = (href: string) => {
       {primaryNav.map((item) => (
         <li><a href={item.href} class="mobile-nav__link"><span class="mobile-nav__label">{item.label}</span><span class="mobile-nav__arrow" aria-hidden="true">→</span></a></li>
       ))}
-      <li class="mobile-nav__cta"><a href={cta.primary.href} class="btn btn--lg">{cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span></a></li>
+      {!isPrivateDelivery && (
+        <li class="mobile-nav__cta"><a href={cta.primary.href} class="btn btn--lg">{cta.primary.label}<span class="btn-arrow" aria-hidden="true">→</span></a></li>
+      )}
       <li><a class="mobile-nav__email mono" href={`mailto:${contact.emailDisplay}`}>{contact.emailDisplay}</a></li>
     </ul>
   </nav>
