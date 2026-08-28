@@ -1,0 +1,120 @@
+---
+import Base from '@layouts/Base.astro';
+import { contact, cta } from '@config/site';
+
+const company = 'Aisel Health';
+const slug = 'aisel-uk-brief-a9f2c7e4';
+const deckHref = `/deliveries/${slug}/deck.pdf`;
+const appendixHref = `/deliveries/${slug}/appendix.pdf`;
+---
+
+<Base
+  title="Aisel Health — Private Intelligence Brief"
+  description="Private Evidence Axis intelligence delivery prepared for Aisel Health."
+  path={`/intelligence/${slug}/`}
+  noindex={true}
+>
+  <main
+    class="gift6"
+    data-delivery-tracking
+    data-tracking-endpoint={contact.formEndpoint ?? ''}
+    data-delivery-company={company}
+    data-delivery-slug={slug}
+  >
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow">PRIVATE EVIDENCE AXIS DELIVERY</p>
+        <h1>Aisel Health</h1>
+        <p class="recipient">Prepared for Augusta Klingsten Peytz · Founder & CEO</p>
+        <p class="lede">UK entry competitive brief — NHS procurement route, public assurance signals, and mental-health workflow pressure.</p>
+
+        <div class="file-actions" aria-label="Intelligence files">
+          <a class="file-button deck" href={deckHref} target="_blank" rel="noopener" data-delivery-event="executive-deck-opened">
+            <span class="num">01</span>
+            <span class="copy"><small>EXECUTIVE VIEW</small><strong>Open Executive Intelligence Deck</strong><em>PDF ↗</em></span>
+          </a>
+          <a class="file-button appendix" href={appendixHref} target="_blank" rel="noopener" data-delivery-event="evidence-appendix-opened">
+            <span class="num">02</span>
+            <span class="copy"><small>EVIDENCE VIEW</small><strong>Open Evidence Appendix</strong><em>PDF ↗</em></span>
+          </a>
+        </div>
+
+        <p class="hint">Open the Executive Deck first. The Appendix contains the source register, classifications, review dates, limitations and guardrails.</p>
+      </div>
+    </section>
+
+    <section class="finding">
+      <div class="wrap narrow">
+        <p class="eyebrow dark">ONE FINDING TO START WITH</p>
+        <blockquote>NHS England’s AVT supplier route is now active, while an existing NHS mental-health platform has already attached ambient documentation through a registry-listed supplier.</blockquote>
+        <p>This does not establish that Aisel lacks NHS readiness. It identifies a public-route and distribution question worth testing as the UK motion develops.</p>
+      </div>
+    </section>
+
+    <section class="read">
+      <div class="wrap read-grid">
+        <div><p class="eyebrow dark">HOW TO READ THE WORK</p><h2>Confidence never outruns the evidence.</h2></div>
+        <div class="states">
+          <div><b>FACT</b><span>Directly supported by an opened and checked source.</span></div>
+          <div><b>INFERENCE</b><span>An analytical conclusion built from disclosed evidence.</span></div>
+          <div><b>UNKNOWN</b><span>Evidence is not strong enough to claim certainty.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="next">
+      <div class="wrap narrow">
+        <p class="eyebrow dark">IF THIS RAISES A REAL DECISION</p>
+        <h2>Test the UK buyer path next.</h2>
+        <p>The brief is public-evidence only. A paid decision sprint adds Aisel’s internal context, buyer path and constraints.</p>
+        <a class="cta" href={`${cta.secondary.href}&company=${encodeURIComponent(company)}`} data-delivery-event="decision-conversation-clicked">Discuss a Competitive Decision →</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll<HTMLElement>('[data-delivery-tracking]').forEach((root) => {
+      const endpoint = root.dataset.trackingEndpoint;
+      const company = root.dataset.deliveryCompany || 'Unknown company';
+      const slug = root.dataset.deliverySlug || 'unknown';
+      if (!endpoint) return;
+
+      const emit = (eventName: string) => {
+        const storageKey = `evidence-axis:${slug}:${eventName}`;
+        try {
+          if (sessionStorage.getItem(storageKey)) return;
+          sessionStorage.setItem(storageKey, '1');
+        } catch {}
+
+        const payload = {
+          _subject: `Evidence Axis delivery event — ${company}`,
+          _template: 'table',
+          source: 'intelligence-delivery-tracking',
+          event: eventName,
+          company,
+          delivery_slug: slug,
+          timestamp_utc: new Date().toISOString(),
+        };
+
+        fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        }).catch(() => {});
+      };
+
+      emit('delivery-page-viewed');
+      root.querySelectorAll<HTMLElement>('[data-delivery-event]').forEach((el) => {
+        el.addEventListener('click', () => {
+          const eventName = el.dataset.deliveryEvent;
+          if (eventName) emit(eventName);
+        });
+      });
+    });
+  </script>
+</Base>
+
+<style>
+  .gift6{background:#f7f2ea;color:#0c1420}.wrap{width:min(1120px,calc(100% - 2rem));margin:0 auto}.narrow{max-width:900px}.hero{padding:clamp(5rem,9vw,8rem) 0 4rem;background:radial-gradient(circle at 78% 18%,rgba(77,219,211,.12),transparent 28%),#030b16;color:#f7fbff}.eyebrow{margin:0;font:700 .68rem/1.2 var(--font-mono);letter-spacing:.14em;color:#5ce2da}.eyebrow.dark{color:#387e86}.hero h1{margin:.65rem 0 0;font-size:clamp(4rem,9vw,8rem);line-height:.9;letter-spacing:-.06em}.recipient{margin:.75rem 0 0;color:#8ca4c0;font:600 .72rem/1.4 var(--font-mono);letter-spacing:.05em}.lede{max-width:790px;margin:1.25rem 0 0;color:#cad7e7;font-size:1.08rem;line-height:1.65}.file-actions{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.25rem}.file-button{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;padding:1.25rem 1.3rem;border:1px solid rgba(124,171,229,.25);border-radius:1rem;text-decoration:none;background:#0a1728;color:#fff;box-shadow:0 18px 60px rgba(0,0,0,.25);transition:.2s ease}.file-button:hover{transform:translateY(-3px);border-color:#5ce2da}.file-button.appendix:hover{border-color:#a487ff}.num{font:800 2rem/1 var(--font-mono);color:#5ce2da}.appendix .num{color:#a487ff}.copy{display:grid;gap:.26rem}.copy small{font:700 .58rem/1 var(--font-mono);letter-spacing:.12em;color:#8ea5c4}.copy strong{font-size:1.15rem}.copy em{font-style:normal;color:#5ce2da;font:700 .68rem/1 var(--font-mono)}.appendix .copy em{color:#a487ff}.hint{margin:1rem 0 0;color:#8196b1;font-size:.8rem}.finding,.read,.next{padding:clamp(4rem,7vw,6rem) 0}.finding{background:#f1e9de}.finding blockquote{margin:1rem 0;font:750 clamp(2rem,4.2vw,4rem)/1.05 var(--font-display);letter-spacing:-.045em}.finding p:last-child,.next p{color:#5e6b7c;line-height:1.7}.read{background:#fff}.read-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:4rem;align-items:center}.read h2,.next h2{margin:.7rem 0;font-size:clamp(2.3rem,4vw,4rem);line-height:.98;letter-spacing:-.04em}.states{display:grid;gap:.75rem}.states div{display:grid;gap:.35rem;padding:1rem;border:1px solid #d9e0e8;border-radius:.8rem}.states b{font:800 .7rem/1 var(--font-mono);letter-spacing:.1em;color:#2b858c}.states span{color:#5e6b7c}.next{background:#f7f2ea}.cta{display:inline-flex;margin-top:1rem;padding:.9rem 1.15rem;border-radius:.7rem;background:#0b1522;color:#fff;text-decoration:none;font-weight:750}@media(max-width:760px){.file-actions,.read-grid{grid-template-columns:1fr}.read-grid{gap:2rem}.hero{padding-top:4rem}}
+</style>
