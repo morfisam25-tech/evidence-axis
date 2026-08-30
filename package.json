@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "node scripts/materialize-system-film.mjs && astro build",
+    "build": "node scripts/materialize-system-film.mjs && node scripts/materialize-gift11.mjs && astro build",
     "preview": "astro preview",
     "check": "astro check"
   },
