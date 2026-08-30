@@ -40,4 +40,18 @@ export const intelligenceDeliveries: IntelligenceDelivery[] = [
     deckLabel: 'Executive Intelligence Deck',
     appendixLabel: 'Evidence Appendix',
   },
+  {
+    slug: 'actualyze-ai-brief-0710642b',
+    company: 'Actualyze AI',
+    recipient: 'Rafi Khardalian',
+    recipientRole: 'Co-Founder & CEO',
+    trigger: '3 Aug 2026 stealth launch with a $7M seed into the enterprise AI control-plane and AI Gateway buying category',
+    preparedDate: '2026-08-30',
+    summary: 'Category visibility, security-platform consolidation pressure, and deployment eligibility before feature-level evaluation.',
+    headlineFinding: 'Actualyze fits the AI Gateway buying job, but two live buyer-category surfaces reviewed on 30 Aug 2026 did not visibly list Actualyze while established gateway products were already present.',
+    deckHref: '/deliveries/actualyze-ai-brief-0710642b/deck.pdf',
+    appendixHref: '/deliveries/actualyze-ai-brief-0710642b/appendix.pdf',
+    deckLabel: 'Executive Intelligence Deck',
+    appendixLabel: 'Evidence Appendix',
+  },
 ];
