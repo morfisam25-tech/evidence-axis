@@ -1,0 +1,165 @@
+---
+import Base from '@layouts/Base.astro';
+import { contact, cta } from '@config/site';
+
+const company = 'Guideless';
+const slug = 'guideless-brief-3c0935bc';
+const deckHref = `/deliveries/${slug}/deck.pdf`;
+const appendixHref = `/deliveries/${slug}/appendix.pdf`;
+---
+
+<Base
+  title="Guideless — Private Intelligence Brief"
+  description="Private Evidence Axis intelligence delivery prepared for Guideless."
+  path={`/intelligence/${slug}/`}
+  noindex={true}
+>
+  <main
+    class="gift7"
+    data-delivery-tracking
+    data-tracking-endpoint={contact.formEndpoint ?? ''}
+    data-delivery-company={company}
+    data-delivery-slug={slug}
+  >
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <p class="eyebrow">PRIVATE EVIDENCE AXIS DELIVERY</p>
+        <h1>Guideless</h1>
+        <p class="recipient">Prepared for Evaldas Bieliūnas · CEO &amp; Co-Founder</p>
+        <p class="lede">Expansion-timed competitive brief — buyer-visible comparison drift and a decision boundary across maintenance, contextual delivery and execution.</p>
+
+        <div class="file-actions" aria-label="Intelligence files">
+          <a class="file-button deck" href={deckHref} target="_blank" rel="noopener" data-delivery-event="executive-deck-opened">
+            <span class="num">01</span>
+            <span class="copy"><small>EXECUTIVE VIEW</small><strong>Open Executive Intelligence Brief</strong><em>PDF ↗</em></span>
+          </a>
+          <a class="file-button appendix" href={appendixHref} target="_blank" rel="noopener" data-delivery-event="evidence-appendix-opened">
+            <span class="num">02</span>
+            <span class="copy"><small>EVIDENCE VIEW</small><strong>Open Evidence Appendix</strong><em>PDF ↗</em></span>
+          </a>
+        </div>
+
+        <p class="hint">Open the Executive Brief first. The Appendix contains the claim-to-source register, classifications, review dates, limitations and evidence boundaries.</p>
+      </div>
+    </section>
+
+    <section class="finding">
+      <div class="wrap narrow">
+        <p class="eyebrow dark">ONE FINDING TO START WITH</p>
+        <blockquote>Guideless’s January Tango comparison still frames Tango as screenshot-and-text documentation with no audio, while Tango now publicly shows video walkthroughs, 40+ language voiceover, in-app guidance and Agents.</blockquote>
+        <p>The issue is not that Tango added features. It is that a buyer can verify an outdated claim before evaluating the rest of Guideless’s case.</p>
+      </div>
+    </section>
+
+    <section class="read">
+      <div class="wrap read-grid">
+        <div><p class="eyebrow dark">HOW TO READ THE WORK</p><h2>Confidence never outruns the evidence.</h2></div>
+        <div class="states">
+          <div><b>FACT</b><span>Directly supported by an opened and checked source.</span></div>
+          <div><b>INFERENCE</b><span>An analytical conclusion built from disclosed evidence.</span></div>
+          <div><b>NOT ESTABLISHED</b><span>The reviewed public evidence is not strong enough to make the claim.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="next">
+      <div class="wrap narrow">
+        <p class="eyebrow dark">IF THIS RAISES A REAL DECISION</p>
+        <h2>Restore trust, then force the roadmap choice.</h2>
+        <p>The public evidence supports an immediate comparison-page correction. A paid decision sprint can add Guideless’s customer evidence and internal context to pressure-test maintenance, contextual delivery or agent-ready operational memory as the next public wedge.</p>
+        <a class="cta" href={`${cta.secondary.href}&company=${encodeURIComponent(company)}`} data-delivery-event="decision-conversation-clicked">Discuss a Competitive Decision →</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll<HTMLElement>('[data-delivery-tracking]').forEach((root) => {
+      const endpoint = root.dataset.trackingEndpoint;
+      const company = root.dataset.deliveryCompany || 'Unknown company';
+      const slug = root.dataset.deliverySlug || 'unknown';
+      if (!endpoint) return;
+
+      const emit = (eventName: string) => {
+        const storageKey = `evidence-axis:${slug}:${eventName}`;
+        try {
+          if (sessionStorage.getItem(storageKey)) return;
+          sessionStorage.setItem(storageKey, '1');
+        } catch {}
+
+        const payload = {
+          _subject: `Evidence Axis delivery event — ${company}`,
+          _template: 'table',
+          source: 'intelligence-delivery-tracking',
+          event: eventName,
+          company,
+          delivery_slug: slug,
+          timestamp_utc: new Date().toISOString(),
+        };
+
+        fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        }).catch(() => {});
+      };
+
+      emit('delivery-page-viewed');
+      root.querySelectorAll<HTMLElement>('[data-delivery-event]').forEach((el) => {
+        el.addEventListener('click', () => {
+          const eventName = el.dataset.deliveryEvent;
+          if (eventName) emit(eventName);
+        });
+      });
+    });
+  </script>
+</Base>
+
+<style>
+  .gift7{background:#f7f2ea;color:#0c1420}
+  .wrap{width:min(1120px,calc(100% - 2rem));margin:0 auto}
+  .narrow{max-width:900px}
+  .hero{position:relative;overflow:hidden;padding:clamp(5.5rem,9vw,8.5rem) 0 4.5rem;background:radial-gradient(circle at 50% 12%,rgba(79,221,214,.13),transparent 31%),radial-gradient(circle at 50% 100%,rgba(81,108,178,.1),transparent 38%),#030b16;color:#f7fbff}
+  .hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.018),transparent 34%)}
+  .hero-inner{position:relative;z-index:1;max-width:920px;text-align:center}
+  .eyebrow{margin:0;font:700 .68rem/1.2 var(--font-mono);letter-spacing:.16em;color:#5ce2da}
+  .eyebrow.dark{color:#387e86}
+  .hero h1{margin:1rem 0 0;font-size:clamp(4.75rem,10.5vw,9.4rem);line-height:.86;letter-spacing:-.065em;color:#fff;text-wrap:balance;text-shadow:0 14px 46px rgba(0,0,0,.24)}
+  .recipient{margin:1.25rem 0 0;color:#b7c8dc;font:650 .74rem/1.45 var(--font-mono);letter-spacing:.055em}
+  .lede{max-width:760px;margin:1.35rem auto 0;color:#d5e0ed;font-size:clamp(1rem,1.55vw,1.16rem);line-height:1.65;text-wrap:balance}
+  .file-actions{display:grid;grid-template-columns:1fr;gap:.9rem;width:min(820px,100%);margin:2.65rem auto 0;text-align:left}
+  .file-button{display:grid;grid-template-columns:auto 1fr;gap:1.15rem;align-items:center;padding:1.35rem 1.45rem;border:1px solid rgba(124,171,229,.26);border-radius:1rem;text-decoration:none;background:linear-gradient(135deg,rgba(13,31,52,.97),rgba(8,20,36,.97));color:#fff;box-shadow:0 18px 60px rgba(0,0,0,.26);transition:transform .2s ease,border-color .2s ease,background .2s ease}
+  .file-button:hover{transform:translateY(-3px);border-color:#5ce2da;background:linear-gradient(135deg,rgba(16,38,61,.98),rgba(9,23,40,.98))}
+  .file-button.appendix:hover{border-color:#a487ff}
+  .num{font:800 2rem/1 var(--font-mono);color:#5ce2da}
+  .appendix .num{color:#a487ff}
+  .copy{display:grid;grid-template-columns:1fr auto;gap:.3rem .75rem;align-items:end}
+  .copy small{grid-column:1/-1;font:700 .58rem/1 var(--font-mono);letter-spacing:.12em;color:#8ea5c4}
+  .copy strong{font-size:clamp(1.02rem,2vw,1.2rem);line-height:1.2}
+  .copy em{font-style:normal;color:#5ce2da;font:700 .68rem/1 var(--font-mono);white-space:nowrap}
+  .appendix .copy em{color:#a487ff}
+  .hint{max-width:760px;margin:1.15rem auto 0;color:#8196b1;font-size:.8rem;line-height:1.55}
+  .finding,.read,.next{padding:clamp(4rem,7vw,6rem) 0}
+  .finding{background:#f1e9de}
+  .finding blockquote{margin:1rem 0;font:750 clamp(2rem,4.2vw,4rem)/1.05 var(--font-display);letter-spacing:-.045em}
+  .finding p:last-child,.next p{color:#5e6b7c;line-height:1.7}
+  .read{background:#fff}
+  .read-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:4rem;align-items:center}
+  .read h2,.next h2{margin:.7rem 0;font-size:clamp(2.3rem,4vw,4rem);line-height:.98;letter-spacing:-.04em}
+  .states{display:grid;gap:.75rem}
+  .states div{display:grid;gap:.35rem;padding:1rem;border:1px solid #d9e0e8;border-radius:.8rem}
+  .states b{font:800 .7rem/1 var(--font-mono);letter-spacing:.1em;color:#2b858c}
+  .states span{color:#5e6b7c}
+  .next{background:#f7f2ea}
+  .cta{display:inline-flex;margin-top:1rem;padding:.9rem 1.15rem;border-radius:.7rem;background:#0b1522;color:#fff;text-decoration:none;font-weight:750}
+  @media(max-width:760px){
+    .read-grid{grid-template-columns:1fr;gap:2rem}
+    .hero{padding-top:4.75rem}
+    .hero h1{font-size:clamp(3.75rem,18vw,5.7rem)}
+    .recipient{font-size:.68rem}
+    .file-button{padding:1.15rem 1.1rem;grid-template-columns:auto 1fr}
+    .num{font-size:1.65rem}
+    .copy{grid-template-columns:1fr}
+    .copy em{margin-top:.1rem}
+  }
+</style>
