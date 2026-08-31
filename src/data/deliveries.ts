@@ -82,4 +82,18 @@ export const intelligenceDeliveries: IntelligenceDelivery[] = [
     deckLabel: 'Executive Brief',
     appendixLabel: 'Evidence Appendix',
   },
+  {
+    slug: 'keenable-brief-b2235130',
+    company: 'Keenable',
+    recipient: 'Andrey Styskin',
+    recipientRole: 'Co-Founder & CEO',
+    trigger: '$26M seed at stealth exit while pricing, proof architecture and the first product/revenue hires make the production handoff a live GTM decision.',
+    preparedDate: '2026-08-29',
+    summary: 'Public-evidence brief on the free-to-production pricing handoff, externally validated performance, and workload-specific competitive pressure.',
+    headlineFinding: 'On recurring public list prices, Keenable’s Agent Builder / Parallel Fast crossover appears at about 132K monthly requests.',
+    deckHref: '/deliveries/keenable-brief-b2235130/deck.pdf',
+    appendixHref: '/deliveries/keenable-brief-b2235130/appendix.pdf',
+    deckLabel: 'Executive Intelligence Deck',
+    appendixLabel: 'Evidence Appendix',
+  },
 ];
