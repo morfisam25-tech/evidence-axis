@@ -1,0 +1,164 @@
+---
+import Base from '@layouts/Base.astro';
+import { contact, cta } from '@config/site';
+
+const company = 'Cloverleaf AI';
+const slug = 'cloverleaf-brief-8d7c1f4a';
+const deckHref = `/deliveries/${slug}/deck.pdf`;
+const appendixHref = `/deliveries/${slug}/appendix.pdf`;
+---
+
+<Base
+  title="Cloverleaf AI — Private Intelligence Brief"
+  description="Private Evidence Axis intelligence delivery prepared for Cloverleaf AI."
+  path={`/intelligence/${slug}/`}
+  noindex={true}
+>
+  <main
+    class="gift12"
+    data-delivery-tracking
+    data-tracking-endpoint={contact.formEndpoint ?? ''}
+    data-delivery-company={company}
+    data-delivery-slug={slug}
+  >
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <p class="eyebrow">PRIVATE EVIDENCE AXIS DELIVERY</p>
+        <h1>Cloverleaf AI</h1>
+        <p class="recipient">Prepared for Jeremy Becker · CRO & Co-Founder</p>
+        <p class="lede">A public-evidence audit of comparison drift, external category framing, self-proof consistency, and machine-readable proof.</p>
+
+        <div class="file-actions" aria-label="Intelligence files">
+          <a class="file-button deck" href={deckHref} target="_blank" rel="noopener" data-delivery-event="executive-deck-opened">
+            <span class="num">01</span>
+            <span class="copy"><small>EXECUTIVE VIEW</small><strong>Open Executive Brief</strong><em>PDF ↗</em></span>
+          </a>
+          <a class="file-button appendix" href={appendixHref} target="_blank" rel="noopener" data-delivery-event="evidence-appendix-opened">
+            <span class="num">02</span>
+            <span class="copy"><small>EVIDENCE VIEW</small><strong>Open Evidence Appendix</strong><em>PDF ↗</em></span>
+          </a>
+        </div>
+
+        <p class="hint">Open the Executive Brief first. The Appendix contains the source register, claim-level evidence, page-state observations, guardrails and scope exceptions.</p>
+      </div>
+    </section>
+
+    <section class="finding">
+      <div class="wrap narrow">
+        <p class="eyebrow dark">ONE FINDING TO START WITH</p>
+        <blockquote>The product moved. The competitive story did not move with it.</blockquote>
+        <p>The May comparison layer now contains a stale Starbridge availability claim, an older Pursuit boundary, and a live Cloverleaf page that presents conflicting speaker-count proof. Separate August competitor pages and an independent research surface still describe Cloverleaf through a narrower meeting-intelligence frame.</p>
+      </div>
+    </section>
+
+    <section class="read">
+      <div class="wrap read-grid">
+        <div><p class="eyebrow dark">HOW TO READ THE WORK</p><h2>Precision before persuasion.</h2></div>
+        <div class="states">
+          <div><b>FACT</b><span>Directly supported by an opened and checked source.</span></div>
+          <div><b>OBSERVED</b><span>A page-state or retrieval result recorded on the review date.</span></div>
+          <div><b>INFERENCE</b><span>An analytical conclusion drawn from disclosed evidence.</span></div>
+          <div><b>UNKNOWN</b><span>The reviewed public evidence does not support a stronger claim.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="next">
+      <div class="wrap narrow">
+        <p class="eyebrow dark">IF THIS RAISES A REAL DECISION</p>
+        <h2>Decide which competitive claims should survive the next sales cycle.</h2>
+        <p>The public brief can identify what is out of sync. A paid decision sprint can add Cloverleaf's actual objections, lost deals, battlecards, pipeline evidence and current positioning priorities to decide which claims to defend, retire or rebuild.</p>
+        <a class="cta" href={`${cta.secondary.href}&company=${encodeURIComponent(company)}`} data-delivery-event="decision-conversation-clicked">Discuss a Competitive Decision →</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll<HTMLElement>('[data-delivery-tracking]').forEach((root) => {
+      const endpoint = root.dataset.trackingEndpoint;
+      const company = root.dataset.deliveryCompany || 'Unknown company';
+      const slug = root.dataset.deliverySlug || 'unknown';
+      if (!endpoint) return;
+
+      const emit = (eventName: string) => {
+        const storageKey = `evidence-axis:${slug}:${eventName}`;
+        try {
+          if (sessionStorage.getItem(storageKey)) return;
+          sessionStorage.setItem(storageKey, '1');
+        } catch {}
+
+        const payload = {
+          _subject: `Evidence Axis delivery event — ${company}`,
+          _template: 'table',
+          source: 'intelligence-delivery-tracking',
+          event: eventName,
+          company,
+          delivery_slug: slug,
+          timestamp_utc: new Date().toISOString(),
+        };
+
+        fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        }).catch(() => {});
+      };
+
+      emit('delivery-page-viewed');
+      root.querySelectorAll<HTMLElement>('[data-delivery-event]').forEach((el) => {
+        el.addEventListener('click', () => {
+          const eventName = el.dataset.deliveryEvent;
+          if (eventName) emit(eventName);
+        });
+      });
+    });
+  </script>
+</Base>
+
+<style>
+  .gift12{background:#f6f3ee;color:#0c1420}
+  .wrap{width:min(1120px,calc(100% - 2rem));margin:0 auto}
+  .narrow{max-width:900px}
+  .hero{position:relative;overflow:hidden;padding:clamp(5.5rem,9vw,8.5rem) 0 4.5rem;background:radial-gradient(circle at 50% 12%,rgba(54,132,255,.17),transparent 31%),radial-gradient(circle at 50% 100%,rgba(82,221,180,.08),transparent 38%),#07111f;color:#f7fbff}
+  .hero-inner{position:relative;z-index:1;max-width:960px;text-align:center}
+  .eyebrow{margin:0;font:700 .68rem/1.2 var(--font-mono);letter-spacing:.16em;color:#69a5ff}
+  .eyebrow.dark{color:#2867c6}
+  .hero h1{margin:1rem 0 0;font-size:clamp(4rem,8vw,7.8rem);line-height:.9;letter-spacing:-.055em;color:#fff;text-wrap:balance;text-shadow:0 14px 46px rgba(0,0,0,.24)}
+  .recipient{margin:1.25rem 0 0;color:#c5d4e8;font:650 .74rem/1.45 var(--font-mono);letter-spacing:.055em}
+  .lede{max-width:780px;margin:1.35rem auto 0;color:#dce6f4;font-size:clamp(1rem,1.55vw,1.16rem);line-height:1.65;text-wrap:balance}
+  .file-actions{display:grid;grid-template-columns:1fr;gap:.9rem;width:min(820px,100%);margin:2.65rem auto 0;text-align:left}
+  .file-button{display:grid;grid-template-columns:auto 1fr;gap:1.15rem;align-items:center;padding:1.35rem 1.45rem;border:1px solid rgba(105,165,255,.3);border-radius:1rem;text-decoration:none;background:linear-gradient(135deg,rgba(15,31,52,.98),rgba(8,20,34,.98));color:#fff;box-shadow:0 18px 60px rgba(0,0,0,.26);transition:transform .2s ease,border-color .2s ease,background .2s ease}
+  .file-button:hover{transform:translateY(-3px);border-color:#69a5ff;background:linear-gradient(135deg,rgba(20,42,68,.98),rgba(9,25,41,.98))}
+  .file-button.appendix:hover{border-color:#52ddb4}
+  .num{font:800 2rem/1 var(--font-mono);color:#69a5ff}
+  .appendix .num{color:#52ddb4}
+  .copy{display:grid;grid-template-columns:1fr auto;gap:.3rem .75rem;align-items:end}
+  .copy small{grid-column:1/-1;font:700 .58rem/1 var(--font-mono);letter-spacing:.12em;color:#99aac0}
+  .copy strong{font-size:clamp(1.02rem,2vw,1.2rem);line-height:1.2}
+  .copy em{font-style:normal;color:#69a5ff;font:700 .68rem/1 var(--font-mono);white-space:nowrap}
+  .appendix .copy em{color:#52ddb4}
+  .hint{max-width:760px;margin:1.15rem auto 0;color:#8b9caf;font-size:.8rem;line-height:1.55}
+  .finding,.read,.next{padding:clamp(4rem,7vw,6rem) 0}
+  .finding{background:#eee9e1}
+  .finding blockquote{margin:1rem 0;font:750 clamp(2rem,4vw,3.8rem)/1.06 var(--font-display);letter-spacing:-.045em}
+  .finding p:last-child,.next p{color:#5e6b7c;line-height:1.7}
+  .read{background:#fff}
+  .read-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:4rem;align-items:center}
+  .read h2,.next h2{margin:.7rem 0;font-size:clamp(2.3rem,4vw,4rem);line-height:.98;letter-spacing:-.04em}
+  .states{display:grid;gap:.75rem}
+  .states div{display:grid;gap:.35rem;padding:1rem;border:1px solid #d9e0e8;border-radius:.8rem}
+  .states b{font:800 .7rem/1 var(--font-mono);letter-spacing:.1em;color:#2867c6}
+  .states span{color:#5e6b7c}
+  .next{background:#f6f3ee}
+  .cta{display:inline-flex;margin-top:1rem;padding:.9rem 1.15rem;border-radius:.7rem;background:#0b1522;color:#fff;text-decoration:none;font-weight:750}
+  @media(max-width:760px){
+    .read-grid{grid-template-columns:1fr;gap:2rem}
+    .hero{padding-top:4.75rem}
+    .hero h1{font-size:clamp(3.25rem,14vw,5.15rem)}
+    .recipient{font-size:.68rem}
+    .file-button{padding:1.15rem 1.1rem;grid-template-columns:auto 1fr}
+    .num{font-size:1.65rem}
+    .copy{grid-template-columns:1fr}
+  }
+</style>
