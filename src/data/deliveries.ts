@@ -124,4 +124,18 @@ export const intelligenceDeliveries: IntelligenceDelivery[] = [
     deckLabel: 'Executive Brief',
     appendixLabel: 'Evidence Appendix',
   },
+  {
+    slug: 'cloverleaf-brief-8d7c1f4a',
+    company: 'Cloverleaf AI',
+    recipient: 'Jeremy Becker',
+    recipientRole: 'CRO & Co-Founder',
+    trigger: 'A delayed funding announcement landed after months of product and GTM movement while Cloverleaf’s May comparison layer and external category framing remained partially out of sync.',
+    preparedDate: '2026-08-30',
+    summary: 'Public-evidence audit of comparison drift, external category framing, self-proof consistency, challenger pressure, and machine-readable proof.',
+    headlineFinding: 'Cloverleaf’s product moved faster than parts of its public competitive story.',
+    deckHref: '/deliveries/cloverleaf-brief-8d7c1f4a/deck.pdf',
+    appendixHref: '/deliveries/cloverleaf-brief-8d7c1f4a/appendix.pdf',
+    deckLabel: 'Executive Brief',
+    appendixLabel: 'Evidence Appendix',
+  },
 ];
