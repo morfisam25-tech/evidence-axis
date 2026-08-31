@@ -68,4 +68,18 @@ export const intelligenceDeliveries: IntelligenceDelivery[] = [
     deckLabel: 'Executive Intelligence Brief',
     appendixLabel: 'Evidence Appendix',
   },
+  {
+    slug: 'caddi-brief-16eaa1a8',
+    company: 'Caddi',
+    recipient: 'Alejandro Castellano',
+    recipientRole: 'Co-Founder & CEO',
+    trigger: 'Caddi launched a broader agent-building product while three May comparison pages still encode an earlier competitive boundary.',
+    preparedDate: '2026-08-29',
+    summary: 'Competitive comparison boundaries after the August product launch — one pre-existing gap and two post-publication shifts.',
+    headlineFinding: 'Three public comparison pages draw competitive boundaries narrower than the underlying evidence supports.',
+    deckHref: '/deliveries/caddi-brief-16eaa1a8/Evidence_Axis_Caddi_Executive_Brief_FINAL%20(1).pdf',
+    appendixHref: '/deliveries/caddi-brief-16eaa1a8/Evidence_Axis_Caddi_Evidence_Appendix_FINAL%20(2).pdf',
+    deckLabel: 'Executive Brief',
+    appendixLabel: 'Evidence Appendix',
+  },
 ];
