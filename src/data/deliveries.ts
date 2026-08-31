@@ -54,4 +54,18 @@ export const intelligenceDeliveries: IntelligenceDelivery[] = [
     deckLabel: 'Competitive Narrative Brief',
     appendixLabel: 'Evidence Appendix',
   },
+  {
+    slug: 'guideless-brief-3c0935bc',
+    company: 'Guideless',
+    recipient: 'Evaldas Bieliūnas',
+    recipientRole: 'CEO & Co-Founder',
+    trigger: 'EUR 1M pre-seed plus planned UK, European and US expansion while a January comparison page still describes an earlier Tango product surface.',
+    preparedDate: '2026-08-29',
+    summary: 'Complimentary intelligence brief — comparison drift, buyer trust, and the next product-layer decision across maintenance, contextual delivery and execution.',
+    headlineFinding: 'Guideless’s live Tango comparison contains buyer-visible factual drift that a prospect can verify before trusting the rest of the page.',
+    deckHref: '/deliveries/guideless-brief-3c0935bc/deck.pdf',
+    appendixHref: '/deliveries/guideless-brief-3c0935bc/appendix.pdf',
+    deckLabel: 'Executive Intelligence Brief',
+    appendixLabel: 'Evidence Appendix',
+  },
 ];
