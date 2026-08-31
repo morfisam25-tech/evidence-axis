@@ -96,4 +96,18 @@ export const intelligenceDeliveries: IntelligenceDelivery[] = [
     deckLabel: 'Executive Intelligence Deck',
     appendixLabel: 'Evidence Appendix',
   },
+  {
+    slug: 'neno-brief-56e07372',
+    company: 'Neno',
+    recipient: 'Nick Knuppe',
+    recipientRole: 'Founder & CEO',
+    trigger: 'EUR 6.6M seed plus planned Dutch GTM expansion while incumbents and adjacent finance platforms are closing the easy automation gap.',
+    preparedDate: '2026-08-29',
+    summary: 'Competitive intelligence brief on AI differentiation, Dutch back-office convergence, and the finished-outcome layer worth defending.',
+    headlineFinding: 'AI alone is becoming a weaker differentiator before Dutch GTM scales.',
+    deckHref: '/deliveries/neno-brief-56e07372/deck.pdf',
+    appendixHref: '/deliveries/neno-brief-56e07372/appendix.pdf',
+    deckLabel: 'Executive Brief',
+    appendixLabel: 'Evidence Appendix',
+  },
 ];
