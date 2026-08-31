@@ -40,4 +40,18 @@ export const intelligenceDeliveries: IntelligenceDelivery[] = [
     deckLabel: 'Executive Intelligence Deck',
     appendixLabel: 'Evidence Appendix',
   },
+  {
+    slug: 'lemonlime-brief-7c4f29a1',
+    company: 'LemonLime',
+    recipient: 'Jordan Zietz',
+    recipientRole: 'Founder & CEO',
+    trigger: 'A live competitor comparison is reframing LemonLime’s $999 entry price into a $21,801/month total-cost story while a vertical specialist is productizing one of LemonLime’s most visible workflows.',
+    preparedDate: '2026-08-26',
+    summary: 'Complimentary competitive narrative brief — external cost framing, vertical workflow pressure, and a buyer-reference-class check.',
+    headlineFinding: 'FullGTM is publicly turning LemonLime’s $999 entry price into a $21,801/month stack narrative under its own assumptions.',
+    deckHref: '/deliveries/lemonlime-brief-7c4f29a1/deck.pdf',
+    appendixHref: '/deliveries/lemonlime-brief-7c4f29a1/appendix.pdf',
+    deckLabel: 'Competitive Narrative Brief',
+    appendixLabel: 'Evidence Appendix',
+  },
 ];
