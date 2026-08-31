@@ -12,6 +12,7 @@ Last updated: 2026-08-31
 - Gift #6 — Aisel Health / Augusta Klingsten Peytz — NOT SENT — send in London morning window.
 - Gift #7 — Guideless / Evaldas Bieliūnas — NOT SENT — send in Vilnius morning window; recheck recipient address before send.
 - Gift #10 — Neno / Nick Knuppe — NOT SENT — send in Amsterdam morning window; current verified public route: support@neno.co; recheck before send.
+- Gift #12 — Cloverleaf AI / Jeremy Becker — NOT SENT — private delivery approved; email prepared. Current verified public routes: support@cloverleaf.ai and adam@cloverleaf.ai. Send in Denver morning window unless a direct public Jeremy address is verified first.
 
 ## Operating note
-When asked tomorrow which Gifts were held back, surface Gifts #6, #7, and #10 first before continuing new outreach.
+When asked tomorrow which Gifts were held back, surface Gifts #6, #7, #10, and #12 first before continuing new outreach.
