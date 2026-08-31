@@ -54,4 +54,18 @@ export const intelligenceDeliveries: IntelligenceDelivery[] = [
     deckLabel: 'Competitive Narrative Brief',
     appendixLabel: 'Evidence Appendix',
   },
+  {
+    slug: 'guideless-brief-3c0935bc',
+    company: 'Guideless',
+    recipient: 'Evaldas Bieliūnas',
+    recipientRole: 'CEO & Co-Founder',
+    trigger: 'EUR 1M pre-seed plus planned expansion into the UK, wider Europe and the US, while a January competitor-comparison page still describes an earlier Tango product surface.',
+    preparedDate: '2026-08-29',
+    summary: 'Expansion-timed competitive brief — buyer-visible comparison drift and a decision boundary across maintenance, contextual delivery and execution.',
+    headlineFinding: 'Guideless’s January Tango comparison still frames Tango as screenshot-and-text documentation with no audio, while Tango now publicly shows video walkthroughs, 40+ language voiceover, in-app guidance and Agents.',
+    deckHref: '/deliveries/guideless-brief-3c0935bc/deck.pdf',
+    appendixHref: '/deliveries/guideless-brief-3c0935bc/appendix.pdf',
+    deckLabel: 'Executive Intelligence Brief',
+    appendixLabel: 'Evidence Appendix',
+  },
 ];
