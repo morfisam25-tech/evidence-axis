@@ -110,4 +110,18 @@ export const intelligenceDeliveries: IntelligenceDelivery[] = [
     deckLabel: 'Executive Brief',
     appendixLabel: 'Evidence Appendix',
   },
+  {
+    slug: 'actualyze-brief-e313db75',
+    company: 'Actualyze AI',
+    recipient: 'Rafi Khardalian',
+    recipientRole: 'Co-Founder & CEO',
+    trigger: '$7M seed and stealth launch while AI Gateway buyer-category surfaces and security-platform consolidation are defining the pre-demo buying frame.',
+    preparedDate: '2026-08-30',
+    summary: 'Public-evidence brief on category visibility, security-platform consolidation pressure, and deployment eligibility.',
+    headlineFinding: 'Actualyze fits the AI Gateway buying job, but the reviewed buyer-category surfaces did not visibly list Actualyze on the review date.',
+    deckHref: '/deliveries/actualyze-brief-e313db75/deck.pdf',
+    appendixHref: '/deliveries/actualyze-brief-e313db75/appendix.pdf',
+    deckLabel: 'Executive Brief',
+    appendixLabel: 'Evidence Appendix',
+  },
 ];
