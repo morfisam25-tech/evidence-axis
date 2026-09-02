@@ -1,8 +1,8 @@
 {
-  "status": "FAIL",
-  "token": "EA-SMOKE-V4-FINAL-1788357370071",
-  "url": "https://evidenceaxis.com/intelligence/cloverleaf-brief-8d7c1f4a/?d=EA-SMOKE-V4-FINAL-1788357370071",
-  "tested_at_utc": "2026-09-02T13:56:22.823Z",
+  "status": "PASS",
+  "token": "EA-SMOKE-V4-CLEAN-1788357637085",
+  "url": "https://evidenceaxis.com/intelligence/cloverleaf-brief-8d7c1f4a/?d=EA-SMOKE-V4-CLEAN-1788357637085",
+  "tested_at_utc": "2026-09-02T14:00:50.474Z",
   "responses": [
     {
       "url": "https://evidenceaxis.com/delivery-tracking-v4.js",
@@ -17,11 +17,11 @@
         "recorded": true,
         "classification": "likely_scanner",
         "classification_reason": "scanner_user_agent",
-        "delivery_token": "EA-SMOKE-V4-FINAL-1788357370071",
+        "delivery_token": "EA-SMOKE-V4-CLEAN-1788357637085",
         "event": "delivery-page-viewed",
         "ip_captured": true,
-        "ip": "172.215.217.103",
-        "server_timestamp_utc": "2026-09-02T13:56:11.180Z",
+        "ip": "13.87.216.119",
+        "server_timestamp_utc": "2026-09-02T14:00:38.854Z",
         "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
       }
     },
@@ -33,11 +33,11 @@
         "recorded": true,
         "classification": "likely_scanner",
         "classification_reason": "scanner_user_agent",
-        "delivery_token": "EA-SMOKE-V4-FINAL-1788357370071",
+        "delivery_token": "EA-SMOKE-V4-CLEAN-1788357637085",
         "event": "human-presence-5s",
         "ip_captured": true,
-        "ip": "172.215.217.103",
-        "server_timestamp_utc": "2026-09-02T13:56:16.114Z",
+        "ip": "13.87.216.119",
+        "server_timestamp_utc": "2026-09-02T14:00:43.775Z",
         "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
       }
     },
@@ -49,64 +49,50 @@
         "recorded": true,
         "classification": "likely_scanner",
         "classification_reason": "scanner_user_agent",
-        "delivery_token": "EA-SMOKE-V4-FINAL-1788357370071",
+        "delivery_token": "EA-SMOKE-V4-CLEAN-1788357637085",
         "event": "executive-deck-opened",
         "ip_captured": true,
-        "ip": "172.215.217.103",
-        "server_timestamp_utc": "2026-09-02T13:56:18.859Z",
+        "ip": "13.87.216.119",
+        "server_timestamp_utc": "2026-09-02T14:00:46.521Z",
         "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
       }
     }
   ],
-  "failures": [
-    {
-      "url": "https://formsubmit.co/ajax/sai@evidenceaxis.com",
-      "error": "net::ERR_FAILED"
-    },
-    {
-      "url": "https://formsubmit.co/ajax/sai@evidenceaxis.com",
-      "error": "net::ERR_FAILED"
-    }
-  ],
-  "consoleErrors": [
-    "Access to fetch at 'https://formsubmit.co/ajax/sai@evidenceaxis.com' from origin 'https://evidenceaxis.com' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
-    "Failed to load resource: net::ERR_FAILED",
-    "Access to fetch at 'https://formsubmit.co/ajax/sai@evidenceaxis.com' from origin 'https://evidenceaxis.com' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
-    "Failed to load resource: net::ERR_FAILED"
-  ],
+  "failures": [],
+  "consoleErrors": [],
   "debug": {
     "emitted": [
       {
         "event": "delivery-page-viewed",
-        "token": "EA-SMOKE-V4-FINAL-1788357370071",
-        "at": 1788357371050
+        "token": "EA-SMOKE-V4-CLEAN-1788357637085",
+        "at": 1788357638714
       },
       {
         "event": "human-presence-5s",
-        "token": "EA-SMOKE-V4-FINAL-1788357370071",
-        "at": 1788357376052
+        "token": "EA-SMOKE-V4-CLEAN-1788357637085",
+        "at": 1788357643715
       },
       {
         "event": "executive-deck-opened",
-        "token": "EA-SMOKE-V4-FINAL-1788357370071",
-        "at": 1788357378794
+        "token": "EA-SMOKE-V4-CLEAN-1788357637085",
+        "at": 1788357646458
       }
     ],
     "submitted": [
       {
         "event": "delivery-page-viewed",
-        "token": "EA-SMOKE-V4-FINAL-1788357370071",
-        "at": 1788357371245
+        "token": "EA-SMOKE-V4-CLEAN-1788357637085",
+        "at": 1788357638898
       },
       {
         "event": "human-presence-5s",
-        "token": "EA-SMOKE-V4-FINAL-1788357370071",
-        "at": 1788357376163
+        "token": "EA-SMOKE-V4-CLEAN-1788357637085",
+        "at": 1788357643810
       },
       {
         "event": "executive-deck-opened",
-        "token": "EA-SMOKE-V4-FINAL-1788357370071",
-        "at": 1788357378911
+        "token": "EA-SMOKE-V4-CLEAN-1788357637085",
+        "at": 1788357646557
       }
     ],
     "responses": [
@@ -118,11 +104,11 @@
           "recorded": true,
           "classification": "likely_scanner",
           "classification_reason": "scanner_user_agent",
-          "delivery_token": "EA-SMOKE-V4-FINAL-1788357370071",
+          "delivery_token": "EA-SMOKE-V4-CLEAN-1788357637085",
           "event": "delivery-page-viewed",
           "ip_captured": true,
-          "ip": "172.215.217.103",
-          "server_timestamp_utc": "2026-09-02T13:56:11.180Z",
+          "ip": "13.87.216.119",
+          "server_timestamp_utc": "2026-09-02T14:00:38.854Z",
           "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
         }
       },
@@ -134,11 +120,11 @@
           "recorded": true,
           "classification": "likely_scanner",
           "classification_reason": "scanner_user_agent",
-          "delivery_token": "EA-SMOKE-V4-FINAL-1788357370071",
+          "delivery_token": "EA-SMOKE-V4-CLEAN-1788357637085",
           "event": "human-presence-5s",
           "ip_captured": true,
-          "ip": "172.215.217.103",
-          "server_timestamp_utc": "2026-09-02T13:56:16.114Z",
+          "ip": "13.87.216.119",
+          "server_timestamp_utc": "2026-09-02T14:00:43.775Z",
           "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
         }
       },
@@ -150,11 +136,11 @@
           "recorded": true,
           "classification": "likely_scanner",
           "classification_reason": "scanner_user_agent",
-          "delivery_token": "EA-SMOKE-V4-FINAL-1788357370071",
+          "delivery_token": "EA-SMOKE-V4-CLEAN-1788357637085",
           "event": "executive-deck-opened",
           "ip_captured": true,
-          "ip": "172.215.217.103",
-          "server_timestamp_utc": "2026-09-02T13:56:18.859Z",
+          "ip": "13.87.216.119",
+          "server_timestamp_utc": "2026-09-02T14:00:46.521Z",
           "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
         }
       }
@@ -163,24 +149,24 @@
     "emailSkipped": [
       {
         "event": "delivery-page-viewed",
-        "token": "EA-SMOKE-V4-FINAL-1788357370071",
-        "at": 1788357371245,
+        "token": "EA-SMOKE-V4-CLEAN-1788357637085",
+        "at": 1788357638898,
         "reason": "likely_scanner"
       },
       {
         "event": "human-presence-5s",
-        "token": "EA-SMOKE-V4-FINAL-1788357370071",
-        "at": 1788357376163,
+        "token": "EA-SMOKE-V4-CLEAN-1788357637085",
+        "at": 1788357643810,
         "reason": "likely_scanner"
       },
       {
         "event": "executive-deck-opened",
-        "token": "EA-SMOKE-V4-FINAL-1788357370071",
-        "at": 1788357378911,
+        "token": "EA-SMOKE-V4-CLEAN-1788357637085",
+        "at": 1788357646557,
         "reason": "likely_scanner"
       }
     ],
     "errors": []
   },
-  "error": "Error: scanner attempted FormSubmit\n    at file:///tmp/ea-smoke/smoke.mjs:40:66"
+  "error": ""
 }
