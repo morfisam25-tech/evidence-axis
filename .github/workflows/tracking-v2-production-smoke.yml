@@ -1,0 +1,52 @@
+name: tracking-v2-production-smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/tracking-v2-production-smoke.yml'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Install Playwright
+        run: |
+          mkdir -p /tmp/ea-smoke
+          cd /tmp/ea-smoke
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null 2>&1
+
+      - name: Open production delivery page and trigger events
+        run: |
+          cd /tmp/ea-smoke
+          cat > smoke.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          const token = `EA-SMOKE-${Date.now()}`;
+          const url = `https://evidenceaxis.com/intelligence/cloverleaf-brief-8d7c1f4a/?d=${token}`;
+          const browser = await chromium.launch({ headless: true });
+          const page = await browser.newPage();
+          const responses = [];
+          page.on('response', r => {
+            const u = r.url();
+            if (u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('api.ipify.org')) {
+              responses.push({ url: u, status: r.status() });
+            }
+          });
+          const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
+          if (!res || !res.ok()) throw new Error(`delivery page HTTP ${res?.status()}`);
+          const hasV2 = await page.locator('script[src="/delivery-tracking-v2.js"]').count();
+          if (!hasV2) throw new Error('tracking v2 script is not deployed on production');
+          await page.waitForTimeout(7000);
+          const deck = page.locator('[data-delivery-event="executive-deck-opened"]');
+          if (!(await deck.count())) throw new Error('deck tracking link not found');
+          await deck.click({ modifiers: ['Control'] }).catch(async () => { await deck.click(); });
+          await page.waitForTimeout(3000);
+          console.log(`SMOKE_TOKEN=${token}`);
+          console.log(`PAGE_URL=${url}`);
+          console.log(`TRACKING_RESPONSES=${JSON.stringify(responses)}`);
+          await browser.close();
+          EOF
+          node smoke.mjs
