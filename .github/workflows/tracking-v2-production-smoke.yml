@@ -1,4 +1,5 @@
 name: tracking-v2-production-smoke
+# run 3 after FormSubmit no-cors fallback fix
 
 on:
   push:
@@ -33,13 +34,13 @@ jobs:
           const consoleErrors = [];
           page.on('response', r => {
             const u = r.url();
-            if (u.includes('delivery-tracking-v2.js') || u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('api.ipify.org')) {
+            if (u.includes('delivery-tracking-v2.js') || u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('ipify.org')) {
               responses.push({ url: u, status: r.status() });
             }
           });
           page.on('requestfailed', r => {
             const u = r.url();
-            if (u.includes('delivery-tracking-v2.js') || u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('api.ipify.org')) {
+            if (u.includes('delivery-tracking-v2.js') || u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('ipify.org')) {
               failures.push({ url: u, error: r.failure()?.errorText || 'unknown' });
             }
           });
