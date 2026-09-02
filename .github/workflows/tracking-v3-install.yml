@@ -22,20 +22,24 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
 
           root = Path('src/pages/intelligence')
           changed = []
-          replacement = '  <script is:inline src="/delivery-tracking-v3.js"></script>'
-          pattern = re.compile(r'\n\s*<script>\s*document\.querySelectorAll<HTMLElement>\(\'\[data-delivery-tracking\]\'\)[\s\S]*?</script>', re.M)
+          replacement = '  <script is:inline src="/delivery-tracking-v3.js?v=3"></script>'
           for path in root.glob('*.astro'):
               text = path.read_text()
-              if 'intelligence-delivery-tracking' not in text:
+              marker = 'intelligence-delivery-tracking'
+              if marker not in text:
                   continue
-              new, n = pattern.subn('\n' + replacement, text, count=1)
-              if n:
-                  path.write_text(new)
-                  changed.append(str(path))
+              m = text.index(marker)
+              start = text.rfind('<script', 0, m)
+              end = text.find('</script>', m)
+              if start == -1 or end == -1:
+                  raise SystemExit(f'Could not locate legacy script block in {path}')
+              end += len('</script>')
+              new = text[:start] + replacement + text[end:]
+              path.write_text(new)
+              changed.append(str(path))
           print('changed', changed)
           if not changed:
               raise SystemExit('No legacy tracking blocks were replaced')
@@ -48,7 +52,7 @@ jobs:
           git push origin HEAD:main
 
       - name: Wait for production deployment
-        run: sleep 75
+        run: sleep 90
 
       - name: Install Playwright
         run: |
@@ -79,7 +83,7 @@ jobs:
           });
           const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
           if (!res || !res.ok()) throw new Error(`delivery page HTTP ${res?.status()}`);
-          const hasV3 = await page.locator('script[src="/delivery-tracking-v3.js"]').count();
+          const hasV3 = await page.locator('script[src^="/delivery-tracking-v3.js"]').count();
           if (!hasV3) throw new Error('tracking v3 script tag is not deployed on production');
           await page.waitForTimeout(7000);
           const deck = page.locator('[data-delivery-event="executive-deck-opened"]');
