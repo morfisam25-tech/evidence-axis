@@ -1,0 +1,112 @@
+{
+  "status": "PASS",
+  "token": "EA-SMOKE-V4-1788355124432",
+  "url": "https://evidenceaxis.com/intelligence/cloverleaf-brief-8d7c1f4a/?d=EA-SMOKE-V4-1788355124432",
+  "tested_at_utc": "2026-09-02T13:18:58.783Z",
+  "responses": [
+    {
+      "url": "https://evidenceaxis.com/delivery-tracking-v4.js",
+      "status": 200
+    },
+    {
+      "url": "https://api64.ipify.org/?format=json",
+      "status": 200
+    },
+    {
+      "url": "https://formsubmit.co/sai@evidenceaxis.com",
+      "status": 403
+    },
+    {
+      "url": "https://formsubmit.co/sai@evidenceaxis.com",
+      "status": 403
+    },
+    {
+      "url": "https://formsubmit.co/sai@evidenceaxis.com",
+      "status": 403
+    }
+  ],
+  "failures": [
+    {
+      "url": "https://formsubmit.co/ajax/sai@evidenceaxis.com",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "url": "https://formsubmit.co/sai@evidenceaxis.com",
+      "error": "net::ERR_BLOCKED_BY_RESPONSE"
+    },
+    {
+      "url": "https://formsubmit.co/sai@evidenceaxis.com",
+      "error": "net::ERR_BLOCKED_BY_RESPONSE"
+    },
+    {
+      "url": "https://formsubmit.co/ajax/sai@evidenceaxis.com",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "url": "https://formsubmit.co/sai@evidenceaxis.com",
+      "error": "net::ERR_BLOCKED_BY_RESPONSE"
+    }
+  ],
+  "consoleErrors": [
+    "Access to fetch at 'https://formsubmit.co/ajax/sai@evidenceaxis.com' from origin 'https://evidenceaxis.com' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+    "Failed to load resource: net::ERR_FAILED",
+    "Failed to load resource: the server responded with a status of 403 ()",
+    "Refused to display 'https://formsubmit.co/' in a frame because it set 'X-Frame-Options' to 'sameorigin'.",
+    "Failed to load resource: the server responded with a status of 403 ()",
+    "Refused to display 'https://formsubmit.co/' in a frame because it set 'X-Frame-Options' to 'sameorigin'.",
+    "Failed to load resource: the server responded with a status of 403 ()",
+    "Refused to display 'https://formsubmit.co/' in a frame because it set 'X-Frame-Options' to 'sameorigin'.",
+    "Access to fetch at 'https://formsubmit.co/ajax/sai@evidenceaxis.com' from origin 'https://evidenceaxis.com' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+    "Failed to load resource: net::ERR_FAILED",
+    "Failed to load resource: the server responded with a status of 403 ()",
+    "Refused to display 'https://formsubmit.co/' in a frame because it set 'X-Frame-Options' to 'sameorigin'.",
+    "Failed to load resource: the server responded with a status of 403 ()",
+    "Refused to display 'https://formsubmit.co/' in a frame because it set 'X-Frame-Options' to 'sameorigin'.",
+    "Failed to load resource: the server responded with a status of 403 ()",
+    "Refused to display 'https://formsubmit.co/' in a frame because it set 'X-Frame-Options' to 'sameorigin'."
+  ],
+  "debug": {
+    "emitted": [
+      {
+        "event": "delivery-page-viewed",
+        "token": "EA-SMOKE-V4-1788355124432",
+        "at": 1788355125233,
+        "classification": "likely_scanner"
+      },
+      {
+        "event": "human-presence-5s",
+        "token": "EA-SMOKE-V4-1788355124432",
+        "at": 1788355130235,
+        "classification": "likely_scanner"
+      },
+      {
+        "event": "executive-deck-opened",
+        "token": "EA-SMOKE-V4-1788355124432",
+        "at": 1788355133754,
+        "classification": "likely_scanner"
+      }
+    ],
+    "submitted": [
+      {
+        "event": "delivery-page-viewed",
+        "token": "EA-SMOKE-V4-1788355124432",
+        "at": 1788355126167,
+        "action": "https://formsubmit.co/sai@evidenceaxis.com"
+      },
+      {
+        "event": "human-presence-5s",
+        "token": "EA-SMOKE-V4-1788355124432",
+        "at": 1788355130238,
+        "action": "https://formsubmit.co/sai@evidenceaxis.com"
+      },
+      {
+        "event": "executive-deck-opened",
+        "token": "EA-SMOKE-V4-1788355124432",
+        "at": 1788355133758,
+        "action": "https://formsubmit.co/sai@evidenceaxis.com"
+      }
+    ],
+    "errors": []
+  },
+  "error": ""
+}
