@@ -17,7 +17,6 @@ const appendixHref = `/deliveries/${slug}/appendix.pdf`;
   <main
     class="gift12"
     data-delivery-tracking
-    data-tracking-endpoint={contact.formEndpoint ?? ''}
     data-delivery-company={company}
     data-delivery-slug={slug}
   >
@@ -71,50 +70,7 @@ const appendixHref = `/deliveries/${slug}/appendix.pdf`;
         <a class="cta" href={`${cta.secondary.href}&company=${encodeURIComponent(company)}`} data-delivery-event="decision-conversation-clicked">Discuss a Competitive Decision →</a>
       </div>
     </section>
-  </main>
-
-  <script>
-    document.querySelectorAll<HTMLElement>('[data-delivery-tracking]').forEach((root) => {
-      const endpoint = root.dataset.trackingEndpoint;
-      const company = root.dataset.deliveryCompany || 'Unknown company';
-      const slug = root.dataset.deliverySlug || 'unknown';
-      if (!endpoint) return;
-
-      const emit = (eventName: string) => {
-        const storageKey = `evidence-axis:${slug}:${eventName}`;
-        try {
-          if (sessionStorage.getItem(storageKey)) return;
-          sessionStorage.setItem(storageKey, '1');
-        } catch {}
-
-        const payload = {
-          _subject: `Evidence Axis delivery event — ${company}`,
-          _template: 'table',
-          source: 'intelligence-delivery-tracking',
-          event: eventName,
-          company,
-          delivery_slug: slug,
-          timestamp_utc: new Date().toISOString(),
-        };
-
-        fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(payload),
-          keepalive: true,
-        }).catch(() => {});
-      };
-
-      emit('delivery-page-viewed');
-      root.querySelectorAll<HTMLElement>('[data-delivery-event]').forEach((el) => {
-        el.addEventListener('click', () => {
-          const eventName = el.dataset.deliveryEvent;
-          if (eventName) emit(eventName);
-        });
-      });
-    });
-  </script>
-</Base>
+  </main></Base>
 
 <style>
   .gift12{background:#f6f3ee;color:#0c1420}

@@ -50,7 +50,6 @@ const recipientLine = [delivery.recipient, delivery.recipientRole].filter(Boolea
   <main
     class="delivery-main"
     data-delivery-tracking
-    data-tracking-endpoint={contact.formEndpoint ?? ''}
     data-delivery-company={delivery.company}
     data-delivery-slug={delivery.slug}
   >
@@ -116,54 +115,7 @@ const recipientLine = [delivery.recipient, delivery.recipientRole].filter(Boolea
         <a class="btn btn--lg" href={`${cta.secondary.href}&company=${encodeURIComponent(delivery.company)}`} data-delivery-event="decision-conversation-clicked">Discuss a Competitive Decision <span class="btn-arrow" aria-hidden="true">→</span></a>
       </div>
     </section>
-  </main>
-
-  <script>
-    document.querySelectorAll<HTMLElement>('[data-delivery-tracking]').forEach((root) => {
-      const endpoint = root.dataset.trackingEndpoint;
-      const company = root.dataset.deliveryCompany || 'Unknown company';
-      const slug = root.dataset.deliverySlug || 'unknown';
-      if (!endpoint) return;
-
-      const emit = (eventName: string) => {
-        const storageKey = `evidence-axis:${slug}:${eventName}`;
-        try {
-          if (sessionStorage.getItem(storageKey)) return;
-          sessionStorage.setItem(storageKey, '1');
-        } catch {
-          // Tracking should never block access to the intelligence package.
-        }
-
-        const payload = {
-          _subject: `Evidence Axis delivery event — ${company}`,
-          _template: 'table',
-          source: 'intelligence-delivery-tracking',
-          event: eventName,
-          company,
-          delivery_slug: slug,
-          timestamp_utc: new Date().toISOString(),
-        };
-
-        fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(payload),
-          keepalive: true,
-        }).catch(() => {
-          // Tracking failure must never interfere with recipient access.
-        });
-      };
-
-      emit('delivery-page-viewed');
-      root.querySelectorAll<HTMLElement>('[data-delivery-event]').forEach((el) => {
-        el.addEventListener('click', () => {
-          const eventName = el.dataset.deliveryEvent;
-          if (eventName) emit(eventName);
-        });
-      });
-    });
-  </script>
-</Base>
+  </main></Base>
 
 <style>
   .delivery-hero{position:relative;overflow:hidden;padding:clamp(5rem,9vw,8.5rem) 0;background:#020713;color:#f5f8ff;border-bottom:1px solid rgba(112,158,220,.18)}
