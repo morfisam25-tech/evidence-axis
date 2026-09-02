@@ -101,4 +101,4 @@ const serviceLd = serviceTypes[path]
 
 <script is:inline type="application/ld+json" set:html={JSON.stringify(orgLd)} />
 {serviceLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceLd)} />}
-{isIntelligenceDelivery && <script is:inline src="/delivery-tracking-v4.js"></script>}
+{isIntelligenceDelivery && <script is:inline defer src="/delivery-tracking-v4.js"></script>}
