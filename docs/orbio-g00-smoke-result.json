@@ -1,0 +1,282 @@
+{
+  "status": "PASS",
+  "token": "EA-ORB-G00-1788383133516",
+  "url": "https://evidenceaxis.com/intelligence/orbio-brief-1734efba/?d=EA-ORB-G00-1788383133516",
+  "tested_at_utc": "2026-09-02T21:05:48.647Z",
+  "pdfChecks": [
+    {
+      "name": "deck",
+      "status": 200,
+      "contentType": "application/pdf",
+      "length": 65733
+    },
+    {
+      "name": "appendix",
+      "status": 200,
+      "contentType": "application/pdf",
+      "length": 40272
+    }
+  ],
+  "responses": [
+    {
+      "url": "https://evidenceaxis.com/delivery-tracking-v4.js",
+      "status": 200,
+      "body": null
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-ORB-G00-1788383133516",
+        "event": "delivery-page-viewed",
+        "ip_captured": true,
+        "ip": "172.182.243.245",
+        "server_timestamp_utc": "2026-09-02T21:05:34.882Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-ORB-G00-1788383133516",
+        "event": "human-presence-5s",
+        "ip_captured": true,
+        "ip": "172.182.243.245",
+        "server_timestamp_utc": "2026-09-02T21:05:39.698Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-ORB-G00-1788383133516",
+        "event": "executive-deck-opened",
+        "ip_captured": true,
+        "ip": "172.182.243.245",
+        "server_timestamp_utc": "2026-09-02T21:05:42.621Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-ORB-G00-1788383133516",
+        "event": "evidence-appendix-opened",
+        "ip_captured": true,
+        "ip": "172.182.243.245",
+        "server_timestamp_utc": "2026-09-02T21:05:43.826Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-ORB-G00-1788383133516",
+        "event": "decision-conversation-clicked",
+        "ip_captured": true,
+        "ip": "172.182.243.245",
+        "server_timestamp_utc": "2026-09-02T21:05:45.039Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    }
+  ],
+  "failures": [],
+  "consoleErrors": [],
+  "debug": {
+    "emitted": [
+      {
+        "event": "delivery-page-viewed",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383134606
+      },
+      {
+        "event": "human-presence-5s",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383139607
+      },
+      {
+        "event": "executive-deck-opened",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383142534
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383143738
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383144942
+      }
+    ],
+    "submitted": [
+      {
+        "event": "delivery-page-viewed",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383134955
+      },
+      {
+        "event": "human-presence-5s",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383139770
+      },
+      {
+        "event": "executive-deck-opened",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383142688
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383143897
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383145106
+      }
+    ],
+    "responses": [
+      {
+        "event": "delivery-page-viewed",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-ORB-G00-1788383133516",
+          "event": "delivery-page-viewed",
+          "ip_captured": true,
+          "ip": "172.182.243.245",
+          "server_timestamp_utc": "2026-09-02T21:05:34.882Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "human-presence-5s",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-ORB-G00-1788383133516",
+          "event": "human-presence-5s",
+          "ip_captured": true,
+          "ip": "172.182.243.245",
+          "server_timestamp_utc": "2026-09-02T21:05:39.698Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "executive-deck-opened",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-ORB-G00-1788383133516",
+          "event": "executive-deck-opened",
+          "ip_captured": true,
+          "ip": "172.182.243.245",
+          "server_timestamp_utc": "2026-09-02T21:05:42.621Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-ORB-G00-1788383133516",
+          "event": "evidence-appendix-opened",
+          "ip_captured": true,
+          "ip": "172.182.243.245",
+          "server_timestamp_utc": "2026-09-02T21:05:43.826Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-ORB-G00-1788383133516",
+          "event": "decision-conversation-clicked",
+          "ip_captured": true,
+          "ip": "172.182.243.245",
+          "server_timestamp_utc": "2026-09-02T21:05:45.039Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      }
+    ],
+    "emailSubmitted": [],
+    "emailSkipped": [
+      {
+        "event": "delivery-page-viewed",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383134955,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "human-presence-5s",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383139770,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "executive-deck-opened",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383142688,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383143897,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "token": "EA-ORB-G00-1788383133516",
+        "at": 1788383145106,
+        "reason": "likely_scanner"
+      }
+    ],
+    "errors": []
+  },
+  "error": ""
+}
