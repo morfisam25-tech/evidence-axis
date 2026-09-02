@@ -1,0 +1,69 @@
+name: remove-legacy-delivery-tracking-once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/remove-legacy-delivery-tracking-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Remove legacy inline delivery trackers
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path('src/pages/intelligence')
+          changed = []
+          removed_blocks = 0
+          for path in sorted(root.glob('*.astro')):
+              text = path.read_text(encoding='utf-8')
+              original = text
+
+              # Remove only script blocks belonging to the retired inline tracker.
+              def drop_legacy(match):
+                  global removed_blocks
+                  block = match.group(0)
+                  if 'trackingEndpoint' in block and 'intelligence-delivery-tracking' in block:
+                      removed_blocks += 1
+                      return ''
+                  return block
+
+              text = re.sub(r'\n?\s*<script>.*?</script>\s*\n?', drop_legacy, text, flags=re.S)
+              text = re.sub(r'\n\s*data-tracking-endpoint=\{contact\.formEndpoint \?\? \'\'\}', '', text)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(str(path))
+
+          print('changed files:', len(changed))
+          print('removed legacy script blocks:', removed_blocks)
+          for p in changed: print(p)
+          if removed_blocks < 8:
+              raise SystemExit(f'Expected at least 8 legacy tracker blocks, removed {removed_blocks}')
+          PY
+      - name: Verify legacy tracker is gone from intelligence pages
+        run: |
+          if grep -R "trackingEndpoint\|intelligence-delivery-tracking'" src/pages/intelligence --include='*.astro'; then
+            echo 'Legacy tracker residue remains' >&2
+            exit 1
+          fi
+          grep -R "delivery-tracking-v4.js" src/pages/intelligence --include='*.astro' >/dev/null
+      - name: Commit cleanup
+        run: |
+          git config user.name "Evidence Axis Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add src/pages/intelligence
+          git commit -m "Remove retired inline delivery trackers" || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
