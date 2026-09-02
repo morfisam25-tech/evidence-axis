@@ -1,5 +1,5 @@
 name: tracking-v2-production-smoke
-# run 6 with v3 debug state
+# run 7 against immutable tracking v4
 
 on:
   push:
@@ -34,32 +34,32 @@ jobs:
           const consoleErrors = [];
           page.on('response', r => {
             const u = r.url();
-            if (u.includes('delivery-tracking-v3.js') || u.includes('formsubmit.co') || u.includes('ipify.org')) responses.push({ url: u, status: r.status() });
+            if (u.includes('delivery-tracking-v4.js') || u.includes('formsubmit.co') || u.includes('ipify.org')) responses.push({ url: u, status: r.status() });
           });
           page.on('requestfailed', r => {
             const u = r.url();
-            if (u.includes('delivery-tracking-v3.js') || u.includes('formsubmit.co') || u.includes('ipify.org')) failures.push({ url: u, error: r.failure()?.errorText || 'unknown' });
+            if (u.includes('delivery-tracking-v4.js') || u.includes('formsubmit.co') || u.includes('ipify.org')) failures.push({ url: u, error: r.failure()?.errorText || 'unknown' });
           });
           page.on('console', m => { if (m.type() === 'error') consoleErrors.push(m.text()); });
           const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
           if (!res || !res.ok()) throw new Error(`delivery page HTTP ${res?.status()}`);
-          const hasV3 = await page.locator('script[src="/delivery-tracking-v3.js"]').count();
-          if (!hasV3) throw new Error('tracking v3 script tag is not deployed on production');
+          const hasV4 = await page.locator('script[src="/delivery-tracking-v4.js"]').count();
+          if (!hasV4) throw new Error('tracking v4 script tag is not deployed on production');
           await page.waitForTimeout(7000);
           const deck = page.locator('[data-delivery-event="executive-deck-opened"]');
           if (!(await deck.count())) throw new Error('deck tracking link not found');
           await deck.click({ modifiers: ['Control'] }).catch(async () => { await deck.click(); });
-          await page.waitForTimeout(5000);
-          const debug = await page.evaluate(() => window.__eaTrackingV3 || null);
+          await page.waitForTimeout(6000);
+          const debug = await page.evaluate(() => window.__eaTrackingV4 || null);
           console.log(`SMOKE_TOKEN=${token}`);
           console.log(`PAGE_URL=${url}`);
           console.log(`TRACKING_DEBUG=${JSON.stringify(debug)}`);
           console.log(`TRACKING_RESPONSES=${JSON.stringify(responses)}`);
           console.log(`TRACKING_FAILURES=${JSON.stringify(failures)}`);
           console.log(`CONSOLE_ERRORS=${JSON.stringify(consoleErrors)}`);
-          const scriptOk = responses.some(x => x.url.includes('delivery-tracking-v3.js') && x.status === 200);
-          if (!scriptOk) throw new Error('tracking v3 script did not load with HTTP 200');
-          if (!debug || debug.submitted.length < 2) throw new Error(`tracking v3 did not submit expected events: ${JSON.stringify(debug)}`);
+          const scriptOk = responses.some(x => x.url.includes('delivery-tracking-v4.js') && x.status === 200);
+          if (!scriptOk) throw new Error('tracking v4 script did not load with HTTP 200');
+          if (!debug || debug.submitted.length < 2) throw new Error(`tracking v4 did not submit expected events: ${JSON.stringify(debug)}`);
           await browser.close();
           EOF
           node smoke.mjs
