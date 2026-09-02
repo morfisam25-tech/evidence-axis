@@ -4,6 +4,7 @@
 
   const FORM_ENDPOINT = 'https://formsubmit.co/sai@evidenceaxis.com';
   const scannerPattern = /(proofpoint|mimecast|barracuda|safelinks|microsoft office|defender|googleimageproxy|urlscan|crawler|spider|bot\b|headless|phantom|curl|wget|python-requests|axios|httpclient|linkcheck|security scanner)/i;
+  const debug = window.__eaTrackingV3 = window.__eaTrackingV3 || { emitted: [], submitted: [], errors: [] };
 
   const randomId = () => {
     try { if (crypto?.randomUUID) return crypto.randomUUID(); } catch {}
@@ -26,10 +27,12 @@
 
   const getPublicIp = () => {
     if (!ipPromise) {
-      ipPromise = fetch('https://api64.ipify.org?format=json', { cache: 'no-store', credentials: 'omit' })
+      const lookup = fetch('https://api64.ipify.org?format=json', { cache: 'no-store', credentials: 'omit' })
         .then(r => r.ok ? r.json() : null)
         .then(v => v?.ip || '')
         .catch(() => '');
+      const timeout = new Promise(resolve => setTimeout(() => resolve(''), 1200));
+      ipPromise = Promise.race([lookup, timeout]);
     }
     return ipPromise;
   };
@@ -45,36 +48,41 @@
   };
 
   const nativeSubmit = (payload) => {
-    const frameName = `ea-track-${randomId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
-    const iframe = document.createElement('iframe');
-    iframe.name = frameName;
-    iframe.hidden = true;
-    iframe.setAttribute('aria-hidden', 'true');
+    try {
+      const frameName = `ea-track-${randomId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
+      const iframe = document.createElement('iframe');
+      iframe.name = frameName;
+      iframe.hidden = true;
+      iframe.setAttribute('aria-hidden', 'true');
 
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = FORM_ENDPOINT;
-    form.target = frameName;
-    form.hidden = true;
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = FORM_ENDPOINT;
+      form.target = frameName;
+      form.hidden = true;
 
-    const fields = {
-      _subject: `Evidence Axis tracking v3 — ${payload.company}`,
-      _template: 'table',
-      _captcha: 'false',
-      ...payload,
-    };
+      const fields = {
+        _subject: `Evidence Axis tracking v3 — ${payload.company}`,
+        _template: 'table',
+        _captcha: 'false',
+        ...payload,
+      };
 
-    for (const [name, value] of Object.entries(fields)) {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = name;
-      input.value = String(value ?? '');
-      form.appendChild(input);
+      for (const [name, value] of Object.entries(fields)) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = String(value ?? '');
+        form.appendChild(input);
+      }
+
+      document.body.append(iframe, form);
+      debug.submitted.push({ event: payload.event, token: payload.delivery_token, at: Date.now(), action: form.action });
+      form.submit();
+      window.setTimeout(() => { form.remove(); iframe.remove(); }, 20000);
+    } catch (error) {
+      debug.errors.push(String(error));
     }
-
-    document.body.append(iframe, form);
-    form.submit();
-    window.setTimeout(() => { form.remove(); iframe.remove(); }, 15000);
   };
 
   const emit = async (root, eventName) => {
@@ -87,6 +95,7 @@
     } catch {}
 
     const [classification, classificationReason] = classify(eventName);
+    debug.emitted.push({ event: eventName, token: deliveryToken, at: Date.now(), classification });
     const ip = await getPublicIp();
     const payload = {
       source: 'intelligence-delivery-tracking-v3',
