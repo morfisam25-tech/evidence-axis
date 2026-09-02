@@ -1,0 +1,46 @@
+name: tracking-endpoint-smoke-once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/tracking-endpoint-smoke-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Wait for production
+        run: sleep 60
+      - name: POST production endpoint
+        run: |
+          TOKEN="EA-ENDPOINT-FINAL-$(date +%s)"
+          TS="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          BODY=$(printf '{"event":"human-presence-5s","company":"Evidence Axis Tracking Test","delivery_slug":"tracking-smoke","delivery_token":"%s","visitor_id":"smoke-visitor","session_id":"smoke-session","client_timestamp_utc":"%s","dwell_ms":5100,"page_url":"https://evidenceaxis.com/intelligence/cloverleaf-brief-8d7c1f4a/?d=%s","visibility_state":"visible","has_focus":true,"webdriver":true,"language":"en-US","timezone":"UTC","screen":"1280x720","viewport":"1280x720"}' "$TOKEN" "$TS" "$TOKEN")
+          HTTP=$(curl -sS -D /tmp/headers.txt -o /tmp/body.txt -w '%{http_code}' -X POST 'https://evidenceaxis.com/api/track' -H 'Origin: https://evidenceaxis.com' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'User-Agent: EvidenceAxis-Smoke-Test/1.0' --data "$BODY" || true)
+          mkdir -p docs
+          {
+            echo "token=$TOKEN"
+            echo "tested_at_utc=$TS"
+            echo "http_status=$HTTP"
+            echo "--- headers ---"
+            cat /tmp/headers.txt
+            echo "--- body ---"
+            cat /tmp/body.txt
+            echo
+          } > docs/tracking-endpoint-smoke-result.txt
+      - name: Commit result
+        run: |
+          git config user.name "Evidence Axis Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git pull --rebase origin main
+          git add docs/tracking-endpoint-smoke-result.txt
+          git commit -m "Record production tracking endpoint smoke result" || exit 0
+          git push origin HEAD:main
