@@ -21,6 +21,7 @@ const canonical = new URL(path, site.url).href;
 const ogImage = new URL('/og-image.png', site.url).href;
 const fullTitle = title === site.name ? `${site.name} — ${site.category}` : `${title} · ${site.name}`;
 const founderUrl = new URL('/author/sai-morfi/', site.url).href;
+const isIntelligenceDelivery = path.startsWith('/intelligence/');
 
 // Organization structured data — only truthfully supportable fields.
 // No ratings, no reviews, no employee counts, no unverified claims.
@@ -100,3 +101,4 @@ const serviceLd = serviceTypes[path]
 
 <script is:inline type="application/ld+json" set:html={JSON.stringify(orgLd)} />
 {serviceLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceLd)} />}
+{isIntelligenceDelivery && <script is:inline src="/delivery-tracking-v2.js"></script>}
