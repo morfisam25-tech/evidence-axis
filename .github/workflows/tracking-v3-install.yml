@@ -1,0 +1,95 @@
+name: tracking-v3-install
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/tracking-v3-install.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install-and-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Replace legacy intelligence tracking with v3
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path('src/pages/intelligence')
+          changed = []
+          replacement = '  <script is:inline src="/delivery-tracking-v3.js"></script>'
+          pattern = re.compile(r'\n\s*<script>\s*document\.querySelectorAll<HTMLElement>\(\'\[data-delivery-tracking\]\'\)[\s\S]*?</script>', re.M)
+          for path in root.glob('*.astro'):
+              text = path.read_text()
+              if 'intelligence-delivery-tracking' not in text:
+                  continue
+              new, n = pattern.subn('\n' + replacement, text, count=1)
+              if n:
+                  path.write_text(new)
+                  changed.append(str(path))
+          print('changed', changed)
+          if not changed:
+              raise SystemExit('No legacy tracking blocks were replaced')
+          PY
+
+          git config user.name "Evidence Axis Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add src/pages/intelligence
+          git commit -m "Switch intelligence pages to delivery tracking v3"
+          git push origin HEAD:main
+
+      - name: Wait for production deployment
+        run: sleep 75
+
+      - name: Install Playwright
+        run: |
+          mkdir -p /tmp/ea-smoke
+          cd /tmp/ea-smoke
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null 2>&1
+
+      - name: Smoke test production tracking v3
+        run: |
+          cd /tmp/ea-smoke
+          cat > smoke.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          const token = `EA-SMOKE-${Date.now()}`;
+          const url = `https://evidenceaxis.com/intelligence/cloverleaf-brief-8d7c1f4a/?d=${token}`;
+          const browser = await chromium.launch({ headless: true });
+          const page = await browser.newPage();
+          const responses = [];
+          const failures = [];
+          page.on('response', r => {
+            const u = r.url();
+            if (u.includes('delivery-tracking-v3.js') || u.includes('formsubmit.co') || u.includes('ipify.org')) responses.push({url:u,status:r.status()});
+          });
+          page.on('requestfailed', r => {
+            const u = r.url();
+            if (u.includes('delivery-tracking-v3.js') || u.includes('formsubmit.co') || u.includes('ipify.org')) failures.push({url:u,error:r.failure()?.errorText || 'unknown'});
+          });
+          const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
+          if (!res || !res.ok()) throw new Error(`delivery page HTTP ${res?.status()}`);
+          const hasV3 = await page.locator('script[src="/delivery-tracking-v3.js"]').count();
+          if (!hasV3) throw new Error('tracking v3 script tag is not deployed on production');
+          await page.waitForTimeout(7000);
+          const deck = page.locator('[data-delivery-event="executive-deck-opened"]');
+          await deck.click({ modifiers: ['Control'] }).catch(async () => { await deck.click(); });
+          await page.waitForTimeout(5000);
+          console.log(`SMOKE_TOKEN=${token}`);
+          console.log(`TRACKING_RESPONSES=${JSON.stringify(responses)}`);
+          console.log(`TRACKING_FAILURES=${JSON.stringify(failures)}`);
+          const scriptOk = responses.some(x => x.url.includes('delivery-tracking-v3.js') && x.status === 200);
+          if (!scriptOk) throw new Error('tracking v3 script did not load with HTTP 200');
+          await browser.close();
+          EOF
+          node smoke.mjs
