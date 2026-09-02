@@ -82,12 +82,14 @@
       server_endpoint_available: 'false',
     };
     try {
+      const body = new URLSearchParams();
+      Object.entries(enriched).forEach(([key, value]) => body.set(key, String(value ?? '')));
       await fetch(FORM_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(enriched),
+        body,
         keepalive: true,
         credentials: 'omit',
+        mode: 'no-cors',
       });
     } catch {}
   };
