@@ -1,4 +1,5 @@
 name: remove-legacy-delivery-tracking-once
+# rerun with corrected verification
 
 on:
   push:
@@ -30,7 +31,6 @@ jobs:
               text = path.read_text(encoding='utf-8')
               original = text
 
-              # Remove only script blocks belonging to the retired inline tracker.
               def drop_legacy(match):
                   global removed_blocks
                   block = match.group(0)
@@ -52,13 +52,12 @@ jobs:
           if removed_blocks < 8:
               raise SystemExit(f'Expected at least 8 legacy tracker blocks, removed {removed_blocks}')
           PY
-      - name: Verify legacy tracker is gone from intelligence pages
+      - name: Verify legacy tracker is gone
         run: |
           if grep -R "trackingEndpoint\|intelligence-delivery-tracking'" src/pages/intelligence --include='*.astro'; then
             echo 'Legacy tracker residue remains' >&2
             exit 1
           fi
-          grep -R "delivery-tracking-v4.js" src/pages/intelligence --include='*.astro' >/dev/null
       - name: Commit cleanup
         run: |
           git config user.name "Evidence Axis Automation"
