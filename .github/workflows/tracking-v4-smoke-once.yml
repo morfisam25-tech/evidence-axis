@@ -1,5 +1,5 @@
 name: tracking-v4-smoke-once
-# immediate final browser smoke; production deploy already completed
+# production browser smoke after legacy tracker removal
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
           cat > smoke.mjs <<'EOF'
           import { chromium } from 'playwright';
           import { writeFileSync } from 'node:fs';
-          const token = `EA-SMOKE-V4-FINAL-${Date.now()}`;
+          const token = `EA-SMOKE-V4-CLEAN-${Date.now()}`;
           const url = `https://evidenceaxis.com/intelligence/cloverleaf-brief-8d7c1f4a/?d=${token}`;
           const browser = await chromium.launch({ headless: true });
           const page = await browser.newPage();
@@ -68,7 +68,7 @@ jobs:
             if (!api.length || !api.every(x => x.body?.classification === 'likely_scanner')) throw new Error(`headless events were not all classified as scanner: ${JSON.stringify(api)}`);
             if ((debug.emailSubmitted || []).length !== 0) throw new Error(`scanner generated email copy: ${JSON.stringify(debug.emailSubmitted)}`);
             if (!(debug.emailSkipped || []).length) throw new Error('scanner email suppression was not recorded');
-            if (failures.some(x => x.url.includes('formsubmit.co'))) throw new Error('scanner attempted FormSubmit');
+            if (failures.some(x => x.url.includes('formsubmit.co'))) throw new Error('legacy/FormSubmit request still fired for scanner');
             status = 'PASS';
           } catch (e) { error = String(e?.stack || e); }
           const result = {status,token,url,tested_at_utc:new Date().toISOString(),responses,failures,consoleErrors,debug,error};
@@ -78,11 +78,14 @@ jobs:
           EOF
           node smoke.mjs || true
           cp /tmp/ea-smoke/result.json "$GITHUB_WORKSPACE/docs/tracking-v4-smoke-result.json"
-      - name: Commit smoke result
+      - name: Commit smoke result safely
         run: |
+          cp docs/tracking-v4-smoke-result.json /tmp/final-tracking-result.json
+          git checkout -- docs/tracking-v4-smoke-result.json || true
+          git pull --rebase origin main
+          cp /tmp/final-tracking-result.json docs/tracking-v4-smoke-result.json
           git config user.name "Evidence Axis Automation"
           git config user.email "actions@users.noreply.github.com"
           git add docs/tracking-v4-smoke-result.json
-          git commit -m "Record final tracking v4 production smoke" || exit 0
-          git pull --rebase origin main
+          git commit -m "Record clean tracking v4 production smoke" || exit 0
           git push origin HEAD:main
