@@ -1,5 +1,5 @@
 name: tracking-endpoint-smoke-once
-# rerun after browser-style FormData forwarding fix
+# rerun after commit-order fix
 
 on:
   push:
@@ -37,11 +37,12 @@ jobs:
             cat /tmp/body.txt
             echo
           } > docs/tracking-endpoint-smoke-result.txt
+          echo "TOKEN=$TOKEN" >> "$GITHUB_ENV"
       - name: Commit result
         run: |
           git config user.name "Evidence Axis Automation"
           git config user.email "actions@users.noreply.github.com"
-          git pull --rebase origin main
           git add docs/tracking-endpoint-smoke-result.txt
           git commit -m "Record production tracking endpoint smoke result" || exit 0
+          git pull --rebase origin main
           git push origin HEAD:main
