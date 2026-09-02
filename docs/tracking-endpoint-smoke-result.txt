@@ -1,0 +1,17 @@
+token=EA-ENDPOINT-FINAL-1788355637
+tested_at_utc=2026-09-02T13:27:17Z
+http_status=200
+--- headers ---
+HTTP/2 200 
+cache-control: public, max-age=0, must-revalidate
+content-type: application/json; charset=utf-8
+date: Wed, 02 Sep 2026 13:27:17 GMT
+etag: W/"ed-y/PawAHSPzNEX9v3kTQUdEoK/MI"
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-cache: MISS
+x-vercel-id: sfo1::iad1::jc5nc-1788355637223-66ea870d8502
+content-length: 237
+
+--- body ---
+{"ok":true,"recorded":true,"forwarded":false,"upstream_status":403,"classification":"likely_scanner","classification_reason":"webdriver_true","delivery_token":"EA-ENDPOINT-FINAL-1788355637","event":"human-presence-5s","ip_captured":true}
