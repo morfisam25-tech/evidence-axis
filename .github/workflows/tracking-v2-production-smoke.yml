@@ -1,5 +1,5 @@
 name: tracking-v2-production-smoke
-# run 3 after FormSubmit no-cors fallback fix
+# run 4 after cache-busting the tracking client
 
 on:
   push:
@@ -34,20 +34,16 @@ jobs:
           const consoleErrors = [];
           page.on('response', r => {
             const u = r.url();
-            if (u.includes('delivery-tracking-v2.js') || u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('ipify.org')) {
-              responses.push({ url: u, status: r.status() });
-            }
+            if (u.includes('delivery-tracking-v2.js') || u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('ipify.org')) responses.push({ url: u, status: r.status() });
           });
           page.on('requestfailed', r => {
             const u = r.url();
-            if (u.includes('delivery-tracking-v2.js') || u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('ipify.org')) {
-              failures.push({ url: u, error: r.failure()?.errorText || 'unknown' });
-            }
+            if (u.includes('delivery-tracking-v2.js') || u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('ipify.org')) failures.push({ url: u, error: r.failure()?.errorText || 'unknown' });
           });
           page.on('console', m => { if (m.type() === 'error') consoleErrors.push(m.text()); });
           const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
           if (!res || !res.ok()) throw new Error(`delivery page HTTP ${res?.status()}`);
-          const hasV2 = await page.locator('script[src="/delivery-tracking-v2.js"]').count();
+          const hasV2 = await page.locator('script[src^="/delivery-tracking-v2.js"]').count();
           if (!hasV2) throw new Error('tracking v2 script tag is not deployed on production');
           await page.waitForTimeout(7000);
           const deck = page.locator('[data-delivery-event="executive-deck-opened"]');
