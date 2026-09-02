@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Wait for production deployment
-        run: sleep 75
+        run: sleep 80
       - name: Install Playwright
         run: |
           mkdir -p /tmp/ea-smoke
@@ -26,55 +26,52 @@ jobs:
           npm init -y >/dev/null 2>&1
           npm install playwright@1.55.0 >/dev/null 2>&1
           npx playwright install --with-deps chromium >/dev/null 2>&1
-      - name: Test production and capture result
+      - name: Test first-party production tracking
         run: |
           cd /tmp/ea-smoke
           cat > smoke.mjs <<'EOF'
           import { chromium } from 'playwright';
           import { writeFileSync } from 'node:fs';
-          const token = `EA-SMOKE-V4-${Date.now()}`;
+          const token = `EA-SMOKE-V4-FIRSTPARTY-${Date.now()}`;
           const url = `https://evidenceaxis.com/intelligence/cloverleaf-brief-8d7c1f4a/?d=${token}`;
           const browser = await chromium.launch({ headless: true });
           const page = await browser.newPage();
           const responses = [];
           const failures = [];
           const consoleErrors = [];
-          page.on('response', r => {
+          page.on('response', async r => {
             const u = r.url();
-            if (u.includes('delivery-tracking-v4.js') || u.includes('formsubmit.co') || u.includes('ipify.org')) responses.push({url:u,status:r.status()});
+            if (u.includes('delivery-tracking-v4.js') || u.includes('/api/track')) {
+              let body = null;
+              if (u.includes('/api/track')) { try { body = await r.json(); } catch {} }
+              responses.push({url:u,status:r.status(),body});
+            }
           });
           page.on('requestfailed', r => {
             const u = r.url();
-            if (u.includes('delivery-tracking-v4.js') || u.includes('formsubmit.co') || u.includes('ipify.org')) failures.push({url:u,error:r.failure()?.errorText || 'unknown'});
+            if (u.includes('delivery-tracking-v4.js') || u.includes('/api/track')) failures.push({url:u,error:r.failure()?.errorText || 'unknown'});
           });
           page.on('console', m => { if (m.type() === 'error') consoleErrors.push(m.text()); });
-          let status = 'FAIL';
-          let error = '';
-          let debug = null;
+          let status = 'FAIL'; let error = ''; let debug = null;
           try {
             const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
             if (!res || !res.ok()) throw new Error(`delivery page HTTP ${res?.status()}`);
-            const count = await page.locator('script[src*="delivery-tracking-v4.js"]').count();
-            if (!count) throw new Error('tracking v4 script tag missing on production');
+            if (!(await page.locator('script[src*="delivery-tracking-v4.js"]').count())) throw new Error('v4 script missing');
             await page.waitForTimeout(7000);
             const deck = page.locator('[data-delivery-event="executive-deck-opened"]');
-            if (!(await deck.count())) throw new Error('deck link missing');
             await deck.click({ modifiers: ['Control'] }).catch(async () => { await deck.click(); });
             await page.waitForTimeout(5000);
             debug = await page.evaluate(() => window.__eaTrackingV4 || null);
-            if (!debug) throw new Error('window.__eaTrackingV4 missing');
-            if (!debug.emitted?.some(x => x.event === 'delivery-page-viewed')) throw new Error('page-view event not emitted');
-            if (!debug.submitted?.some(x => x.event === 'delivery-page-viewed')) throw new Error('page-view event not submitted');
+            const api = responses.filter(x => x.url.includes('/api/track'));
+            if (!debug?.emitted?.some(x => x.event === 'delivery-page-viewed')) throw new Error('page view not emitted');
+            if (!api.some(x => x.status === 200 && x.body?.recorded === true && x.body?.ip_captured === true)) throw new Error('no successful /api/track record with IP');
+            if (!api.some(x => x.body?.classification === 'likely_scanner')) throw new Error('headless smoke not classified as scanner');
             status = 'PASS';
           } catch (e) { error = String(e?.stack || e); }
-          const result = {
-            status, token, url, tested_at_utc: new Date().toISOString(),
-            responses, failures, consoleErrors, debug, error
-          };
-          writeFileSync('/tmp/ea-smoke/result.json', JSON.stringify(result, null, 2));
-          console.log(JSON.stringify(result, null, 2));
+          const result = {status,token,url,tested_at_utc:new Date().toISOString(),responses,failures,consoleErrors,debug,error};
+          writeFileSync('/tmp/ea-smoke/result.json', JSON.stringify(result,null,2));
+          console.log(JSON.stringify(result,null,2));
           await browser.close();
-          if (status !== 'PASS') process.exitCode = 1;
           EOF
           node smoke.mjs || true
           cp /tmp/ea-smoke/result.json "$GITHUB_WORKSPACE/docs/tracking-v4-smoke-result.json"
@@ -84,5 +81,5 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git pull --rebase origin main
           git add docs/tracking-v4-smoke-result.json
-          git commit -m "Record production tracking v4 smoke result" || exit 0
+          git commit -m "Record first-party tracking v4 smoke result" || exit 0
           git push origin HEAD:main
