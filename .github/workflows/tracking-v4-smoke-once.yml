@@ -1,4 +1,5 @@
 name: tracking-v4-smoke-once
+# final production browser smoke for scanner suppression and first-party capture
 
 on:
   push:
@@ -18,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Wait for production deployment
-        run: sleep 80
+        run: sleep 70
       - name: Install Playwright
         run: |
           mkdir -p /tmp/ea-smoke
@@ -26,13 +27,13 @@ jobs:
           npm init -y >/dev/null 2>&1
           npm install playwright@1.55.0 >/dev/null 2>&1
           npx playwright install --with-deps chromium >/dev/null 2>&1
-      - name: Test first-party production tracking
+      - name: Test production tracking
         run: |
           cd /tmp/ea-smoke
           cat > smoke.mjs <<'EOF'
           import { chromium } from 'playwright';
           import { writeFileSync } from 'node:fs';
-          const token = `EA-SMOKE-V4-FIRSTPARTY-${Date.now()}`;
+          const token = `EA-SMOKE-V4-FINAL-${Date.now()}`;
           const url = `https://evidenceaxis.com/intelligence/cloverleaf-brief-8d7c1f4a/?d=${token}`;
           const browser = await chromium.launch({ headless: true });
           const page = await browser.newPage();
@@ -49,7 +50,7 @@ jobs:
           });
           page.on('requestfailed', r => {
             const u = r.url();
-            if (u.includes('delivery-tracking-v4.js') || u.includes('/api/track')) failures.push({url:u,error:r.failure()?.errorText || 'unknown'});
+            if (u.includes('delivery-tracking-v4.js') || u.includes('/api/track') || u.includes('formsubmit.co')) failures.push({url:u,error:r.failure()?.errorText || 'unknown'});
           });
           page.on('console', m => { if (m.type() === 'error') consoleErrors.push(m.text()); });
           let status = 'FAIL'; let error = ''; let debug = null;
@@ -59,13 +60,17 @@ jobs:
             if (!(await page.locator('script[src*="delivery-tracking-v4.js"]').count())) throw new Error('v4 script missing');
             await page.waitForTimeout(7000);
             const deck = page.locator('[data-delivery-event="executive-deck-opened"]');
+            if (!(await deck.count())) throw new Error('deck link missing');
             await deck.click({ modifiers: ['Control'] }).catch(async () => { await deck.click(); });
-            await page.waitForTimeout(5000);
+            await page.waitForTimeout(4000);
             debug = await page.evaluate(() => window.__eaTrackingV4 || null);
             const api = responses.filter(x => x.url.includes('/api/track'));
             if (!debug?.emitted?.some(x => x.event === 'delivery-page-viewed')) throw new Error('page view not emitted');
-            if (!api.some(x => x.status === 200 && x.body?.recorded === true && x.body?.ip_captured === true)) throw new Error('no successful /api/track record with IP');
-            if (!api.some(x => x.body?.classification === 'likely_scanner')) throw new Error('headless smoke not classified as scanner');
+            if (!api.some(x => x.status === 200 && x.body?.recorded === true && x.body?.ip_captured === true)) throw new Error('no successful first-party record with IP');
+            if (!api.every(x => x.body?.classification === 'likely_scanner')) throw new Error(`headless events were not all classified as scanner: ${JSON.stringify(api)}`);
+            if ((debug.emailSubmitted || []).length !== 0) throw new Error(`scanner generated email copy: ${JSON.stringify(debug.emailSubmitted)}`);
+            if (!(debug.emailSkipped || []).length) throw new Error('scanner email suppression was not recorded');
+            if (failures.some(x => x.url.includes('formsubmit.co'))) throw new Error('scanner attempted FormSubmit');
             status = 'PASS';
           } catch (e) { error = String(e?.stack || e); }
           const result = {status,token,url,tested_at_utc:new Date().toISOString(),responses,failures,consoleErrors,debug,error};
@@ -79,7 +84,7 @@ jobs:
         run: |
           git config user.name "Evidence Axis Automation"
           git config user.email "actions@users.noreply.github.com"
-          git pull --rebase origin main
           git add docs/tracking-v4-smoke-result.json
-          git commit -m "Record first-party tracking v4 smoke result" || exit 0
+          git commit -m "Record final tracking v4 production smoke" || exit 0
+          git pull --rebase origin main
           git push origin HEAD:main
