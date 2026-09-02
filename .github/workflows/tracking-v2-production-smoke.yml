@@ -1,5 +1,5 @@
 name: tracking-v2-production-smoke
-# run 5 against delivery tracking v3
+# run 6 with v3 debug state
 
 on:
   push:
@@ -50,13 +50,16 @@ jobs:
           if (!(await deck.count())) throw new Error('deck tracking link not found');
           await deck.click({ modifiers: ['Control'] }).catch(async () => { await deck.click(); });
           await page.waitForTimeout(5000);
+          const debug = await page.evaluate(() => window.__eaTrackingV3 || null);
           console.log(`SMOKE_TOKEN=${token}`);
           console.log(`PAGE_URL=${url}`);
+          console.log(`TRACKING_DEBUG=${JSON.stringify(debug)}`);
           console.log(`TRACKING_RESPONSES=${JSON.stringify(responses)}`);
           console.log(`TRACKING_FAILURES=${JSON.stringify(failures)}`);
           console.log(`CONSOLE_ERRORS=${JSON.stringify(consoleErrors)}`);
           const scriptOk = responses.some(x => x.url.includes('delivery-tracking-v3.js') && x.status === 200);
           if (!scriptOk) throw new Error('tracking v3 script did not load with HTTP 200');
+          if (!debug || debug.submitted.length < 2) throw new Error(`tracking v3 did not submit expected events: ${JSON.stringify(debug)}`);
           await browser.close();
           EOF
           node smoke.mjs
