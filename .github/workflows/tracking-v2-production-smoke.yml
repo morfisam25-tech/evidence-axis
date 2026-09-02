@@ -1,5 +1,5 @@
 name: tracking-v2-production-smoke
-# run 7 against immutable tracking v4
+# run 8 after defer fix
 
 on:
   push:
