@@ -1,4 +1,5 @@
 name: tracking-endpoint-smoke-once
+# rerun after browser-style FormData forwarding fix
 
 on:
   push:
