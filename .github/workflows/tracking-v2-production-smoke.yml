@@ -29,24 +29,37 @@ jobs:
           const browser = await chromium.launch({ headless: true });
           const page = await browser.newPage();
           const responses = [];
+          const failures = [];
+          const consoleErrors = [];
           page.on('response', r => {
             const u = r.url();
-            if (u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('api.ipify.org')) {
+            if (u.includes('delivery-tracking-v2.js') || u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('api.ipify.org')) {
               responses.push({ url: u, status: r.status() });
             }
           });
+          page.on('requestfailed', r => {
+            const u = r.url();
+            if (u.includes('delivery-tracking-v2.js') || u.includes('/api/track') || u.includes('formsubmit.co') || u.includes('api.ipify.org')) {
+              failures.push({ url: u, error: r.failure()?.errorText || 'unknown' });
+            }
+          });
+          page.on('console', m => { if (m.type() === 'error') consoleErrors.push(m.text()); });
           const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
           if (!res || !res.ok()) throw new Error(`delivery page HTTP ${res?.status()}`);
           const hasV2 = await page.locator('script[src="/delivery-tracking-v2.js"]').count();
-          if (!hasV2) throw new Error('tracking v2 script is not deployed on production');
+          if (!hasV2) throw new Error('tracking v2 script tag is not deployed on production');
           await page.waitForTimeout(7000);
           const deck = page.locator('[data-delivery-event="executive-deck-opened"]');
           if (!(await deck.count())) throw new Error('deck tracking link not found');
           await deck.click({ modifiers: ['Control'] }).catch(async () => { await deck.click(); });
-          await page.waitForTimeout(3000);
+          await page.waitForTimeout(4000);
           console.log(`SMOKE_TOKEN=${token}`);
           console.log(`PAGE_URL=${url}`);
           console.log(`TRACKING_RESPONSES=${JSON.stringify(responses)}`);
+          console.log(`TRACKING_FAILURES=${JSON.stringify(failures)}`);
+          console.log(`CONSOLE_ERRORS=${JSON.stringify(consoleErrors)}`);
+          const scriptOk = responses.some(x => x.url.includes('delivery-tracking-v2.js') && x.status === 200);
+          if (!scriptOk) throw new Error('tracking v2 script did not load with HTTP 200');
           await browser.close();
           EOF
           node smoke.mjs
