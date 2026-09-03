@@ -30,10 +30,17 @@ jobs:
           cat > smoke.mjs <<'EOF'
           import { chromium } from 'playwright';
           import { writeFileSync } from 'node:fs';
+          import { createHash } from 'node:crypto';
           const token = `EA-TEL-G00-${Date.now()}`;
           const base = 'https://evidenceaxis.com';
           const slug = 'telli-brief-d6806a41';
           const url = `${base}/intelligence/${slug}/?d=${token}`;
+          const deckHref = `${base}/deliveries/${slug}/Evidence_Axis_telli_Gift_14_Executive_Brief_FINAL%20(1).pdf`;
+          const appendixHref = `${base}/deliveries/${slug}/Evidence_Axis_telli_Gift_14_Evidence_Appendix_FINAL%20(1).pdf`;
+          const expected = {
+            deck: { length: 80711, sha256: 'b20ab977217a3c1d9957abdebffe7dc45300e144bbaa566aba988d83c0ed24f1' },
+            appendix: { length: 83559, sha256: '9ab775c03ba2a49965c260515489fc3c46658f142205eddf6d6d0684b1a819d3' }
+          };
           const browser = await chromium.launch({ headless: true });
           const context = await browser.newContext();
           const page = await context.newPage();
@@ -59,12 +66,22 @@ jobs:
             if (!res || !res.ok()) throw new Error(`delivery page HTTP ${res?.status()}`);
             if (!(await page.locator('script[src*="delivery-tracking-v4.js"]').count())) throw new Error('v4 script missing');
 
-            for (const [name, href] of [['deck', `${base}/deliveries/${slug}/deck.pdf`], ['appendix', `${base}/deliveries/${slug}/appendix.pdf`]]) {
+            const checks = [['deck', deckHref], ['appendix', appendixHref]];
+            for (const [name, href] of checks) {
               const r = await context.request.get(href);
-              pdfChecks.push({name,status:r.status(),contentType:r.headers()['content-type'] || '',length:(await r.body()).length});
+              const bytes = await r.body();
+              const sha256 = createHash('sha256').update(bytes).digest('hex');
+              pdfChecks.push({name,status:r.status(),contentType:r.headers()['content-type'] || '',length:bytes.length,sha256,href});
               if (!r.ok()) throw new Error(`${name} PDF HTTP ${r.status()}`);
               if (!(r.headers()['content-type'] || '').toLowerCase().includes('pdf')) throw new Error(`${name} content-type not PDF: ${r.headers()['content-type'] || ''}`);
+              if (bytes.length !== expected[name].length) throw new Error(`${name} length mismatch ${bytes.length} != ${expected[name].length}`);
+              if (sha256 !== expected[name].sha256) throw new Error(`${name} sha256 mismatch ${sha256} != ${expected[name].sha256}`);
             }
+
+            const pageDeck = await page.locator('[data-delivery-event="executive-deck-opened"]').getAttribute('href');
+            const pageAppendix = await page.locator('[data-delivery-event="evidence-appendix-opened"]').getAttribute('href');
+            if (!pageDeck?.includes('Evidence_Axis_telli_Gift_14_Executive_Brief_FINAL%20(1).pdf')) throw new Error(`page deck href wrong: ${pageDeck}`);
+            if (!pageAppendix?.includes('Evidence_Axis_telli_Gift_14_Evidence_Appendix_FINAL%20(1).pdf')) throw new Error(`page appendix href wrong: ${pageAppendix}`);
 
             await page.waitForTimeout(6500);
             const clickEvent = async eventName => {
