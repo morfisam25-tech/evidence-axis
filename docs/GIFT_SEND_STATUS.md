@@ -25,10 +25,15 @@ Last updated: 2026-09-02
 - Final Appendix MD5: `bb8b4a172d769b91404193f71d1a5770`
 - Final Brief SHA-256: `b20ab977217a3c1d9957abdebffe7dc45300e144bbaa566aba988d83c0ed24f1`
 - Final Appendix SHA-256: `9ab775c03ba2a49965c260515489fc3c46658f142205eddf6d6d0684b1a819d3`
-- G-00: PENDING — tracking mechanics smoke-tested PASS, but production PDF bytes must match the final hashes above before the gate can close.
-- Sent: NO
+- G-00: PASS — production smoke verified both FINAL PDF hashes and all four required tracking events.
+- Internal email preview: SENT to morfisam25@gmail.com from `Sai Morfi | Evidence Axis <sai@evidenceaxis.com>`.
+- Customer recipient: `finn@telli.com` — verified on telli's current data-privacy page.
+- Delivery URL: `https://evidenceaxis.com/intelligence/telli-brief-d6806a41/`
+- Customer tracked token reserved: `EA-TEL-11ABB333ADAA`
+- Scheduled send: 2026-09-03 09:10 Europe/Berlin (2026-09-03 00:10 America/Los_Angeles)
+- Sent: NO — scheduled, not yet dispatched.
 
 ## Operating note
-Do not send Gift #14 until the two production PDFs match the locked FINAL hashes and G-00 is rerun end-to-end.
+Gift #14 is cleared for delivery and scheduled for the Berlin morning window. Do not send a duplicate manually before the scheduled send runs.
 
-When asked tomorrow which Gifts were held back, surface Gifts #6, #7, #10, #12, and #14 before continuing new outreach.
+When asked tomorrow which Gifts were held back, surface Gifts #6, #7, #10, and #12 before continuing new outreach.
