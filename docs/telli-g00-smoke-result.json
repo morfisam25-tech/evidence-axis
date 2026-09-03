@@ -1,20 +1,24 @@
 {
   "status": "PASS",
-  "token": "EA-TEL-G00-1788398906697",
-  "url": "https://evidenceaxis.com/intelligence/telli-brief-d6806a41/?d=EA-TEL-G00-1788398906697",
-  "tested_at_utc": "2026-09-03T01:28:41.433Z",
+  "token": "EA-TEL-G00-1788402469819",
+  "url": "https://evidenceaxis.com/intelligence/telli-brief-d6806a41/?d=EA-TEL-G00-1788402469819",
+  "tested_at_utc": "2026-09-03T02:28:05.289Z",
   "pdfChecks": [
     {
       "name": "deck",
       "status": 200,
       "contentType": "application/pdf",
-      "length": 14141
+      "length": 80711,
+      "sha256": "b20ab977217a3c1d9957abdebffe7dc45300e144bbaa566aba988d83c0ed24f1",
+      "href": "https://evidenceaxis.com/deliveries/telli-brief-d6806a41/Evidence_Axis_telli_Gift_14_Executive_Brief_FINAL%20(1).pdf"
     },
     {
       "name": "appendix",
       "status": 200,
       "contentType": "application/pdf",
-      "length": 12414
+      "length": 83559,
+      "sha256": "9ab775c03ba2a49965c260515489fc3c46658f142205eddf6d6d0684b1a819d3",
+      "href": "https://evidenceaxis.com/deliveries/telli-brief-d6806a41/Evidence_Axis_telli_Gift_14_Evidence_Appendix_FINAL%20(1).pdf"
     }
   ],
   "responses": [
@@ -31,11 +35,11 @@
         "recorded": true,
         "classification": "likely_scanner",
         "classification_reason": "scanner_user_agent",
-        "delivery_token": "EA-TEL-G00-1788398906697",
+        "delivery_token": "EA-TEL-G00-1788402469819",
         "event": "delivery-page-viewed",
         "ip_captured": true,
-        "ip": "20.109.39.54",
-        "server_timestamp_utc": "2026-09-03T01:28:27.620Z",
+        "ip": "64.236.134.167",
+        "server_timestamp_utc": "2026-09-03T02:27:51.776Z",
         "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
       }
     },
@@ -47,11 +51,11 @@
         "recorded": true,
         "classification": "likely_scanner",
         "classification_reason": "scanner_user_agent",
-        "delivery_token": "EA-TEL-G00-1788398906697",
+        "delivery_token": "EA-TEL-G00-1788402469819",
         "event": "human-presence-5s",
         "ip_captured": true,
-        "ip": "20.109.39.54",
-        "server_timestamp_utc": "2026-09-03T01:28:32.585Z",
+        "ip": "64.236.134.167",
+        "server_timestamp_utc": "2026-09-03T02:27:56.712Z",
         "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
       }
     },
@@ -63,11 +67,11 @@
         "recorded": true,
         "classification": "likely_scanner",
         "classification_reason": "scanner_user_agent",
-        "delivery_token": "EA-TEL-G00-1788398906697",
+        "delivery_token": "EA-TEL-G00-1788402469819",
         "event": "executive-deck-opened",
         "ip_captured": true,
-        "ip": "20.109.39.54",
-        "server_timestamp_utc": "2026-09-03T01:28:35.356Z",
+        "ip": "64.236.134.167",
+        "server_timestamp_utc": "2026-09-03T02:27:59.226Z",
         "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
       }
     },
@@ -79,11 +83,11 @@
         "recorded": true,
         "classification": "likely_scanner",
         "classification_reason": "scanner_user_agent",
-        "delivery_token": "EA-TEL-G00-1788398906697",
+        "delivery_token": "EA-TEL-G00-1788402469819",
         "event": "evidence-appendix-opened",
         "ip_captured": true,
-        "ip": "20.109.39.54",
-        "server_timestamp_utc": "2026-09-03T01:28:36.556Z",
+        "ip": "64.236.134.167",
+        "server_timestamp_utc": "2026-09-03T02:28:00.413Z",
         "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
       }
     },
@@ -95,11 +99,11 @@
         "recorded": true,
         "classification": "likely_scanner",
         "classification_reason": "scanner_user_agent",
-        "delivery_token": "EA-TEL-G00-1788398906697",
+        "delivery_token": "EA-TEL-G00-1788402469819",
         "event": "decision-conversation-clicked",
         "ip_captured": true,
-        "ip": "20.109.39.54",
-        "server_timestamp_utc": "2026-09-03T01:28:37.749Z",
+        "ip": "64.236.134.167",
+        "server_timestamp_utc": "2026-09-03T02:28:01.617Z",
         "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
       }
     }
@@ -110,55 +114,55 @@
     "emitted": [
       {
         "event": "delivery-page-viewed",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398907538
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402471678
       },
       {
         "event": "human-presence-5s",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398912539
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402476680
       },
       {
         "event": "executive-deck-opened",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398915316
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402479175
       },
       {
         "event": "evidence-appendix-opened",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398916521
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402480380
       },
       {
         "event": "decision-conversation-clicked",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398917725
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402481584
       }
     ],
     "submitted": [
       {
         "event": "delivery-page-viewed",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398907636
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402471803
       },
       {
         "event": "human-presence-5s",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398912596
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402476735
       },
       {
         "event": "executive-deck-opened",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398915364
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402479248
       },
       {
         "event": "evidence-appendix-opened",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398916564
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402480435
       },
       {
         "event": "decision-conversation-clicked",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398917756
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402481639
       }
     ],
     "responses": [
@@ -170,11 +174,11 @@
           "recorded": true,
           "classification": "likely_scanner",
           "classification_reason": "scanner_user_agent",
-          "delivery_token": "EA-TEL-G00-1788398906697",
+          "delivery_token": "EA-TEL-G00-1788402469819",
           "event": "delivery-page-viewed",
           "ip_captured": true,
-          "ip": "20.109.39.54",
-          "server_timestamp_utc": "2026-09-03T01:28:27.620Z",
+          "ip": "64.236.134.167",
+          "server_timestamp_utc": "2026-09-03T02:27:51.776Z",
           "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
         }
       },
@@ -186,11 +190,11 @@
           "recorded": true,
           "classification": "likely_scanner",
           "classification_reason": "scanner_user_agent",
-          "delivery_token": "EA-TEL-G00-1788398906697",
+          "delivery_token": "EA-TEL-G00-1788402469819",
           "event": "human-presence-5s",
           "ip_captured": true,
-          "ip": "20.109.39.54",
-          "server_timestamp_utc": "2026-09-03T01:28:32.585Z",
+          "ip": "64.236.134.167",
+          "server_timestamp_utc": "2026-09-03T02:27:56.712Z",
           "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
         }
       },
@@ -202,11 +206,11 @@
           "recorded": true,
           "classification": "likely_scanner",
           "classification_reason": "scanner_user_agent",
-          "delivery_token": "EA-TEL-G00-1788398906697",
+          "delivery_token": "EA-TEL-G00-1788402469819",
           "event": "executive-deck-opened",
           "ip_captured": true,
-          "ip": "20.109.39.54",
-          "server_timestamp_utc": "2026-09-03T01:28:35.356Z",
+          "ip": "64.236.134.167",
+          "server_timestamp_utc": "2026-09-03T02:27:59.226Z",
           "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
         }
       },
@@ -218,11 +222,11 @@
           "recorded": true,
           "classification": "likely_scanner",
           "classification_reason": "scanner_user_agent",
-          "delivery_token": "EA-TEL-G00-1788398906697",
+          "delivery_token": "EA-TEL-G00-1788402469819",
           "event": "evidence-appendix-opened",
           "ip_captured": true,
-          "ip": "20.109.39.54",
-          "server_timestamp_utc": "2026-09-03T01:28:36.556Z",
+          "ip": "64.236.134.167",
+          "server_timestamp_utc": "2026-09-03T02:28:00.413Z",
           "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
         }
       },
@@ -234,11 +238,11 @@
           "recorded": true,
           "classification": "likely_scanner",
           "classification_reason": "scanner_user_agent",
-          "delivery_token": "EA-TEL-G00-1788398906697",
+          "delivery_token": "EA-TEL-G00-1788402469819",
           "event": "decision-conversation-clicked",
           "ip_captured": true,
-          "ip": "20.109.39.54",
-          "server_timestamp_utc": "2026-09-03T01:28:37.749Z",
+          "ip": "64.236.134.167",
+          "server_timestamp_utc": "2026-09-03T02:28:01.617Z",
           "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
         }
       }
@@ -247,32 +251,32 @@
     "emailSkipped": [
       {
         "event": "delivery-page-viewed",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398907636,
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402471803,
         "reason": "likely_scanner"
       },
       {
         "event": "human-presence-5s",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398912596,
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402476735,
         "reason": "likely_scanner"
       },
       {
         "event": "executive-deck-opened",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398915364,
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402479248,
         "reason": "likely_scanner"
       },
       {
         "event": "evidence-appendix-opened",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398916564,
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402480435,
         "reason": "likely_scanner"
       },
       {
         "event": "decision-conversation-clicked",
-        "token": "EA-TEL-G00-1788398906697",
-        "at": 1788398917756,
+        "token": "EA-TEL-G00-1788402469819",
+        "at": 1788402481639,
         "reason": "likely_scanner"
       }
     ],
