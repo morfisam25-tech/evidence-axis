@@ -1,0 +1,121 @@
+---
+import Base from '@layouts/Base.astro';
+import { cta } from '@config/site';
+
+const company = 'Passionfroot';
+const slug = 'passionfroot-brief-a28be1df';
+const deckHref = `/deliveries/${slug}/Evidence_Axis_Passionfroot_Gift_15_Executive_Brief_FINAL.pdf`;
+const appendixHref = `/deliveries/${slug}/Evidence_Axis_Passionfroot_Gift_15_Evidence_Appendix_FINAL.pdf`;
+---
+
+<Base
+  title="Passionfroot — Private Intelligence Brief"
+  description="Private Evidence Axis intelligence delivery prepared for Passionfroot."
+  path={`/intelligence/${slug}/`}
+  noindex={true}
+>
+  <main
+    class="gift15"
+    data-delivery-tracking
+    data-delivery-company={company}
+    data-delivery-slug={slug}
+  >
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <p class="eyebrow">PRIVATE EVIDENCE AXIS DELIVERY</p>
+        <h1>Passionfroot</h1>
+        <p class="recipient">Prepared for Jen Phan · Co-Founder & CEO</p>
+        <p class="lede">A public-evidence brief on two moving boundaries in creator-led GTM: LinkedIn pulling discovery into its native buying environment, and Passionfroot scaling a managed-execution layer alongside software and agents.</p>
+
+        <div class="file-actions" aria-label="Intelligence files">
+          <a class="file-button deck" href={deckHref} target="_blank" rel="noopener" data-delivery-event="executive-deck-opened">
+            <span class="num">01</span>
+            <span class="copy"><small>EXECUTIVE VIEW</small><strong>Open Executive Brief</strong><em>PDF ↗</em></span>
+          </a>
+          <a class="file-button appendix" href={appendixHref} target="_blank" rel="noopener" data-delivery-event="evidence-appendix-opened">
+            <span class="num">02</span>
+            <span class="copy"><small>EVIDENCE VIEW</small><strong>Open Evidence Appendix</strong><em>PDF ↗</em></span>
+          </a>
+        </div>
+
+        <p class="hint">Open the Executive Brief first. The Appendix contains the source register, claim map, evidence states, limitations, dropped claims and wording guardrails.</p>
+      </div>
+    </section>
+
+    <section class="finding">
+      <div class="wrap narrow">
+        <p class="eyebrow dark">ONE FINDING TO START WITH</p>
+        <blockquote>LinkedIn has moved B2B creator discovery into the same environment where marketers already buy and amplify LinkedIn media.</blockquote>
+        <p>That creates a native alternative for one part of Passionfroot’s workflow — LinkedIn-specific discovery and contact — but the reviewed evidence does not show that LinkedIn replaces Passionfroot’s broader operating layer. The decision is where differentiation should carry the most weight as U.S. GTM scales.</p>
+      </div>
+    </section>
+
+    <section class="read">
+      <div class="wrap read-grid">
+        <div><p class="eyebrow dark">HOW TO READ THE WORK</p><h2>Separate what the sources prove from what they imply.</h2></div>
+        <div class="states">
+          <div><b>FACT</b><span>Directly supported by an opened and checked source.</span></div>
+          <div><b>COMPANY SELF-REPORT</b><span>Company-authored operating or financial claims are attributed, not treated as independently audited fact.</span></div>
+          <div><b>INFERENCE</b><span>An analytical conclusion built from disclosed evidence.</span></div>
+          <div><b>NOT ESTABLISHED</b><span>The reviewed public evidence does not support a stronger claim.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="next">
+      <div class="wrap narrow">
+        <p class="eyebrow dark">IF THIS RAISES A REAL DECISION</p>
+        <h2>Test the product/service boundary before the U.S. story hardens.</h2>
+        <p>The public brief isolates where native discovery, orchestration, AI execution and human deployment now meet. A paid Competitive Decision Sprint can test those boundaries against Passionfroot’s actual pipeline, margins, win/loss evidence, buyer objections, campaign economics and delivery costs.</p>
+        <a class="cta" href={`${cta.secondary.href}&company=${encodeURIComponent(company)}`} data-delivery-event="decision-conversation-clicked">Discuss a Competitive Decision →</a>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .gift15{background:#f5f2ea;color:#0b1518}
+  .wrap{width:min(1120px,calc(100% - 2rem));margin:0 auto}
+  .narrow{max-width:900px}
+  .hero{position:relative;overflow:hidden;padding:clamp(5.5rem,9vw,8.5rem) 0 4.5rem;background:radial-gradient(circle at 50% 10%,rgba(255,133,72,.16),transparent 31%),radial-gradient(circle at 86% 90%,rgba(87,130,255,.12),transparent 35%),#09101d;color:#f7fbf8}
+  .hero-inner{position:relative;z-index:1;max-width:980px;text-align:center}
+  .eyebrow{margin:0;font:700 .68rem/1.2 var(--font-mono);letter-spacing:.16em;color:#ff9d65}
+  .eyebrow.dark{color:#b55a2b}
+  .hero h1{margin:1rem 0 0;font-size:clamp(4.2rem,9vw,8.2rem);line-height:.88;letter-spacing:-.06em;color:#fff;text-wrap:balance;text-shadow:0 14px 46px rgba(0,0,0,.24)}
+  .recipient{margin:1.25rem 0 0;color:#c6cedb;font:650 .74rem/1.45 var(--font-mono);letter-spacing:.055em}
+  .lede{max-width:820px;margin:1.35rem auto 0;color:#e1e6ee;font-size:clamp(1rem,1.55vw,1.16rem);line-height:1.65;text-wrap:balance}
+  .file-actions{display:grid;grid-template-columns:1fr;gap:.9rem;width:min(840px,100%);margin:2.65rem auto 0;text-align:left}
+  .file-button{display:grid;grid-template-columns:auto 1fr;gap:1.15rem;align-items:center;padding:1.35rem 1.45rem;border:1px solid rgba(255,157,101,.3);border-radius:1rem;text-decoration:none;background:linear-gradient(135deg,rgba(22,31,49,.98),rgba(11,18,32,.98));color:#fff;box-shadow:0 18px 60px rgba(0,0,0,.26);transition:transform .2s ease,border-color .2s ease,background .2s ease}
+  .file-button:hover{transform:translateY(-3px);border-color:#ff9d65;background:linear-gradient(135deg,rgba(29,40,62,.98),rgba(13,23,40,.98))}
+  .file-button.appendix:hover{border-color:#86a8ff}
+  .num{font:800 2rem/1 var(--font-mono);color:#ff9d65}
+  .appendix .num{color:#86a8ff}
+  .copy{display:grid;grid-template-columns:1fr auto;gap:.3rem .75rem;align-items:end}
+  .copy small{grid-column:1/-1;font:700 .58rem/1 var(--font-mono);letter-spacing:.12em;color:#9da9bb}
+  .copy strong{font-size:clamp(1.02rem,2vw,1.2rem);line-height:1.2}
+  .copy em{font-style:normal;color:#ff9d65;font:700 .68rem/1 var(--font-mono);white-space:nowrap}
+  .appendix .copy em{color:#86a8ff}
+  .hint{max-width:780px;margin:1.15rem auto 0;color:#8e9aae;font-size:.8rem;line-height:1.55}
+  .finding,.read,.next{padding:clamp(4rem,7vw,6rem) 0}
+  .finding{background:#eee7dc}
+  .finding blockquote{margin:1rem 0;font:750 clamp(2rem,4vw,3.8rem)/1.06 var(--font-display);letter-spacing:-.045em}
+  .finding p:last-child,.next p{color:#5c676b;line-height:1.7}
+  .read{background:#fff}
+  .read-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:4rem;align-items:center}
+  .read h2,.next h2{margin:.7rem 0;font-size:clamp(2.3rem,4vw,4rem);line-height:.98;letter-spacing:-.04em}
+  .states{display:grid;gap:.75rem}
+  .states div{display:grid;gap:.35rem;padding:1rem;border:1px solid #dfe2e7;border-radius:.8rem}
+  .states b{font:800 .7rem/1 var(--font-mono);letter-spacing:.08em;color:#b55a2b}
+  .states span{color:#5c676b;line-height:1.45}
+  .next{background:#f5f2ea}
+  .cta{display:inline-flex;margin-top:1rem;padding:.9rem 1.15rem;border-radius:.7rem;background:#111a2a;color:#fff;text-decoration:none;font-weight:750}
+  @media(max-width:760px){
+    .read-grid{grid-template-columns:1fr;gap:2rem}
+    .hero{padding-top:4.75rem}
+    .hero h1{font-size:clamp(3.2rem,15vw,5.3rem)}
+    .recipient{font-size:.68rem}
+    .file-button{padding:1.15rem 1.1rem;grid-template-columns:auto 1fr}
+    .num{font-size:1.65rem}
+    .copy{grid-template-columns:1fr}
+  }
+</style>
