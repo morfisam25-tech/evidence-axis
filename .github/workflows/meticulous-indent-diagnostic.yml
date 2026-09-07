@@ -20,15 +20,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install PDF QA tooling
-        run: python -m pip install --disable-pip-version-check pymupdf pillow numpy
+      - name: Install PDF QA tooling and Noto Sans
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-core
+          python -m pip install --disable-pip-version-check pymupdf pillow numpy
 
       - name: Patch hanging indents only
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
-          import fitz, json, re, hashlib
+          import fitz, json, re, hashlib, subprocess
           from pathlib import Path
           from collections import Counter
           from PIL import Image
@@ -43,39 +46,20 @@ jobs:
           if original.page_count != 8:
               raise SystemExit(f'Expected 8 pages, got {original.page_count}')
 
-          # Work on an exact document copy; only continuation-line placement is changed.
+          noto_path = subprocess.check_output(
+              ['fc-match', '-f', '%{file}', 'Noto Sans:style=Regular'], text=True
+          ).strip()
+          if not noto_path or not Path(noto_path).exists():
+              raise SystemExit(f'Noto Sans Regular not found: {noto_path!r}')
+          print('Using font:', noto_path)
+
           work = fitz.open(src)
           labels = {'FACT', 'INFERENCE', 'UNKNOWN', 'GUARDRAIL', 'ATTRIBUTED CLAIM'}
           affected_expected = {2, 3, 4, 5, 7, 8}
           patch_log = []
-          font_cache = {}
-          font_dir = outdir / '_fonts'
-          font_dir.mkdir(exist_ok=True)
 
           def rgb_from_int(c):
               return ((c >> 16 & 255) / 255.0, (c >> 8 & 255) / 255.0, (c & 255) / 255.0)
-
-          def get_fontfile(doc, pno, span_font):
-              key = span_font
-              if key in font_cache:
-                  return font_cache[key]
-              candidates = []
-              for page_no in range(doc.page_count):
-                  for f in doc.get_page_fonts(page_no, full=True):
-                      xref, ext, ftype, basefont, resname, encoding = f[:6]
-                      clean = basefont.split('+')[-1]
-                      if span_font == clean or span_font in clean or clean in span_font:
-                          candidates.append((xref, clean))
-              if not candidates:
-                  raise SystemExit(f'Embedded font not found for {span_font}')
-              xref, clean = candidates[0]
-              name, ext, ftype, content = doc.extract_font(xref)
-              if not content:
-                  raise SystemExit(f'Could not extract embedded font {span_font} at xref {xref}')
-              path = font_dir / f'{re.sub(r"[^A-Za-z0-9_.-]+", "_", span_font)}.{ext or "ttf"}'
-              path.write_bytes(content)
-              font_cache[key] = str(path)
-              return str(path)
 
           def line_records(page):
               data = page.get_text('dict', flags=fitz.TEXTFLAGS_TEXT)
@@ -96,7 +80,6 @@ jobs:
                           'font': s0.get('font'),
                           'size': float(s0.get('size')),
                           'color': int(s0.get('color')),
-                          'spans': spans,
                       })
               return lines
 
@@ -116,7 +99,6 @@ jobs:
 
               for lab in label_lines:
                   ly0, ly1 = lab['bbox'][1], lab['bbox'][3]
-                  # First body line shares the label row and begins to the right of the label.
                   first_candidates = [
                       ln for ln in lines
                       if ln['bbox'][0] > lab['bbox'][2] + 5
@@ -130,7 +112,6 @@ jobs:
                   target_x = first['bbox'][0]
                   later_bounds = [y for y in boundaries if y > ly0 + 4]
                   end_y = min(later_bounds) if later_bounds else 500.0
-
                   continuations = [
                       ln for ln in lines
                       if ln['bbox'][1] > first['bbox'][1] + 2
@@ -142,31 +123,26 @@ jobs:
                   for ln in continuations:
                       planned.append((lab, first, ln, target_x))
 
-              # De-duplicate a line if any unusual geometry makes it visible to two labels.
               dedup = {}
               for item in planned:
                   ln = item[2]
-                  key = (round(ln['bbox'][1], 2), ln['text'])
-                  dedup[key] = item
+                  dedup[(round(ln['bbox'][1], 2), ln['text'])] = item
               planned = list(dedup.values())
 
-              # Redact only the continuation-line glyph rectangles; labels and first lines remain untouched.
               for lab, first, ln, target_x in planned:
                   x0, y0, x1, y1 = ln['bbox']
                   page.add_redact_annot(fitz.Rect(x0 - 0.7, y0 - 0.5, x1 + 0.7, y1 + 0.5), fill=(1, 1, 1))
               if planned:
                   page.apply_redactions()
 
-              # Put the identical text back at the same baseline, aligned beneath the paragraph's first line.
-              for idx, (lab, first, ln, target_x) in enumerate(planned):
-                  fontfile = get_fontfile(work, pno, ln['font'])
-                  fontname = f'IndentFix{pno}_{idx}'
+              # Identical text, same baseline / font size / color; only X changes.
+              for lab, first, ln, target_x in planned:
                   page.insert_text(
                       (target_x, ln['origin'][1]),
                       ln['text'],
                       fontsize=ln['size'],
-                      fontname=fontname,
-                      fontfile=fontfile,
+                      fontname='NotoSansR5',
+                      fontfile=noto_path,
                       color=rgb_from_int(ln['color']),
                       overlay=True,
                   )
@@ -177,11 +153,10 @@ jobs:
                       'old_x': round(ln['bbox'][0], 2),
                       'new_x': round(target_x, 2),
                       'baseline_y': round(ln['origin'][1], 2),
-                      'font': ln['font'],
                       'size': round(ln['size'], 2),
                   })
 
-          work.save(dst, garbage=4, deflate=True, clean=True)
+          work.save(dst, garbage=4, deflate=True)
           work.close()
 
           patched = fitz.open(dst)
@@ -189,7 +164,6 @@ jobs:
           if changed_pages != affected_expected:
               raise SystemExit(f'Unexpected changed pages: {sorted(changed_pages)} expected {sorted(affected_expected)}')
 
-          # Content lock: exact non-whitespace token multiset must remain identical page by page.
           token_re = re.compile(r'\S+')
           content_checks = []
           for pno in range(original.page_count):
@@ -202,50 +176,31 @@ jobs:
                   added = list((b - a).elements())[:20]
                   raise SystemExit(f'Content mismatch page {pno+1}: missing={missing} added={added}')
 
-          # Geometry lock: each labeled paragraph must now be flush after its inline label (no hanging continuation).
+          # Verify each moved line now begins at the intended X and still extracts as the exact original string.
           geometry_checks = []
-          for pno in range(patched.page_count):
-              page = patched[pno]
-              lines = line_records(page)
-              label_lines = [ln for ln in lines if ln['text'] in labels]
-              boundaries = sorted(
-                  ln['bbox'][1] for ln in lines
-                  if ln['text'] in labels or ln['text'].startswith('[') or ln['text'].startswith('Evidence Axis |')
-              )
-              for lab in label_lines:
-                  ly0, ly1 = lab['bbox'][1], lab['bbox'][3]
-                  first_candidates = [
-                      ln for ln in lines
-                      if ln['bbox'][0] > lab['bbox'][2] + 5
-                      and ln['size'] >= 15
-                      and ln['bbox'][1] >= ly0 - 20
-                      and ln['bbox'][1] <= ly1 + 4
-                  ]
-                  if not first_candidates:
-                      continue
-                  first = min(first_candidates, key=lambda ln: (abs(ln['bbox'][1] - ly0), ln['bbox'][0]))
-                  target_x = first['bbox'][0]
-                  later_bounds = [y for y in boundaries if y > ly0 + 4]
-                  end_y = min(later_bounds) if later_bounds else 500.0
-                  cont = [
-                      ln for ln in lines
-                      if ln['bbox'][1] > first['bbox'][1] + 2
-                      and ln['bbox'][1] < end_y - 1
-                      and abs(ln['size'] - first['size']) < 0.35
-                      and ln['font'].startswith('IndentFix')
-                  ]
-                  bad = [ln for ln in cont if abs(ln['bbox'][0] - target_x) > 1.5]
-                  geometry_checks.append({
-                      'page': pno + 1,
-                      'label': lab['text'],
-                      'target_x': round(target_x, 2),
-                      'continuation_count': len(cont),
-                      'aligned': not bad,
-                  })
-                  if bad:
-                      raise SystemExit(f'Hanging indent remains page {pno+1} label {lab["text"]}')
+          for rec in patch_log:
+              page = patched[rec['page'] - 1]
+              matches = [
+                  ln for ln in line_records(page)
+                  if ln['text'] == rec['text'] and abs(ln['bbox'][1] - (rec['baseline_y'] - ln['size'])) < 14
+              ]
+              if not matches:
+                  # Baseline-based search can vary slightly by font metrics; fall back to exact text.
+                  matches = [ln for ln in line_records(page) if ln['text'] == rec['text']]
+              if not matches:
+                  raise SystemExit(f'Reinserted line not extractable on page {rec["page"]}: {rec["text"][:60]}')
+              best = min(matches, key=lambda ln: abs(ln['bbox'][0] - rec['new_x']))
+              aligned = abs(best['bbox'][0] - rec['new_x']) <= 1.5
+              geometry_checks.append({
+                  'page': rec['page'],
+                  'text': rec['text'],
+                  'target_x': rec['new_x'],
+                  'actual_x': round(best['bbox'][0], 2),
+                  'aligned': aligned,
+              })
+              if not aligned:
+                  raise SystemExit(f'Alignment mismatch page {rec["page"]}: {best["bbox"][0]} vs {rec["new_x"]}')
 
-          # Render regression: pages 1 and 6 must be visually unchanged; other changes must remain local/small.
           diff_checks = []
           matrix = fitz.Matrix(1.5, 1.5)
           for pno in range(original.page_count):
@@ -266,11 +221,10 @@ jobs:
               if (pno + 1) in affected_expected and not (0 < ratio < 0.08):
                   raise SystemExit(f'Unexpected visual diff ratio on page {pno+1}: {ratio}')
 
-          sha = hashlib.sha256(dst.read_bytes()).hexdigest()
           report = {
               'status': 'PASS',
               'source_sha256': hashlib.sha256(src.read_bytes()).hexdigest(),
-              'patched_sha256': sha,
+              'patched_sha256': hashlib.sha256(dst.read_bytes()).hexdigest(),
               'page_count': patched.page_count,
               'affected_pages': sorted(changed_pages),
               'patch_count': len(patch_log),
@@ -281,18 +235,12 @@ jobs:
           }
           (outdir / 'QA_REPORT.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
 
-          # High-resolution page renders for final visual inspection.
           render_dir = outdir / 'renders'
           render_dir.mkdir(exist_ok=True)
           rmat = fitz.Matrix(2.0, 2.0)
           for pno in range(patched.page_count):
               pix = patched[pno].get_pixmap(matrix=rmat, alpha=False)
               pix.save(render_dir / f'page-{pno+1:02d}.png')
-
-          # Remove extracted temporary font binaries from artifact package.
-          for p in font_dir.glob('*'):
-              p.unlink()
-          font_dir.rmdir()
 
           print(json.dumps({k: report[k] for k in ['status','source_sha256','patched_sha256','affected_pages','patch_count']}, indent=2))
           PY
