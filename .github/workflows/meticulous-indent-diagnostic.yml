@@ -6,66 +6,301 @@ on:
     paths:
       - '.github/workflows/meticulous-indent-diagnostic.yml'
       - 'docs/meticulous-indent-diagnostic-trigger.txt'
+      - 'docs/meticulous-indent-patch-trigger.txt'
 
 permissions:
   contents: write
 
 jobs:
-  diagnose:
+  patch:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Install PyMuPDF
-        run: python -m pip install --disable-pip-version-check pymupdf
-      - name: Extract line geometry
+
+      - name: Install PDF QA tooling
+        run: python -m pip install --disable-pip-version-check pymupdf pillow numpy
+
+      - name: Patch hanging indents only
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
-          import fitz, json
+          import fitz, json, re, hashlib
           from pathlib import Path
+          from collections import Counter
+          from PIL import Image
+          import numpy as np
 
-          pdf_path = Path('public/deliveries/meticulous-brief-fed5761c/deck.pdf')
-          doc = fitz.open(pdf_path)
-          out = {'page_count': doc.page_count, 'pages': []}
-          for pno in range(doc.page_count):
-              page = doc[pno]
-              rec = {'page': pno + 1, 'width': page.rect.width, 'height': page.rect.height, 'lines': []}
+          src = Path('public/deliveries/meticulous-brief-fed5761c/deck.pdf')
+          outdir = Path('artifacts/meticulous-brief-indent-patch')
+          outdir.mkdir(parents=True, exist_ok=True)
+          dst = outdir / 'Evidence_Axis_Meticulous_Executive_Brief_FINAL_QA_R5.pdf'
+
+          original = fitz.open(src)
+          if original.page_count != 8:
+              raise SystemExit(f'Expected 8 pages, got {original.page_count}')
+
+          # Work on an exact document copy; only continuation-line placement is changed.
+          work = fitz.open(src)
+          labels = {'FACT', 'INFERENCE', 'UNKNOWN', 'GUARDRAIL', 'ATTRIBUTED CLAIM'}
+          affected_expected = {2, 3, 4, 5, 7, 8}
+          patch_log = []
+          font_cache = {}
+          font_dir = outdir / '_fonts'
+          font_dir.mkdir(exist_ok=True)
+
+          def rgb_from_int(c):
+              return ((c >> 16 & 255) / 255.0, (c >> 8 & 255) / 255.0, (c & 255) / 255.0)
+
+          def get_fontfile(doc, pno, span_font):
+              key = span_font
+              if key in font_cache:
+                  return font_cache[key]
+              candidates = []
+              for page_no in range(doc.page_count):
+                  for f in doc.get_page_fonts(page_no, full=True):
+                      xref, ext, ftype, basefont, resname, encoding = f[:6]
+                      clean = basefont.split('+')[-1]
+                      if span_font == clean or span_font in clean or clean in span_font:
+                          candidates.append((xref, clean))
+              if not candidates:
+                  raise SystemExit(f'Embedded font not found for {span_font}')
+              xref, clean = candidates[0]
+              name, ext, ftype, content = doc.extract_font(xref)
+              if not content:
+                  raise SystemExit(f'Could not extract embedded font {span_font} at xref {xref}')
+              path = font_dir / f'{re.sub(r"[^A-Za-z0-9_.-]+", "_", span_font)}.{ext or "ttf"}'
+              path.write_bytes(content)
+              font_cache[key] = str(path)
+              return str(path)
+
+          def line_records(page):
               data = page.get_text('dict', flags=fitz.TEXTFLAGS_TEXT)
+              lines = []
               for block in data.get('blocks', []):
                   if block.get('type') != 0:
                       continue
                   for line in block.get('lines', []):
                       spans = line.get('spans', [])
                       text = ''.join(s.get('text', '') for s in spans).strip()
-                      if not text:
+                      if not text or not spans:
                           continue
-                      bbox = [round(v, 2) for v in line.get('bbox', (0,0,0,0))]
                       s0 = spans[0]
-                      rec['lines'].append({
+                      lines.append({
                           'text': text,
-                          'bbox': bbox,
+                          'bbox': tuple(line.get('bbox')),
+                          'origin': tuple(s0.get('origin')),
                           'font': s0.get('font'),
-                          'size': round(float(s0.get('size', 0)), 2),
-                          'color': s0.get('color'),
+                          'size': float(s0.get('size')),
+                          'color': int(s0.get('color')),
+                          'spans': spans,
                       })
-              out['pages'].append(rec)
-          Path('docs/meticulous-indent-diagnostic.json').write_text(json.dumps(out, indent=2), encoding='utf-8')
+              return lines
+
+          for pno in range(work.page_count):
+              page_num = pno + 1
+              page = work[pno]
+              lines = line_records(page)
+              label_lines = [ln for ln in lines if ln['text'] in labels]
+              if not label_lines:
+                  continue
+
+              planned = []
+              boundaries = sorted(
+                  ln['bbox'][1] for ln in lines
+                  if ln['text'] in labels or ln['text'].startswith('[') or ln['text'].startswith('Evidence Axis |')
+              )
+
+              for lab in label_lines:
+                  ly0, ly1 = lab['bbox'][1], lab['bbox'][3]
+                  # First body line shares the label row and begins to the right of the label.
+                  first_candidates = [
+                      ln for ln in lines
+                      if ln['bbox'][0] > lab['bbox'][2] + 5
+                      and ln['size'] >= 15
+                      and ln['bbox'][1] >= ly0 - 20
+                      and ln['bbox'][1] <= ly1 + 4
+                  ]
+                  if not first_candidates:
+                      continue
+                  first = min(first_candidates, key=lambda ln: (abs(ln['bbox'][1] - ly0), ln['bbox'][0]))
+                  target_x = first['bbox'][0]
+                  later_bounds = [y for y in boundaries if y > ly0 + 4]
+                  end_y = min(later_bounds) if later_bounds else 500.0
+
+                  continuations = [
+                      ln for ln in lines
+                      if ln['bbox'][1] > first['bbox'][1] + 2
+                      and ln['bbox'][1] < end_y - 1
+                      and abs(ln['size'] - first['size']) < 0.35
+                      and ln['font'] == first['font']
+                      and ln['bbox'][0] < target_x - 1.0
+                  ]
+                  for ln in continuations:
+                      planned.append((lab, first, ln, target_x))
+
+              # De-duplicate a line if any unusual geometry makes it visible to two labels.
+              dedup = {}
+              for item in planned:
+                  ln = item[2]
+                  key = (round(ln['bbox'][1], 2), ln['text'])
+                  dedup[key] = item
+              planned = list(dedup.values())
+
+              # Redact only the continuation-line glyph rectangles; labels and first lines remain untouched.
+              for lab, first, ln, target_x in planned:
+                  x0, y0, x1, y1 = ln['bbox']
+                  page.add_redact_annot(fitz.Rect(x0 - 0.7, y0 - 0.5, x1 + 0.7, y1 + 0.5), fill=(1, 1, 1))
+              if planned:
+                  page.apply_redactions()
+
+              # Put the identical text back at the same baseline, aligned beneath the paragraph's first line.
+              for idx, (lab, first, ln, target_x) in enumerate(planned):
+                  fontfile = get_fontfile(work, pno, ln['font'])
+                  fontname = f'IndentFix{pno}_{idx}'
+                  page.insert_text(
+                      (target_x, ln['origin'][1]),
+                      ln['text'],
+                      fontsize=ln['size'],
+                      fontname=fontname,
+                      fontfile=fontfile,
+                      color=rgb_from_int(ln['color']),
+                      overlay=True,
+                  )
+                  patch_log.append({
+                      'page': page_num,
+                      'label': lab['text'],
+                      'text': ln['text'],
+                      'old_x': round(ln['bbox'][0], 2),
+                      'new_x': round(target_x, 2),
+                      'baseline_y': round(ln['origin'][1], 2),
+                      'font': ln['font'],
+                      'size': round(ln['size'], 2),
+                  })
+
+          work.save(dst, garbage=4, deflate=True, clean=True)
+          work.close()
+
+          patched = fitz.open(dst)
+          changed_pages = {r['page'] for r in patch_log}
+          if changed_pages != affected_expected:
+              raise SystemExit(f'Unexpected changed pages: {sorted(changed_pages)} expected {sorted(affected_expected)}')
+
+          # Content lock: exact non-whitespace token multiset must remain identical page by page.
+          token_re = re.compile(r'\S+')
+          content_checks = []
+          for pno in range(original.page_count):
+              a = Counter(token_re.findall(original[pno].get_text('text')))
+              b = Counter(token_re.findall(patched[pno].get_text('text')))
+              ok = a == b
+              content_checks.append({'page': pno + 1, 'token_multiset_equal': ok})
+              if not ok:
+                  missing = list((a - b).elements())[:20]
+                  added = list((b - a).elements())[:20]
+                  raise SystemExit(f'Content mismatch page {pno+1}: missing={missing} added={added}')
+
+          # Geometry lock: each labeled paragraph must now be flush after its inline label (no hanging continuation).
+          geometry_checks = []
+          for pno in range(patched.page_count):
+              page = patched[pno]
+              lines = line_records(page)
+              label_lines = [ln for ln in lines if ln['text'] in labels]
+              boundaries = sorted(
+                  ln['bbox'][1] for ln in lines
+                  if ln['text'] in labels or ln['text'].startswith('[') or ln['text'].startswith('Evidence Axis |')
+              )
+              for lab in label_lines:
+                  ly0, ly1 = lab['bbox'][1], lab['bbox'][3]
+                  first_candidates = [
+                      ln for ln in lines
+                      if ln['bbox'][0] > lab['bbox'][2] + 5
+                      and ln['size'] >= 15
+                      and ln['bbox'][1] >= ly0 - 20
+                      and ln['bbox'][1] <= ly1 + 4
+                  ]
+                  if not first_candidates:
+                      continue
+                  first = min(first_candidates, key=lambda ln: (abs(ln['bbox'][1] - ly0), ln['bbox'][0]))
+                  target_x = first['bbox'][0]
+                  later_bounds = [y for y in boundaries if y > ly0 + 4]
+                  end_y = min(later_bounds) if later_bounds else 500.0
+                  cont = [
+                      ln for ln in lines
+                      if ln['bbox'][1] > first['bbox'][1] + 2
+                      and ln['bbox'][1] < end_y - 1
+                      and abs(ln['size'] - first['size']) < 0.35
+                      and ln['font'].startswith('IndentFix')
+                  ]
+                  bad = [ln for ln in cont if abs(ln['bbox'][0] - target_x) > 1.5]
+                  geometry_checks.append({
+                      'page': pno + 1,
+                      'label': lab['text'],
+                      'target_x': round(target_x, 2),
+                      'continuation_count': len(cont),
+                      'aligned': not bad,
+                  })
+                  if bad:
+                      raise SystemExit(f'Hanging indent remains page {pno+1} label {lab["text"]}')
+
+          # Render regression: pages 1 and 6 must be visually unchanged; other changes must remain local/small.
+          diff_checks = []
+          matrix = fitz.Matrix(1.5, 1.5)
+          for pno in range(original.page_count):
+              op = original[pno].get_pixmap(matrix=matrix, alpha=False)
+              pp = patched[pno].get_pixmap(matrix=matrix, alpha=False)
+              oa = np.array(Image.frombytes('RGB', [op.width, op.height], op.samples))
+              pa = np.array(Image.frombytes('RGB', [pp.width, pp.height], pp.samples))
+              diff = np.any(oa != pa, axis=2)
+              count = int(diff.sum())
+              ratio = count / diff.size
+              bbox = None
+              if count:
+                  ys, xs = np.where(diff)
+                  bbox = [int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max())]
+              diff_checks.append({'page': pno + 1, 'changed_pixels': count, 'ratio': ratio, 'bbox_px': bbox})
+              if (pno + 1) in {1, 6} and count != 0:
+                  raise SystemExit(f'Unaffected page {pno+1} changed visually ({count} pixels)')
+              if (pno + 1) in affected_expected and not (0 < ratio < 0.08):
+                  raise SystemExit(f'Unexpected visual diff ratio on page {pno+1}: {ratio}')
+
+          sha = hashlib.sha256(dst.read_bytes()).hexdigest()
+          report = {
+              'status': 'PASS',
+              'source_sha256': hashlib.sha256(src.read_bytes()).hexdigest(),
+              'patched_sha256': sha,
+              'page_count': patched.page_count,
+              'affected_pages': sorted(changed_pages),
+              'patch_count': len(patch_log),
+              'content_checks': content_checks,
+              'geometry_checks': geometry_checks,
+              'visual_diff_checks': diff_checks,
+              'patch_log': patch_log,
+          }
+          (outdir / 'QA_REPORT.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
+
+          # High-resolution page renders for final visual inspection.
+          render_dir = outdir / 'renders'
+          render_dir.mkdir(exist_ok=True)
+          rmat = fitz.Matrix(2.0, 2.0)
+          for pno in range(patched.page_count):
+              pix = patched[pno].get_pixmap(matrix=rmat, alpha=False)
+              pix.save(render_dir / f'page-{pno+1:02d}.png')
+
+          # Remove extracted temporary font binaries from artifact package.
+          for p in font_dir.glob('*'):
+              p.unlink()
+          font_dir.rmdir()
+
+          print(json.dumps({k: report[k] for k in ['status','source_sha256','patched_sha256','affected_pages','patch_count']}, indent=2))
           PY
-      - name: Commit diagnostic
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'Evidence Axis QA'
-          git config user.email 'actions@users.noreply.github.com'
-          git add docs/meticulous-indent-diagnostic.json
-          if git diff --cached --quiet; then
-            echo 'No diagnostic change.'
-            exit 0
-          fi
-          git commit -m 'Diagnose Meticulous brief hanging indents'
-          git pull --rebase origin meticulous-brief-hanging-indent-patch
-          git push origin HEAD:meticulous-brief-hanging-indent-patch
+
+      - name: Upload patched brief and QA renders
+        uses: actions/upload-artifact@v4
+        with:
+          name: meticulous-brief-r5-indent-fixed
+          path: artifacts/meticulous-brief-indent-patch/
+          if-no-files-found: error
+          retention-days: 7
