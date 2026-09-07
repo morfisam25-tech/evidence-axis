@@ -23,29 +23,53 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          slug='meticulous-brief-fed5761c'
-          mkdir -p "public/deliveries/$slug"
-          cat \
-            scripts/meticulous-pdf-parts-v2/deck.01.b64 \
-            scripts/meticulous-pdf-parts-v2/deck.02.b64 \
-            scripts/meticulous-pdf-parts-v2/deck.03.b64 \
-            scripts/meticulous-pdf-parts-v2/deck.04.b64 \
-            scripts/meticulous-pdf-parts-v2/deck.05.b64 \
-            scripts/meticulous-pdf-parts-v2/deck.06.b64 \
-            | tr -d '\r\n ' | base64 -d | gzip -dc > "public/deliveries/$slug/deck.pdf"
-          cat \
-            scripts/meticulous-pdf-parts-v2/appendix.01.b64 \
-            scripts/meticulous-pdf-parts-v2/appendix.02.b64 \
-            scripts/meticulous-pdf-parts-v2/appendix.03.b64 \
-            scripts/meticulous-pdf-parts-v2/appendix.04.b64 \
-            scripts/meticulous-pdf-parts-v2/appendix.05.b64 \
-            scripts/meticulous-pdf-parts-v2/appendix.06.b64 \
-            | tr -d '\r\n ' | base64 -d | gzip -dc > "public/deliveries/$slug/appendix.pdf"
-          test "$(wc -c < public/deliveries/$slug/deck.pdf)" -eq 57385
-          test "$(wc -c < public/deliveries/$slug/appendix.pdf)" -eq 109181
-          echo '00cd6e7757909f0bf4b8dce80d9f042152587fc5f2134a0989a65792d11e7c73  public/deliveries/meticulous-brief-fed5761c/deck.pdf' | sha256sum -c -
-          echo '6cae8a7db177956fe08c643868f36bc6c01dc5319288bc37969a1c6b75f0ecdf  public/deliveries/meticulous-brief-fed5761c/appendix.pdf' | sha256sum -c -
-          file "public/deliveries/$slug/deck.pdf" "public/deliveries/$slug/appendix.pdf"
+          python - <<'PY'
+          from pathlib import Path
+          import base64, gzip, hashlib, re
+
+          root = Path('scripts/meticulous-pdf-parts-v2')
+          out = Path('public/deliveries/meticulous-brief-fed5761c')
+          out.mkdir(parents=True, exist_ok=True)
+
+          def normalized_text(paths):
+              text = ''.join((root / p).read_text(encoding='utf-8') for p in paths)
+              text = re.sub(r'[^A-Za-z0-9+/=]', '', text)
+              # Padding is meaningful only at the end of one base64 stream.
+              text = text.replace('=', '')
+              text += '=' * ((-len(text)) % 4)
+              return text
+
+          def materialize(label, parts, expected_len, expected_sha):
+              encoded = normalized_text(parts)
+              packed = base64.b64decode(encoded, validate=True)
+              pdf = gzip.decompress(packed)
+              actual_sha = hashlib.sha256(pdf).hexdigest()
+              print(f'{label}: encoded={len(encoded)} packed={len(packed)} pdf={len(pdf)} sha256={actual_sha}')
+              if len(pdf) != expected_len:
+                  raise SystemExit(f'{label} length mismatch {len(pdf)} != {expected_len}')
+              if actual_sha != expected_sha:
+                  raise SystemExit(f'{label} sha256 mismatch {actual_sha} != {expected_sha}')
+              (out / label).write_bytes(pdf)
+
+          split = normalized_text(['appendix.06a.b64', 'appendix.06b.b64'])
+          whole = normalized_text(['appendix.06.b64'])
+          if split != whole:
+              raise SystemExit('appendix.06 split/whole staging mismatch')
+
+          materialize(
+              'deck.pdf',
+              [f'deck.{i:02d}.b64' for i in range(1, 7)],
+              57385,
+              '00cd6e7757909f0bf4b8dce80d9f042152587fc5f2134a0989a65792d11e7c73',
+          )
+          materialize(
+              'appendix.pdf',
+              [f'appendix.{i:02d}.b64' for i in range(1, 7)],
+              109181,
+              '6cae8a7db177956fe08c643868f36bc6c01dc5319288bc37969a1c6b75f0ecdf',
+          )
+          PY
+          file public/deliveries/meticulous-brief-fed5761c/deck.pdf public/deliveries/meticulous-brief-fed5761c/appendix.pdf
 
       - name: Build
         run: |
