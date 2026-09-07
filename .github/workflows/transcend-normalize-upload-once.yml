@@ -1,0 +1,34 @@
+name: transcend-normalize-upload-once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/transcend-normalize-upload-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Normalize Transcend delivery filenames
+        run: |
+          set -euo pipefail
+          dir='public/deliveries/transcend-brief-3375bdf7'
+          test -f "$dir/DECK.pdf"
+          test -f "$dir/Appendix.pdf"
+          git mv "$dir/DECK.pdf" "$dir/deck.tmp.pdf"
+          git mv "$dir/deck.tmp.pdf" "$dir/deck.pdf"
+          git mv "$dir/Appendix.pdf" "$dir/appendix.tmp.pdf"
+          git mv "$dir/appendix.tmp.pdf" "$dir/appendix.pdf"
+          git config user.name 'Evidence Axis Automation'
+          git config user.email 'actions@users.noreply.github.com'
+          git add "$dir/deck.pdf" "$dir/appendix.pdf"
+          git commit -m 'Normalize Transcend delivery PDF filenames'
+          git pull --rebase origin main
+          git push origin HEAD:main
