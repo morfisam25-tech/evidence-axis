@@ -1,0 +1,31 @@
+name: meticulous-source-artifact
+
+on:
+  push:
+    branches: [meticulous-brief-hanging-indent-patch]
+    paths:
+      - '.github/workflows/meticulous-source-artifact.yml'
+      - 'docs/meticulous-source-artifact-trigger.txt'
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify locked sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(stat -c%s public/deliveries/meticulous-brief-fed5761c/deck.pdf)" = "57385"
+          test "$(sha256sum public/deliveries/meticulous-brief-fed5761c/deck.pdf | awk '{print $1}')" = "00cd6e7757909f0bf4b8dce80d9f042152587fc5f2134a0989a65792d11e7c73"
+          test "$(stat -c%s public/deliveries/meticulous-brief-fed5761c/appendix.pdf)" = "109181"
+          test "$(sha256sum public/deliveries/meticulous-brief-fed5761c/appendix.pdf | awk '{print $1}')" = "6cae8a7db177956fe08c643868f36bc6c01dc5319288bc37969a1c6b75f0ecdf"
+          mkdir -p source-artifact
+          cp public/deliveries/meticulous-brief-fed5761c/deck.pdf source-artifact/Evidence_Axis_Meticulous_Executive_Brief_FINAL_QA_R4.pdf
+          cp public/deliveries/meticulous-brief-fed5761c/appendix.pdf source-artifact/Evidence_Axis_Meticulous_Evidence_Appendix_FINAL_QA_R3.pdf
+      - uses: actions/upload-artifact@v4
+        with:
+          name: meticulous-locked-source-pdfs
+          path: source-artifact/
+          if-no-files-found: error
+          retention-days: 2
