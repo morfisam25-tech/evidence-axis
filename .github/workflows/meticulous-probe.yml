@@ -1,0 +1,24 @@
+name: meticulous-probe
+on:
+  push:
+    branches: [meticulous-blob-probe]
+    paths:
+      - '.github/workflows/meticulous-probe.yml'
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe staged compressed streams
+        run: |
+          set +e
+          cat tmp/blob-probes/0{0,1,2,3,4,5}.bin > /tmp/a.xz
+          cat tmp/blob-probes/0{6,7,8,9}.bin tmp/blob-probes/10.bin tmp/blob-probes/11.bin > /tmp/b.xz
+          echo 'A compressed bytes:' $(wc -c < /tmp/a.xz)
+          xz -t /tmp/a.xz; echo A_XZ_STATUS=$?
+          if xz -dc /tmp/a.xz > /tmp/a.out 2>/dev/null; then echo 'A out bytes:' $(wc -c < /tmp/a.out); sha256sum /tmp/a.out; file /tmp/a.out; fi
+          echo 'B compressed bytes:' $(wc -c < /tmp/b.xz)
+          xz -t /tmp/b.xz; echo B_XZ_STATUS=$?
+          if xz -dc /tmp/b.xz > /tmp/b.out 2>/dev/null; then echo 'B out bytes:' $(wc -c < /tmp/b.out); sha256sum /tmp/b.out; file /tmp/b.out; fi
