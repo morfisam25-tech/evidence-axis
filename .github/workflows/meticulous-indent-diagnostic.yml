@@ -1,0 +1,71 @@
+name: meticulous-indent-diagnostic
+
+on:
+  push:
+    branches: [meticulous-brief-hanging-indent-patch]
+    paths:
+      - '.github/workflows/meticulous-indent-diagnostic.yml'
+      - 'docs/meticulous-indent-diagnostic-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install PyMuPDF
+        run: python -m pip install --disable-pip-version-check pymupdf
+      - name: Extract line geometry
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import fitz, json
+          from pathlib import Path
+
+          pdf_path = Path('public/deliveries/meticulous-brief-fed5761c/deck.pdf')
+          doc = fitz.open(pdf_path)
+          out = {'page_count': doc.page_count, 'pages': []}
+          for pno in range(doc.page_count):
+              page = doc[pno]
+              rec = {'page': pno + 1, 'width': page.rect.width, 'height': page.rect.height, 'lines': []}
+              data = page.get_text('dict', flags=fitz.TEXTFLAGS_TEXT)
+              for block in data.get('blocks', []):
+                  if block.get('type') != 0:
+                      continue
+                  for line in block.get('lines', []):
+                      spans = line.get('spans', [])
+                      text = ''.join(s.get('text', '') for s in spans).strip()
+                      if not text:
+                          continue
+                      bbox = [round(v, 2) for v in line.get('bbox', (0,0,0,0))]
+                      s0 = spans[0]
+                      rec['lines'].append({
+                          'text': text,
+                          'bbox': bbox,
+                          'font': s0.get('font'),
+                          'size': round(float(s0.get('size', 0)), 2),
+                          'color': s0.get('color'),
+                      })
+              out['pages'].append(rec)
+          Path('docs/meticulous-indent-diagnostic.json').write_text(json.dumps(out, indent=2), encoding='utf-8')
+          PY
+      - name: Commit diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Evidence Axis QA'
+          git config user.email 'actions@users.noreply.github.com'
+          git add docs/meticulous-indent-diagnostic.json
+          if git diff --cached --quiet; then
+            echo 'No diagnostic change.'
+            exit 0
+          fi
+          git commit -m 'Diagnose Meticulous brief hanging indents'
+          git pull --rebase origin meticulous-brief-hanging-indent-patch
+          git push origin HEAD:meticulous-brief-hanging-indent-patch
