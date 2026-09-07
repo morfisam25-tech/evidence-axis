@@ -56,13 +56,11 @@ jobs:
           whole = stream(['appendix.06.b64'])
           if split != whole:
               raise SystemExit('appendix.06 split/whole staging mismatch')
-          print(f'appendix staged chars={len(appendix_text)}; searching one missing base64 char')
+          print(f'appendix staged unpadded chars={len(appendix_text)}; exhaustive recovery in final staged chunk')
 
           expected_sha = '6cae8a7db177956fe08c643868f36bc6c01dc5319288bc37969a1c6b75f0ecdf'
           found = None
-          # The corrupt stream reaches a false DEFLATE EOF around gzip byte 49,878,
-          # mapping to base64 char ~66,504. Search a conservative window before it.
-          lo, hi = 65800, 66520
+          lo, hi = 60000, len(appendix_text)
           for pos in range(lo, hi + 1):
               left, right = appendix_text[:pos], appendix_text[pos:]
               for ch in alphabet:
@@ -70,16 +68,13 @@ jobs:
                       pdf = zlib.decompress(b64decode(left + ch + right), 16 + zlib.MAX_WBITS)
                   except (zlib.error, ValueError):
                       continue
-                  if len(pdf) != 109181:
-                      continue
-                  sha = hashlib.sha256(pdf).hexdigest()
-                  if sha == expected_sha:
+                  if len(pdf) == 109181 and hashlib.sha256(pdf).hexdigest() == expected_sha:
                       found = (pos, ch, pdf)
                       break
               if found:
                   break
           if not found:
-              raise SystemExit(f'missing base64 char not found in search window {lo}:{hi}')
+              raise SystemExit(f'missing base64 char not found in final chunk search {lo}:{hi}')
           pos, ch, appendix_pdf = found
           print(f'appendix recovery match: insert position={pos}, char={ch!r}')
           verify('appendix.pdf', appendix_pdf, 109181, expected_sha)
