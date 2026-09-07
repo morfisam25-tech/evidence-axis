@@ -1,0 +1,52 @@
+name: meticulous-install-final-pdfs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/meticulous-install-final-pdfs.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct exact final PDFs
+        shell: bash
+        run: |
+          set -euo pipefail
+          slug='meticulous-brief-fed5761c'
+          mkdir -p "public/deliveries/$slug"
+          cat scripts/meticulous-pdf-parts-v2/deck.*.b64 | tr -d '\r\n ' | base64 -d | gzip -dc > "public/deliveries/$slug/deck.pdf"
+          cat scripts/meticulous-pdf-parts-v2/appendix.*.b64 | tr -d '\r\n ' | base64 -d | gzip -dc > "public/deliveries/$slug/appendix.pdf"
+          test "$(wc -c < public/deliveries/$slug/deck.pdf)" -eq 57385
+          test "$(wc -c < public/deliveries/$slug/appendix.pdf)" -eq 109181
+          echo '00cd6e7757909f0bf4b8dce80d9f042152587fc5f2134a0989a65792d11e7c73  public/deliveries/meticulous-brief-fed5761c/deck.pdf' | sha256sum -c -
+          echo '6cae8a7db177956fe08c643868f36bc6c01dc5319288bc37969a1c6b75f0ecdf  public/deliveries/meticulous-brief-fed5761c/appendix.pdf' | sha256sum -c -
+          file "public/deliveries/$slug/deck.pdf" "public/deliveries/$slug/appendix.pdf"
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Commit verified PDFs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Evidence Axis Automation'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/deliveries/meticulous-brief-fed5761c/deck.pdf public/deliveries/meticulous-brief-fed5761c/appendix.pdf
+          if git diff --cached --quiet; then
+            echo 'Verified PDFs already installed.'
+            exit 0
+          fi
+          git commit -m 'Install verified Meticulous Gift #16 PDFs'
+          git push origin HEAD:main
