@@ -35,10 +35,10 @@ jobs:
           const base = 'https://evidenceaxis.com';
           const slug = 'meticulous-brief-fed5761c';
           const url = `${base}/intelligence/${slug}/?d=${token}`;
-          const deckHref = `${base}/deliveries/${slug}/deck.pdf`;
+          const deckHref = `${base}/deliveries/${slug}/Evidence_Axis_Meticulous_Executive_Brief.pdf`;
           const appendixHref = `${base}/deliveries/${slug}/appendix.pdf`;
           const expected = {
-            deck: { length: 57385, sha256: '00cd6e7757909f0bf4b8dce80d9f042152587fc5f2134a0989a65792d11e7c73' },
+            deck: { length: 79642, sha256: '372fb9fd4af22cdab55672d08e7cae069ed187423ab5c727d2223c21687c7935' },
             appendix: { length: 109181, sha256: '6cae8a7db177956fe08c643868f36bc6c01dc5319288bc37969a1c6b75f0ecdf' }
           };
 
@@ -85,7 +85,7 @@ jobs:
 
             const pageDeck = await page.locator('[data-delivery-event="executive-deck-opened"]').getAttribute('href');
             const pageAppendix = await page.locator('[data-delivery-event="evidence-appendix-opened"]').getAttribute('href');
-            if (pageDeck !== `/deliveries/${slug}/deck.pdf`) throw new Error(`page deck href wrong: ${pageDeck}`);
+            if (pageDeck !== `/deliveries/${slug}/Evidence_Axis_Meticulous_Executive_Brief.pdf`) throw new Error(`page deck href wrong: ${pageDeck}`);
             if (pageAppendix !== `/deliveries/${slug}/appendix.pdf`) throw new Error(`page appendix href wrong: ${pageAppendix}`);
 
             await page.waitForTimeout(6500);
