@@ -25,48 +25,76 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-          import base64, gzip, hashlib, re
+          import base64, hashlib, re, zlib
 
           root = Path('scripts/meticulous-pdf-parts-v2')
           out = Path('public/deliveries/meticulous-brief-fed5761c')
           out.mkdir(parents=True, exist_ok=True)
 
-          def normalized_text(paths):
+          def stream(paths):
               text = ''.join((root / p).read_text(encoding='utf-8') for p in paths)
-              text = re.sub(r'[^A-Za-z0-9+/=]', '', text)
-              # Padding is meaningful only at the end of one base64 stream.
+              return re.sub(r'[^A-Za-z0-9+/=]', '', text)
+
+          def decode_b64(text):
               text = text.replace('=', '')
               text += '=' * ((-len(text)) % 4)
-              return text
+              return base64.b64decode(text, validate=True)
 
-          def materialize(label, parts, expected_len, expected_sha):
-              encoded = normalized_text(parts)
-              packed = base64.b64decode(encoded, validate=True)
-              pdf = gzip.decompress(packed)
+          def gunzip_payload_ignore_trailer(packed):
+              # Staging is known to have a one-base64-character loss in the Appendix.
+              # Recover only if the gzip DEFLATE payload itself is intact; final PDF
+              # length + locked SHA are authoritative and must both match.
+              if len(packed) < 18 or packed[:3] != b'\x1f\x8b\x08':
+                  raise SystemExit('not a supported gzip stream')
+              flg = packed[3]
+              pos = 10
+              if flg & 4:
+                  xlen = int.from_bytes(packed[pos:pos+2], 'little'); pos += 2 + xlen
+              if flg & 8:
+                  pos = packed.index(b'\x00', pos) + 1
+              if flg & 16:
+                  pos = packed.index(b'\x00', pos) + 1
+              if flg & 2:
+                  pos += 2
+              obj = zlib.decompressobj(-zlib.MAX_WBITS)
+              try:
+                  data = obj.decompress(packed[pos:])
+                  data += obj.flush()
+              except zlib.error as exc:
+                  raise SystemExit(f'deflate payload is not intact: {exc}')
+              if not obj.eof:
+                  raise SystemExit('deflate payload did not reach EOF')
+              return data, len(packed[pos:]) - len(obj.unused_data), obj.unused_data
+
+          def verify_write(label, pdf, expected_len, expected_sha):
               actual_sha = hashlib.sha256(pdf).hexdigest()
-              print(f'{label}: encoded={len(encoded)} packed={len(packed)} pdf={len(pdf)} sha256={actual_sha}')
+              print(f'{label}: pdf={len(pdf)} sha256={actual_sha}')
               if len(pdf) != expected_len:
                   raise SystemExit(f'{label} length mismatch {len(pdf)} != {expected_len}')
               if actual_sha != expected_sha:
                   raise SystemExit(f'{label} sha256 mismatch {actual_sha} != {expected_sha}')
               (out / label).write_bytes(pdf)
 
-          split = normalized_text(['appendix.06a.b64', 'appendix.06b.b64'])
-          whole = normalized_text(['appendix.06.b64'])
+          deck_text = stream([f'deck.{i:02d}.b64' for i in range(1, 7)])
+          deck_packed = decode_b64(deck_text)
+          deck_pdf = zlib.decompress(deck_packed, 16 + zlib.MAX_WBITS)
+          verify_write(
+              'deck.pdf', deck_pdf, 57385,
+              '00cd6e7757909f0bf4b8dce80d9f042152587fc5f2134a0989a65792d11e7c73'
+          )
+
+          appendix_text = stream([f'appendix.{i:02d}.b64' for i in range(1, 7)])
+          print(f'appendix staged base64 chars={len(appendix_text)} mod4={len(appendix_text)%4}')
+          split = stream(['appendix.06a.b64', 'appendix.06b.b64'])
+          whole = stream(['appendix.06.b64'])
           if split != whole:
               raise SystemExit('appendix.06 split/whole staging mismatch')
-
-          materialize(
-              'deck.pdf',
-              [f'deck.{i:02d}.b64' for i in range(1, 7)],
-              57385,
-              '00cd6e7757909f0bf4b8dce80d9f042152587fc5f2134a0989a65792d11e7c73',
-          )
-          materialize(
-              'appendix.pdf',
-              [f'appendix.{i:02d}.b64' for i in range(1, 7)],
-              109181,
-              '6cae8a7db177956fe08c643868f36bc6c01dc5319288bc37969a1c6b75f0ecdf',
+          appendix_packed = decode_b64(appendix_text)
+          appendix_pdf, consumed, unused = gunzip_payload_ignore_trailer(appendix_packed)
+          print(f'appendix raw-deflate consumed={consumed} unused_trailer_bytes={len(unused)}')
+          verify_write(
+              'appendix.pdf', appendix_pdf, 109181,
+              '6cae8a7db177956fe08c643868f36bc6c01dc5319288bc37969a1c6b75f0ecdf'
           )
           PY
           file public/deliveries/meticulous-brief-fed5761c/deck.pdf public/deliveries/meticulous-brief-fed5761c/appendix.pdf
