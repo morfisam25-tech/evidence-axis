@@ -1,0 +1,287 @@
+{
+  "status": "PASS",
+  "token": "EA-TRA-G00-1788743140970",
+  "url": "https://evidenceaxis.com/intelligence/transcend-brief-3375bdf7/?d=EA-TRA-G00-1788743140970",
+  "tested_at_utc": "2026-09-07T01:05:56.590Z",
+  "productionReady": true,
+  "pdfChecks": [
+    {
+      "name": "deck",
+      "status": 200,
+      "contentType": "application/pdf",
+      "length": 39796,
+      "sha256": "20de1eba8737a650e4bf4853606d72bd9f6b3cd8e35f60aac1fee81f7580efad",
+      "href": "https://evidenceaxis.com/deliveries/transcend-brief-3375bdf7/deck.pdf"
+    },
+    {
+      "name": "appendix",
+      "status": 200,
+      "contentType": "application/pdf",
+      "length": 956553,
+      "sha256": "f1c2e7e2390ce884f409696b23b556622a82de2a08708ed7442e08f8b180c0b3",
+      "href": "https://evidenceaxis.com/deliveries/transcend-brief-3375bdf7/appendix.pdf"
+    }
+  ],
+  "responses": [
+    {
+      "url": "https://evidenceaxis.com/delivery-tracking-v4.js",
+      "status": 200,
+      "body": null
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-TRA-G00-1788743140970",
+        "event": "delivery-page-viewed",
+        "ip_captured": true,
+        "ip": "172.182.243.68",
+        "server_timestamp_utc": "2026-09-07T01:05:43.324Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-TRA-G00-1788743140970",
+        "event": "human-presence-5s",
+        "ip_captured": true,
+        "ip": "172.182.243.68",
+        "server_timestamp_utc": "2026-09-07T01:05:48.215Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-TRA-G00-1788743140970",
+        "event": "executive-deck-opened",
+        "ip_captured": true,
+        "ip": "172.182.243.68",
+        "server_timestamp_utc": "2026-09-07T01:05:50.541Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-TRA-G00-1788743140970",
+        "event": "evidence-appendix-opened",
+        "ip_captured": true,
+        "ip": "172.182.243.68",
+        "server_timestamp_utc": "2026-09-07T01:05:51.742Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-TRA-G00-1788743140970",
+        "event": "decision-conversation-clicked",
+        "ip_captured": true,
+        "ip": "172.182.243.68",
+        "server_timestamp_utc": "2026-09-07T01:05:52.953Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    }
+  ],
+  "failures": [],
+  "consoleErrors": [],
+  "debug": {
+    "emitted": [
+      {
+        "event": "delivery-page-viewed",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743143151
+      },
+      {
+        "event": "human-presence-5s",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743148153
+      },
+      {
+        "event": "executive-deck-opened",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743150473
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743151679
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743152883
+      }
+    ],
+    "submitted": [
+      {
+        "event": "delivery-page-viewed",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743143374
+      },
+      {
+        "event": "human-presence-5s",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743148260
+      },
+      {
+        "event": "executive-deck-opened",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743150587
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743151786
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743153002
+      }
+    ],
+    "responses": [
+      {
+        "event": "delivery-page-viewed",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-TRA-G00-1788743140970",
+          "event": "delivery-page-viewed",
+          "ip_captured": true,
+          "ip": "172.182.243.68",
+          "server_timestamp_utc": "2026-09-07T01:05:43.324Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "human-presence-5s",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-TRA-G00-1788743140970",
+          "event": "human-presence-5s",
+          "ip_captured": true,
+          "ip": "172.182.243.68",
+          "server_timestamp_utc": "2026-09-07T01:05:48.215Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "executive-deck-opened",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-TRA-G00-1788743140970",
+          "event": "executive-deck-opened",
+          "ip_captured": true,
+          "ip": "172.182.243.68",
+          "server_timestamp_utc": "2026-09-07T01:05:50.541Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-TRA-G00-1788743140970",
+          "event": "evidence-appendix-opened",
+          "ip_captured": true,
+          "ip": "172.182.243.68",
+          "server_timestamp_utc": "2026-09-07T01:05:51.742Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-TRA-G00-1788743140970",
+          "event": "decision-conversation-clicked",
+          "ip_captured": true,
+          "ip": "172.182.243.68",
+          "server_timestamp_utc": "2026-09-07T01:05:52.953Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      }
+    ],
+    "emailSubmitted": [],
+    "emailSkipped": [
+      {
+        "event": "delivery-page-viewed",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743143375,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "human-presence-5s",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743148260,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "executive-deck-opened",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743150587,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743151786,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "token": "EA-TRA-G00-1788743140970",
+        "at": 1788743153002,
+        "reason": "likely_scanner"
+      }
+    ],
+    "errors": []
+  },
+  "error": ""
+}
