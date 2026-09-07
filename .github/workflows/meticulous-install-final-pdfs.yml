@@ -25,8 +25,22 @@ jobs:
           set -euo pipefail
           slug='meticulous-brief-fed5761c'
           mkdir -p "public/deliveries/$slug"
-          cat scripts/meticulous-pdf-parts-v2/deck.*.b64 | tr -d '\r\n ' | base64 -d | gzip -dc > "public/deliveries/$slug/deck.pdf"
-          cat scripts/meticulous-pdf-parts-v2/appendix.*.b64 | tr -d '\r\n ' | base64 -d | gzip -dc > "public/deliveries/$slug/appendix.pdf"
+          cat \
+            scripts/meticulous-pdf-parts-v2/deck.01.b64 \
+            scripts/meticulous-pdf-parts-v2/deck.02.b64 \
+            scripts/meticulous-pdf-parts-v2/deck.03.b64 \
+            scripts/meticulous-pdf-parts-v2/deck.04.b64 \
+            scripts/meticulous-pdf-parts-v2/deck.05.b64 \
+            scripts/meticulous-pdf-parts-v2/deck.06.b64 \
+            | tr -d '\r\n ' | base64 -d | gzip -dc > "public/deliveries/$slug/deck.pdf"
+          cat \
+            scripts/meticulous-pdf-parts-v2/appendix.01.b64 \
+            scripts/meticulous-pdf-parts-v2/appendix.02.b64 \
+            scripts/meticulous-pdf-parts-v2/appendix.03.b64 \
+            scripts/meticulous-pdf-parts-v2/appendix.04.b64 \
+            scripts/meticulous-pdf-parts-v2/appendix.05.b64 \
+            scripts/meticulous-pdf-parts-v2/appendix.06.b64 \
+            | tr -d '\r\n ' | base64 -d | gzip -dc > "public/deliveries/$slug/appendix.pdf"
           test "$(wc -c < public/deliveries/$slug/deck.pdf)" -eq 57385
           test "$(wc -c < public/deliveries/$slug/appendix.pdf)" -eq 109181
           echo '00cd6e7757909f0bf4b8dce80d9f042152587fc5f2134a0989a65792d11e7c73  public/deliveries/meticulous-brief-fed5761c/deck.pdf' | sha256sum -c -
