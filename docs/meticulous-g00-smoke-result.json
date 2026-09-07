@@ -1,17 +1,25 @@
 {
-  "status": "FAIL",
-  "token": "EA-MET-G00-1788754497684",
-  "url": "https://evidenceaxis.com/intelligence/meticulous-brief-fed5761c/?d=EA-MET-G00-1788754497684",
-  "tested_at_utc": "2026-09-07T04:14:59.385Z",
+  "status": "PASS",
+  "token": "EA-MET-G00-1788800665764",
+  "url": "https://evidenceaxis.com/intelligence/meticulous-brief-fed5761c/?d=EA-MET-G00-1788800665764",
+  "tested_at_utc": "2026-09-07T17:04:39.708Z",
   "noindex": "noindex, nofollow",
   "pdfChecks": [
     {
       "name": "deck",
       "status": 200,
       "contentType": "application/pdf",
-      "length": 7500,
-      "sha256": "bce095b82413b5dd56efc7a076355daf3e912d987a0c0c0e487ef27b35ca27ce",
-      "href": "https://evidenceaxis.com/deliveries/meticulous-brief-fed5761c/deck.pdf"
+      "length": 79642,
+      "sha256": "372fb9fd4af22cdab55672d08e7cae069ed187423ab5c727d2223c21687c7935",
+      "href": "https://evidenceaxis.com/deliveries/meticulous-brief-fed5761c/Evidence_Axis_Meticulous_Executive_Brief.pdf"
+    },
+    {
+      "name": "appendix",
+      "status": 200,
+      "contentType": "application/pdf",
+      "length": 109181,
+      "sha256": "6cae8a7db177956fe08c643868f36bc6c01dc5319288bc37969a1c6b75f0ecdf",
+      "href": "https://evidenceaxis.com/deliveries/meticulous-brief-fed5761c/appendix.pdf"
     }
   ],
   "responses": [
@@ -28,17 +36,252 @@
         "recorded": true,
         "classification": "likely_scanner",
         "classification_reason": "scanner_user_agent",
-        "delivery_token": "EA-MET-G00-1788754497684",
+        "delivery_token": "EA-MET-G00-1788800665764",
         "event": "delivery-page-viewed",
         "ip_captured": true,
-        "ip": "13.89.124.21",
-        "server_timestamp_utc": "2026-09-07T04:14:58.519Z",
+        "ip": "20.42.9.228",
+        "server_timestamp_utc": "2026-09-07T17:04:26.356Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-MET-G00-1788800665764",
+        "event": "human-presence-5s",
+        "ip_captured": true,
+        "ip": "20.42.9.228",
+        "server_timestamp_utc": "2026-09-07T17:04:31.333Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-MET-G00-1788800665764",
+        "event": "executive-deck-opened",
+        "ip_captured": true,
+        "ip": "20.42.9.228",
+        "server_timestamp_utc": "2026-09-07T17:04:33.622Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-MET-G00-1788800665764",
+        "event": "evidence-appendix-opened",
+        "ip_captured": true,
+        "ip": "20.42.9.228",
+        "server_timestamp_utc": "2026-09-07T17:04:34.828Z",
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://evidenceaxis.com/api/track",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "recorded": true,
+        "classification": "likely_scanner",
+        "classification_reason": "scanner_user_agent",
+        "delivery_token": "EA-MET-G00-1788800665764",
+        "event": "decision-conversation-clicked",
+        "ip_captured": true,
+        "ip": "20.42.9.228",
+        "server_timestamp_utc": "2026-09-07T17:04:36.022Z",
         "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
       }
     }
   ],
   "failures": [],
   "consoleErrors": [],
-  "debug": null,
-  "error": "Error: deck length mismatch 7500 != 57385\n    at file:///tmp/meticulous-g00/smoke.mjs:52:55"
+  "debug": {
+    "emitted": [
+      {
+        "event": "delivery-page-viewed",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800666291
+      },
+      {
+        "event": "human-presence-5s",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800671293
+      },
+      {
+        "event": "executive-deck-opened",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800673591
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800674797
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800676001
+      }
+    ],
+    "submitted": [
+      {
+        "event": "delivery-page-viewed",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800666368
+      },
+      {
+        "event": "human-presence-5s",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800671338
+      },
+      {
+        "event": "executive-deck-opened",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800673629
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800674834
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800676027
+      }
+    ],
+    "responses": [
+      {
+        "event": "delivery-page-viewed",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-MET-G00-1788800665764",
+          "event": "delivery-page-viewed",
+          "ip_captured": true,
+          "ip": "20.42.9.228",
+          "server_timestamp_utc": "2026-09-07T17:04:26.356Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "human-presence-5s",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-MET-G00-1788800665764",
+          "event": "human-presence-5s",
+          "ip_captured": true,
+          "ip": "20.42.9.228",
+          "server_timestamp_utc": "2026-09-07T17:04:31.333Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "executive-deck-opened",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-MET-G00-1788800665764",
+          "event": "executive-deck-opened",
+          "ip_captured": true,
+          "ip": "20.42.9.228",
+          "server_timestamp_utc": "2026-09-07T17:04:33.622Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-MET-G00-1788800665764",
+          "event": "evidence-appendix-opened",
+          "ip_captured": true,
+          "ip": "20.42.9.228",
+          "server_timestamp_utc": "2026-09-07T17:04:34.828Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "status": 200,
+        "result": {
+          "ok": true,
+          "recorded": true,
+          "classification": "likely_scanner",
+          "classification_reason": "scanner_user_agent",
+          "delivery_token": "EA-MET-G00-1788800665764",
+          "event": "decision-conversation-clicked",
+          "ip_captured": true,
+          "ip": "20.42.9.228",
+          "server_timestamp_utc": "2026-09-07T17:04:36.022Z",
+          "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.7339.16 Safari/537.36"
+        }
+      }
+    ],
+    "emailSubmitted": [],
+    "emailSkipped": [
+      {
+        "event": "delivery-page-viewed",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800666368,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "human-presence-5s",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800671338,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "executive-deck-opened",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800673629,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "evidence-appendix-opened",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800674834,
+        "reason": "likely_scanner"
+      },
+      {
+        "event": "decision-conversation-clicked",
+        "token": "EA-MET-G00-1788800665764",
+        "at": 1788800676027,
+        "reason": "likely_scanner"
+      }
+    ],
+    "errors": []
+  },
+  "error": ""
 }
