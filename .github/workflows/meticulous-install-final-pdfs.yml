@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/meticulous-install-final-pdfs.yml'
+      - 'docs/meticulous-install-trigger.txt'
 
 permissions:
   contents: write
@@ -49,4 +50,5 @@ jobs:
             exit 0
           fi
           git commit -m 'Install verified Meticulous Gift #16 PDFs'
+          git pull --rebase origin main
           git push origin HEAD:main
