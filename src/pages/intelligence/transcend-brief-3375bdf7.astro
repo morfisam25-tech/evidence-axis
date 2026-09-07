@@ -1,0 +1,121 @@
+---
+import Base from '@layouts/Base.astro';
+import { cta } from '@config/site';
+
+const company = 'Transcend';
+const slug = 'transcend-brief-3375bdf7';
+const deckHref = `/deliveries/${slug}/deck.pdf`;
+const appendixHref = `/deliveries/${slug}/appendix.pdf`;
+---
+
+<Base
+  title="Transcend — Private Displacement Intelligence Brief"
+  description="Private Evidence Axis displacement intelligence delivery prepared for Transcend."
+  path={`/intelligence/${slug}/`}
+  noindex={true}
+>
+  <main
+    class="gift16"
+    data-delivery-tracking
+    data-delivery-company={company}
+    data-delivery-slug={slug}
+  >
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <p class="eyebrow">PRIVATE EVIDENCE AXIS DELIVERY</p>
+        <h1>Transcend</h1>
+        <p class="recipient">Prepared for Ben Brook · Co-founder, Chief Executive Officer</p>
+        <p class="lede">A public-evidence displacement screen of visible OneTrust footprints — which accounts deserve attention now, which do not, and what the evidence actually supports.</p>
+
+        <div class="file-actions" aria-label="Intelligence files">
+          <a class="file-button deck" href={deckHref} target="_blank" rel="noopener" data-delivery-event="executive-deck-opened">
+            <span class="num">01</span>
+            <span class="copy"><small>EXECUTIVE VIEW</small><strong>Open Executive Brief</strong><em>PDF ↗</em></span>
+          </a>
+          <a class="file-button appendix" href={appendixHref} target="_blank" rel="noopener" data-delivery-event="evidence-appendix-opened">
+            <span class="num">02</span>
+            <span class="copy"><small>EVIDENCE VIEW</small><strong>Open Evidence Appendix</strong><em>PDF ↗</em></span>
+          </a>
+        </div>
+
+        <p class="hint">Open the Executive Brief first. The Appendix contains the claim ledger, account evidence, contradictions, source register, reviewer controls and wording guardrails.</p>
+      </div>
+    </section>
+
+    <section class="finding">
+      <div class="wrap narrow">
+        <p class="eyebrow dark">ONE FINDING TO START WITH</p>
+        <blockquote>At Regeneron and Lucid, the observable opening is modernization inside existing privacy stacks — not evidence of an active OneTrust replacement cycle.</blockquote>
+        <p>Both accounts survived adversarial review as Priority B. Ocado remained Watch and DHL was rejected. No Priority A was manufactured where the evidence did not support one.</p>
+      </div>
+    </section>
+
+    <section class="read">
+      <div class="wrap read-grid">
+        <div><p class="eyebrow dark">HOW TO READ THE WORK</p><h2>Separate observable evidence from sales inference.</h2></div>
+        <div class="states">
+          <div><b>INCUMBENT</b><span>How strongly current competitor use is supported.</span></div>
+          <div><b>TRIGGER</b><span>Whether a current account change is materially connected to the decision.</span></div>
+          <div><b>ADVANTAGE</b><span>What Transcend can credibly bring to the observed account requirement.</span></div>
+          <div><b>CONTRADICTION</b><span>The strongest evidence that could kill or downgrade the opportunity.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="next">
+      <div class="wrap narrow">
+        <p class="eyebrow dark">IF THIS RAISES A REAL DECISION</p>
+        <h2>Pressure-test the account map against your internal pipeline.</h2>
+        <p>The public-evidence brief shows what can be defended from outside. A paid Competitive Decision Sprint can add your account history, pipeline context, incumbent depth, win/loss evidence and buyer signals to determine where displacement effort should actually concentrate.</p>
+        <a class="cta" href={`${cta.secondary.href}&company=${encodeURIComponent(company)}`} data-delivery-event="decision-conversation-clicked">Discuss a Competitive Decision →</a>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .gift16{background:#f5f2ea;color:#0b1518}
+  .wrap{width:min(1120px,calc(100% - 2rem));margin:0 auto}
+  .narrow{max-width:900px}
+  .hero{position:relative;overflow:hidden;padding:clamp(5.5rem,9vw,8.5rem) 0 4.5rem;background:radial-gradient(circle at 18% 12%,rgba(255,126,62,.16),transparent 30%),radial-gradient(circle at 82% 84%,rgba(73,155,255,.14),transparent 34%),#07111a;color:#f7fbf8}
+  .hero-inner{position:relative;z-index:1;max-width:980px;text-align:center}
+  .eyebrow{margin:0;font:700 .68rem/1.2 var(--font-mono);letter-spacing:.16em;color:#ff985e}
+  .eyebrow.dark{color:#b55528}
+  .hero h1{margin:1rem 0 0;font-size:clamp(4.2rem,9vw,8.2rem);line-height:.88;letter-spacing:-.06em;color:#fff;text-wrap:balance;text-shadow:0 14px 46px rgba(0,0,0,.24)}
+  .recipient{margin:1.25rem 0 0;color:#b9c9d6;font:650 .74rem/1.45 var(--font-mono);letter-spacing:.055em}
+  .lede{max-width:820px;margin:1.35rem auto 0;color:#e1e8ed;font-size:clamp(1rem,1.55vw,1.16rem);line-height:1.65;text-wrap:balance}
+  .file-actions{display:grid;grid-template-columns:1fr;gap:.9rem;width:min(840px,100%);margin:2.65rem auto 0;text-align:left}
+  .file-button{display:grid;grid-template-columns:auto 1fr;gap:1.15rem;align-items:center;padding:1.35rem 1.45rem;border:1px solid rgba(255,152,94,.3);border-radius:1rem;text-decoration:none;background:linear-gradient(135deg,rgba(20,34,45,.98),rgba(8,20,29,.98));color:#fff;box-shadow:0 18px 60px rgba(0,0,0,.26);transition:transform .2s ease,border-color .2s ease,background .2s ease}
+  .file-button:hover{transform:translateY(-3px);border-color:#ff985e;background:linear-gradient(135deg,rgba(27,44,58,.98),rgba(10,25,36,.98))}
+  .file-button.appendix:hover{border-color:#83a8ff}
+  .num{font:800 2rem/1 var(--font-mono);color:#ff985e}
+  .appendix .num{color:#83a8ff}
+  .copy{display:grid;grid-template-columns:1fr auto;gap:.3rem .75rem;align-items:end}
+  .copy small{grid-column:1/-1;font:700 .58rem/1 var(--font-mono);letter-spacing:.12em;color:#99a9b6}
+  .copy strong{font-size:clamp(1.02rem,2vw,1.2rem);line-height:1.2}
+  .copy em{font-style:normal;color:#ff985e;font:700 .68rem/1 var(--font-mono);white-space:nowrap}
+  .appendix .copy em{color:#83a8ff}
+  .hint{max-width:780px;margin:1.15rem auto 0;color:#8798a7;font-size:.8rem;line-height:1.55}
+  .finding,.read,.next{padding:clamp(4rem,7vw,6rem) 0}
+  .finding{background:#eee7dc}
+  .finding blockquote{margin:1rem 0;font:750 clamp(2rem,4vw,3.8rem)/1.06 var(--font-display);letter-spacing:-.045em}
+  .finding p:last-child,.next p{color:#5c676b;line-height:1.7}
+  .read{background:#fff}
+  .read-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:4rem;align-items:center}
+  .read h2,.next h2{margin:.7rem 0;font-size:clamp(2.3rem,4vw,4rem);line-height:.98;letter-spacing:-.04em}
+  .states{display:grid;gap:.75rem}
+  .states div{display:grid;gap:.35rem;padding:1rem;border:1px solid #dfe2e7;border-radius:.8rem}
+  .states b{font:800 .7rem/1 var(--font-mono);letter-spacing:.08em;color:#b55528}
+  .states span{color:#5c676b;line-height:1.45}
+  .next{background:#f5f2ea}
+  .cta{display:inline-flex;margin-top:1rem;padding:.9rem 1.15rem;border-radius:.7rem;background:#111a2a;color:#fff;text-decoration:none;font-weight:750}
+  @media(max-width:760px){
+    .read-grid{grid-template-columns:1fr;gap:2rem}
+    .hero{padding-top:4.75rem}
+    .hero h1{font-size:clamp(3.2rem,15vw,5.3rem)}
+    .recipient{font-size:.68rem}
+    .file-button{padding:1.15rem 1.1rem;grid-template-columns:auto 1fr}
+    .num{font-size:1.65rem}
+    .copy{grid-template-columns:1fr}
+  }
+</style>
